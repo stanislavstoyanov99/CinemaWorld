@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-CinemaWorld-BBB373B5-EF3F-4DBB-B8AA-7152CEC275BF</UserSecretsId>
+	<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.0.96" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.113" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\CinemaWorld.Data.Models\CinemaWorld.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\CinemaWorld.Data\CinemaWorld.Data.csproj" />
+    <ProjectReference Include="..\..\Services\CinemaWorld.Services.Data\CinemaWorld.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\CinemaWorld.Services.Mapping\CinemaWorld.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\CinemaWorld.Services.Messaging\CinemaWorld.Services.Messaging.csproj" />
+    <ProjectReference Include="..\..\Services\CinemaWorld.Services\CinemaWorld.Services.csproj" />
+    <ProjectReference Include="..\CinemaWorld.Web.Infrastructure\CinemaWorld.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\CinemaWorld.Web.ViewModels\CinemaWorld.Web.ViewModels.csproj" />
+  </ItemGroup>
+</Project>
