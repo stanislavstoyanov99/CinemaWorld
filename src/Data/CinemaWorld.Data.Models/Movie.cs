@@ -13,19 +13,23 @@
             this.MovieCountries = new HashSet<MovieCountry>();
             this.MovieDirectors = new HashSet<MovieDirector>();
             this.MovieActors = new HashSet<MovieActor>();
+            this.Projections = new HashSet<MovieProjection>();
+            this.MovieNews = new HashSet<MovieNews>();
         }
 
         public string Name { get; set; }
 
         public DateTime DateOfRelease { get; set; }
 
-        public string Status { get; set; }
+        public string Resolution { get; set; } // HD, SD quality
 
         public decimal Rating { get; set; }
 
         public string Description { get; set; }
 
-        public string Category { get; set; }
+        public string Langugage { get; set; }
+
+        public string CinemaCategory { get; set; } // A, B, C, D
 
         public string TrailerPath { get; set; }
 
@@ -35,7 +39,7 @@
 
         public int Length { get; set; }
 
-        public int ReviewId { get; set; }
+        public int? ReviewId { get; set; }
 
         public virtual Review Review { get; set; }
 
@@ -46,6 +50,10 @@
         public virtual ICollection<MovieDirector> MovieDirectors { get; set; }
 
         public virtual ICollection<MovieActor> MovieActors { get; set; }
+
+        public virtual ICollection<MovieProjection> Projections { get; set; }
+
+        public virtual ICollection<MovieNews> MovieNews { get; set; }
 
         public bool IsDeleted { get; set; }
 

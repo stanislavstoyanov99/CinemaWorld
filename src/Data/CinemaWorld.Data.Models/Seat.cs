@@ -7,6 +7,10 @@
 
     public class Seat : BaseModel<int>, IDeletableEntity
     {
+        public int Number { get; set; } // Seat number, id is only for identifying the object
+
+        public int RowNumber { get; set; }
+
         public int HallId { get; set; }
 
         public virtual Hall Hall { get; set; }

@@ -4,19 +4,17 @@
     using System.Collections.Generic;
 
     using CinemaWorld.Data.Common.Models;
-    using CinemaWorld.Data.Models.Enumerations;
 
-    public class Hall : BaseModel<int>, IDeletableEntity
+    public class Cinema : BaseModel<int>, IDeletableEntity
     {
-        public Hall()
+        public Cinema()
         {
-            this.Seats = new HashSet<Seat>();
             this.Projections = new HashSet<MovieProjection>();
         }
 
-        public HallCategory Category { get; set; }
+        public string Name { get; set; }
 
-        public virtual ICollection<Seat> Seats { get; set; }
+        public string Address { get; set; }
 
         public virtual ICollection<MovieProjection> Projections { get; set; }
 
