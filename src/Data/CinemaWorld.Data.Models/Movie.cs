@@ -2,8 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using CinemaWorld.Data.Common.Models;
+    using CinemaWorld.Data.Models.Enumerations;
+
+    using static CinemaWorld.Data.Common.DataValidation.Movie;
 
     public class Movie : BaseModel<int>, IDeletableEntity
     {
@@ -17,22 +21,29 @@
             this.MovieNews = new HashSet<MovieNews>();
         }
 
+        [Required]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
+        [Required]
         public DateTime DateOfRelease { get; set; }
 
         public string Resolution { get; set; } // HD, SD quality
 
         public decimal Rating { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
-        public string Langugage { get; set; }
+        [Required]
+        public string Language { get; set; }
 
-        public string CinemaCategory { get; set; } // A, B, C, D
+        [Required]
+        public CinemaCategory CinemaCategory { get; set; } // A, B, C, D
 
         public string TrailerPath { get; set; }
 
+        [Required]
         public string CoverPath { get; set; }
 
         public string IMDBLink { get; set; }

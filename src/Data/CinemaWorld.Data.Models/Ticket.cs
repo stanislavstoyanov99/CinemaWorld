@@ -6,11 +6,10 @@
     using CinemaWorld.Data.Common.Models;
     using CinemaWorld.Data.Models.Enumerations;
 
-    public class Ticket : BaseModel<string>, IDeletableEntity
+    public class Ticket : BaseModel<int>, IDeletableEntity
     {
         public Ticket()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.SaleTransactions = new HashSet<SaleTransaction>();
         }
 

@@ -2,8 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using CinemaWorld.Data.Common.Models;
+
+    using static CinemaWorld.Data.Common.DataValidation.Review;
 
     public class Review : BaseModel<int>, IDeletableEntity
     {
@@ -13,8 +16,12 @@
             this.Authors = new HashSet<ReviewAuthor>();
         }
 
+        [Required]
+        [MaxLength(TitleMaxLength)]
         public string Title { get; set; }
 
+        [Required]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
         public DateTime Date { get; set; }

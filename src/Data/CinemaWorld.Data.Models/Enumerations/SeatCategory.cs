@@ -2,7 +2,7 @@
 {
     public enum SeatCategory
     {
-        Normal = 0,
-        Wheelchair = 1,
+        Normal = 1,
+        Wheelchair = 2,
     }
 }

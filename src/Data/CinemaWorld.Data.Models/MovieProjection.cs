@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using CinemaWorld.Data.Common.Models;
 
@@ -12,6 +13,7 @@
             this.SaleTransactions = new HashSet<SaleTransaction>();
         }
 
+        [Required]
         public DateTime Date { get; set; }
 
         public int MovieId { get; set; }

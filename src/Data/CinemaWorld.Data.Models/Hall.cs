@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using CinemaWorld.Data.Common.Models;
     using CinemaWorld.Data.Models.Enumerations;
@@ -14,6 +15,7 @@
             this.Projections = new HashSet<MovieProjection>();
         }
 
+        [Required]
         public HallCategory Category { get; set; }
 
         public virtual ICollection<Seat> Seats { get; set; }

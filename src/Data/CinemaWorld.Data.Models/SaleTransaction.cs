@@ -1,6 +1,7 @@
 ﻿namespace CinemaWorld.Data.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     using CinemaWorld.Data.Common.Models;
     using CinemaWorld.Data.Models.Enumerations;
@@ -12,7 +13,10 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
-        // public int UserId { get; set; } UserId from ASP.NET CORE roles, for this moment I will comment this property
+        [Required]
+        public string UserId { get; set; }
+
+        public virtual CinemaWorldUser User { get; set; }
 
         public int? PromotionId { get; set; }
 

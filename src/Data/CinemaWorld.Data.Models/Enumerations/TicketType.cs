@@ -1,10 +1,13 @@
 ﻿namespace CinemaWorld.Data.Models.Enumerations
 {
+    using System.ComponentModel.DataAnnotations;
+
     public enum TicketType
     {
-        Regular = 0,
-        ForChildren = 1,
-        Student = 2,
-        Retired = 3,
+        Regular = 1,
+        [Display(Name = "For Children")]
+        ForChildren = 2,
+        Student = 3,
+        Retired = 4,
     }
 }

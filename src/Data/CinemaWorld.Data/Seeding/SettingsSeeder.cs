@@ -8,7 +8,7 @@
 
     internal class SettingsSeeder : ISeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(CinemaWorldDbContext dbContext, IServiceProvider serviceProvider)
         {
             if (dbContext.Settings.Any())
             {
