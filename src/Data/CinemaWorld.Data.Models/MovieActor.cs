@@ -4,7 +4,7 @@
 
     using CinemaWorld.Data.Common.Models;
 
-    public class MovieActor : BaseModel<int>, IDeletableEntity
+    public class MovieActor : IDeletableEntity
     {
         public int MovieId { get; set; }
 

@@ -11,7 +11,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    public class SettingsController : BaseController
+    public class SettingsController : Controller
     {
         private readonly ISettingsService settingsService;
 

@@ -1,0 +1,104 @@
+body a {
+  transition: 0.5s all;
+  -webkit-transition: 0.5s all;
+  -o-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+}
+html, body{
+    font-size: 100%;
+    font-family: 'Roboto Condensed', sans-serif;
+    background: #FFF;
+}
+h2.latest-text {
+    border-left: 5px solid #ff8d1b;
+    font-size: 2em;
+    color: #212121;
+    text-transform: uppercase;
+    margin-bottom: 1.5em;
+    padding: 0.3em 0.5em;
+    margin-left: 3em;
+}
+.w3ls-news-result{
+	margin:0 0 1em 0;
+}
+.w3ls-news-result h4{
+	font-size: 1em;
+    margin: 0;
+    color: #000000;
+    font-weight: 600;
+}
+.w3ls-news-result h4 span{
+    color: #999999;
+}
+td.w3-list-img a{
+	text-decoration:none;
+}
+td.w3-list-img a img {
+    width: 16% !important;
+}
+td.w3-list-img a span{
+	color:#000000;
+	font-size:1em;
+	font-weight:600;
+	text-decoration:none;
+	display:block;
+	margin:.5em 0 0 0;
+}
+td.w3-list-info a {
+    color: #424242;
+    text-decoration: none;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #ffffff;
+    cursor: default;
+    background: #ff8d1b;
+    border: 1px solid #ff8d1b;
+}
+.nav-tabs > li > a {
+    margin-right: 3px;
+    font-size: 1em;
+    color: #717171;
+    border: solid 1px #C1C1C1;
+    border-radius: 3px !important;
+    background: #ffffff;
+    padding: .2em 0.573em;
+}
+.nav-tabs > li > a:focus{
+	background:transparent;
+}
+.nav-tabs {
+    border-bottom: none;
+    margin: 2em auto;
+    text-align: center;
+}
+.nav-tabs > li {
+    margin: 0 .5em 0 0;
+}
+.nav-tabs > li > a:hover {
+    color:#FFFFFF !important;
+    background: #ff8d1b;
+}
+/*-- responsive --*/
+@media(max-width:1080px){
+	.nav-tabs > li {
+		margin: 0 .5em 0.5em 0;
+	}
+	td.w3-list-img a img {
+		width: 25% !important;
+	}
+	td.w3-list-img a span {
+		margin: .5em 0 0 0;
+	}
+}
+@media(max-width:736px){
+	.nav-tabs {
+		margin: 0em auto;
+	}
+}
+@media(max-width:480px){
+	.nav-tabs {
+		margin: 0em auto 1em;
+	}
+}
+/*-- //responsive --*/

@@ -1,0 +1,114 @@
+html, body{
+    font-size: 100%;
+	font-family: 'Roboto Condensed', sans-serif;
+	background:#ffffff;
+}
+ul li,ol li{
+	font-size:14px;
+}
+p{
+	margin:0;
+	font-size:0.9em;
+}
+h1,h2,h3,h4,h5,h6,a{
+	font-family: 'Roboto Condensed', sans-serif;
+	margin:0;
+}
+ul,label{
+	margin:0;
+	padding:0;
+}
+body a:hover{
+	text-decoration:none;
+}
+input[type="submit"],.agileinfo_chat a,.w3_customer_email_right a,ul.dropdown-menu.multi-column ul li a{
+	transition:.5s ease-in;
+	-webkit-transition:.5s ease-in;
+	-moz-transition:.5s ease-in;
+	-o-transition:.5s ease-in;
+	-ms-transition:.5s ease-in;
+}
+/*-- faq --*/
+.w3_faq_latest_text {
+    margin-bottom: 0.5em !important;
+}
+.pa_italic i {
+    left: -1em;
+	font-size: 11px;
+}
+.pa_italic span {
+    display: none;
+}
+.collapsed span {
+    display: inline-block;
+    left: -1em;
+	font-size: 11px;
+}
+.collapsed i {
+    display: none;
+}
+.panel-heading {
+    padding:30px 15px;
+}
+.panel-title > a{
+    font-size: 1em;
+    color:#212121;
+    text-transform: capitalize;
+	text-decoration: none;
+}
+.panel-default {
+    border-color: #FFF;
+	background: #f5f5f5;
+}
+.panel-default > .panel-heading {
+    border-color: #FFF;
+	color:#212121;
+    background-color: #fff;
+}
+.panel-body {
+    padding: 2em;
+    font-size: 14px;
+    line-height: 2em;
+    color: #999;
+}
+a.pa_italic label {
+    cursor: pointer;
+	font-weight:500;
+}
+a.pa_italic:focus {
+    outline: none;
+    text-decoration: none;
+}
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+    border-top-color: transparent;
+}
+
+/*-- //faq --*/
+
+/*--- Responsive Code ---*/
+@media screen and (max-width: 640px){
+	.panel-heading {
+		padding: 20px 15px;
+	}
+}
+@media screen and (max-width: 480px){
+	.panel-body {
+		padding: 1.5em;
+	}
+	.panel-heading {
+		padding: 25px 15px;
+	}
+}
+@media screen and (max-width: 384px){
+	.panel-heading {
+		padding: 20px 15px;
+	}
+}
+@media screen and (max-width: 320px){
+	.panel-title > a {
+		font-size: 15px;
+	}
+	.panel-body {
+		padding: 1em;
+	}
+}

@@ -92,23 +92,23 @@
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Needed for many-to-many relationships
-            //builder.Entity<MovieActor>()
-            //    .HasKey(ma => new { ma.MovieId, ma.ActorId });
+            builder.Entity<MovieActor>()
+                .HasKey(ma => new { ma.MovieId, ma.ActorId });
 
-            //builder.Entity<MovieCountry>()
-            //    .HasKey(mc => new { mc.MovieId, mc.CountryId });
+            builder.Entity<MovieCountry>()
+                .HasKey(mc => new { mc.MovieId, mc.CountryId });
 
-            //builder.Entity<MovieDirector>()
-            //    .HasKey(md => new { md.MovieId, md.DirectorId });
+            builder.Entity<MovieDirector>()
+                .HasKey(md => new { md.MovieId, md.DirectorId });
 
-            //builder.Entity<MovieGenre>()
-            //    .HasKey(mg => new { mg.MovieId, mg.GenreId });
+            builder.Entity<MovieGenre>()
+                .HasKey(mg => new { mg.MovieId, mg.GenreId });
 
-            //builder.Entity<MovieNews>()
-            //    .HasKey(mn => new { mn.MovieId, mn.NewsId });
+            builder.Entity<MovieNews>()
+                .HasKey(mn => new { mn.MovieId, mn.NewsId });
 
-            //builder.Entity<ReviewAuthor>()
-            //    .HasKey(ra => new { ra.ReviewId, ra.AuthorId });
+            builder.Entity<ReviewAuthor>()
+                .HasKey(ra => new { ra.ReviewId, ra.AuthorId });
 
             // Needed for Identity models configuration
             base.OnModelCreating(builder);

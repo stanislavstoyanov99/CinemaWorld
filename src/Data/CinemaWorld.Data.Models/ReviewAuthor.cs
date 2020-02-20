@@ -4,7 +4,7 @@
 
     using CinemaWorld.Data.Common.Models;
 
-    public class ReviewAuthor : BaseModel<int>, IDeletableEntity
+    public class ReviewAuthor : IDeletableEntity
     {
         public int AuthorId { get; set; }
 
