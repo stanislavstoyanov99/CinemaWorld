@@ -14,59 +14,110 @@
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
 
     <environment names="Development">
-        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-        <link rel="stylesheet" href="css/contactstyle.css" type="text/css" media="all" />
-        <link rel="stylesheet" href="css/faqstyle.css" type="text/css" media="all" />
-        <link href="css/single.css" rel='stylesheet' type='text/css' />
-        <link href="css/medile.css" rel='stylesheet' type='text/css' />
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
+        <link rel="stylesheet" href="css/contactstyle.css" type="text/css" media="all" asp-append-version="true" />
+        <link rel="stylesheet" href="css/faqstyle.css" type="text/css" media="all" asp-append-version="true" />
+        <link href="css/single.css" rel='stylesheet' type='text/css' asp-append-version="true" />
+        <link href="css/medile.css" rel='stylesheet' type='text/css' asp-append-version="true" />
         <link rel='icon' href='favicon.ico' type='image/x-icon' />
         <!-- banner-slider -->
-        <link href="css/jquery.slidey.min.css" rel="stylesheet">
+        <link href="css/jquery.slidey.min.css" rel="stylesheet" asp-append-version="true">
         <!-- //banner-slider -->
         <!-- pop-up -->
-        <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
         <!-- //pop-up -->
         <!-- font-awesome icons -->
-        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" asp-append-version="true" />
         <!-- //font-awesome icons -->
+        <!-- js -->
+        <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+        <!-- //js -->
         <!-- banner-bottom-plugin -->
         <link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
+        <script src="js/owl.carousel.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#owl-demo").owlCarousel({
+
+                    autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+                    items: 5,
+                    itemsDesktop: [640, 4],
+                    itemsDesktopSmall: [414, 3]
+
+                });
+
+            });
+        </script>
+        <!-- //banner-bottom-plugin -->
+        <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
+        <!-- start-smoth-scrolling -->
+        <script type="text/javascript" src="js/move-top.js"></script>
+        <script type="text/javascript" src="js/easing.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $(".scroll").click(function (event) {
+                    event.preventDefault();
+                    $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+                });
+            });
+        </script>
+        <!-- start-smoth-scrolling -->
     </environment>
     <environment names="Staging,Production">
-        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-        <link rel="stylesheet" href="css/contactstyle.css" type="text/css" media="all" />
-        <link rel="stylesheet" href="css/faqstyle.css" type="text/css" media="all" />
-        <link href="css/single.css" rel='stylesheet' type='text/css' />
-        <link href="css/medile.css" rel='stylesheet' type='text/css' />
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
+        <link rel="stylesheet" href="css/contactstyle.css" type="text/css" media="all" asp-append-version="true" />
+        <link rel="stylesheet" href="css/faqstyle.css" type="text/css" media="all" asp-append-version="true" />
+        <link href="css/single.css" rel='stylesheet' type='text/css' asp-append-version="true" />
+        <link href="css/medile.css" rel='stylesheet' type='text/css' asp-append-version="true" />
         <link rel='icon' href='favicon.ico' type='image/x-icon' />
         <!-- banner-slider -->
-        <link href="css/jquery.slidey.min.css" rel="stylesheet">
+        <link href="css/jquery.slidey.min.css" rel="stylesheet" asp-append-version="true">
         <!-- //banner-slider -->
         <!-- pop-up -->
-        <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
         <!-- //pop-up -->
         <!-- font-awesome icons -->
-        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" asp-append-version="true" />
         <!-- //font-awesome icons -->
+        <!-- js -->
+        <script type="text/javascript" src="js/jquery-2.1.4.min.js" asp-append-version="true"></script>
+        <!-- //js -->
         <!-- banner-bottom-plugin -->
-        <link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
+        <link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true">
+        <script src="js/owl.carousel.js" asp-append-version="true"></script>
+        <script>
+            $(document).ready(function () {
+                $("#owl-demo").owlCarousel({
+
+                    autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+                    items: 5,
+                    itemsDesktop: [640, 4],
+                    itemsDesktopSmall: [414, 3]
+
+                });
+
+            });
+        </script>
+        <!-- //banner-bottom-plugin -->
+        <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
+        <!-- start-smoth-scrolling -->
+        <script type="text/javascript" src="js/move-top.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="js/easing.js" asp-append-version="true"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $(".scroll").click(function (event) {
+                    event.preventDefault();
+                    $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+                });
+            });
+        </script>
+        <!-- start-smoth-scrolling -->
     </environment>
 
-    <!-- //banner-bottom-plugin -->
-    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
-    <!-- start-smoth-scrolling -->
-    <script type="text/javascript" src="js/move-top.js" asp-append-version="true"></script>
-    <script type="text/javascript" src="js/easing.js" asp-append-version="true"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function ($) {
-            $(".scroll").click(function (event) {
-                event.preventDefault();
-                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
-            });
-        });
-    </script>
 </head>
 <body>
     <!-- header -->
@@ -82,12 +133,12 @@
                 </form>
             </div>
             <div class="w3l_sign_in_register">
-                <ul>
-                    <li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 123 345 653</li>
-                    <li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
-                </ul>
-            </div>
-            <div class="clearfix"> </div>
+				<ul>
+					<li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 123 345 653</li>
+					<li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
+				</ul>
+			</div>
+			<div class="clearfix"> </div>
         </div>
         <div class="general_social_icons">
             <nav class="social">
@@ -213,7 +264,6 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="series.html">tv - series</a></li>
                             <li><a href="news.html">news</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Country <b class="caret"></b></a>
@@ -323,25 +373,6 @@
     <!-- //footer -->
 
     <environment names="Development">
-        <script>
-            $(document).ready(function () {
-                $("#owl-demo").owlCarousel({
-
-                    autoPlay: 3000, //Set AutoPlay to 3 seconds
-
-                    items: 5,
-                    itemsDesktop: [640, 4],
-                    itemsDesktopSmall: [414, 3]
-
-                });
-
-            });
-        </script>
-        <!-- start-smoth-scrolling -->
-        <!-- js -->
-        <script type="text/javascript" src="js/jquery-2.1.4.min.js" asp-append-version="true"></script>
-        <script src="js/owl.carousel.js" asp-append-version="true"></script>
-        <!-- //js -->
         <!-- Bootstrap Core JavaScript -->
         <script src="js/bootstrap.min.js" asp-append-version="true"></script>
         <script>
@@ -378,7 +409,6 @@
         <!-- //here ends scrolling icon -->
     </environment>
     <environment names="Staging,Production">
-        <script type="text/javascript" src="js/jquery-2.1.4.min.js" asp-append-version="true"></script>
         <!-- Bootstrap Core JavaScript -->
         <script src="js/bootstrap.min.js" asp-append-version="true"></script>
         <script>
