@@ -44,7 +44,7 @@
 
         public DbSet<MovieCountry> MovieCountries { get; set; }
 
-        public DbSet<MovieDirector> MovieDirectors { get; set; }
+        public DbSet<MovieReview> MovieReviews { get; set; }
 
         public DbSet<MovieGenre> MovieGenres { get; set; }
 
@@ -69,6 +69,8 @@
         public DbSet<Setting> Settings { get; set; } // Default from template
 
         public DbSet<Ticket> Tickets { get; set; }
+
+        public DbSet<TicketOrder> TicketOrders { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -98,8 +100,8 @@
             builder.Entity<MovieCountry>()
                 .HasKey(mc => new { mc.MovieId, mc.CountryId });
 
-            builder.Entity<MovieDirector>()
-                .HasKey(md => new { md.MovieId, md.DirectorId });
+            builder.Entity<MovieReview>()
+                .HasKey(mr => new { mr.MovieId, mr.ReviewId });
 
             builder.Entity<MovieGenre>()
                 .HasKey(mg => new { mg.MovieId, mg.GenreId });
@@ -109,6 +111,9 @@
 
             builder.Entity<ReviewAuthor>()
                 .HasKey(ra => new { ra.ReviewId, ra.AuthorId });
+
+            builder.Entity<TicketOrder>()
+                .HasKey(to => new { to.TicketId, to.SellerId });
 
             // Needed for Identity models configuration
             base.OnModelCreating(builder);

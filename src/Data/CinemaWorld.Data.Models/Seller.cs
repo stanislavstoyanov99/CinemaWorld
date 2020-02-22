@@ -12,7 +12,7 @@
     {
         public Seller()
         {
-            this.Tickets = new HashSet<Ticket>();
+            this.TicketOrders = new HashSet<TicketOrder>();
         }
 
         [Required]
@@ -25,7 +25,7 @@
 
         public int? PhoneNumber { get; set; }
 
-        public virtual ICollection<Ticket> Tickets { get; set; }
+        public virtual ICollection<TicketOrder> TicketOrders { get; set; }
 
         public bool IsDeleted { get; set; }
 

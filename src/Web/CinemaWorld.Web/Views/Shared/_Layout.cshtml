@@ -14,28 +14,34 @@
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
 
     <environment names="Development">
-        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
-        <link rel="stylesheet" href="css/contactstyle.css" type="text/css" media="all" asp-append-version="true" />
-        <link rel="stylesheet" href="css/faqstyle.css" type="text/css" media="all" asp-append-version="true" />
-        <link href="css/single.css" rel='stylesheet' type='text/css' asp-append-version="true" />
-        <link href="css/medile.css" rel='stylesheet' type='text/css' asp-append-version="true" />
-        <link rel='icon' href='favicon.ico' type='image/x-icon' />
+        <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
+        <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/contactstyle.css" type="text/css" media="all" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/faqstyle.css" type="text/css" media="all" asp-append-version="true" />
+        <link href="~/css/single.css" rel='stylesheet' type='text/css' asp-append-version="true" />
+        <link href="~/css/medile.css" rel='stylesheet' type='text/css' asp-append-version="true" />
+        <link rel='icon' href='~/favicon.ico' type='image/x-icon' />
         <!-- banner-slider -->
-        <link href="css/jquery.slidey.min.css" rel="stylesheet" asp-append-version="true">
+        <link href="~/css/jquery.slidey.min.css" rel="stylesheet" asp-append-version="true">
         <!-- //banner-slider -->
         <!-- pop-up -->
-        <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
+        <link href="~/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
         <!-- //pop-up -->
         <!-- font-awesome icons -->
-        <link rel="stylesheet" href="css/font-awesome.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/font-awesome.min.css" asp-append-version="true" />
         <!-- //font-awesome icons -->
+        <!-- news-css -->
+        <link rel="stylesheet" href="~/news-css/news.css" type="text/css" media="all" />
+        <!-- //news-css -->
+        <!-- list-css -->
+        <link rel="stylesheet" href="~/list-css/list.css" type="text/css" media="all" />
+        <!-- //list-css -->
         <!-- js -->
-        <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="~/js/jquery-2.1.4.min.js"></script>
         <!-- //js -->
         <!-- banner-bottom-plugin -->
-        <link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
-        <script src="js/owl.carousel.js"></script>
+        <link href="~/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
+        <script src="~/js/owl.carousel.js"></script>
         <script>
             $(document).ready(function () {
                 $("#owl-demo").owlCarousel({
@@ -53,8 +59,8 @@
         <!-- //banner-bottom-plugin -->
         <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
         <!-- start-smoth-scrolling -->
-        <script type="text/javascript" src="js/move-top.js"></script>
-        <script type="text/javascript" src="js/easing.js"></script>
+        <script type="text/javascript" src="~/js/move-top.js"></script>
+        <script type="text/javascript" src="~/js/easing.js"></script>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $(".scroll").click(function (event) {
@@ -66,28 +72,28 @@
         <!-- start-smoth-scrolling -->
     </environment>
     <environment names="Staging,Production">
-        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
-        <link rel="stylesheet" href="css/contactstyle.css" type="text/css" media="all" asp-append-version="true" />
-        <link rel="stylesheet" href="css/faqstyle.css" type="text/css" media="all" asp-append-version="true" />
-        <link href="css/single.css" rel='stylesheet' type='text/css' asp-append-version="true" />
-        <link href="css/medile.css" rel='stylesheet' type='text/css' asp-append-version="true" />
+        <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
+        <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/contactstyle.css" type="text/css" media="all" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/faqstyle.css" type="text/css" media="all" asp-append-version="true" />
+        <link href="~/css/single.css" rel='stylesheet' type='text/css' asp-append-version="true" />
+        <link href="~/css/medile.css" rel='stylesheet' type='text/css' asp-append-version="true" />
         <link rel='icon' href='favicon.ico' type='image/x-icon' />
         <!-- banner-slider -->
-        <link href="css/jquery.slidey.min.css" rel="stylesheet" asp-append-version="true">
+        <link href="~/css/jquery.slidey.min.css" rel="stylesheet" asp-append-version="true">
         <!-- //banner-slider -->
         <!-- pop-up -->
-        <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
+        <link href="~/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
         <!-- //pop-up -->
         <!-- font-awesome icons -->
-        <link rel="stylesheet" href="css/font-awesome.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/font-awesome.min.css" asp-append-version="true" />
         <!-- //font-awesome icons -->
         <!-- js -->
-        <script type="text/javascript" src="js/jquery-2.1.4.min.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/jquery-2.1.4.min.js" asp-append-version="true"></script>
         <!-- //js -->
         <!-- banner-bottom-plugin -->
-        <link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true">
-        <script src="js/owl.carousel.js" asp-append-version="true"></script>
+        <link href="~/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true">
+        <script src="~/js/owl.carousel.js" asp-append-version="true"></script>
         <script>
             $(document).ready(function () {
                 $("#owl-demo").owlCarousel({
@@ -105,8 +111,8 @@
         <!-- //banner-bottom-plugin -->
         <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
         <!-- start-smoth-scrolling -->
-        <script type="text/javascript" src="js/move-top.js" asp-append-version="true"></script>
-        <script type="text/javascript" src="js/easing.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/move-top.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/easing.js" asp-append-version="true"></script>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 $(".scroll").click(function (event) {
@@ -124,7 +130,7 @@
     <div class="header">
         <div class="container">
             <div class="w3layouts_logo">
-                <a href="index.html"><h1>Cinema<span>World</span></h1></a>
+                <a href="/Home"><h1>Cinema<span>World</span></h1></a>
             </div>
             <div class="w3_search">
                 <form action="#" method="post">
@@ -133,12 +139,12 @@
                 </form>
             </div>
             <div class="w3l_sign_in_register">
-				<ul>
-					<li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 123 345 653</li>
-					<li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
-				</ul>
-			</div>
-			<div class="clearfix"> </div>
+                <ul>
+                    <li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 123 345 653</li>
+                    <li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
         </div>
         <div class="general_social_icons">
             <nav class="social">
@@ -151,7 +157,6 @@
         </div>
     </div>
     <!-- //header -->
-
     <!-- bootstrap-pop-up -->
     <div class="modal video-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
         <div class="modal-dialog" role="document">
@@ -166,7 +171,7 @@
                             <div class="module form-module">
                                 <div class="toggle">
                                     <i class="fa fa-times fa-pencil"></i>
-                                    <div class="tooltip">Click Me</div>
+                                    <div class="tooltip">Register</div>
                                 </div>
                                 <div class="form">
                                     <h3>Login to your account</h3>
@@ -224,73 +229,74 @@
                 <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
                     <nav>
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
+                            <li class="active"><a href="/Home">Home</a></li>
+                            <li><a asp-controller="Movies" asp-action="All">Movies</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
                                 <ul class="dropdown-menu multi-column columns-3">
                                     <li>
                                         <div class="col-sm-4">
                                             <ul class="multi-column-dropdown">
-                                                <li><a href="genres.html">Action</a></li>
-                                                <li><a href="genres.html">Biography</a></li>
-                                                <li><a href="genres.html">Crime</a></li>
-                                                <li><a href="genres.html">Family</a></li>
+                                                <li><a asp-controller="Genres" asp-action="Action">Action</a></li>
+                                                <li><a asp-controller="Genres">Biography</a></li>
+                                                <li><a asp-controller="Genres">Crime</a></li>
+                                                <li><a asp-controller="Genres">Family</a></li>
                                                 <li><a href="horror.html">Horror</a></li>
-                                                <li><a href="genres.html">Romance</a></li>
-                                                <li><a href="genres.html">Sports</a></li>
-                                                <li><a href="genres.html">War</a></li>
+                                                <li><a asp-controller="Genres">Romance</a></li>
+                                                <li><a asp-controller="Genres">Sports</a></li>
+                                                <li><a asp-controller="Genres">War</a></li>
                                             </ul>
                                         </div>
                                         <div class="col-sm-4">
                                             <ul class="multi-column-dropdown">
-                                                <li><a href="genres.html">Adventure</a></li>
+                                                <li><a asp-controller="Genres">Adventure</a></li>
                                                 <li><a href="comedy.html">Comedy</a></li>
-                                                <li><a href="genres.html">Documentary</a></li>
-                                                <li><a href="genres.html">Fantasy</a></li>
-                                                <li><a href="genres.html">Thriller</a></li>
+                                                <li><a asp-controller="Genres">Documentary</a></li>
+                                                <li><a asp-controller="Genres">Fantasy</a></li>
+                                                <li><a asp-controller="Genres">Thriller</a></li>
                                             </ul>
                                         </div>
                                         <div class="col-sm-4">
                                             <ul class="multi-column-dropdown">
-                                                <li><a href="genres.html">Animation</a></li>
-                                                <li><a href="genres.html">Costume</a></li>
-                                                <li><a href="genres.html">Drama</a></li>
-                                                <li><a href="genres.html">History</a></li>
-                                                <li><a href="genres.html">Musical</a></li>
-                                                <li><a href="genres.html">Psychological</a></li>
+                                                <li><a asp-controller="Genres">Animation</a></li>
+                                                <li><a asp-controller="Genres">Costume</a></li>
+                                                <li><a asp-controller="Genres">Drama</a></li>
+                                                <li><a asp-controller="Genres">History</a></li>
+                                                <li><a asp-controller="Genres">Musical</a></li>
+                                                <li><a asp-controller="Genres">Psychological</a></li>
                                             </ul>
                                         </div>
                                         <div class="clearfix"></div>
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="news.html">news</a></li>
+                            <li><a asp-controller="News" asp-action="News">news</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Country <b class="caret"></b></a>
                                 <ul class="dropdown-menu multi-column columns-3">
                                     <li>
                                         <div class="col-sm-4">
                                             <ul class="multi-column-dropdown">
-                                                <li><a href="genres.html">Asia</a></li>
-                                                <li><a href="genres.html">France</a></li>
-                                                <li><a href="genres.html">Taiwan</a></li>
-                                                <li><a href="genres.html">United States</a></li>
+                                                <li><a asp-controller="Genres">Asia</a></li>
+                                                <li><a asp-controller="Genres">France</a></li>
+                                                <li><a asp-controller="Genres">Taiwan</a></li>
+                                                <li><a asp-controller="Genres">United States</a></li>
                                             </ul>
                                         </div>
                                         <div class="col-sm-4">
                                             <ul class="multi-column-dropdown">
-                                                <li><a href="genres.html">China</a></li>
-                                                <li><a href="genres.html">HongCong</a></li>
-                                                <li><a href="genres.html">Japan</a></li>
-                                                <li><a href="genres.html">Thailand</a></li>
+                                                <li><a asp-controller="Genres">China</a></li>
+                                                <li><a asp-controller="Genres">HongCong</a></li>
+                                                <li><a asp-controller="Genres">Japan</a></li>
+                                                <li><a asp-controller="Genres">Thailand</a></li>
                                             </ul>
                                         </div>
                                         <div class="col-sm-4">
                                             <ul class="multi-column-dropdown">
-                                                <li><a href="genres.html">Euro</a></li>
-                                                <li><a href="genres.html">India</a></li>
-                                                <li><a href="genres.html">Korea</a></li>
-                                                <li><a href="genres.html">United Kingdom</a></li>
+                                                <li><a asp-controller="Genres">Euro</a></li>
+                                                <li><a asp-controller="Genres">India</a></li>
+                                                <li><a asp-controller="Genres">Korea</a></li>
+                                                <li><a asp-controller="Genres">United Kingdom</a></li>
                                             </ul>
                                         </div>
                                         <div class="clearfix"></div>
@@ -298,7 +304,6 @@
                                 </ul>
                             </li>
                             <li><a href="#">Schedule</a></li>
-                            <li><a href="list.html">A - z list</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -307,12 +312,10 @@
     </div>
     <!-- //nav -->
 
-    <div class="container">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-            @this.RenderBody()
-        </main>
-    </div>
+    <partial name="_CookieConsentPartial" />
+    <main role="main">
+        @this.RenderBody()
+    </main>
 
     <!-- footer -->
     <footer>
@@ -331,7 +334,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 w3ls_footer_grid_right">
-                        <a href="#"><h2>Cinema<span>World</span></h2></a>
+                        <a href="/Home"><h2>Cinema<span>World</span></h2></a>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
@@ -341,7 +344,7 @@
                 <div class="col-md-7 w3ls_footer_grid1_right">
                     <ul>
                         <li>
-                            <a href="genres.html">Movies</a>
+                            <a asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li>
                             <a href="#">Schedule</a>
@@ -350,10 +353,10 @@
                             <a href="faq.html">FAQ</a>
                         </li>
                         <li>
-                            <a href="horror.html">Action</a>
+                            <a asp-controller="Genres" asp-action="Action">Action</a>
                         </li>
                         <li>
-                            <a href="genres.html">Adventure</a>
+                            <a asp-controller="Genres">Adventure</a>
                         </li>
                         <li>
                             <a href="comedy.html">Comedy</a>
@@ -374,7 +377,7 @@
 
     <environment names="Development">
         <!-- Bootstrap Core JavaScript -->
-        <script src="js/bootstrap.min.js" asp-append-version="true"></script>
+        <script src="~/js/bootstrap.min.js" asp-append-version="true"></script>
         <script>
             $(document).ready(function () {
                 $(".dropdown").hover(

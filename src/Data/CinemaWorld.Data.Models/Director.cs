@@ -11,7 +11,7 @@
     {
         public Director()
         {
-            this.MovieDirectors = new HashSet<MovieDirector>();
+            this.Movies = new HashSet<Movie>();
         }
 
         [Required]
@@ -22,7 +22,7 @@
         [MaxLength(DataValidation.NameMaxLength)]
         public string LastName { get; set; }
 
-        public virtual ICollection<MovieDirector> MovieDirectors { get; set; }
+        public virtual ICollection<Movie> Movies { get; set; }
 
         public bool IsDeleted { get; set; }
 

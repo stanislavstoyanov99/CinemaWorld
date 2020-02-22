@@ -12,7 +12,7 @@
     {
         public Review()
         {
-            this.Movies = new HashSet<Movie>();
+            this.MovieReviews = new HashSet<MovieReview>();
             this.Authors = new HashSet<ReviewAuthor>();
         }
 
@@ -26,7 +26,7 @@
 
         public DateTime Date { get; set; }
 
-        public virtual ICollection<Movie> Movies { get; set; }
+        public virtual ICollection<MovieReview> MovieReviews { get; set; }
 
         public virtual ICollection<ReviewAuthor> Authors { get; set; }
 

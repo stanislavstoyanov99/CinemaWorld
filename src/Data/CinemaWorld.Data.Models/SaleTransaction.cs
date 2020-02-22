@@ -14,6 +14,9 @@
         }
 
         [Required]
+        public DateTime Date { get; set; }
+
+        [Required]
         public string UserId { get; set; }
 
         public virtual CinemaWorldUser User { get; set; }

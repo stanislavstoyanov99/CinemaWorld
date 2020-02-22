@@ -11,6 +11,7 @@
         public Ticket()
         {
             this.SaleTransactions = new HashSet<SaleTransaction>();
+            this.TicketOrders = new HashSet<TicketOrder>();
         }
 
         public int Row { get; set; }
@@ -19,10 +20,6 @@
 
         public decimal Price { get; set; }
 
-        public int SellerId { get; set; }
-
-        public virtual Seller Seller { get; set; }
-
         public TimeSlot TimeSlot { get; set; }
 
         public TicketType TicketType { get; set; }
@@ -30,6 +27,8 @@
         public int Quantity { get; set; }
 
         public virtual ICollection<SaleTransaction> SaleTransactions { get; set; }
+
+        public virtual ICollection<TicketOrder> TicketOrders { get; set; }
 
         public bool IsDeleted { get; set; }
 

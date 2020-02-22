@@ -14,8 +14,8 @@
         public Movie()
         {
             this.MovieGenres = new HashSet<MovieGenre>();
+            this.MovieReviews = new HashSet<MovieReview>();
             this.MovieCountries = new HashSet<MovieCountry>();
-            this.MovieDirectors = new HashSet<MovieDirector>();
             this.MovieActors = new HashSet<MovieActor>();
             this.Projections = new HashSet<MovieProjection>();
             this.MovieNews = new HashSet<MovieNews>();
@@ -50,15 +50,15 @@
 
         public int Length { get; set; }
 
-        public int? ReviewId { get; set; }
+        public int DirectorId { get; set; }
 
-        public virtual Review Review { get; set; }
+        public virtual Director Director { get; set; }
 
         public virtual ICollection<MovieGenre> MovieGenres { get; set; }
 
-        public virtual ICollection<MovieCountry> MovieCountries { get; set; }
+        public virtual ICollection<MovieReview> MovieReviews { get; set; }
 
-        public virtual ICollection<MovieDirector> MovieDirectors { get; set; }
+        public virtual ICollection<MovieCountry> MovieCountries { get; set; }
 
         public virtual ICollection<MovieActor> MovieActors { get; set; }
 
