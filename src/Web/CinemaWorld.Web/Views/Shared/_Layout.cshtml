@@ -138,12 +138,7 @@
                     <input type="submit" value="Go">
                 </form>
             </div>
-            <div class="w3l_sign_in_register">
-                <ul>
-                    <li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 123 345 653</li>
-                    <li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
-                </ul>
-            </div>
+            <partial name="_LoginPartial" />
             <div class="clearfix"> </div>
         </div>
         <div class="general_social_icons">
@@ -157,62 +152,6 @@
         </div>
     </div>
     <!-- //header -->
-    <!-- bootstrap-pop-up -->
-    <div class="modal video-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    Sign In & Sign Up
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <section>
-                    <div class="modal-body">
-                        <div class="w3_login_module">
-                            <div class="module form-module">
-                                <div class="toggle">
-                                    <i class="fa fa-times fa-pencil"></i>
-                                    <div class="tooltip">Register</div>
-                                </div>
-                                <div class="form">
-                                    <h3>Login to your account</h3>
-                                    <form action="#" method="post">
-                                        <input type="text" name="Username" placeholder="Username" required="">
-                                        <input type="password" name="Password" placeholder="Password" required="">
-                                        <input type="submit" value="Login">
-                                    </form>
-                                </div>
-                                <div class="form">
-                                    <h3>Create an account</h3>
-                                    <form action="#" method="post">
-                                        <input type="text" name="Username" placeholder="Username" required="">
-                                        <input type="password" name="Password" placeholder="Password" required="">
-                                        <input type="email" name="Email" placeholder="Email Address" required="">
-                                        <input type="text" name="Phone" placeholder="Phone Number" required="">
-                                        <input type="submit" value="Register">
-                                    </form>
-                                </div>
-                                <div class="cta"><a href="#">Forgot your password?</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </div>
-    <script>
-        $('.toggle').click(function () {
-            // Switches the Icon
-            $(this).children('i').toggleClass('fa-pencil');
-            // Switches the forms
-            $('.form').animate({
-                height: "toggle",
-                'padding-top': 'toggle',
-                'padding-bottom': 'toggle',
-                opacity: "toggle"
-            }, "slow");
-        });
-    </script>
-    <!-- //bootstrap-pop-up -->
     <!-- nav -->
     <div class="movies_nav">
         <div class="container">
@@ -270,39 +209,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a asp-controller="News" asp-action="News">news</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Country <b class="caret"></b></a>
-                                <ul class="dropdown-menu multi-column columns-3">
-                                    <li>
-                                        <div class="col-sm-4">
-                                            <ul class="multi-column-dropdown">
-                                                <li><a asp-controller="Genres">Asia</a></li>
-                                                <li><a asp-controller="Genres">France</a></li>
-                                                <li><a asp-controller="Genres">Taiwan</a></li>
-                                                <li><a asp-controller="Genres">United States</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <ul class="multi-column-dropdown">
-                                                <li><a asp-controller="Genres">China</a></li>
-                                                <li><a asp-controller="Genres">HongCong</a></li>
-                                                <li><a asp-controller="Genres">Japan</a></li>
-                                                <li><a asp-controller="Genres">Thailand</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <ul class="multi-column-dropdown">
-                                                <li><a asp-controller="Genres">Euro</a></li>
-                                                <li><a asp-controller="Genres">India</a></li>
-                                                <li><a asp-controller="Genres">Korea</a></li>
-                                                <li><a asp-controller="Genres">United Kingdom</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </li>
-                                </ul>
-                            </li>
+                            <li><a asp-controller="News" asp-action="All">news</a></li>
                             <li><a href="#">Schedule</a></li>
                         </ul>
                     </nav>
@@ -350,7 +257,7 @@
                             <a href="#">Schedule</a>
                         </li>
                         <li>
-                            <a href="faq.html">FAQ</a>
+                            <a asp-controller="About" asp-action="Faq">FAQ</a>
                         </li>
                         <li>
                             <a asp-controller="Genres" asp-action="Action">Action</a>
@@ -365,7 +272,7 @@
                             <a href="icons.html">Icons</a>
                         </li>
                         <li>
-                            <a href="contact.html">Contact Us</a>
+                            <a asp-controller="Contacts" asp-action="Contact">Contact Us</a>
                         </li>
                     </ul>
                 </div>

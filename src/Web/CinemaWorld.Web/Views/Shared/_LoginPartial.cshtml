@@ -4,31 +4,86 @@
 @inject SignInManager<CinemaWorldUser> SignInManager
 @inject UserManager<CinemaWorldUser> UserManager
 
-<ul class="navbar-nav">
-    @if (this.SignInManager.IsSignedIn(this.User))
+@if (this.SignInManager.IsSignedIn(this.User))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
+    </li>
+    if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
-        </li>
-        if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
-            </li>
-        }
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
+            <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
         </li>
     }
-    else
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        </li>
-    }
-</ul>
+    <li class="nav-item">
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
+            <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+        </form>
+    </li>
+}
+else
+{
+    <div class="w3l_sign_in_register">
+        <ul>
+            <li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 123 345 653</li>
+            <li><a data-toggle="modal" data-target="#myModal">Login</a></li>
+        </ul>
+    </div>
+
+    <!-- bootstrap-pop-up -->
+    <div class="modal video-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Sign In & Sign Up
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <section>
+                    <div class="modal-body">
+                        <div class="w3_login_module">
+                            <div class="module form-module">
+                                <div class="toggle">
+                                    <i class="fa fa-times fa-pencil"></i>
+                                    <div class="tooltip">Register</div>
+                                </div>
+                                <div class="form">
+                                    <h3>Login to your account</h3>
+                                    <form action="#" method="post">
+                                        <input type="text" name="Username" placeholder="Username" required="">
+                                        <input type="password" name="Password" placeholder="Password" required="">
+                                        <input type="submit" value="Login">
+                                    </form>
+                                </div>
+                                <div class="form">
+                                    <h3>Create an account</h3>
+                                    <form action="#" method="post">
+                                        <input type="text" name="Username" placeholder="Username" required="">
+                                        <input type="password" name="Password" placeholder="Password" required="">
+                                        <input type="email" name="Email" placeholder="Email Address" required="">
+                                        <input type="text" name="Phone" placeholder="Phone Number" required="">
+                                        <input type="submit" value="Register">
+                                    </form>
+                                </div>
+                                <div class="cta"><a href="#">Forgot your password?</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.toggle').click(function () {
+            // Switches the Icon
+            $(this).children('i').toggleClass('fa-pencil');
+            // Switches the forms
+            $('.form').animate({
+                height: "toggle",
+                'padding-top': 'toggle',
+                'padding-bottom': 'toggle',
+                opacity: "toggle"
+            }, "slow");
+        });
+    </script>
+    <!-- //bootstrap-pop-up -->
+}

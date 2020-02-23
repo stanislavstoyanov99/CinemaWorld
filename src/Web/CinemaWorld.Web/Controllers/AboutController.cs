@@ -7,9 +7,9 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    public class NewsController : Controller
+    public class AboutController : Controller
     {
-        public IActionResult All()
+        public IActionResult Faq()
         {
             return this.View();
         }

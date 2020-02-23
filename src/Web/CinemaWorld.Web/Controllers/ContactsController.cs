@@ -7,9 +7,9 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    public class NewsController : Controller
+    public class ContactsController : Controller
     {
-        public IActionResult All()
+        public IActionResult Contact()
         {
             return this.View();
         }
