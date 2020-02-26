@@ -14,17 +14,6 @@
         <li><img src="~/images/7.jpg" alt=" "><p class='title'>X - Man</p><p class='description'>In 1977, paranormal investigators Ed (Patrick Wilson) and Lorraine Warren come out of a self-imposed sabbatical to travel to Enfield, a borough in north ...</p></li>
     </ul>
 </div>
-<script src="js/jquery.slidey.js" asp-append-version="true"></script>
-<script src="js/jquery.dotdotdot.min.js" asp-append-version="true"></script>
-<script type="text/javascript">
-    $("#slidey").slidey({
-        interval: 8000,
-        listCount: 5,
-        autoplay: false,
-        showList: true
-    });
-    $(".slidey-list-description").dotdotdot();
-</script>
 <!-- //banner -->
 <!-- banner-bottom -->
 <div class="banner-bottom">
@@ -1549,25 +1538,8 @@
                 </ul>
             </div>
         </section>
-        <!-- flexSlider -->
-        <link rel="stylesheet" href="~/css/flexslider.css" type="text/css" media="screen" property="" />
-        <script defer src="~/js/jquery.flexslider.js"></script>
-        <script type="text/javascript">
-            $(window).load(function () {
-                $('.flexslider').flexslider({
-                    animation: "slide",
-                    start: function (slider) {
-                        $('body').removeClass('loading');
-                    }
-                });
-            });
-        </script>
-        <!-- //flexSlider -->
     </div>
 </div>
-<!-- pop-up-box -->
-<script src="~/js/jquery.magnific-popup.js" type="text/javascript"></script>
-<!--//pop-up-box -->
 <div id="small-dialog" class="mfp-hide">
     <iframe src="https://player.vimeo.com/video/164819130?title=0&byline=0"></iframe>
 </div>
@@ -1577,20 +1549,51 @@
 <div id="small-dialog2" class="mfp-hide">
     <iframe src="https://player.vimeo.com/video/165197924?color=ffffff&title=0&byline=0&portrait=0"></iframe>
 </div>
-<script>
-    $(document).ready(function () {
-        $('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
-            type: 'inline',
-            fixedContentPos: false,
-            fixedBgPos: true,
-            overflowY: 'auto',
-            closeBtnInside: true,
-            preloader: false,
-            midClick: true,
-            removalDelay: 300,
-            mainClass: 'my-mfp-zoom-in'
-        });
-
-    });
-</script>
 <!-- //Latest-tv-series -->
+
+@section Scripts
+{
+    <script src="js/jquery.slidey.js" asp-append-version="true"></script>
+    <script src="js/jquery.dotdotdot.min.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $("#slidey").slidey({
+            interval: 8000,
+            listCount: 5,
+            autoplay: false,
+            showList: true
+        });
+        $(".slidey-list-description").dotdotdot();
+    </script>
+    <!-- flexSlider -->
+    <link rel="stylesheet" href="~/css/flexslider.css" type="text/css" media="screen" property="" />
+    <script defer src="~/js/jquery.flexslider.js"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                start: function (slider) {
+                    $('body').removeClass('loading');
+                }
+            });
+        });
+    </script>
+    <!-- //flexSlider -->
+    <!-- pop-up-box -->
+    <script src="~/js/jquery.magnific-popup.js" type="text/javascript"></script>
+    <!--//pop-up-box -->
+    <script>
+        $(document).ready(function () {
+            $('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
+                type: 'inline',
+                fixedContentPos: false,
+                fixedBgPos: true,
+                overflowY: 'auto',
+                closeBtnInside: true,
+                preloader: false,
+                midClick: true,
+                removalDelay: 300,
+                mainClass: 'my-mfp-zoom-in'
+            });
+        });
+    </script>
+}

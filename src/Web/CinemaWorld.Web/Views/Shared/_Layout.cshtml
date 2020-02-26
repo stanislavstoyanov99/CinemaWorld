@@ -130,7 +130,7 @@
     <div class="header">
         <div class="container">
             <div class="w3layouts_logo">
-                <a href="/Home"><h1>Cinema<span>World</span></h1></a>
+                <a asp-controller="Home" asp-action="Index"><h1>Cinema<span>World</span></h1></a>
             </div>
             <div class="w3_search">
                 <form action="#" method="post">
@@ -168,7 +168,7 @@
                 <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
                     <nav>
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="/Home">Home</a></li>
+                            <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
                             <li><a asp-controller="Movies" asp-action="All">Movies</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
@@ -210,7 +210,7 @@
                                 </ul>
                             </li>
                             <li><a asp-controller="News" asp-action="All">news</a></li>
-                            <li><a href="#">Schedule</a></li>
+                            <li><a asp-controller="Schedule" asp-action="Index">Schedule</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -241,7 +241,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 w3ls_footer_grid_right">
-                        <a href="/Home"><h2>Cinema<span>World</span></h2></a>
+                        <a asp-controller="Home" asp-action="Index"><h2>Cinema<span>World</span></h2></a>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
@@ -254,7 +254,7 @@
                             <a asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li>
-                            <a href="#">Schedule</a>
+                            <a asp-controller="Schedule" asp-action="Index">Schedule</a>
                         </li>
                         <li>
                             <a asp-controller="About" asp-action="Faq">FAQ</a>

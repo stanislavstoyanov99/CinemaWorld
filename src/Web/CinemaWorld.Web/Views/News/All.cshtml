@@ -532,23 +532,6 @@
                                         <p>In lobortis ipsum mi, ac imperdiet elit pellentesque at.</p>
                                     </div>
                                 </div>
-                                <script>
-										function blinker() {
-											$('.blinking').fadeOut(500);
-											$('.blinking').fadeIn(500);
-										}
-										setInterval(blinker, 1000);
-                                </script>
-                                <script>
-											function cycle($item, $cycler){
-												setTimeout(cycle, 2000, $item.next(), $cycler);
-
-												$item.slideUp(1000,function(){
-													$item.appendTo($cycler).show();
-												});
-												}
-											cycle($('#cycler div:first'),  $('#cycler'));
-                                </script>
                             </div>
                             <!-- //date -->
                         </div>
@@ -638,3 +621,24 @@
     </div>
 </div>
 <!-- //faq-banner -->
+
+@section Scripts
+{
+    <script>
+        function blinker() {
+            $('.blinking').fadeOut(500);
+            $('.blinking').fadeIn(500);
+        }
+        setInterval(blinker, 1000);
+    </script>
+    <script>
+        function cycle($item, $cycler) {
+            setTimeout(cycle, 2000, $item.next(), $cycler);
+
+            $item.slideUp(1000, function () {
+                $item.appendTo($cycler).show();
+            });
+        }
+        cycle($('#cycler div:first'), $('#cycler'));
+    </script>
+}
