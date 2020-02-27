@@ -91,6 +91,7 @@
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithRedirects("/Home/HttpError?statusCode={0}"); // Midleware for missing page
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
