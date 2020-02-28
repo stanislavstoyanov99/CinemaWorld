@@ -3,12 +3,14 @@
     this.ViewData["Title"] = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<div class="container">
+    <h1 class="text-danger">Error.</h1>
+    <h2 class="text-danger">An error occurred while processing your request.</h2>
+</div>
 
 @if (this.Model.ShowRequestId)
 {
-    <p>
-        <strong>Request ID:</strong> <code>@this.Model.RequestId</code>
-    </p>
+    <div class="container">
+        <strong>Request ID:</strong> <code class="container">@this.Model.RequestId</code>
+    </div>
 }
