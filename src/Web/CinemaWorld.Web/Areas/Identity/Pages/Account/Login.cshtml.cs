@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Authorization;
 using CinemaWorld.Data.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CinemaWorld.Web.Areas.Identity.Pages.Account
 {
@@ -44,8 +46,7 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            public string Username { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
@@ -53,6 +54,15 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
 
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
+        }
+
+        public class AjaxResponse
+        {
+            public bool Success { get; set; }
+
+            public string Message { get; set; }
+
+            public string Action { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -74,17 +84,21 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            var ajaxResponse = new AjaxResponse();
+
             returnUrl = returnUrl ?? Url.Content("~/");
 
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    //return LocalRedirect(returnUrl);
+                    ajaxResponse.Success = true;
+                    ajaxResponse.Message = "logged-in";
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -92,18 +106,32 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
+                    _logger.LogWarning("This account has been locked out, please try again later.");
                     return RedirectToPage("./Lockout");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "The username or password supplied are incorrect. Please check your spelling and try again.");
                     return Page();
                 }
             }
 
+            if (!ajaxResponse.Success) //login was unsuccessful, return model errors
+            {
+                ajaxResponse.Message = ModelErorrs(ModelState);
+            }
+
+            var jsonResult = new JsonResult(ajaxResponse);
+
             // If we got this far, something failed, redisplay form
-            return Page();
+            return jsonResult;
+        }
+
+        public static string ModelErorrs(ModelStateDictionary modelState)
+        {
+            return string.Join("; ", modelState.Values
+                .SelectMany(x => x.Errors)
+                .Select(x => x.ErrorMessage));
         }
     }
 }

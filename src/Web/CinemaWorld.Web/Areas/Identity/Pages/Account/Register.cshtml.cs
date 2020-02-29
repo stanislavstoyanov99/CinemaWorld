@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using CinemaWorld.Data.Models.Enumerations;
+using CinemaWorld.Data.Common;
 
 namespace CinemaWorld.Web.Areas.Identity.Pages.Account
 {
@@ -52,6 +54,15 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
+            [MaxLength(DataValidation.FullNameMaxLength, ErrorMessage = "The {0} must be max {1} characters long.")]
+            [Display(Name = "Full name")]
+            public string FullName { get; set; }
+
+            [Required]
+            [Display(Name = "Gender")]
+            public Gender Gender { get; set; }
+
+            [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -75,7 +86,7 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new CinemaWorldUser { UserName = Input.Email, Email = Input.Email };
+                var user = new CinemaWorldUser { UserName = Input.Email, Email = Input.Email, FullName = Input.FullName, Gender = Input.Gender };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

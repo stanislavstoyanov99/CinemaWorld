@@ -25,16 +25,11 @@
                 new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
 
-        public IActionResult HttpError(int statusCode)
+        public IActionResult HttpError(HttpErrorViewModel errorViewModel)
         {
-            var viewModel = new HttpErrorViewModel
+            if (errorViewModel.StatusCode == 404)
             {
-                StatusCode = statusCode,
-            };
-
-            if (statusCode == 404)
-            {
-                return this.View(viewModel);
+                return this.View(errorViewModel);
             }
 
             return this.View(

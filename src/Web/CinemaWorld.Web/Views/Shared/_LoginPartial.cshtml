@@ -6,20 +6,20 @@
 
 @if (this.SignInManager.IsSignedIn(this.User))
 {
-    <li class="nav-item">
+    <div class="nav-item">
         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
-    </li>
+    </div>
     if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
     {
-        <li class="nav-item">
+        <div class="nav-item">
             <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
-        </li>
+        </div>
     }
-    <li class="nav-item">
+    <div class="nav-item">
         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-            <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            <button type="submit" class="label label-primary">Logout</button>
         </form>
-    </li>
+    </div>
 }
 else
 {
@@ -30,7 +30,6 @@ else
         </ul>
     </div>
 
-    <!-- bootstrap-pop-up -->
     <div class="modal video-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -48,7 +47,7 @@ else
                                 </div>
                                 <div class="form">
                                     <h3>Login to your account</h3>
-                                    <form action="#" method="post">
+                                    <form id="formLoginAJAX" asp-controller="Account" asp-action="Login" method="post">
                                         <input type="text" name="Username" placeholder="Username" required="">
                                         <input type="password" name="Password" placeholder="Password" required="">
                                         <input type="submit" value="Login">
@@ -83,6 +82,44 @@ else
                 'padding-bottom': 'toggle',
                 opacity: "toggle"
             }, "slow");
+        });
+    </script>
+    <script>
+        // dialog form submit handler
+        $form.submit(function (event) {
+            event.preventDefault();
+            if (!$form.valid())
+                return; // form is not valid
+
+            // submit validated form via Ajax
+            var res = { success: false, message: '' };
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: $form.attr('action'),
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: $form.serializeObject(),
+                beforeSend: function () {
+                    //disable submit button to prevent double-click
+                },
+                success: function (data) {
+                    res = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    res.message = 'Request failed: ' + errorThrown;
+                },
+                complete: function () {
+                    if (res.success) {
+                        // all good, user is logged-in
+                        // do callbacks if needed
+                        // close dialog
+                    } else {
+                        // no luck, show returned errors (res.message) in the summary (".validation-summary")
+                    }
+                }
+            });
         });
     </script>
 }
