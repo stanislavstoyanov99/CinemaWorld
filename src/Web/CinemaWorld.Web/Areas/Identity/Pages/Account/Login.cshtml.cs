@@ -65,6 +65,7 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
             public string Action { get; set; }
         }
 
+        // GET
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -96,9 +97,9 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    //return LocalRedirect(returnUrl);
-                    ajaxResponse.Success = true;
                     ajaxResponse.Message = "logged-in";
+                    ajaxResponse.Success = true;
+                    // return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -116,15 +117,15 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
                 }
             }
 
-            if (!ajaxResponse.Success) //login was unsuccessful, return model errors
+            if (!ajaxResponse.Success) //login was unsuccessful, return model error
             {
                 ajaxResponse.Message = ModelErorrs(ModelState);
             }
 
-            var jsonResult = new JsonResult(ajaxResponse);
-
+            //var jsonResult = new JsonResult(ajaxResponse);
+            //return jsonResult;
             // If we got this far, something failed, redisplay form
-            return jsonResult;
+            return Page();
         }
 
         public static string ModelErorrs(ModelStateDictionary modelState)

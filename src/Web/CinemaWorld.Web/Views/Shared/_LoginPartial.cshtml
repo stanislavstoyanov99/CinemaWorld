@@ -47,7 +47,7 @@ else
                                 </div>
                                 <div class="form">
                                     <h3>Login to your account</h3>
-                                    <form id="formLoginAJAX" asp-controller="Account" asp-action="Login" method="post">
+                                    <form id="formLoginAJAX" asp-area="Identity" asp-controller="Account" asp-action="Login" method="post">
                                         <input type="text" name="Username" placeholder="Username" required="">
                                         <input type="password" name="Password" placeholder="Password" required="">
                                         <input type="submit" value="Login">
@@ -84,38 +84,47 @@ else
             }, "slow");
         });
     </script>
-    <script>
-        // dialog form submit handler
-        $form.submit(function (event) {
-            event.preventDefault();
-            if (!$form.valid())
-                return; // form is not valid
 
+    // TODO : Make ajax working ajax
+    <script>
+        $('#formLoginAJAX').submit(function (event) {
+            event.preventDefault();
+            //if (!$('#formLoginAJAX').valid())
+            //    return; // form is not valid
             // submit validated form via Ajax
+            var username = $("input[name=Username]").val();
+            var password = $("input[name=Password]").val();
+
+
             var res = { success: false, message: '' };
             $.ajax({
                 type: 'POST',
-                dataType: 'json',
-                url: $form.attr('action'),
-                xhrFields: {
-                    withCredentials: true
+                contentType: "application/json; charset=utf-8",
+                url: $('#formLoginAJAX').attr('action'),
+                data: {
+                    Username: username,
+                    Password: password
                 },
-                data: $form.serializeObject(),
                 beforeSend: function () {
                     //disable submit button to prevent double-click
                 },
                 success: function (data) {
                     res = data;
+                    console.log("Success: ");
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function (errorThrown) {
                     res.message = 'Request failed: ' + errorThrown;
+                    console.log("Error! : " + errorThrown);
                 },
                 complete: function () {
                     if (res.success) {
+                        alert("Logged-in");
                         // all good, user is logged-in
                         // do callbacks if needed
                         // close dialog
                     } else {
+                        //alert(res.message);
+                        //console.log(res);
                         // no luck, show returned errors (res.message) in the summary (".validation-summary")
                     }
                 }
