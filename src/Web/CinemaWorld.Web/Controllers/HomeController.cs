@@ -35,11 +35,5 @@
             return this.View(
                 "Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
-
-        [HttpPost]
-        public string Add()
-        {
-            return "test";
-        }
     }
 }

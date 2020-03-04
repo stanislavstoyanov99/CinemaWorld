@@ -100,6 +100,8 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
                     ajaxResponse.Message = "logged-in";
                     ajaxResponse.Success = true;
                     // return LocalRedirect(returnUrl);
+                    var jsonResult = new JsonResult(ajaxResponse);
+                    return jsonResult;
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -122,8 +124,6 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
                 ajaxResponse.Message = ModelErorrs(ModelState);
             }
 
-            //var jsonResult = new JsonResult(ajaxResponse);
-            //return jsonResult;
             // If we got this far, something failed, redisplay form
             return Page();
         }

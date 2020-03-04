@@ -1,8 +1,10 @@
 ﻿@using CinemaWorld.Common
 @using CinemaWorld.Data.Models
 @using Microsoft.AspNetCore.Identity
+@using CinemaWorld.Web.Areas.Identity.Pages.Account
 @inject SignInManager<CinemaWorldUser> SignInManager
 @inject UserManager<CinemaWorldUser> UserManager
+@model LoginModel
 
 @if (this.SignInManager.IsSignedIn(this.User))
 {
@@ -48,8 +50,22 @@ else
                                 <div class="form">
                                     <h3>Login to your account</h3>
                                     <form id="formLoginAJAX" asp-area="Identity" asp-controller="Account" asp-action="Login" method="post">
-                                        <input type="text" name="Username" placeholder="Username" required="">
-                                        <input type="password" name="Password" placeholder="Password" required="">
+                                        <div class="form-group">
+                                            <input asp-for="Input.Username" name="Username" placeholder="Username">
+                                            <span asp-validation-for="Input.Username" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input asp-for="Input.Password" name="Password" placeholder="Password">
+                                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label asp-for="Input.RememberMe">
+                                                    <input asp-for="Input.RememberMe" />
+                                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                                </label>
+                                            </div>
+                                        </div>
                                         <input type="submit" value="Login">
                                     </form>
                                 </div>
@@ -95,16 +111,16 @@ else
             var username = $("input[name=Username]").val();
             var password = $("input[name=Password]").val();
 
-
             var res = { success: false, message: '' };
             $.ajax({
                 type: 'POST',
                 contentType: "application/json; charset=utf-8",
-                url: $('#formLoginAJAX').attr('action'),
-                data: {
-                    Username: username,
-                    Password: password
+                dataType: 'JSON',
+                url: '/Identity/Account/Login',
+                xhrFields: {
+                    withCredentials: true
                 },
+                data: $('#formLoginAJAX').serialize(),
                 beforeSend: function () {
                     //disable submit button to prevent double-click
                 },
@@ -114,7 +130,7 @@ else
                 },
                 error: function (errorThrown) {
                     res.message = 'Request failed: ' + errorThrown;
-                    console.log("Error! : " + errorThrown);
+                    console.log("Error! : " + errorThrown.message);
                 },
                 complete: function () {
                     if (res.success) {
