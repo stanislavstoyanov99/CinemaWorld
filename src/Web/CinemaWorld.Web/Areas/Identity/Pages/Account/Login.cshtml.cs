@@ -56,15 +56,6 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public class AjaxResponse
-        {
-            public bool Success { get; set; }
-
-            public string Message { get; set; }
-
-            public string Action { get; set; }
-        }
-
         // GET
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -85,8 +76,6 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            var ajaxResponse = new AjaxResponse();
-
             returnUrl = returnUrl ?? Url.Content("~/");
 
             if (ModelState.IsValid)
@@ -97,11 +86,7 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    ajaxResponse.Message = "logged-in";
-                    ajaxResponse.Success = true;
-                    // return LocalRedirect(returnUrl);
-                    var jsonResult = new JsonResult(ajaxResponse);
-                    return jsonResult;
+                    return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -119,20 +104,8 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
                 }
             }
 
-            if (!ajaxResponse.Success) //login was unsuccessful, return model error
-            {
-                ajaxResponse.Message = ModelErorrs(ModelState);
-            }
-
             // If we got this far, something failed, redisplay form
             return Page();
-        }
-
-        public static string ModelErorrs(ModelStateDictionary modelState)
-        {
-            return string.Join("; ", modelState.Values
-                .SelectMany(x => x.Errors)
-                .Select(x => x.ErrorMessage));
         }
     }
 }
