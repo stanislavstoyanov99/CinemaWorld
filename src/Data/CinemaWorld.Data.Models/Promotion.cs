@@ -8,7 +8,7 @@
 
     using static CinemaWorld.Data.Common.DataValidation.Promotion;
 
-    public class Promotion : BaseModel<int>, IDeletableEntity
+    public class Promotion : BaseDeletableModel<int>
     {
         public Promotion()
         {
@@ -28,9 +28,5 @@
         public DateTime EndDate { get; set; }
 
         public virtual ICollection<SaleTransaction> SaleTransactions { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

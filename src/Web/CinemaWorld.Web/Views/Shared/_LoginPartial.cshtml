@@ -47,7 +47,7 @@ else
                                 </div>
                                 <div class="form">
                                     <h3>Login to your account</h3>
-                                    <form id="formLoginAJAX" asp-area="Identity" asp-controller="Account" asp-action="Login" method="post">
+                                    <form id="formLoginAJAX" asp-area="Identity" asp-page="/Account/Login" method="post">
                                         <input type="text" name="Username" placeholder="Username" required="">
                                         <input type="password" name="Password" placeholder="Password" required="">
                                         <input type="submit" value="Login">
@@ -55,15 +55,21 @@ else
                                 </div>
                                 <div class="form">
                                     <h3>Create an account</h3>
-                                    <form action="#" method="post">
+                                    <form asp-area="Identity" asp-page="/Account/Register" method="post">
                                         <input type="text" name="Username" placeholder="Username" required="">
+                                        <input type="text" name="FullName" placeholder="Full Name" required="">
                                         <input type="password" name="Password" placeholder="Password" required="">
+                                        <input type="password" name="ConfirmPassword" placeholder="Confirm password" required="">
                                         <input type="email" name="Email" placeholder="Email Address" required="">
-                                        <input type="text" name="Phone" placeholder="Phone Number" required="">
+                                        <label class="form-check-label">Male</label>
+                                        <input type="radio" name="gender" id="genderMaleId" value="male" />
+                                        <label class="form-check-inline">Female</label>
+                                        <input type="radio" name="gender" id="genderFemaleId" value="female" />
+                                        <hr />
                                         <input type="submit" value="Register">
                                     </form>
                                 </div>
-                                <div class="cta"><a href="#">Forgot your password?</a></div>
+                                <div class="cta"><a id="forgot-password" href="/Identity/Account/ForgotPassword">Forgot your password?</a></div>
                             </div>
                         </div>
                     </div>
@@ -84,52 +90,4 @@ else
             }, "slow");
         });
     </script>
-
-    // TODO : Make ajax working ajax
-    @*<script>
-        $('#formLoginAJAX').submit(function (event) {
-            event.preventDefault();
-            //if (!$('#formLoginAJAX').valid())
-            //    return; // form is not valid
-            // submit validated form via Ajax
-            var username = $("input[name=Username]").val();
-            var password = $("input[name=Password]").val();
-
-            var res = { success: false, message: '' };
-            $.ajax({
-                type: 'POST',
-                contentType: "application/json; charset=utf-8",
-                dataType: 'JSON',
-                url: '/Identity/Account/Login',
-                xhrFields: {
-                    withCredentials: true
-                },
-                data: $('#formLoginAJAX').serialize(),
-                beforeSend: function () {
-                    //disable submit button to prevent double-click
-                },
-                success: function (data) {
-                    res = data;
-                    console.log("Success: ");
-                },
-                error: function (errorThrown) {
-                    res.message = 'Request failed: ' + errorThrown;
-                    console.log("Error! : " + errorThrown.message);
-                },
-                complete: function () {
-                    if (res.success) {
-                        alert("Logged-in");
-                        // all good, user is logged-in
-                        // do callbacks if needed
-                        // close dialog
-                    } else {
-                        //alert(res.message);
-                        //console.log(res);
-                        // no luck, show returned errors (res.message) in the summary (".validation-summary")
-                    }
-                }
-            });
-        });
-    </script>
-    *@
 }

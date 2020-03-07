@@ -8,7 +8,7 @@
 
     using static CinemaWorld.Data.Common.DataValidation.Cinema;
 
-    public class Cinema : BaseModel<int>, IDeletableEntity
+    public class Cinema : BaseDeletableModel<int>
     {
         public Cinema()
         {
@@ -24,9 +24,5 @@
         public string Address { get; set; }
 
         public virtual ICollection<MovieProjection> Projections { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

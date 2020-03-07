@@ -8,7 +8,7 @@
 
     using static CinemaWorld.Data.Common.DataValidation.Genre;
 
-    public class Genre : BaseModel<int>, IDeletableEntity
+    public class Genre : BaseDeletableModel<int>
     {
         public Genre()
         {
@@ -20,9 +20,5 @@
         public string Name { get; set; }
 
         public virtual ICollection<MovieGenre> MovieGenres { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

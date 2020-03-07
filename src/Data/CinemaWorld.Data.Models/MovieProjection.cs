@@ -6,7 +6,7 @@
 
     using CinemaWorld.Data.Common.Models;
 
-    public class MovieProjection : BaseModel<int>, IDeletableEntity
+    public class MovieProjection : BaseDeletableModel<int>
     {
         public MovieProjection()
         {
@@ -29,9 +29,5 @@
         public virtual Cinema Cinema { get; set; }
 
         public virtual ICollection<SaleTransaction> SaleTransactions { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

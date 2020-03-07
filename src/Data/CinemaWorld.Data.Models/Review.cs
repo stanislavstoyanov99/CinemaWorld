@@ -8,7 +8,7 @@
 
     using static CinemaWorld.Data.Common.DataValidation.Review;
 
-    public class Review : BaseModel<int>, IDeletableEntity
+    public class Review : BaseDeletableModel<int>
     {
         public Review()
         {
@@ -29,9 +29,5 @@
         public virtual ICollection<MovieReview> MovieReviews { get; set; }
 
         public virtual ICollection<ReviewAuthor> Authors { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

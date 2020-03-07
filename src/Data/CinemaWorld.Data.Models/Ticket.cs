@@ -6,7 +6,7 @@
     using CinemaWorld.Data.Common.Models;
     using CinemaWorld.Data.Models.Enumerations;
 
-    public class Ticket : BaseModel<int>, IDeletableEntity
+    public class Ticket : BaseDeletableModel<int>
     {
         public Ticket()
         {
@@ -29,9 +29,5 @@
         public virtual ICollection<SaleTransaction> SaleTransactions { get; set; }
 
         public virtual ICollection<TicketOrder> TicketOrders { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

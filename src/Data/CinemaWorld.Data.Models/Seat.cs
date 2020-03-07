@@ -5,7 +5,7 @@
     using CinemaWorld.Data.Common.Models;
     using CinemaWorld.Data.Models.Enumerations;
 
-    public class Seat : BaseModel<int>, IDeletableEntity
+    public class Seat : BaseDeletableModel<int>
     {
         public int Number { get; set; } // Seat number, id is only for identifying the object
 
@@ -16,9 +16,5 @@
         public virtual Hall Hall { get; set; }
 
         public SeatCategory Category { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

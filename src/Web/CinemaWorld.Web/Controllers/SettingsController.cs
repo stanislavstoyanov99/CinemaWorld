@@ -5,7 +5,6 @@
 
     using CinemaWorld.Data.Common.Repositories;
     using CinemaWorld.Data.Models;
-    using CinemaWorld.Services.Data;
     using CinemaWorld.Services.Data.Contracts;
     using CinemaWorld.Web.ViewModels.Settings;
 

@@ -8,7 +8,7 @@
 
     using static CinemaWorld.Data.Common.DataValidation.News;
 
-    public class News : BaseModel<int>, IDeletableEntity
+    public class News : BaseDeletableModel<int>
     {
         public News()
         {
@@ -27,9 +27,5 @@
         public DateTime Date { get; set; }
 
         public ICollection<MovieNews> MovieNews { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

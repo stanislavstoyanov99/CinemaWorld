@@ -9,7 +9,7 @@
 
     using static CinemaWorld.Data.Common.DataValidation.Movie;
 
-    public class Movie : BaseModel<int>, IDeletableEntity
+    public class Movie : BaseDeletableModel<int>
     {
         public Movie()
         {
@@ -65,9 +65,5 @@
         public virtual ICollection<MovieProjection> Projections { get; set; }
 
         public virtual ICollection<MovieNews> MovieNews { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

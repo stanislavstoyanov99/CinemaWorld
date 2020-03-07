@@ -1,7 +1,6 @@
 ﻿namespace CinemaWorld.Web.ViewModels.Settings
 {
     using AutoMapper;
-
     using CinemaWorld.Data.Models;
     using CinemaWorld.Services.Mapping;
 

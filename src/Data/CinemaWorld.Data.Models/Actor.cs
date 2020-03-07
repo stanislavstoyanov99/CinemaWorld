@@ -7,7 +7,7 @@
     using CinemaWorld.Data.Common;
     using CinemaWorld.Data.Common.Models;
 
-    public class Actor : BaseModel<int>, IDeletableEntity
+    public class Actor : BaseDeletableModel<int>
     {
         public Actor()
         {
@@ -23,9 +23,5 @@
         public string LastName { get; set; }
 
         public virtual ICollection<MovieActor> MovieActors { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

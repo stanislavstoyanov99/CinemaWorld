@@ -1,40 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Authorization;
-using CinemaWorld.Data.Models;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-
-namespace CinemaWorld.Web.Areas.Identity.Pages.Account
+﻿namespace CinemaWorld.Web.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
-    public class LoginModel : PageModel
-    {
-        private readonly UserManager<CinemaWorldUser> _userManager;
-        private readonly SignInManager<CinemaWorldUser> _signInManager;
-        private readonly ILogger<LoginModel> _logger;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
-        public LoginModel(SignInManager<CinemaWorldUser> signInManager, 
+    using CinemaWorld.Data.Models;
+    using CinemaWorld.Web.Areas.Identity.Pages.Account.InputModels;
+
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.Extensions.Logging;
+
+    [AllowAnonymous]
+#pragma warning disable SA1649 // File name should match first type name
+    public class LoginModel : PageModel
+#pragma warning restore SA1649 // File name should match first type name
+    {
+        private readonly UserManager<CinemaWorldUser> userManager;
+        private readonly SignInManager<CinemaWorldUser> signInManager;
+        private readonly ILogger<LoginModel> logger;
+
+        public LoginModel(
+            SignInManager<CinemaWorldUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<CinemaWorldUser> userManager)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = logger;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.logger = logger;
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public LoginInputModel Input { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
@@ -43,69 +43,64 @@ namespace CinemaWorld.Web.Areas.Identity.Pages.Account
         [TempData]
         public string ErrorMessage { get; set; }
 
-        public class InputModel
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
-            [Required]
-            public string Username { get; set; }
-
-            [Required]
-            [DataType(DataType.Password)]
-            public string Password { get; set; }
-
-            [Display(Name = "Remember me?")]
-            public bool RememberMe { get; set; }
-        }
-
-        // GET
-        public async Task OnGetAsync(string returnUrl = null)
-        {
-            if (!string.IsNullOrEmpty(ErrorMessage))
+            if (!this.signInManager.IsSignedIn(this.User))
             {
-                ModelState.AddModelError(string.Empty, ErrorMessage);
+                if (!string.IsNullOrEmpty(this.ErrorMessage))
+                {
+                    this.ModelState.AddModelError(string.Empty, this.ErrorMessage);
+                }
+
+                returnUrl = returnUrl ?? this.Url.Content("~/");
+
+                // Clear the existing external cookie to ensure a clean login process
+                await this.HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+                this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+                this.ReturnUrl = returnUrl;
             }
 
-            returnUrl = returnUrl ?? Url.Content("~/");
-
-            // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
-            ReturnUrl = returnUrl;
+            return this.Redirect("/Identity/Account/Manage");
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = returnUrl ?? this.Url.Content("~/");
 
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await this.signInManager
+                    .PasswordSignInAsync(this.Input.Username, this.Input.Password, this.Input.RememberMe, lockoutOnFailure: false);
+
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    this.logger.LogInformation("User logged in.");
+                    return this.LocalRedirect(returnUrl);
                 }
+
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    return this.RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = this.Input.RememberMe });
                 }
+
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("This account has been locked out, please try again later.");
-                    return RedirectToPage("./Lockout");
+                    this.logger.LogWarning("This account has been locked out, please try again later.");
+                    return this.RedirectToPage("./Lockout");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "The username or password supplied are incorrect. Please check your spelling and try again.");
-                    return Page();
+                    this.ModelState.AddModelError(string.Empty, "The username or password supplied are incorrect. Please check your spelling and try again.");
+                    return this.Page();
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return Page();
+            return this.Page();
         }
     }
 }

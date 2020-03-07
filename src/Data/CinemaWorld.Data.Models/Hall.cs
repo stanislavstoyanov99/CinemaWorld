@@ -7,7 +7,7 @@
     using CinemaWorld.Data.Common.Models;
     using CinemaWorld.Data.Models.Enumerations;
 
-    public class Hall : BaseModel<int>, IDeletableEntity
+    public class Hall : BaseDeletableModel<int>
     {
         public Hall()
         {
@@ -21,9 +21,5 @@
         public virtual ICollection<Seat> Seats { get; set; }
 
         public virtual ICollection<MovieProjection> Projections { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

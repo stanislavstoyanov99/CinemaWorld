@@ -7,7 +7,7 @@
     using CinemaWorld.Data.Common;
     using CinemaWorld.Data.Common.Models;
 
-    public class Author : BaseModel<int>, IDeletableEntity
+    public class Author : BaseDeletableModel<int>
     {
         public Author()
         {
@@ -25,9 +25,5 @@
         public string Email { get; set; }
 
         public virtual ICollection<ReviewAuthor> Reviews { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }
