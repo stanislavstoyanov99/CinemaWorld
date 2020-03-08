@@ -24,8 +24,9 @@
             this.logger = logger;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            return this.Redirect("/Identity/Account/Manage");
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)

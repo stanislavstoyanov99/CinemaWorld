@@ -12,6 +12,7 @@
     using CinemaWorld.Services.Data.Contracts;
     using CinemaWorld.Services.Mapping;
     using CinemaWorld.Services.Messaging;
+    using CinemaWorld.Web.Middlewares;
     using CinemaWorld.Web.ViewModels;
 
     using Microsoft.AspNetCore.Builder;
@@ -103,6 +104,7 @@
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseAdminMiddleware();
 
             app.UseEndpoints(
                 endpoints =>

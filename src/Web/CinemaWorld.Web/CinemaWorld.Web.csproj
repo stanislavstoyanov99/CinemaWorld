@@ -55,5 +55,6 @@
 
   <ItemGroup>
     <Folder Include="InputModels\" />
+    <Folder Include="ViewModels\Administration\Dashboard\" />
   </ItemGroup>
 </Project>

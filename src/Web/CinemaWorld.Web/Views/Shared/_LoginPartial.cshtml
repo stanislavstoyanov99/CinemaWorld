@@ -7,12 +7,12 @@
 @if (this.SignInManager.IsSignedIn(this.User))
 {
     <div class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @(this.User.Identity.Name)!</a>
     </div>
     if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
     {
         <div class="nav-item">
-            <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
+            <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin Dashboard</a>
         </div>
     }
     <div class="nav-item">

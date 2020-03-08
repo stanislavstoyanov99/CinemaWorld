@@ -62,7 +62,7 @@
                 this.ReturnUrl = returnUrl;
             }
 
-            return this.Redirect("/Identity/Account/Manage");
+            return this.Redirect("/");
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

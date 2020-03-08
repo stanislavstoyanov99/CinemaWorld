@@ -6,6 +6,7 @@
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
 
+    using CinemaWorld.Common;
     using CinemaWorld.Data.Models;
     using CinemaWorld.Web.Areas.Identity.Pages.Account.InputModels;
 
@@ -55,7 +56,7 @@
                 this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             }
 
-            return this.Redirect("/Identity/Account/Manage");
+            return this.Redirect("/");
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -77,6 +78,7 @@
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User created a new account with password.");
+                    await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
 
                     var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
