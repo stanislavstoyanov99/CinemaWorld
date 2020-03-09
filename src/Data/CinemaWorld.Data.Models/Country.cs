@@ -7,7 +7,7 @@
 
     using static CinemaWorld.Data.Common.DataValidation.Country;
 
-    public class Country : BaseModel<int>
+    public class Country : BaseDeletableModel<int>
     {
         public Country()
         {
