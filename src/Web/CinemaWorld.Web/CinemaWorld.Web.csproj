@@ -43,7 +43,6 @@
     <ProjectReference Include="..\..\Services\CinemaWorld.Services.Data\CinemaWorld.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\CinemaWorld.Services.Mapping\CinemaWorld.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\CinemaWorld.Services.Messaging\CinemaWorld.Services.Messaging.csproj" />
-    <ProjectReference Include="..\..\Services\CinemaWorld.Services\CinemaWorld.Services.csproj" />
     <ProjectReference Include="..\CinemaWorld.Web.Infrastructure\CinemaWorld.Web.Infrastructure.csproj" />
   </ItemGroup>
 
@@ -51,10 +50,5 @@
     <Content Update="wwwroot\favicon.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="InputModels\" />
-    <Folder Include="ViewModels\Administration\Dashboard\" />
   </ItemGroup>
 </Project>

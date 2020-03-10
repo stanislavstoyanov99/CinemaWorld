@@ -40,7 +40,6 @@
     <ProjectReference Include="..\..\Services\CinemaWorld.Services.Data\CinemaWorld.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\CinemaWorld.Services.Mapping\CinemaWorld.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\CinemaWorld.Services.Messaging\CinemaWorld.Services.Messaging.csproj" />
-    <ProjectReference Include="..\..\Services\CinemaWorld.Services\CinemaWorld.Services.csproj" />
   </ItemGroup>
 
 </Project>

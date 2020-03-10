@@ -24,6 +24,11 @@
         public static class Movie
         {
             public const int NameMaxLength = 60;
+            public const int DescriptionMaxLength = 1100;
+            public const int LanguageMaxLength = 50;
+            public const int TrailerPathMaxLength = 500;
+            public const int ImdbLinkMaxLength = 500;
+            public const int CoverPathMaxLength = 500;
         }
 
         public static class News

@@ -11,7 +11,13 @@
   {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
-      "wwwroot/js/site.js"
+      "wwwroot/js/еasing.js",
+      "wwwroot/js/jquery.flexslider.js",
+      "wwwroot/js/jquery.magnific-popup.js",
+      "wwwroot/js/jquery.slidey.js",
+      "wwwroot/js/move-top.js",
+      "wwwroot/js/owl.carousel.js",
+      "wwwroot/js/simplePlayer.js"
     ],
     // Optionally specify minification options
     "minify": {

@@ -8,12 +8,12 @@
     using CinemaWorld.Data.Models;
     using CinemaWorld.Data.Repositories;
     using CinemaWorld.Data.Seeding;
+    using CinemaWorld.Models.ViewModels;
     using CinemaWorld.Services.Data;
     using CinemaWorld.Services.Data.Contracts;
     using CinemaWorld.Services.Mapping;
     using CinemaWorld.Services.Messaging;
     using CinemaWorld.Web.Middlewares;
-    using CinemaWorld.Web.ViewModels;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -61,6 +61,7 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IMoviesService, MoviesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

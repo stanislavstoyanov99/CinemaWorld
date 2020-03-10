@@ -2,26 +2,40 @@
 {
     using System.Threading.Tasks;
 
+    using CinemaWorld.Services.Data.Contracts;
+
     using Microsoft.AspNetCore.Mvc;
 
     public class MoviesController : AdministrationController
     {
-        public async Task<IActionResult> AddMovieAsync()
+        private readonly IMoviesService moviesService;
+
+        public MoviesController(IMoviesService moviesService)
+        {
+            this.moviesService = moviesService;
+        }
+
+        public IActionResult Index()
         {
             return this.View();
         }
 
-        public async Task<IActionResult> EditMovieAsync()
+        public async Task<IActionResult> Create()
         {
             return this.View();
         }
 
-        public async Task<IActionResult> RemoveMovieAsync()
+        public async Task<IActionResult> Edit()
         {
             return this.View();
         }
 
-        public async Task<IActionResult> GetAllMoviesAsync()
+        public async Task<IActionResult> Remove()
+        {
+            return this.View();
+        }
+
+        public async Task<IActionResult> GetAll()
         {
             return this.View();
         }

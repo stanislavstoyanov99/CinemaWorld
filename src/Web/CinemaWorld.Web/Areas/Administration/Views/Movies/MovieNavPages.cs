@@ -1,10 +1,12 @@
-﻿namespace CinemaWorld.Web.Areas.Administration.Views.Dashboard
+﻿namespace CinemaWorld.Web.Areas.Administration.Views.Movies
 {
+    using CinemaWorld.Web.Areas.Administration.Views.Shared;
+
     using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class MovieNavPages : AdminNavPages
     {
-        public static string AddMovie => "AddMovie";
+        public static string CreateMovie => "CreateMovie";
 
         public static string EditMovie => "EditMovie";
 
@@ -12,7 +14,7 @@
 
         public static string GetAll => "GetAll";
 
-        public static string AddMovieNavClass(ViewContext viewContext) => PageNavClass(viewContext, AddMovie);
+        public static string CreateMovieNavClass(ViewContext viewContext) => PageNavClass(viewContext, CreateMovie);
 
         public static string RemoveMovieNavClass(ViewContext viewContext) => PageNavClass(viewContext, EditMovie);
 

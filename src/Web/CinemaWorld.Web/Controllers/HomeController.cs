@@ -2,7 +2,7 @@
 {
     using System.Diagnostics;
 
-    using CinemaWorld.Web.ViewModels;
+    using CinemaWorld.Models.ViewModels;
 
     using Microsoft.AspNetCore.Mvc;
 

@@ -33,19 +33,24 @@
         public decimal Rating { get; set; }
 
         [Required]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
         [Required]
+        [MaxLength(LanguageMaxLength)]
         public string Language { get; set; }
 
         [Required]
         public CinemaCategory CinemaCategory { get; set; } // A, B, C, D
 
+        [MaxLength(TrailerPathMaxLength)]
         public string TrailerPath { get; set; }
 
         [Required]
+        [MaxLength(CoverPathMaxLength)]
         public string CoverPath { get; set; }
 
+        [MaxLength(ImdbLinkMaxLength)]
         public string IMDBLink { get; set; }
 
         public int Length { get; set; }

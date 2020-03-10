@@ -5,8 +5,8 @@
 
     using CinemaWorld.Data.Common.Repositories;
     using CinemaWorld.Data.Models;
+    using CinemaWorld.Models.ViewModels.Settings;
     using CinemaWorld.Services.Data.Contracts;
-    using CinemaWorld.Web.ViewModels.Settings;
 
     using Microsoft.AspNetCore.Mvc;
 
