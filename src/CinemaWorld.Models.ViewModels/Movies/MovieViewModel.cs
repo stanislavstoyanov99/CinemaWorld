@@ -3,8 +3,8 @@
     using System;
 
     using CinemaWorld.Data.Models;
-    using CinemaWorld.Services.Mapping;
     using CinemaWorld.Data.Models.Enumerations;
+    using CinemaWorld.Services.Mapping;
 
     public class MovieViewModel : IMapFrom<Movie>
     {
@@ -30,8 +30,6 @@
 
         public int Length { get; set; }
 
-        public int DirectorId { get; set; }
-
-        public string DirectorName { get; set; }
+        public string Director { get; set; }
     }
 }

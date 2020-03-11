@@ -5,9 +5,10 @@
 
     using CinemaWorld.Services.Mapping;
 
-    using Movie = Data.Models.Movie;
     using static Common.ModelValidation;
     using static Common.ModelValidation.Movie;
+
+    using Movie = CinemaWorld.Data.Models.Movie;
 
     public class MovieEditViewModel : IMapFrom<Movie>
     {

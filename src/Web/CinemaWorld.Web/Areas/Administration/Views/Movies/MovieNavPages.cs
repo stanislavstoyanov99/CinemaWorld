@@ -1,7 +1,6 @@
 ﻿namespace CinemaWorld.Web.Areas.Administration.Views.Movies
 {
     using CinemaWorld.Web.Areas.Administration.Views.Shared;
-
     using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class MovieNavPages : AdminNavPages

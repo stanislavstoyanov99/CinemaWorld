@@ -1,7 +1,6 @@
 ﻿namespace CinemaWorld.Web.Areas.Administration.Views.Genres
 {
     using CinemaWorld.Web.Areas.Administration.Views.Shared;
-
     using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class GenreNavPages : AdminNavPages
