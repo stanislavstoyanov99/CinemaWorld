@@ -54,9 +54,39 @@
             return this.RedirectToAction("All", "Movies", new { area = string.Empty });
         }
 
-        public async Task<IActionResult> Edit()
+        public IActionResult Edit(int id)
         {
-            return this.View();
+            var directors = this.directorsService
+                .GetAllDirectorsAsync()
+                .GetAwaiter()
+                .GetResult();
+
+            var movieToEdit = this.moviesService
+                .GetViewModelByIdAsync<MovieEditViewModel>(id)
+                .GetAwaiter()
+                .GetResult();
+            movieToEdit.Id = id;
+            movieToEdit.Directors = directors;
+
+            return this.View(movieToEdit);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(MovieEditViewModel movieEditViewModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                var directors = this.directorsService
+                .GetAllDirectorsAsync()
+                .GetAwaiter()
+                .GetResult();
+
+                movieEditViewModel.Directors = directors;
+                return this.View(movieEditViewModel);
+            }
+
+            await this.moviesService.EditAsync(movieEditViewModel);
+            return this.RedirectToAction("All", "Movies", new { area = string.Empty });
         }
 
         public async Task<IActionResult> Remove()
@@ -64,9 +94,9 @@
             return this.View();
         }
 
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(MovieViewModel movieViewModel)
         {
-            return this.View();
+            return this.View(movieViewModel);
         }
     }
 }

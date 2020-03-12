@@ -1,6 +1,7 @@
 ﻿namespace CinemaWorld.Models.ViewModels.Movies
 {
     using System;
+    using System.Collections.Generic;
 
     using CinemaWorld.Data.Models;
     using CinemaWorld.Data.Models.Enumerations;

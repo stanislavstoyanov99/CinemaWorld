@@ -84,7 +84,37 @@
 
         public async Task EditAsync(MovieEditViewModel movieEditViewModel)
         {
-            throw new NotImplementedException();
+            if (!Enum.TryParse(movieEditViewModel.CinemaCategory, true, out CinemaCategory cinemaCategory))
+            {
+                throw new ArgumentException(
+                    string.Format(ExceptionMessages.InvalidCinemaCategoryType, movieEditViewModel.CinemaCategory));
+            }
+
+            var movie = await this.moviesRepository
+                .All()
+                .FirstOrDefaultAsync(m => m.Id == movieEditViewModel.Id);
+
+            if (movie == null)
+            {
+                throw new NullReferenceException(
+                    string.Format(ExceptionMessages.MovieNotFound, movieEditViewModel.Id));
+            }
+
+            movie.Name = movieEditViewModel.Name;
+            movie.DateOfRelease = movieEditViewModel.DateOfRelease;
+            movie.Resolution = movieEditViewModel.Resolution;
+            movie.Rating = movieEditViewModel.Rating;
+            movie.Description = movieEditViewModel.Description;
+            movie.Language = movieEditViewModel.Language;
+            movie.CinemaCategory = cinemaCategory;
+            movie.TrailerPath = movieEditViewModel.TrailerPath;
+            movie.CoverPath = movieEditViewModel.CoverPath;
+            movie.IMDBLink = movieEditViewModel.IMDBLink;
+            movie.Length = movieEditViewModel.Length;
+            movie.DirectorId = movieEditViewModel.DirectorId;
+
+            this.moviesRepository.Update(movie);
+            await this.moviesRepository.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<MovieViewModel>> GetAllMoviesAsync()

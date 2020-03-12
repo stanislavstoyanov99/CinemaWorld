@@ -1,0 +1,89 @@
+﻿@using CinemaWorld.Data.Models.Enumerations
+@model CinemaWorld.Models.ViewModels.Movies.MovieEditViewModel
+@{
+    this.ViewData["Title"] = "Edit Movie";
+    this.ViewData["ActivePage"] = MovieNavPages.Movies;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Movies" asp-action="Edit" method="post">
+            <h4>Edit movie with id: @Model.Id</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfRelease"></label>
+                <input asp-for="DateOfRelease" class="form-control" />
+                <span asp-validation-for="DateOfRelease" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resolution"></label>
+                <input asp-for="Resolution" class="form-control" />
+                <span asp-validation-for="Resolution" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating"></label>
+                <input asp-for="Rating" class="form-control" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Language"></label>
+                <input asp-for="Language" class="form-control" />
+                <span asp-validation-for="Language" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CinemaCategory"></label>
+                <select class="form-control" asp-for="CinemaCategory"
+                        asp-items="@(Html.GetEnumSelectList<CinemaCategory>())">
+                    <option selected="" disabled="">Select cinema category</option>
+                </select>
+                <span asp-validation-for="CinemaCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrailerPath"></label>
+                <input asp-for="TrailerPath" class="form-control" />
+                <span asp-validation-for="TrailerPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CoverPath"></label>
+                <input asp-for="CoverPath" class="form-control" />
+                <span asp-validation-for="CoverPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IMDBLink"></label>
+                <input asp-for="IMDBLink" class="form-control" />
+                <span asp-validation-for="IMDBLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Length"></label>
+                <input asp-for="Length" class="form-control" />
+                <span asp-validation-for="Length" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DirectorId"></label>
+                <select asp-for="DirectorId" class="form-control">
+                    <option selected="" disabled="">Select director</option>
+                    @foreach (var director in Model.Directors)
+                    {
+                        <option value="@director.Id">@director.FirstName @director.LastName</option>
+                    }
+                </select>
+                <span asp-validation-for="DirectorId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Edit movie</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
