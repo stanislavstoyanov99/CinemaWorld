@@ -50,19 +50,5 @@
         {
             throw new NotImplementedException();
         }
-
-        public IEnumerable<SelectListItem> SelectListDirectors()
-        {
-            return
-                this.GetAllDirectorsAsync()
-                .GetAwaiter()
-                .GetResult()
-                .Select(d => new SelectListItem()
-                {
-                    Text = d.FirstName,
-                    Value = d.FirstName.ToString(),
-                })
-                .ToList();
-        }
     }
 }

@@ -14,7 +14,5 @@
         // Task EditAsync(DirectorEditViewModel directorEditViewModel);
 
         Task<IEnumerable<DirectorViewModel>> GetAllDirectorsAsync();
-
-        IEnumerable<SelectListItem> SelectListDirectors();
     }
 }
