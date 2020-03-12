@@ -3,7 +3,6 @@
 @{
     this.ViewData["Title"] = "Create Movie";
     this.ViewData["ActivePage"] = MovieNavPages.Movies;
-    var directors = this.ViewData["Directors"] as IEnumerable<SelectListItem>;
 }
 
 <div class="row">
@@ -71,8 +70,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="DirectorId"></label>
-                <select asp-for="DirectorId" asp-items="directors" class="form-control">
+                <select asp-for="DirectorId" class="form-control">
                     <option selected="" disabled="">Select director</option>
+                    @foreach (var director in Model.Directors)
+                    {
+                        <option value="@director.Id">@director.FirstName @director.LastName</option>
+                    }
                 </select>
                 <span asp-validation-for="DirectorId" class="text-danger"></span>
             </div>

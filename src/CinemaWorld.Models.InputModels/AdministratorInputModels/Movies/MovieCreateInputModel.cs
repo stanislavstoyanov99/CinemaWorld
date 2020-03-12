@@ -1,9 +1,11 @@
 ﻿namespace CinemaWorld.Models.InputModels.AdministratorInputModels.Movies
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using CinemaWorld.Data.Models;
+    using CinemaWorld.Models.ViewModels.Directors;
 
     using static Common.ModelValidation;
     using static Common.ModelValidation.Movie;
@@ -61,5 +63,7 @@
         [Required(ErrorMessage = EmptyFieldLengthError)]
         [Display(Name = nameof(Director))]
         public int DirectorId { get; set; }
+
+        public IEnumerable<DirectorViewModel> Directors { get; set; }
     }
 }

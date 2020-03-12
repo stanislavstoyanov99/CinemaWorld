@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CinemaWorld.Models.Common\CinemaWorld.Models.Common.csproj" />
+    <ProjectReference Include="..\CinemaWorld.Models.ViewModels\CinemaWorld.Models.ViewModels.csproj" />
     <ProjectReference Include="..\Data\CinemaWorld.Data.Models\CinemaWorld.Data.Models.csproj" />
   </ItemGroup>
 

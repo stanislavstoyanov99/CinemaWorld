@@ -3,8 +3,8 @@
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.InputModels.AdministratorInputModels.Movies;
+    using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Contracts;
-    using CinemaWorld.Web.Infrastructure;
     using Microsoft.AspNetCore.Mvc;
 
     public class MoviesController : AdministrationController
@@ -25,9 +25,16 @@
 
         public IActionResult Create()
         {
-            this.ViewData["Directors"] = SelectListGenerator.GetAllDirectors(this.directorsService);
+            var directors = this.directorsService
+                .GetAllDirectorsAsync()
+                .GetAwaiter()
+                .GetResult();
+            var model = new MovieCreateInputModel
+            {
+                Directors = directors,
+            };
 
-            return this.View();
+            return this.View(model);
         }
 
         [HttpPost]
@@ -35,10 +42,15 @@
         {
             if (!this.ModelState.IsValid)
             {
+                var directors = this.directorsService
+                .GetAllDirectorsAsync()
+                .GetAwaiter()
+                .GetResult();
+                movieCreateInputModel.Directors = directors;
                 return this.View(movieCreateInputModel);
             }
 
-            var movie = await this.moviesService.CreateAsync(movieCreateInputModel);
+            await this.moviesService.CreateAsync(movieCreateInputModel);
             return this.RedirectToAction("All", "Movies", new { area = string.Empty });
         }
 

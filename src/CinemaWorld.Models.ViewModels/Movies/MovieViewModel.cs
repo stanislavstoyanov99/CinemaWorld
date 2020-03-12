@@ -29,7 +29,5 @@
         public string IMDBLink { get; set; }
 
         public int Length { get; set; }
-
-        public string Director { get; set; }
     }
 }

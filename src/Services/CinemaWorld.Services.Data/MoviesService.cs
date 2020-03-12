@@ -64,10 +64,6 @@
             };
 
             // Check if movie already exists
-            if (await this.GetViewModelByIdAsync<MovieViewModel>(movie.Id) != null)
-            {
-                throw new ArgumentException(string.Format(ExceptionMessages.MovieAlreadyExists, movie.Id));
-            }
 
             await this.moviesRepository.AddAsync(movie);
             await this.moviesRepository.SaveChangesAsync();
