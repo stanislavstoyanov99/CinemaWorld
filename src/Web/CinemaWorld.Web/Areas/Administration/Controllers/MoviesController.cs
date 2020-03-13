@@ -1,12 +1,11 @@
 ﻿namespace CinemaWorld.Web.Areas.Administration.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.InputModels.AdministratorInputModels.Movies;
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Contracts;
-    using CinemaWorld.Web.Infrastructure;
+
     using Microsoft.AspNetCore.Mvc;
 
     public class MoviesController : AdministrationController
@@ -25,12 +24,10 @@
             return this.View();
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var directors = this.directorsService
-                .GetAllDirectorsAsync()
-                .GetAwaiter()
-                .GetResult();
+            var directors = await this.directorsService
+                .GetAllDirectorsAsync();
             var model = new MovieCreateInputModel
             {
                 Directors = directors,
@@ -91,9 +88,17 @@
             return this.RedirectToAction("All", "Movies", new { area = string.Empty });
         }
 
-        public async Task<IActionResult> Remove()
+        public async Task<IActionResult> Remove(int id)
         {
-            return this.View();
+            var movieToDelete = await this.moviesService.GetViewModelByIdAsync<MovieDeleteViewModel>(id);
+            return this.View(movieToDelete);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Remove(MovieDeleteViewModel movieDeleteViewModel)
+        {
+            await this.moviesService.DeleteByIdAsync(movieDeleteViewModel.Id);
+            return this.RedirectToAction("All", "Movies", new { area = string.Empty });
         }
 
         public async Task<IActionResult> GetAll()

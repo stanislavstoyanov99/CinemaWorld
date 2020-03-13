@@ -66,6 +66,7 @@
         public int Length { get; set; }
 
         [Required(ErrorMessage = EmptyFieldLengthError)]
+        [Display(Name = nameof(Director))]
         public int DirectorId { get; set; }
 
         public IEnumerable<DirectorViewModel> Directors { get; set; }

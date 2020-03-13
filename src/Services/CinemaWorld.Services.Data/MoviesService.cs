@@ -79,7 +79,15 @@
 
         public async Task DeleteByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var movie = this.moviesRepository.All().FirstOrDefault(m => m.Id == id);
+            if (movie == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.MovieNotFound, id));
+            }
+
+            movie.IsDeleted = true;
+            this.moviesRepository.Update(movie);
+            await this.moviesRepository.SaveChangesAsync();
         }
 
         public async Task EditAsync(MovieEditViewModel movieEditViewModel)
@@ -117,11 +125,11 @@
             await this.moviesRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllMoviesAsync<T>()
+        public async Task<IEnumerable<TEntity>> GetAllMoviesAsync<TEntity>()
         {
             var movies = await this.moviesRepository
                 .All()
-                .To<T>()
+                .To<TEntity>()
                 .ToListAsync();
 
             return movies;
