@@ -1,17 +1,144 @@
-﻿@model CinemaWorld.Models.ViewModels.Movies.MovieViewModel
+﻿@using CinemaWorld.Models.ViewModels.Movies
+@model IEnumerable<MovieDetailsViewModel>
 @{
     this.ViewData["Title"] = "All movies";
     this.ViewData["ActivePage"] = MovieNavPages.Movies;
 }
 
-<div class="faq">
-    <h4 class="latest-text w3_faq_latest_text w3_latest_text">Movies List</h4>
-    <div class="container">
-        <div class="agileits-news-top">
-            <ol class="breadcrumb">
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li class="active">List</li>
-            </ol>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h4>Movies List</h4>
+            <hr />
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                        <div class="agile-news-table">
+                            <table id="table-breakpoint">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Movie Name</th>
+                                        <th>Year</th>
+                                        <th>Resolution</th>
+                                        <th>Country</th>
+                                        <th>Genre</th>
+                                        <th>Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var movie in Model)
+                                    {
+                                        <tr>
+                                            <td>@movie.Id</td>
+                                            <td class="w3-list-img"><a href="@movie.TrailerPath"><img src="@movie.CoverPath" alt="" /> <span>@movie.Name</span></a></td>
+                                            <td>@movie.DateOfRelease.Year</td>
+                                            <td>@movie.Resolution</td>
+                                            <td class="w3-list-info"><a href="#">@movie.CountryName</a></td>
+                                            <td class="w3-list-info"><a href="#">@movie.Genre</a></td>
+                                            <td>@movie.Rating</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <link rel="stylesheet" type="text/css" href="~/list-css/table-style.css" />
+    <link rel="stylesheet" type="text/css" href="~/list-css/basictable.css" />
+    <script type="text/javascript" src="~/list-js/jquery.basictable.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table').basictable();
+
+            $('#table-breakpoint').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint1').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint2').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint3').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint4').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint5').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint6').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint7').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint8').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint9').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint10').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint11').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint12').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint13').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint14').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint15').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint16').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint17').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint18').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint19').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint20').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint21').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint22').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint23').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint24').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint25').basictable({
+                breakpoint: 768
+            });
+            $('#table-breakpoint26').basictable({
+                breakpoint: 768
+            });
+        });
+    </script>
+}

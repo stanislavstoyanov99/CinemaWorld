@@ -117,11 +117,11 @@
             await this.moviesRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<MovieViewModel>> GetAllMoviesAsync()
+        public async Task<IEnumerable<T>> GetAllMoviesAsync<T>()
         {
             var movies = await this.moviesRepository
                 .All()
-                .To<MovieViewModel>()
+                .To<T>()
                 .ToListAsync();
 
             return movies;

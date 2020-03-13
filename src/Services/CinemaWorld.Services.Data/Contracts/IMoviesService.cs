@@ -12,6 +12,6 @@
 
         Task EditAsync(MovieEditViewModel movieEditViewModel);
 
-        Task<IEnumerable<MovieViewModel>> GetAllMoviesAsync();
+        Task<IEnumerable<T>> GetAllMoviesAsync<T>();
     }
 }

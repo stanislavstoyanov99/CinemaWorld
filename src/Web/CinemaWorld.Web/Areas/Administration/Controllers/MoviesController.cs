@@ -1,10 +1,12 @@
 ﻿namespace CinemaWorld.Web.Areas.Administration.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.InputModels.AdministratorInputModels.Movies;
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Contracts;
+    using CinemaWorld.Web.Infrastructure;
     using Microsoft.AspNetCore.Mvc;
 
     public class MoviesController : AdministrationController
@@ -94,9 +96,10 @@
             return this.View();
         }
 
-        public async Task<IActionResult> GetAll(MovieViewModel movieViewModel)
+        public async Task<IActionResult> GetAll()
         {
-            return this.View(movieViewModel);
+            var movies = await this.moviesService.GetAllMoviesAsync<MovieDetailsViewModel>();
+            return this.View(movies);
         }
     }
 }

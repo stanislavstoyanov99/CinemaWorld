@@ -1,7 +1,5 @@
 ﻿namespace CinemaWorld.Models.Common
 {
-    using System;
-
     public static class ModelValidation
     {
         public const string NameLengthError = "Name must be between {2} and {1} symbols";
@@ -46,6 +44,15 @@
             public const string TrailerPathDisplayName = "Trailer Path";
             public const string CoverPathDisplayName = "Cover Path";
             public const string IMDBLinkDisplayName = "IMDB Link";
+
+            public const string IdDisplayName = "No.";
+            public const string NameDisplayName = "Movie Name";
+            public const string DateOfReleaseAllMoviesDisplayName = "Year";
+        }
+
+        public class Country
+        {
+            public const string NameDisplayName = "Country";
         }
     }
 }
