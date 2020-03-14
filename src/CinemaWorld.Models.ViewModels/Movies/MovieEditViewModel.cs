@@ -4,13 +4,13 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using CinemaWorld.Data.Models;
     using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Services.Mapping;
 
     using static Common.ModelValidation;
     using static Common.ModelValidation.Movie;
 
+    using Director = CinemaWorld.Data.Models.Director;
     using Movie = CinemaWorld.Data.Models.Movie;
 
     public class MovieEditViewModel : IMapFrom<Movie>, IMapFrom<Director>

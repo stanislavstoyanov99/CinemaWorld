@@ -29,7 +29,7 @@
             this.directorsRepository = directorsRepository;
         }
 
-        public async Task<MovieViewModel> CreateAsync(MovieCreateInputModel movieCreateInputModel)
+        public async Task<MovieDetailsViewModel> CreateAsync(MovieCreateInputModel movieCreateInputModel)
         {
             if (!Enum.TryParse(movieCreateInputModel.CinemaCategory, true, out CinemaCategory cinemaCategory))
             {
@@ -63,23 +63,26 @@
                 Director = director,
             };
 
-            // Check if movie already exists
+            bool isMovieExists = await this.moviesRepository.All().AnyAsync(x => x.Id == movie.Id);
+            if (isMovieExists)
+            {
+                throw new ArgumentException(
+                    string.Format(ExceptionMessages.MovieAlreadyExists, movie.Id));
+            }
 
             await this.moviesRepository.AddAsync(movie);
             await this.moviesRepository.SaveChangesAsync();
 
-            var viewModel = this.moviesRepository
-                .All()
-                .Where(x => x.Id == movie.Id)
-                .To<MovieViewModel>()
-                .FirstOrDefault();
+            var viewModel = this.GetViewModelByIdAsync<MovieDetailsViewModel>(movie.Id)
+                .GetAwaiter()
+                .GetResult();
 
             return viewModel;
         }
 
         public async Task DeleteByIdAsync(int id)
         {
-            var movie = this.moviesRepository.All().FirstOrDefault(m => m.Id == id);
+            var movie = await this.moviesRepository.All().FirstOrDefaultAsync(m => m.Id == id);
             if (movie == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.MovieNotFound, id));
@@ -125,11 +128,11 @@
             await this.moviesRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllMoviesAsync<TEntity>()
+        public async Task<IEnumerable<TViewModel>> GetAllMoviesAsync<TViewModel>()
         {
             var movies = await this.moviesRepository
                 .All()
-                .To<TEntity>()
+                .To<TViewModel>()
                 .ToListAsync();
 
             return movies;

@@ -48,8 +48,8 @@
                                             <td class="w3-list-info"><a href="#">@movie.Genre</a></td>
                                             <td>@movie.Rating</td>
                                             <td>
-                                                <a asp-action="Edit" asp-route-id="@movie.Id">Edit</a>
-                                                <a asp-action="Remove" asp-route-id="@movie.Id">Remove</a>
+                                                <a class="badge badge-success" asp-action="Edit" asp-route-id="@movie.Id">Edit</a>
+                                                <a class="badge badge-danger" asp-action="Remove" asp-route-id="@movie.Id">Remove</a>
                                             </td>
                                         </tr>
                                     }

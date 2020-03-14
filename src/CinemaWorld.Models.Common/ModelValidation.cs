@@ -54,5 +54,10 @@
         {
             public const string NameDisplayName = "Country";
         }
+
+        public class Director
+        {
+            public const string FullNameDisplayName = "Full Name";
+        }
     }
 }

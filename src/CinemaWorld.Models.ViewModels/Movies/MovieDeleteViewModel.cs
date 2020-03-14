@@ -3,14 +3,13 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    using AutoMapper;
-
     using CinemaWorld.Data.Models;
+    using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Services.Mapping;
 
     using static CinemaWorld.Models.Common.ModelValidation.Movie;
 
-    public class MovieDeleteViewModel : IMapFrom<Movie>, IMapFrom<Director>, IHaveCustomMappings
+    public class MovieDeleteViewModel : IMapFrom<Movie>, IMapFrom<Director>
     {
         public int Id { get; set; }
 
@@ -18,6 +17,8 @@
 
         [Display(Name = DateOfReleaseDisplayName)]
         public DateTime DateOfRelease { get; set; }
+
+        public string DateOfReleaseAsString => this.DateOfRelease.ToShortDateString();
 
         public string Resolution { get; set; }
 
@@ -42,12 +43,6 @@
         public int Length { get; set; }
 
         [Display(Name = nameof(Director))]
-        public string DirectorName { get; set; }
-
-        // TODO
-        public void CreateMappings(IProfileExpression configuration)
-        {
-
-        }
+        public DirectorViewModel Director { get; set; }
     }
 }

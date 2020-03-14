@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.InputModels.AdministratorInputModels.Movies;
+    using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Contracts;
 
@@ -27,7 +28,7 @@
         public async Task<IActionResult> Create()
         {
             var directors = await this.directorsService
-                .GetAllDirectorsAsync();
+                .GetAllDirectorsAsync<DirectorViewModel>();
             var model = new MovieCreateInputModel
             {
                 Directors = directors,
@@ -41,30 +42,24 @@
         {
             if (!this.ModelState.IsValid)
             {
-                var directors = this.directorsService
-                .GetAllDirectorsAsync()
-                .GetAwaiter()
-                .GetResult();
+                var directors = await this.directorsService
+                    .GetAllDirectorsAsync<DirectorViewModel>();
                 movieCreateInputModel.Directors = directors;
+
                 return this.View(movieCreateInputModel);
             }
 
             await this.moviesService.CreateAsync(movieCreateInputModel);
-            return this.RedirectToAction("All", "Movies", new { area = string.Empty });
+            return this.RedirectToAction("GetAll", "Movies", new { area = "Administration" });
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var directors = this.directorsService
-                .GetAllDirectorsAsync()
-                .GetAwaiter()
-                .GetResult();
+            var directors = await this.directorsService
+                .GetAllDirectorsAsync<DirectorViewModel>();
 
-            var movieToEdit = this.moviesService
-                .GetViewModelByIdAsync<MovieEditViewModel>(id)
-                .GetAwaiter()
-                .GetResult();
-            movieToEdit.Id = id;
+            var movieToEdit = await this.moviesService
+                .GetViewModelByIdAsync<MovieEditViewModel>(id);
             movieToEdit.Directors = directors;
 
             return this.View(movieToEdit);
@@ -75,17 +70,15 @@
         {
             if (!this.ModelState.IsValid)
             {
-                var directors = this.directorsService
-                .GetAllDirectorsAsync()
-                .GetAwaiter()
-                .GetResult();
+                var directors = await this.directorsService
+                .GetAllDirectorsAsync<DirectorViewModel>();
 
                 movieEditViewModel.Directors = directors;
                 return this.View(movieEditViewModel);
             }
 
             await this.moviesService.EditAsync(movieEditViewModel);
-            return this.RedirectToAction("All", "Movies", new { area = string.Empty });
+            return this.RedirectToAction("GetAll", "Movies", new { area = "Administration" });
         }
 
         public async Task<IActionResult> Remove(int id)
@@ -98,7 +91,7 @@
         public async Task<IActionResult> Remove(MovieDeleteViewModel movieDeleteViewModel)
         {
             await this.moviesService.DeleteByIdAsync(movieDeleteViewModel.Id);
-            return this.RedirectToAction("All", "Movies", new { area = string.Empty });
+            return this.RedirectToAction("GetAll", "Movies", new { area = "Administration" });
         }
 
         public async Task<IActionResult> GetAll()

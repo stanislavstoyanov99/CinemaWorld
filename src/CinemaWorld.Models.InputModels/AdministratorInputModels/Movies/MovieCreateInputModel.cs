@@ -3,9 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Threading.Tasks;
 
-    using CinemaWorld.Data.Models;
     using CinemaWorld.Models.ViewModels.Directors;
 
     using static Common.ModelValidation;

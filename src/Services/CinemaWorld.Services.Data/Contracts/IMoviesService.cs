@@ -8,10 +8,10 @@
 
     public interface IMoviesService : IBaseDataService
     {
-        Task<MovieViewModel> CreateAsync(MovieCreateInputModel movieCreateInputModel);
+        Task<MovieDetailsViewModel> CreateAsync(MovieCreateInputModel movieCreateInputModel);
 
         Task EditAsync(MovieEditViewModel movieEditViewModel);
 
-        Task<IEnumerable<T>> GetAllMoviesAsync<T>();
+        Task<IEnumerable<TEntity>> GetAllMoviesAsync<TEntity>();
     }
 }

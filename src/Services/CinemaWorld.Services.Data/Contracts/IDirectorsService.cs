@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using System.Web.Mvc;
 
     using CinemaWorld.Models.InputModels.AdministratorInputModels.Directors;
     using CinemaWorld.Models.ViewModels.Directors;
@@ -13,6 +12,6 @@
 
         // Task EditAsync(DirectorEditViewModel directorEditViewModel);
 
-        Task<IEnumerable<DirectorViewModel>> GetAllDirectorsAsync();
+        Task<IEnumerable<TViewModel>> GetAllDirectorsAsync<TViewModel>();
     }
 }

@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-6">
         <form asp-area="Administration" asp-controller="Movies" asp-action="Edit" method="post">
-            <h4>Edit @Model.Name movie with id: @Model.Id</h4>
+            <h4>Edit <b>@Model.Name</b> movie with id: @Model.Id</h4>
             <hr />
             <div class="form-group">
                 <label asp-for="Name"></label>
@@ -44,7 +44,8 @@
                 <label asp-for="CinemaCategory"></label>
                 <select class="form-control" asp-for="CinemaCategory"
                         asp-items="@(Html.GetEnumSelectList<CinemaCategory>())">
-                    <option selected="" disabled="">Select cinema category</option>
+                    <option selected="">@Model.CinemaCategory</option>
+                    <option disabled="">Select cinema category</option>
                 </select>
                 <span asp-validation-for="CinemaCategory" class="text-danger"></span>
             </div>
@@ -80,6 +81,7 @@
                 <span asp-validation-for="DirectorId" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-success">Edit movie</button>
+            <button asp-area="Administration" asp-controller="Movies" asp-action="GetAll" class="btn btn-primary">Back to all movies</button>
         </form>
     </div>
 </div>
