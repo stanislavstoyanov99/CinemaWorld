@@ -3,14 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using AutoMapper;
     using CinemaWorld.Models.ViewModels.Directors;
+    using CinemaWorld.Models.ViewModels.Genres;
     using CinemaWorld.Services.Mapping;
 
     using static Common.ModelValidation;
     using static Common.ModelValidation.Movie;
 
     using Director = CinemaWorld.Data.Models.Director;
+    using Genre = CinemaWorld.Data.Models.Genre;
     using Movie = CinemaWorld.Data.Models.Movie;
 
     public class MovieEditViewModel : IMapFrom<Movie>, IMapFrom<Director>
@@ -69,6 +71,12 @@
         [Display(Name = nameof(Director))]
         public int DirectorId { get; set; }
 
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [Display(Name = nameof(Genre))]
+        public int GenreId { get; set; }
+
         public IEnumerable<DirectorViewModel> Directors { get; set; }
+
+        public IEnumerable<GenreDetailsViewModel> Genres { get; set; }
     }
 }

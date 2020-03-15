@@ -9,5 +9,9 @@
         public const string DirectorNotFound = "Director with id {0} is not found.";
 
         public const string InvalidCinemaCategoryType = "Cinema category type {0} is invalid.";
+
+        public const string GenreNotFound = "Genre with id {0} is not found.";
+
+        public const string GenreAlreadyExists = "Genre with id {0} already exists";
     }
 }

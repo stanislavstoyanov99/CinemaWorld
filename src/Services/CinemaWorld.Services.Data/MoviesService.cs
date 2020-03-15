@@ -20,13 +20,16 @@
     {
         private readonly IDeletableEntityRepository<Movie> moviesRepository;
         private readonly IDeletableEntityRepository<Director> directorsRepository;
+        private readonly IDeletableEntityRepository<MovieGenre> movieGenresRepository;
 
         public MoviesService(
             IDeletableEntityRepository<Movie> moviesRepository,
-            IDeletableEntityRepository<Director> directorsRepository)
+            IDeletableEntityRepository<Director> directorsRepository,
+            IDeletableEntityRepository<MovieGenre> movieGenresRepository)
         {
             this.moviesRepository = moviesRepository;
             this.directorsRepository = directorsRepository;
+            this.movieGenresRepository = movieGenresRepository;
         }
 
         public async Task<MovieDetailsViewModel> CreateAsync(MovieCreateInputModel movieCreateInputModel)
@@ -63,8 +66,8 @@
                 Director = director,
             };
 
-            bool isMovieExists = await this.moviesRepository.All().AnyAsync(x => x.Id == movie.Id);
-            if (isMovieExists)
+            bool doesMovieExist = await this.moviesRepository.All().AnyAsync(x => x.Id == movie.Id);
+            if (doesMovieExist)
             {
                 throw new ArgumentException(
                     string.Format(ExceptionMessages.MovieAlreadyExists, movie.Id));
@@ -72,6 +75,15 @@
 
             await this.moviesRepository.AddAsync(movie);
             await this.moviesRepository.SaveChangesAsync();
+
+            var movieGenre = new MovieGenre
+            {
+                MovieId = movie.Id,
+                GenreId = movieCreateInputModel.GenreId,
+            };
+
+            await this.movieGenresRepository.AddAsync(movieGenre);
+            await this.movieGenresRepository.SaveChangesAsync();
 
             var viewModel = this.GetViewModelByIdAsync<MovieDetailsViewModel>(movie.Id)
                 .GetAwaiter()
@@ -89,6 +101,7 @@
             }
 
             movie.IsDeleted = true;
+            movie.DeletedOn = DateTime.UtcNow;
             this.moviesRepository.Update(movie);
             await this.moviesRepository.SaveChangesAsync();
         }
@@ -104,6 +117,10 @@
             var movie = await this.moviesRepository
                 .All()
                 .FirstOrDefaultAsync(m => m.Id == movieEditViewModel.Id);
+
+            var movieGenre = await this.movieGenresRepository
+                .All()
+                .FirstOrDefaultAsync(m => m.MovieId == movieEditViewModel.Id);
 
             if (movie == null)
             {
@@ -126,6 +143,12 @@
 
             this.moviesRepository.Update(movie);
             await this.moviesRepository.SaveChangesAsync();
+
+            movieGenre.MovieId = movieEditViewModel.Id;
+            movieGenre.GenreId = movieEditViewModel.GenreId;
+
+            this.movieGenresRepository.Update(movieGenre);
+            await this.movieGenresRepository.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllMoviesAsync<TViewModel>()

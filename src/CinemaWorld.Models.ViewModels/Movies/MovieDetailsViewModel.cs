@@ -6,11 +6,12 @@
 
     using CinemaWorld.Data.Models;
     using CinemaWorld.Data.Models.Enumerations;
+    using CinemaWorld.Models.ViewModels.Genres;
     using CinemaWorld.Services.Mapping;
 
     using static Common.ModelValidation.Movie;
 
-    public class MovieDetailsViewModel : IMapFrom<Movie>
+    public class MovieDetailsViewModel : IMapFrom<Movie>, IMapFrom<Genre>
     {
         [Display(Name = IdDisplayName)]
         public int Id { get; set; }
@@ -26,7 +27,7 @@
         [Display(Name = Common.ModelValidation.Country.NameDisplayName)]
         public string CountryName { get; set; }
 
-        public IEnumerable<string> Genre { get; set; }
+        public IEnumerable<GenreDetailsViewModel> Genre { get; set; }
 
         public decimal Rating { get; set; }
 

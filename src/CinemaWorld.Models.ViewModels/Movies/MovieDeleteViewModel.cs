@@ -5,11 +5,12 @@
 
     using CinemaWorld.Data.Models;
     using CinemaWorld.Models.ViewModels.Directors;
+    using CinemaWorld.Models.ViewModels.Genres;
     using CinemaWorld.Services.Mapping;
 
     using static CinemaWorld.Models.Common.ModelValidation.Movie;
 
-    public class MovieDeleteViewModel : IMapFrom<Movie>, IMapFrom<Director>
+    public class MovieDeleteViewModel : IMapFrom<Movie>, IMapFrom<Director>, IMapFrom<Genre>
     {
         public int Id { get; set; }
 
@@ -44,5 +45,8 @@
 
         [Display(Name = nameof(Director))]
         public DirectorViewModel Director { get; set; }
+
+        [Display(Name = nameof(Genre))]
+        public GenreDetailsViewModel Genre { get; set; }
     }
 }

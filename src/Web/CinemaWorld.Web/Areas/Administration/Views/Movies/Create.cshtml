@@ -79,6 +79,17 @@
                 </select>
                 <span asp-validation-for="DirectorId" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="GenreId"></label>
+                <select asp-for="GenreId" class="form-control">
+                    <option selected="" disabled="">Select genre</option>
+                    @foreach (var genre in Model.Genres)
+                    {
+                        <option value="@genre.Id">@genre.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="GenreId" class="text-danger"></span>
+            </div>
             <button type="submit" class="btn btn-success">Create movie</button>
         </form>
     </div>

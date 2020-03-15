@@ -1,0 +1,24 @@
+﻿@model CinemaWorld.Models.InputModels.AdministratorInputModels.Genres.GenreCreateInputModel
+@{
+    this.ViewData["Title"] = "Create Genre";
+    this.ViewData["ActivePage"] = GenreNavPages.Genres;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Genres" asp-action="Create" method="post">
+            <h4>Create new genre</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Create genre</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

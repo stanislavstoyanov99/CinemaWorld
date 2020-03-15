@@ -57,7 +57,16 @@
 
         public class Director
         {
-            public const string FullNameDisplayName = "Full Name";
+            public const string FullNameDisplayName = "Director Full Name";
+            public const string DirectorIdError = "Please select director name.";
+        }
+
+        public class Genre
+        {
+            public const int NameMinLength = 3;
+            public const int NameMaxLength = 30;
+            public const string NameDisplayName = "Genre Name";
+            public const string GenreIdError = "Please select genre name.";
         }
     }
 }

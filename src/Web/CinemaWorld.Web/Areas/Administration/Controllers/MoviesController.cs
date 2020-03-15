@@ -4,6 +4,7 @@
 
     using CinemaWorld.Models.InputModels.AdministratorInputModels.Movies;
     using CinemaWorld.Models.ViewModels.Directors;
+    using CinemaWorld.Models.ViewModels.Genres;
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Contracts;
 
@@ -13,11 +14,13 @@
     {
         private readonly IMoviesService moviesService;
         private readonly IDirectorsService directorsService;
+        private readonly IGenresService genresService;
 
-        public MoviesController(IMoviesService moviesService, IDirectorsService directorsService)
+        public MoviesController(IMoviesService moviesService, IDirectorsService directorsService, IGenresService genresService)
         {
             this.moviesService = moviesService;
             this.directorsService = directorsService;
+            this.genresService = genresService;
         }
 
         public IActionResult Index()
@@ -29,9 +32,12 @@
         {
             var directors = await this.directorsService
                 .GetAllDirectorsAsync<DirectorViewModel>();
+            var genres = await this.genresService
+                .GetAllGenresAsync<GenreDetailsViewModel>();
             var model = new MovieCreateInputModel
             {
                 Directors = directors,
+                Genres = genres,
             };
 
             return this.View(model);
@@ -44,7 +50,11 @@
             {
                 var directors = await this.directorsService
                     .GetAllDirectorsAsync<DirectorViewModel>();
+                var genres = await this.genresService
+                    .GetAllGenresAsync<GenreDetailsViewModel>();
+
                 movieCreateInputModel.Directors = directors;
+                movieCreateInputModel.Genres = genres;
 
                 return this.View(movieCreateInputModel);
             }
@@ -57,10 +67,14 @@
         {
             var directors = await this.directorsService
                 .GetAllDirectorsAsync<DirectorViewModel>();
+            var genres = await this.genresService
+                .GetAllGenresAsync<GenreDetailsViewModel>();
 
             var movieToEdit = await this.moviesService
                 .GetViewModelByIdAsync<MovieEditViewModel>(id);
+
             movieToEdit.Directors = directors;
+            movieToEdit.Genres = genres;
 
             return this.View(movieToEdit);
         }
@@ -71,9 +85,13 @@
             if (!this.ModelState.IsValid)
             {
                 var directors = await this.directorsService
-                .GetAllDirectorsAsync<DirectorViewModel>();
+                    .GetAllDirectorsAsync<DirectorViewModel>();
+
+                var genres = await this.genresService
+                    .GetAllGenresAsync<GenreDetailsViewModel>();
 
                 movieEditViewModel.Directors = directors;
+                movieEditViewModel.Genres = genres;
                 return this.View(movieEditViewModel);
             }
 

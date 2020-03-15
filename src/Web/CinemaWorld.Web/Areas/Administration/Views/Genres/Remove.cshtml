@@ -1,0 +1,24 @@
+﻿@model CinemaWorld.Models.ViewModels.Genres.GenreDetailsViewModel
+@{
+    this.ViewData["Title"] = "Delete Genre";
+    this.ViewData["ActivePage"] = GenreNavPages.Genres;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Genres" asp-action="Remove" method="post">
+            <h4 class="text-danger">Are you sure you want to delete <b>@Model.Name</b> genre?</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" disabled="" />
+            </div>
+            <button type="submit" class="btn btn-danger">Delete genre</button>
+            <button asp-area="Administration" asp-controller="Genres" asp-action="GetAll" class="btn btn-primary">Back to all genres</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
