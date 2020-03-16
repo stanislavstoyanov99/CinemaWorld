@@ -1,0 +1,47 @@
+﻿#formLoginAJAX {
+    position: relative;
+}
+
+.shadow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: transparent;
+    display: none;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+}
+
+.lds-dual-ring {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 4px;
+    border-radius: 50%;
+    border: 4px solid #ff8d1b;
+    border-color: #ff8d1b transparent #ff8d1b transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

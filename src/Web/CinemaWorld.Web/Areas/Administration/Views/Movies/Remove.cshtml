@@ -58,8 +58,11 @@
                 <input asp-for="Director.FullName" class="form-control" disabled="" />
             </div>
             <div class="form-group">
-                <label asp-for="MovieGenre.GenreName"></label>
-                <input asp-for="MovieGenre.GenreName" class="form-control" disabled="" />
+                <label asp-for="MovieGenres"></label>
+                @foreach (var movieGenre in Model.MovieGenres)
+                {
+                    <p class="p-3 mb-2 bg-success text-white">@movieGenre.GenreName</p>
+                }
             </div>
             <button type="submit" class="btn btn-danger">Delete movie</button>
             <button asp-area="Administration" asp-controller="Movies" asp-action="GetAll" class="btn btn-primary">Back to all movies</button>

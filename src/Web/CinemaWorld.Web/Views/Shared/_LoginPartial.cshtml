@@ -4,12 +4,14 @@
 @inject SignInManager<CinemaWorldUser> SignInManager
 @inject UserManager<CinemaWorldUser> UserManager
 
+<link href="~/css/spinner-loader.css" rel="stylesheet" asp-append-version="true">
+
 @if (this.SignInManager.IsSignedIn(this.User))
 {
     <div class="nav-item">
         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @(this.User.Identity.Name)!</a>
     </div>
-    if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
     {
         <div class="nav-item">
             <a class="nav-link text-dark" asp-area="Administration" asp-controller="Movies" asp-action="Index" title="Admin">Admin Dashboard</a>
@@ -48,6 +50,10 @@ else
                                 <div class="form">
                                     <h3>Login to your account</h3>
                                     <form id="formLoginAJAX" asp-area="Identity" asp-page="/Account/Login" method="post">
+                                        <div class="shadow">
+                                            <div class="lds-dual-ring"></div>
+                                        </div>
+                                        <span id="login-error" class="text-danger" style="display: none"></span>
                                         <input type="text" name="Username" placeholder="Username" required="">
                                         <input type="password" name="Password" placeholder="Password" required="">
                                         <input type="submit" value="Login">
@@ -88,6 +94,43 @@ else
                 'padding-bottom': 'toggle',
                 opacity: "toggle"
             }, "slow");
+        });
+    </script>
+    <script>
+        $('#formLoginAJAX').submit(function (event) {
+            event.preventDefault();
+            var res = { success: false, message: '', action: '' };
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: $('#formLoginAJAX').attr('action'),
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: $('#formLoginAJAX').serialize(),
+                beforeSend: function () {
+                    $('.shadow').show(900);
+                },
+                success: function (data) {
+                    res = data;
+                },
+                error: function (errorThrown) {
+                    res.message = 'Request failed: ' + errorThrown;
+                },
+                complete: function () {
+                    $('.shadow').hide(900);
+                    if (res.success) {
+                        $('#myModal').modal('hide');
+                        window.location = res.action;
+                    }
+                    else {
+                        let span = document.getElementById("login-error");
+                        span.style.display = "block";
+                        span.style.marginBottom = "2.5vh"; // 2,5% from virtual screen
+                        span.innerHTML = res.message;
+                    }
+                }
+            });
         });
     </script>
 }

@@ -57,11 +57,12 @@ input[type="submit"],.agileinfo_chat a,.w3ls_footer_grid1_left p a,.w3l_sign_in_
     text-align: right;
     line-height: 0;
 }
-.w3_search{
+.w3_search {
 	float: left;
-    width: 40%;
-    margin-left: 9em;
+	width: 40%;
+	margin-left: 9em;
 	margin-top: .7em;
+	margin-right: 5vw;
 }
 .w3_search input[type="text"]{
 	outline: none;

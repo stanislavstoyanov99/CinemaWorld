@@ -1,5 +1,6 @@
 ﻿namespace CinemaWorld.Web.Areas.Identity.Pages.Account
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -11,6 +12,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.Extensions.Logging;
 
@@ -69,6 +71,7 @@
         {
             returnUrl = returnUrl ?? this.Url.Content("~/");
 
+            var returnObj = new ReturnObject();
             if (this.ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -79,7 +82,9 @@
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User logged in.");
-                    return this.LocalRedirect(returnUrl);
+                    returnObj.Success = true;
+                    returnObj.Message = "Logged-in";
+                    returnObj.Action = returnUrl;
                 }
 
                 if (result.RequiresTwoFactor)
@@ -95,12 +100,32 @@
                 else
                 {
                     this.ModelState.AddModelError(string.Empty, "The username or password supplied are incorrect. Please check your spelling and try again.");
-                    return this.Page();
                 }
             }
 
-            // If we got this far, something failed, redisplay form
-            return this.Page();
+            if (!returnObj.Success) //login was unsuccessful, return model errors
+            {
+                returnObj.Message = this.ModelErorrs(this.ModelState);
+            }
+
+            var jsonResult = new JsonResult(returnObj);
+            return jsonResult;
+        }
+
+        public string ModelErorrs(ModelStateDictionary modelState)
+        {
+            return string.Join(Environment.NewLine, modelState.Values
+                .SelectMany(x => x.Errors)
+                .Select(x => x.ErrorMessage));
+        }
+
+        public class ReturnObject
+        {
+            public bool Success { get; set; }
+
+            public string Message { get; set; }
+
+            public string Action { get; set; }
         }
     }
 }

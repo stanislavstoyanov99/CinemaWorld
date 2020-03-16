@@ -1,11 +1,11 @@
 ﻿namespace CinemaWorld.Models.ViewModels.Movies
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using CinemaWorld.Data.Models;
     using CinemaWorld.Models.ViewModels.Directors;
-    using CinemaWorld.Models.ViewModels.Genres;
     using CinemaWorld.Services.Mapping;
 
     using static CinemaWorld.Models.Common.ModelValidation.Movie;
@@ -46,7 +46,7 @@
         [Display(Name = nameof(Director))]
         public DirectorViewModel Director { get; set; }
 
-        [Display(Name = nameof(Genre))]
-        public MovieGenreViewModel MovieGenre { get; set; }
+        [Display(Name = "Movie Genres")]
+        public IEnumerable<MovieGenreViewModel> MovieGenres { get; set; }
     }
 }

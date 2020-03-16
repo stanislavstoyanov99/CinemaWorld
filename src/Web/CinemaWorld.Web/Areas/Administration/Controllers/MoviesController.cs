@@ -70,7 +70,6 @@
                 .GetAllDirectorsAsync<DirectorViewModel>();
             var genres = await this.genresService
                 .GetAllGenresAsync<GenreDetailsViewModel>();
-
             var movieToEdit = await this.moviesService
                 .GetViewModelByIdAsync<MovieEditViewModel>(id);
 
@@ -94,11 +93,6 @@
                 movieEditViewModel.Directors = directors;
                 movieEditViewModel.Genres = genres;
 
-                foreach (var genreId in movieEditViewModel.SelectedGenres)
-                {
-                    movieEditViewModel.SelectedGenres.Add(genreId);
-                }
-
                 return this.View(movieEditViewModel);
             }
 
@@ -109,8 +103,8 @@
         public async Task<IActionResult> Remove(int id)
         {
             var movieToDelete = await this.moviesService.GetViewModelByIdAsync<MovieDeleteViewModel>(id);
-            var movieGenreToDelete = await this.moviesService.GetGenreIdAsync(id);
-            movieToDelete.MovieGenre = movieGenreToDelete;
+            var movieGenresToDelete = await this.moviesService.GetAllMovieGenresAsync<MovieGenreViewModel>(id);
+            movieToDelete.MovieGenres = movieGenresToDelete;
 
             return this.View(movieToDelete);
         }
@@ -118,8 +112,9 @@
         [HttpPost]
         public async Task<IActionResult> Remove(MovieDeleteViewModel movieDeleteViewModel)
         {
-            var movieGenreToDelete = await this.moviesService.GetGenreIdAsync(movieDeleteViewModel.Id);
-            movieDeleteViewModel.MovieGenre = movieGenreToDelete;
+            var movieGenresToDelete = await this.moviesService.
+                GetAllMovieGenresAsync<MovieGenreViewModel>(movieDeleteViewModel.Id);
+            movieDeleteViewModel.MovieGenres = movieGenresToDelete;
 
             await this.moviesService.DeleteByIdAsync(movieDeleteViewModel.Id);
             return this.RedirectToAction("GetAll", "Movies", new { area = "Administration" });

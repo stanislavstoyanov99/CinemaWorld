@@ -1577,10 +1577,17 @@ pre code {
   overflow-y: scroll;
 }
 .container {
-  padding-right: 0px;
-  padding-left: 0px;
-  margin-right: auto;
-  margin-left: auto;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.container_addon {
+    overflow: hidden;
+    vertical-align: middle;
+    padding: 2vh 0 2vh 0;
+    min-height: 40vh;
+    height: auto;
 }
 @media (min-width: 768px) {
   .container {

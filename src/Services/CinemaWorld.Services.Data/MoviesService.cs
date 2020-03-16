@@ -149,12 +149,19 @@
             this.moviesRepository.Update(movie);
             await this.moviesRepository.SaveChangesAsync();
 
-            foreach (var movieGenre in movieGenres)
-            {
-                // TODO
-            }
+            // TODO
+            //foreach (var movieGenre in movieGenres)
+            //{
+            //    foreach (var genreId in movieEditViewModel.SelectedGenres)
+            //    {
+            //        if (genreId != movieGenre.GenreId)
+            //        {
+            //            movieGenre.GenreId = genreId;
+            //            this.movieGenresRepository.Update(movieGenre);
+            //        }
+            //    }
+            //}
 
-            this.movieGenresRepository.Update(movieGenre);
             await this.movieGenresRepository.SaveChangesAsync();
         }
 
@@ -166,6 +173,17 @@
                 .ToListAsync();
 
             return movies;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetAllMovieGenresAsync<TViewModel>(int movieId)
+        {
+            var movieGenres = await this.movieGenresRepository
+                .All()
+                .Where(x => x.MovieId == movieId)
+                .To<TViewModel>()
+                .ToListAsync();
+
+            return movieGenres;
         }
 
         public async Task<MovieGenreViewModel> GetGenreIdAsync(int movieId)
