@@ -45,7 +45,12 @@
                                             <td>@movie.DateOfRelease.Year</td>
                                             <td>@movie.Resolution</td>
                                             <td class="w3-list-info"><a href="#">@movie.CountryName</a></td>
-                                            <td class="w3-list-info"><a href="#">@movie.Genre</a></td>
+                                            <td class="w3-list-info">
+                                                @foreach (var genre in movie.MovieGenres)
+                                                {
+                                                    <a href="#">@genre.GenreName</a>
+                                                }
+                                            </td>
                                             <td>@movie.Rating</td>
                                             <td>
                                                 <a class="badge badge-success" asp-action="Edit" asp-route-id="@movie.Id">Edit</a>

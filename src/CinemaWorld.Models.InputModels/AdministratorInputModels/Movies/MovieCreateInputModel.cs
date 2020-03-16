@@ -4,18 +4,21 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using AutoMapper;
+
     using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Models.ViewModels.Genres;
+    using CinemaWorld.Models.ViewModels.Movies;
+    using CinemaWorld.Services.Mapping;
 
     using static Common.ModelValidation;
     using static Common.ModelValidation.Director;
-    using static Common.ModelValidation.Genre;
     using static Common.ModelValidation.Movie;
 
     public class MovieCreateInputModel
     {
         [Required(ErrorMessage = EmptyFieldLengthError)]
-        [StringLength(Movie.NameMaxLength, MinimumLength = Movie.NameMinLength, ErrorMessage = NameLengthError)]
+        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = NameLengthError)]
         public string Name { get; set; }
 
         [Required(ErrorMessage = EmptyFieldLengthError)]
@@ -66,12 +69,10 @@
         [Display(Name = nameof(Director))]
         public int DirectorId { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = GenreIdError)]
-        [Display(Name = nameof(Genre))]
-        public int GenreId { get; set; }
-
         public IEnumerable<DirectorViewModel> Directors { get; set; }
 
         public IEnumerable<GenreDetailsViewModel> Genres { get; set; }
+
+        public IList<int> SelectedGenres { get; set; }
     }
 }

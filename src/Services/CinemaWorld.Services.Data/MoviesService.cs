@@ -76,13 +76,17 @@
             await this.moviesRepository.AddAsync(movie);
             await this.moviesRepository.SaveChangesAsync();
 
-            var movieGenre = new MovieGenre
+            foreach (var genreId in movieCreateInputModel.SelectedGenres)
             {
-                MovieId = movie.Id,
-                GenreId = movieCreateInputModel.GenreId,
-            };
+                var movieGenre = new MovieGenre
+                {
+                    MovieId = movie.Id,
+                    GenreId = genreId,
+                };
 
-            await this.movieGenresRepository.AddAsync(movieGenre);
+                await this.movieGenresRepository.AddAsync(movieGenre);
+            }
+
             await this.movieGenresRepository.SaveChangesAsync();
 
             var viewModel = this.GetViewModelByIdAsync<MovieDetailsViewModel>(movie.Id)
@@ -118,9 +122,10 @@
                 .All()
                 .FirstOrDefaultAsync(m => m.Id == movieEditViewModel.Id);
 
-            var movieGenre = await this.movieGenresRepository
+            var movieGenres = await this.movieGenresRepository
                 .All()
-                .FirstOrDefaultAsync(m => m.MovieId == movieEditViewModel.Id);
+                .Where(m => m.MovieId == movieEditViewModel.Id)
+                .ToListAsync();
 
             if (movie == null)
             {
@@ -144,8 +149,10 @@
             this.moviesRepository.Update(movie);
             await this.moviesRepository.SaveChangesAsync();
 
-            movieGenre.MovieId = movieEditViewModel.Id;
-            movieGenre.GenreId = movieEditViewModel.GenreId;
+            foreach (var movieGenre in movieGenres)
+            {
+                // TODO
+            }
 
             this.movieGenresRepository.Update(movieGenre);
             await this.movieGenresRepository.SaveChangesAsync();
@@ -159,6 +166,22 @@
                 .ToListAsync();
 
             return movies;
+        }
+
+        public async Task<MovieGenreViewModel> GetGenreIdAsync(int movieId)
+        {
+            var movieGenre = await this.movieGenresRepository
+                .All()
+                .To<MovieGenreViewModel>()
+                .FirstOrDefaultAsync(x => x.MovieId == movieId);
+
+            if (movieGenre == null)
+            {
+                throw new NullReferenceException(
+                    string.Format(ExceptionMessages.MovieGenreNotFound, movieId, movieGenre.GenreId));
+            }
+
+            return movieGenre;
         }
 
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)

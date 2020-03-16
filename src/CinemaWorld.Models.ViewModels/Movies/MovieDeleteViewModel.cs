@@ -47,6 +47,6 @@
         public DirectorViewModel Director { get; set; }
 
         [Display(Name = nameof(Genre))]
-        public GenreDetailsViewModel Genre { get; set; }
+        public MovieGenreViewModel MovieGenre { get; set; }
     }
 }

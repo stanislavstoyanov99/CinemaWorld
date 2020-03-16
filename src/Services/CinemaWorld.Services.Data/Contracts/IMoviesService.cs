@@ -13,5 +13,7 @@
         Task EditAsync(MovieEditViewModel movieEditViewModel);
 
         Task<IEnumerable<TEntity>> GetAllMoviesAsync<TEntity>();
+
+        Task<MovieGenreViewModel> GetGenreIdAsync(int movieId);
     }
 }

@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CinemaWorld.Common\CinemaWorld.Common.csproj" />
     <ProjectReference Include="..\CinemaWorld.Models.Common\CinemaWorld.Models.Common.csproj" />
     <ProjectReference Include="..\CinemaWorld.Models.ViewModels\CinemaWorld.Models.ViewModels.csproj" />
     <ProjectReference Include="..\Data\CinemaWorld.Data.Models\CinemaWorld.Data.Models.csproj" />
