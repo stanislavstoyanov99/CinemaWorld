@@ -96,20 +96,6 @@
             return viewModel;
         }
 
-        public async Task DeleteByIdAsync(int id)
-        {
-            var movie = await this.moviesRepository.All().FirstOrDefaultAsync(m => m.Id == id);
-            if (movie == null)
-            {
-                throw new NullReferenceException(string.Format(ExceptionMessages.MovieNotFound, id));
-            }
-
-            movie.IsDeleted = true;
-            movie.DeletedOn = DateTime.UtcNow;
-            this.moviesRepository.Update(movie);
-            await this.moviesRepository.SaveChangesAsync();
-        }
-
         public async Task EditAsync(MovieEditViewModel movieEditViewModel)
         {
             if (!Enum.TryParse(movieEditViewModel.CinemaCategory, true, out CinemaCategory cinemaCategory))
@@ -122,16 +108,16 @@
                 .All()
                 .FirstOrDefaultAsync(m => m.Id == movieEditViewModel.Id);
 
-            var movieGenres = await this.movieGenresRepository
-                .All()
-                .Where(m => m.MovieId == movieEditViewModel.Id)
-                .ToListAsync();
-
             if (movie == null)
             {
                 throw new NullReferenceException(
                     string.Format(ExceptionMessages.MovieNotFound, movieEditViewModel.Id));
             }
+
+            var movieGenres = await this.movieGenresRepository
+                .All()
+                .Where(m => m.MovieId == movieEditViewModel.Id)
+                .ToListAsync();
 
             movie.Name = movieEditViewModel.Name;
             movie.DateOfRelease = movieEditViewModel.DateOfRelease;
@@ -149,20 +135,30 @@
             this.moviesRepository.Update(movie);
             await this.moviesRepository.SaveChangesAsync();
 
-            // TODO
-            //foreach (var movieGenre in movieGenres)
-            //{
-            //    foreach (var genreId in movieEditViewModel.SelectedGenres)
-            //    {
-            //        if (genreId != movieGenre.GenreId)
-            //        {
-            //            movieGenre.GenreId = genreId;
-            //            this.movieGenresRepository.Update(movieGenre);
-            //        }
-            //    }
-            //}
+            foreach (var movieGenre in movieGenres)
+            {
+                foreach (var genreId in movieEditViewModel.SelectedGenres)
+                {
+                    movieGenre.GenreId = genreId;
+                    this.movieGenresRepository.Update(movieGenre);
+                }
+            }
 
             await this.movieGenresRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteByIdAsync(int id)
+        {
+            var movie = await this.moviesRepository.All().FirstOrDefaultAsync(m => m.Id == id);
+            if (movie == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.MovieNotFound, id));
+            }
+
+            movie.IsDeleted = true;
+            movie.DeletedOn = DateTime.UtcNow;
+            this.moviesRepository.Update(movie);
+            await this.moviesRepository.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllMoviesAsync<TViewModel>()
@@ -186,7 +182,7 @@
             return movieGenres;
         }
 
-        public async Task<MovieGenreViewModel> GetGenreIdAsync(int movieId)
+        public async Task<MovieGenreViewModel> GetMovieGenreIdAsync(int movieId)
         {
             var movieGenre = await this.movieGenresRepository
                 .All()

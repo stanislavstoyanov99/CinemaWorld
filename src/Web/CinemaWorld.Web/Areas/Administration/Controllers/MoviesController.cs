@@ -9,7 +9,6 @@
     using CinemaWorld.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class MoviesController : AdministrationController
     {
@@ -86,7 +85,6 @@
             {
                 var directors = await this.directorsService
                     .GetAllDirectorsAsync<DirectorViewModel>();
-
                 var genres = await this.genresService
                     .GetAllGenresAsync<GenreDetailsViewModel>();
 

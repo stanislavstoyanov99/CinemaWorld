@@ -4,12 +4,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using AutoMapper;
-
     using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Models.ViewModels.Genres;
-    using CinemaWorld.Models.ViewModels.Movies;
-    using CinemaWorld.Services.Mapping;
 
     using static Common.ModelValidation;
     using static Common.ModelValidation.Director;
