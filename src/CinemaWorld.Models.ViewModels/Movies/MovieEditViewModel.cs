@@ -9,6 +9,7 @@
     using CinemaWorld.Services.Mapping;
 
     using static Common.ModelValidation;
+    using static Common.ModelValidation.Genre;
     using static Common.ModelValidation.Movie;
 
     using Director = CinemaWorld.Data.Models.Director;
@@ -19,7 +20,7 @@
         public int Id { get; set; }
 
         [Required(ErrorMessage = EmptyFieldLengthError)]
-        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = NameLengthError)]
+        [StringLength(Common.ModelValidation.Movie.NameMaxLength, MinimumLength = Common.ModelValidation.Movie.NameMinLength, ErrorMessage = NameLengthError)]
         public string Name { get; set; }
 
         [Required(ErrorMessage = EmptyFieldLengthError)]
@@ -72,6 +73,7 @@
 
         public IEnumerable<DirectorViewModel> Directors { get; set; }
 
+        [Display(Name = GenresDisplayName)]
         public IList<int> SelectedGenres { get; set; }
 
         public IEnumerable<GenreDetailsViewModel> Genres { get; set; }

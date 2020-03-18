@@ -68,6 +68,7 @@
             public const int NameMinLength = 3;
             public const int NameMaxLength = 30;
             public const string NameDisplayName = "Genre Name";
+            public const string GenresDisplayName = "Genres";
             public const string GenreIdError = "Please select genre name.";
         }
     }

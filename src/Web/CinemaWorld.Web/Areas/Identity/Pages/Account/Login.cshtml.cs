@@ -47,7 +47,7 @@
 
         public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
-            if (!this.signInManager.IsSignedIn(this.User))
+            if (!this.User.Identity.IsAuthenticated)
             {
                 if (!string.IsNullOrEmpty(this.ErrorMessage))
                 {
@@ -62,16 +62,19 @@
                 this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
                 this.ReturnUrl = returnUrl;
+                return this.Page();
             }
-
-            return this.Redirect("/");
+            else
+            {
+                return this.Redirect("/");
+            }
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? this.Url.Content("~/");
 
-            var returnObj = new ReturnObject();
+            var ajaxObject = new AjaxObject();
             if (this.ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -82,9 +85,9 @@
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User logged in.");
-                    returnObj.Success = true;
-                    returnObj.Message = "Logged-in";
-                    returnObj.Action = returnUrl;
+                    ajaxObject.Success = true;
+                    ajaxObject.Message = "Logged-in";
+                    ajaxObject.Action = returnUrl;
                 }
 
                 if (result.RequiresTwoFactor)
@@ -103,12 +106,13 @@
                 }
             }
 
-            if (!returnObj.Success) //login was unsuccessful, return model errors
+            // login was unsuccessful, return model errors
+            if (!ajaxObject.Success)
             {
-                returnObj.Message = this.ModelErorrs(this.ModelState);
+                ajaxObject.Message = this.ModelErorrs(this.ModelState);
             }
 
-            var jsonResult = new JsonResult(returnObj);
+            var jsonResult = new JsonResult(ajaxObject);
             return jsonResult;
         }
 
@@ -119,7 +123,7 @@
                 .Select(x => x.ErrorMessage));
         }
 
-        public class ReturnObject
+        public class AjaxObject
         {
             public bool Success { get; set; }
 

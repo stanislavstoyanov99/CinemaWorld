@@ -73,9 +73,6 @@
                     string.Format(ExceptionMessages.MovieAlreadyExists, movie.Id));
             }
 
-            await this.moviesRepository.AddAsync(movie);
-            await this.moviesRepository.SaveChangesAsync();
-
             foreach (var genreId in movieCreateInputModel.SelectedGenres)
             {
                 var movieGenre = new MovieGenre
@@ -85,8 +82,11 @@
                 };
 
                 await this.movieGenresRepository.AddAsync(movieGenre);
+                movie.MovieGenres.Add(movieGenre);
             }
 
+            await this.moviesRepository.AddAsync(movie);
+            await this.moviesRepository.SaveChangesAsync();
             await this.movieGenresRepository.SaveChangesAsync();
 
             var viewModel = this.GetViewModelByIdAsync<MovieDetailsViewModel>(movie.Id)
@@ -114,11 +114,6 @@
                     string.Format(ExceptionMessages.MovieNotFound, movieEditViewModel.Id));
             }
 
-            var movieGenres = await this.movieGenresRepository
-                .All()
-                .Where(m => m.MovieId == movieEditViewModel.Id)
-                .ToListAsync();
-
             movie.Name = movieEditViewModel.Name;
             movie.DateOfRelease = movieEditViewModel.DateOfRelease;
             movie.Resolution = movieEditViewModel.Resolution;
@@ -131,20 +126,29 @@
             movie.IMDBLink = movieEditViewModel.IMDBLink;
             movie.Length = movieEditViewModel.Length;
             movie.DirectorId = movieEditViewModel.DirectorId;
+            movie.MovieGenres.Clear();
 
-            this.moviesRepository.Update(movie);
             await this.moviesRepository.SaveChangesAsync();
 
-            foreach (var movieGenre in movieGenres)
-            {
-                foreach (var genreId in movieEditViewModel.SelectedGenres)
-                {
-                    movieGenre.GenreId = genreId;
-                    this.movieGenresRepository.Update(movieGenre);
-                }
-            }
+            var movieGenres = await this.movieGenresRepository
+                .All()
+                .Where(x => x.MovieId == movie.Id)
+                .ToListAsync();
 
-            await this.movieGenresRepository.SaveChangesAsync();
+            if (movieGenres.Count != 0)
+            {
+                foreach (var movieGenre in movieGenres)
+                {
+                    this.movieGenresRepository.HardDelete(movieGenre);
+                    await this.movieGenresRepository.SaveChangesAsync();
+                }
+
+                await this.UpdateMovieGenres(movieEditViewModel, movie);
+            }
+            else
+            {
+                await this.UpdateMovieGenres(movieEditViewModel, movie);
+            }
         }
 
         public async Task DeleteByIdAsync(int id)
@@ -159,6 +163,19 @@
             movie.DeletedOn = DateTime.UtcNow;
             this.moviesRepository.Update(movie);
             await this.moviesRepository.SaveChangesAsync();
+
+            var movieGenres = await this.movieGenresRepository
+                .All()
+                .Where(m => m.MovieId == id)
+                .ToListAsync();
+
+            foreach (var movieGenre in movieGenres)
+            {
+                movieGenre.DeletedOn = DateTime.UtcNow;
+                this.movieGenresRepository.Delete(movieGenre);
+            }
+
+            await this.movieGenresRepository.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllMoviesAsync<TViewModel>()
@@ -212,6 +229,24 @@
             }
 
             return movie;
+        }
+
+        private async Task UpdateMovieGenres(MovieEditViewModel model, Movie movie)
+        {
+            for (int i = 0; i < model.SelectedGenres.Count; i++)
+            {
+                var movieGenre = new MovieGenre
+                {
+                    MovieId = movie.Id,
+                    GenreId = model.SelectedGenres[i],
+                };
+
+                await this.movieGenresRepository.AddAsync(movieGenre);
+                movie.MovieGenres.Add(movieGenre);
+            }
+
+            await this.movieGenresRepository.SaveChangesAsync();
+            await this.moviesRepository.SaveChangesAsync();
         }
     }
 }

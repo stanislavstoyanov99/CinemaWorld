@@ -50,13 +50,16 @@
 
         public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
-            if (!this.signInManager.IsSignedIn(this.User))
+            if (!this.User.Identity.IsAuthenticated)
             {
                 this.ReturnUrl = returnUrl;
                 this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+                return this.Page();
             }
-
-            return this.Redirect("/");
+            else
+            {
+                return this.Redirect("/");
+            }
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

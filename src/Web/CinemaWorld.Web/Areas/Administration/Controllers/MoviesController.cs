@@ -101,19 +101,12 @@
         public async Task<IActionResult> Remove(int id)
         {
             var movieToDelete = await this.moviesService.GetViewModelByIdAsync<MovieDeleteViewModel>(id);
-            var movieGenresToDelete = await this.moviesService.GetAllMovieGenresAsync<MovieGenreViewModel>(id);
-            movieToDelete.MovieGenres = movieGenresToDelete;
-
             return this.View(movieToDelete);
         }
 
         [HttpPost]
         public async Task<IActionResult> Remove(MovieDeleteViewModel movieDeleteViewModel)
         {
-            var movieGenresToDelete = await this.moviesService.
-                GetAllMovieGenresAsync<MovieGenreViewModel>(movieDeleteViewModel.Id);
-            movieDeleteViewModel.MovieGenres = movieGenresToDelete;
-
             await this.moviesService.DeleteByIdAsync(movieDeleteViewModel.Id);
             return this.RedirectToAction("GetAll", "Movies", new { area = "Administration" });
         }

@@ -9,12 +9,13 @@
 
     using static Common.ModelValidation;
     using static Common.ModelValidation.Director;
+    using static Common.ModelValidation.Genre;
     using static Common.ModelValidation.Movie;
 
     public class MovieCreateInputModel
     {
         [Required(ErrorMessage = EmptyFieldLengthError)]
-        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = NameLengthError)]
+        [StringLength(Movie.NameMaxLength, MinimumLength = Movie.NameMinLength, ErrorMessage = NameLengthError)]
         public string Name { get; set; }
 
         [Required(ErrorMessage = EmptyFieldLengthError)]
@@ -69,6 +70,7 @@
 
         public IEnumerable<GenreDetailsViewModel> Genres { get; set; }
 
+        [Display(Name = GenresDisplayName)]
         public IList<int> SelectedGenres { get; set; }
     }
 }
