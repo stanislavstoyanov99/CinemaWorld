@@ -47,34 +47,8 @@ else
                                     <i class="fa fa-times fa-pencil"></i>
                                     <div class="tooltip">Register</div>
                                 </div>
-                                <div class="form">
-                                    <h3>Login to your account</h3>
-                                    <form id="formLoginAJAX" asp-area="Identity" asp-page="/Account/Login" method="post">
-                                        <div class="shadow">
-                                            <div class="lds-dual-ring"></div>
-                                        </div>
-                                        <span id="login-error" class="text-danger" style="display: none"></span>
-                                        <input type="text" name="Username" placeholder="Username" required="">
-                                        <input type="password" name="Password" placeholder="Password" required="">
-                                        <input type="submit" value="Login">
-                                    </form>
-                                </div>
-                                <div class="form">
-                                    <h3>Create an account</h3>
-                                    <form asp-area="Identity" asp-page="/Account/Register" method="post">
-                                        <input type="text" name="Username" placeholder="Username" required="">
-                                        <input type="text" name="FullName" placeholder="Full Name" required="">
-                                        <input type="password" name="Password" placeholder="Password" required="">
-                                        <input type="password" name="ConfirmPassword" placeholder="Confirm password" required="">
-                                        <input type="email" name="Email" placeholder="Email Address" required="">
-                                        <label class="form-check-label">Male</label>
-                                        <input type="radio" name="gender" id="genderMaleId" value="male" />
-                                        <label class="form-check-inline">Female</label>
-                                        <input type="radio" name="gender" id="genderFemaleId" value="female" />
-                                        <hr />
-                                        <input type="submit" value="Register">
-                                    </form>
-                                </div>
+                                <partial name="_AjaxLoginPartial" />
+                                <partial name="_AjaxRegisterPartial" />
                                 <div class="cta"><a id="forgot-password" href="/Identity/Account/ForgotPassword">Forgot your password?</a></div>
                             </div>
                         </div>
@@ -94,43 +68,6 @@ else
                 'padding-bottom': 'toggle',
                 opacity: "toggle"
             }, "slow");
-        });
-    </script>
-    <script>
-        $('#formLoginAJAX').submit(function (event) {
-            event.preventDefault();
-            var res = { success: false, message: '', action: '' };
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: $('#formLoginAJAX').attr('action'),
-                xhrFields: {
-                    withCredentials: true
-                },
-                data: $('#formLoginAJAX').serialize(),
-                beforeSend: function () {
-                    $('.shadow').show(900);
-                },
-                success: function (data) {
-                    res = data;
-                },
-                error: function (errorThrown) {
-                    res.message = 'Request failed: ' + errorThrown;
-                },
-                complete: function () {
-                    $('.shadow').hide(900);
-                    if (res.success) {
-                        $('#myModal').modal('hide');
-                        window.location = res.action;
-                    }
-                    else {
-                        let span = document.getElementById("login-error");
-                        span.style.display = "block";
-                        span.style.marginBottom = "2.5vh"; // 2,5% from virtual screen
-                        span.innerHTML = res.message;
-                    }
-                }
-            });
         });
     </script>
 }

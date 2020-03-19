@@ -1,0 +1,58 @@
+﻿<div class="form">
+    <h3>Create an account</h3>
+    <form id="formRegisterAjax" asp-controller="Users" asp-action="AjaxRegister" method="post">
+        <div class="shadow">
+            <div class="lds-dual-ring"></div>
+        </div>
+        <span id="login-error" class="text-danger" style="display: none"></span>
+        <input type="text" name="Username" placeholder="Username">
+        <input type="text" name="FullName" placeholder="Full Name">
+        <input type="password" name="Password" placeholder="Password">
+        <input type="password" name="ConfirmPassword" placeholder="Confirm password">
+        <input type="email" name="Email" placeholder="Email Address">
+        <label class="form-check-label">Male</label>
+        <input type="radio" name="gender" id="genderMaleId" value="male" />
+        <label class="form-check-inline">Female</label>
+        <input type="radio" name="gender" id="genderFemaleId" value="female" />
+        <hr />
+        <input type="submit" value="Register">
+    </form>
+</div>
+
+<script>
+    $('#formRegisterAjax').submit(function (event) {
+        event.preventDefault();
+        var res = { success: false, message: '', action: '' };
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: $('#formRegisterAjax').attr('action'),
+            xhrFields: {
+                withCredentials: true
+            },
+            data: $('#formRegisterAjax').serialize(),
+            beforeSend: function () {
+                $('.shadow').show(900);
+            },
+            success: function (data) {
+                res = data;
+            },
+            error: function (errorThrown) {
+                res.message = 'Request failed: ' + errorThrown;
+            },
+            complete: function () {
+                $('.shadow').hide(900);
+                if (res.success) {
+                    $('#myModal').modal('hide');
+                    window.location = res.action;
+                }
+                else {
+                    let span = document.getElementById("login-error");
+                    span.style.display = "block";
+                    span.style.marginBottom = "2.5vh"; // 2,5% from virtual screen
+                    span.innerHTML = res.message;
+                }
+            }
+        });
+    });
+</script>

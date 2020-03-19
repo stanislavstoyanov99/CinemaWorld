@@ -1,0 +1,50 @@
+﻿<div class="form">
+    <h3>Login to your account</h3>
+    <form id="formLoginAjax" asp-controller="Users" asp-action="AjaxLogin">
+        <div class="shadow">
+            <div class="lds-dual-ring"></div>
+        </div>
+        <span id="login-error" class="text-danger" style="display: none"></span>
+        <input type="text" name="Username" placeholder="Username">
+        <input type="password" name="Password" placeholder="Password">
+        <input type="submit" value="Login">
+    </form>
+</div>
+
+<script>
+    $('#formLoginAjax').submit(function (event) {
+        event.preventDefault();
+        var res = { success: false, message: '', action: '' };
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: $('#formLoginAjax').attr('action'),
+            xhrFields: {
+                withCredentials: true
+            },
+            data: $('#formLoginAjax').serialize(),
+            beforeSend: function () {
+                $('.shadow').show(900);
+            },
+            success: function (data) {
+                res = data;
+            },
+            error: function (errorThrown) {
+                res.message = 'Request failed: ' + errorThrown;
+            },
+            complete: function () {
+                $('.shadow').hide(900);
+                if (res.success) {
+                    $('#myModal').modal('hide');
+                    window.location = res.action;
+                }
+                else {
+                    let span = document.getElementById("login-error");
+                    span.style.display = "block";
+                    span.style.marginBottom = "2.5vh"; // 2,5% from virtual screen
+                    span.innerHTML = res.message;
+                }
+            }
+        });
+    });
+</script>

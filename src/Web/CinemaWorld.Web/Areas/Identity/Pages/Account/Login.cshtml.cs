@@ -21,16 +21,13 @@
     public class LoginModel : PageModel
 #pragma warning restore SA1649 // File name should match first type name
     {
-        private readonly UserManager<CinemaWorldUser> userManager;
         private readonly SignInManager<CinemaWorldUser> signInManager;
         private readonly ILogger<LoginModel> logger;
 
         public LoginModel(
             SignInManager<CinemaWorldUser> signInManager,
-            ILogger<LoginModel> logger,
-            UserManager<CinemaWorldUser> userManager)
+            ILogger<LoginModel> logger)
         {
-            this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
         }
@@ -74,7 +71,6 @@
         {
             returnUrl = returnUrl ?? this.Url.Content("~/");
 
-            var ajaxObject = new AjaxObject();
             if (this.ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -85,9 +81,7 @@
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User logged in.");
-                    ajaxObject.Success = true;
-                    ajaxObject.Message = "Logged-in";
-                    ajaxObject.Action = returnUrl;
+                    return this.LocalRedirect(returnUrl);
                 }
 
                 if (result.RequiresTwoFactor)
@@ -106,30 +100,8 @@
                 }
             }
 
-            // login was unsuccessful, return model errors
-            if (!ajaxObject.Success)
-            {
-                ajaxObject.Message = this.ModelErorrs(this.ModelState);
-            }
-
-            var jsonResult = new JsonResult(ajaxObject);
-            return jsonResult;
-        }
-
-        public string ModelErorrs(ModelStateDictionary modelState)
-        {
-            return string.Join(Environment.NewLine, modelState.Values
-                .SelectMany(x => x.Errors)
-                .Select(x => x.ErrorMessage));
-        }
-
-        public class AjaxObject
-        {
-            public bool Success { get; set; }
-
-            public string Message { get; set; }
-
-            public string Action { get; set; }
+            // If we got this far, something failed, redisplay form
+            return Page();
         }
     }
 }
