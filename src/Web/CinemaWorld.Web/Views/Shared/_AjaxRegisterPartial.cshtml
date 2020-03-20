@@ -4,7 +4,7 @@
         <div class="shadow">
             <div class="lds-dual-ring"></div>
         </div>
-        <span id="login-error" class="text-danger" style="display: none"></span>
+        <span id="register-error" class="text-danger" style="display: none; white-space: pre-line"></span>
         <input type="text" name="Username" placeholder="Username">
         <input type="text" name="FullName" placeholder="Full Name">
         <input type="password" name="Password" placeholder="Password">
@@ -47,7 +47,7 @@
                     window.location = res.action;
                 }
                 else {
-                    let span = document.getElementById("login-error");
+                    let span = document.getElementById("register-error");
                     span.style.display = "block";
                     span.style.marginBottom = "2.5vh"; // 2,5% from virtual screen
                     span.innerHTML = res.message;

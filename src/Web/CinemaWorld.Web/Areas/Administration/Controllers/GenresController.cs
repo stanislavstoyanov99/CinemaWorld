@@ -11,12 +11,10 @@
     public class GenresController : AdministrationController
     {
         private readonly IGenresService genresService;
-        private readonly IMoviesService moviesService;
 
-        public GenresController(IGenresService genresService, IMoviesService moviesService)
+        public GenresController(IGenresService genresService)
         {
             this.genresService = genresService;
-            this.moviesService = moviesService;
         }
 
         public IActionResult Index()

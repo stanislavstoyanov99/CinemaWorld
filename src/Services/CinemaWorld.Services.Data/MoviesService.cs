@@ -171,8 +171,9 @@
 
             foreach (var movieGenre in movieGenres)
             {
+                movieGenre.IsDeleted = true;
                 movieGenre.DeletedOn = DateTime.UtcNow;
-                this.movieGenresRepository.Delete(movieGenre);
+                this.movieGenresRepository.Update(movieGenre);
             }
 
             await this.movieGenresRepository.SaveChangesAsync();

@@ -90,18 +90,18 @@
 
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
         {
-            var genre = await this.genresRepository
+            var genreViewModel = await this.genresRepository
                 .All()
                 .Where(m => m.Id == id)
                 .To<TViewModel>()
                 .FirstOrDefaultAsync();
 
-            if (genre == null)
+            if (genreViewModel == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.GenreNotFound, id));
             }
 
-            return genre;
+            return genreViewModel;
         }
     }
 }
