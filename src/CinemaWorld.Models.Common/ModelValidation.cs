@@ -59,7 +59,11 @@
 
         public class Director
         {
+            public const int NameMinLength = 3;
+            public const int NameMaxLength = 30;
             public const string FullNameDisplayName = "Director Full Name";
+            public const string FirstNameDisplayName = "First Name";
+            public const string LastNameDisplayName = "Last Name";
             public const string DirectorIdError = "Please select director name.";
         }
 

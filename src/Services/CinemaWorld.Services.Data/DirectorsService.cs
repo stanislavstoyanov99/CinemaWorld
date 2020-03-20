@@ -24,14 +24,48 @@
             this.directorsRepository = directorsRepository;
         }
 
-        // TODO
-        public Task<DirectorViewModel> CreateAsync(DirectorCreateInputModel directorCreateInputModel)
+        public async Task<DirectorViewModel> CreateAsync(DirectorCreateInputModel directorCreateInputModel)
         {
-            throw new NotImplementedException();
+            var director = new Director
+            {
+                FirstName = directorCreateInputModel.FirstName,
+                LastName = directorCreateInputModel.LastName,
+            };
+
+            bool doesDirectorExist = await this.directorsRepository.All().AnyAsync(x => x.Id == director.Id);
+            if (doesDirectorExist)
+            {
+                throw new ArgumentException(
+                    string.Format(ExceptionMessages.GenreAlreadyExists, director.Id));
+            }
+
+            await this.directorsRepository.AddAsync(director);
+            await this.directorsRepository.SaveChangesAsync();
+
+            var viewModel = this.GetViewModelByIdAsync<DirectorViewModel>(director.Id)
+                .GetAwaiter()
+                .GetResult();
+
+            return viewModel;
+        }
+
+        public async Task DeleteByIdAsync(int id)
+        {
+            var director = this.directorsRepository.All().FirstOrDefault(x => x.Id == id);
+            if (director == null)
+            {
+                throw new NullReferenceException(
+                    string.Format(ExceptionMessages.DirectorNotFound, id));
+            }
+
+            director.IsDeleted = true;
+            director.DeletedOn = DateTime.UtcNow;
+            this.directorsRepository.Update(director);
+            await this.directorsRepository.SaveChangesAsync();
         }
 
         // TODO
-        public Task DeleteByIdAsync(int id)
+        public Task EditAsync(DirectorEditViewModel directorEditViewModel)
         {
             throw new NotImplementedException();
         }

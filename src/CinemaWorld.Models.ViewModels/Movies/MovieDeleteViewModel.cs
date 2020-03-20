@@ -6,7 +6,6 @@
 
     using CinemaWorld.Data.Models;
     using CinemaWorld.Models.ViewModels.Directors;
-    using CinemaWorld.Models.ViewModels.Genres;
     using CinemaWorld.Services.Mapping;
 
     using static CinemaWorld.Models.Common.ModelValidation.Genre;

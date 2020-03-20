@@ -1,0 +1,15 @@
+﻿@{
+    this.ViewData["ActivePage"] = DirectorNavPages.Directors;
+    this.ViewData["Title"] = "Directors";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="@DirectorNavPages.CreateDirectorNavClass(ViewContext)"><a asp-controller="Directors" asp-action="Create">Create director</a></li>
+                <li class="@DirectorNavPages.GetAllNavClass(ViewContext)"><a asp-controller="Directors" asp-action="GetAll">List directors</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

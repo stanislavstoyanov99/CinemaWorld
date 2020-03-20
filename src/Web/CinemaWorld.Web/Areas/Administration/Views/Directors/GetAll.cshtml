@@ -1,8 +1,8 @@
-﻿@using CinemaWorld.Models.ViewModels.Genres
-@model IEnumerable<GenreDetailsViewModel>
+﻿@using CinemaWorld.Models.ViewModels.Directors
+@model IEnumerable<DirectorViewModel>
 @{
-    this.ViewData["Title"] = "All genres";
-    this.ViewData["ActivePage"] = GenreNavPages.Genres;
+    this.ViewData["Title"] = "All directors";
+    this.ViewData["ActivePage"] = DirectorNavPages.Directors;
 }
 
 <link rel="stylesheet" type="text/css" href="~/list-css/table-style.css" />
@@ -11,7 +11,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9">
-            <h4>Genres List</h4>
+            <h4>Directors List</h4>
             <hr />
             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                 <div id="myTabContent" class="tab-content">
@@ -21,19 +21,21 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Name</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
                                         <th>Functions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var genre in Model)
+                                    @foreach (var director in Model)
                                     {
                                         <tr>
-                                            <td>@genre.Id</td>                                         
-                                            <td>@genre.Name</td>
+                                            <td>@director.Id</td>
+                                            <td>@director.FirstName</td>
+                                            <td>@director.LastName</td>
                                             <td>
-                                                <a class="badge badge-success" asp-action="Edit" asp-route-id="@genre.Id">Edit</a>
-                                                <a class="badge badge-danger" asp-action="Remove" asp-route-id="@genre.Id">Remove</a>
+                                                <a class="badge badge-success" asp-action="Edit" asp-route-id="@director.Id">Edit</a>
+                                                <a class="badge badge-danger" asp-action="Remove" asp-route-id="@director.Id">Remove</a>
                                             </td>
                                         </tr>
                                     }

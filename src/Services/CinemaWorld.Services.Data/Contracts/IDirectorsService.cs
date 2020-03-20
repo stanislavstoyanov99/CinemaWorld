@@ -10,7 +10,7 @@
     {
         Task<DirectorViewModel> CreateAsync(DirectorCreateInputModel directorCreateInputModel);
 
-        // Task EditAsync(DirectorEditViewModel directorEditViewModel);
+        Task EditAsync(DirectorEditViewModel directorEditViewModel);
 
         Task<IEnumerable<TViewModel>> GetAllDirectorsAsync<TViewModel>();
     }
