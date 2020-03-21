@@ -24,7 +24,7 @@
 
         public string Resolution { get; set; }
 
-        [Display(Name = Common.ModelValidation.Country.NameDisplayName)]
+        [Display(Name = nameof(Country))]
         public string CountryName { get; set; }
 
         public IEnumerable<MovieGenreViewModel> MovieGenres { get; set; }

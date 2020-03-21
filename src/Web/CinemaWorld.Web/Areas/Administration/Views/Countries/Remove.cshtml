@@ -1,0 +1,24 @@
+﻿@model CinemaWorld.Models.ViewModels.Countries.CountryDetailsViewModel
+@{
+    this.ViewData["Title"] = "Delete Country";
+    this.ViewData["ActivePage"] = CountryNavPages.Countries;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Countries" asp-action="Remove" method="post">
+            <h4 class="text-danger">Are you sure you want to delete <b>@Model.Name</b> country?</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" disabled="" />
+            </div>
+            <button type="submit" class="btn btn-danger">Delete country</button>
+            <button asp-area="Administration" asp-controller="Countries" asp-action="GetAll" class="btn btn-primary">Back to all countries</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

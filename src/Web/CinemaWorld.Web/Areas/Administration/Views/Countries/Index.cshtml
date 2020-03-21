@@ -1,0 +1,15 @@
+﻿@{
+    this.ViewData["ActivePage"] = CountryNavPages.Countries;
+    this.ViewData["Title"] = "Countries";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="@CountryNavPages.CreateCountryNavClass(ViewContext)"><a asp-controller="Countries" asp-action="Create">Create country</a></li>
+                <li class="@CountryNavPages.GetAllNavClass(ViewContext)"><a asp-controller="Countries" asp-action="GetAll">List countries</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

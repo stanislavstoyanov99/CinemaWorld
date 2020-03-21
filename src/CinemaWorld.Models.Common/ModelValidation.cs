@@ -52,12 +52,13 @@
             public const string MovieGenreDisplayName = "Genre Name";
         }
 
-        public class Country
+        public static class Country
         {
-            public const string NameDisplayName = "Country";
+            public const int NameMinLength = 3;
+            public const int NameMaxLength = 40;
         }
 
-        public class Director
+        public static class Director
         {
             public const int NameMinLength = 3;
             public const int NameMaxLength = 30;
@@ -67,7 +68,7 @@
             public const string DirectorIdError = "Please select director name.";
         }
 
-        public class Genre
+        public static class Genre
         {
             public const int NameMinLength = 3;
             public const int NameMaxLength = 30;

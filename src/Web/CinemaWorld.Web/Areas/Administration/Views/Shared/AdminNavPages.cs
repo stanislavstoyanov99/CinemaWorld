@@ -15,6 +15,8 @@
 
         public static string Directors => "Directors";
 
+        public static string Countries => "Countries";
+
         public static string MoviesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Movies);
 
         public static string CinemasNavClass(ViewContext viewContext) => PageNavClass(viewContext, Cinemas);
@@ -22,6 +24,8 @@
         public static string GenresNavClass(ViewContext viewContext) => PageNavClass(viewContext, Genres);
 
         public static string DirectorsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Directors);
+
+        public static string CountriesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Countries);
 
         protected static string PageNavClass(ViewContext viewContext, string page)
         {
