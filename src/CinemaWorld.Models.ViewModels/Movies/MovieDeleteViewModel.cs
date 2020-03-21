@@ -8,6 +8,7 @@
     using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Services.Mapping;
 
+    using static CinemaWorld.Models.Common.ModelValidation.Country;
     using static CinemaWorld.Models.Common.ModelValidation.Genre;
     using static CinemaWorld.Models.Common.ModelValidation.Movie;
 
@@ -49,5 +50,8 @@
 
         [Display(Name = GenresDisplayName)]
         public IEnumerable<MovieGenreViewModel> MovieGenres { get; set; }
+
+        [Display(Name = CountriesDisplayName)]
+        public IEnumerable<MovieCountryViewModel> MovieCountries { get; set; }
     }
 }

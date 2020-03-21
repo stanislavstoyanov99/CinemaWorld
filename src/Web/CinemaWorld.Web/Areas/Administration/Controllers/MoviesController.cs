@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.InputModels.AdministratorInputModels.Movies;
+    using CinemaWorld.Models.ViewModels.Countries;
     using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Models.ViewModels.Genres;
     using CinemaWorld.Models.ViewModels.Movies;
@@ -15,12 +16,18 @@
         private readonly IMoviesService moviesService;
         private readonly IDirectorsService directorsService;
         private readonly IGenresService genresService;
+        private readonly ICountriesService countriesService;
 
-        public MoviesController(IMoviesService moviesService, IDirectorsService directorsService, IGenresService genresService)
+        public MoviesController(
+            IMoviesService moviesService,
+            IDirectorsService directorsService,
+            IGenresService genresService,
+            ICountriesService countriesService)
         {
             this.moviesService = moviesService;
             this.directorsService = directorsService;
             this.genresService = genresService;
+            this.countriesService = countriesService;
         }
 
         public IActionResult Index()
@@ -34,10 +41,13 @@
                 .GetAllDirectorsAsync<DirectorDetailsViewModel>();
             var genres = await this.genresService
                 .GetAllGenresAsync<GenreDetailsViewModel>();
+            var countries = await this.countriesService
+                .GetAllCountriesAsync<CountryDetailsViewModel>();
             var model = new MovieCreateInputModel
             {
                 Directors = directors,
                 Genres = genres,
+                Countries = countries,
             };
 
             return this.View(model);
@@ -52,9 +62,12 @@
                     .GetAllDirectorsAsync<DirectorDetailsViewModel>();
                 var genres = await this.genresService
                     .GetAllGenresAsync<GenreDetailsViewModel>();
+                var countries = await this.countriesService
+                    .GetAllCountriesAsync<CountryDetailsViewModel>();
 
                 movieCreateInputModel.Directors = directors;
                 movieCreateInputModel.Genres = genres;
+                movieCreateInputModel.Countries = countries;
 
                 return this.View(movieCreateInputModel);
             }
@@ -69,11 +82,14 @@
                 .GetAllDirectorsAsync<DirectorDetailsViewModel>();
             var genres = await this.genresService
                 .GetAllGenresAsync<GenreDetailsViewModel>();
+            var countries = await this.countriesService
+                .GetAllCountriesAsync<CountryDetailsViewModel>();
             var movieToEdit = await this.moviesService
                 .GetViewModelByIdAsync<MovieEditViewModel>(id);
 
             movieToEdit.Directors = directors;
             movieToEdit.Genres = genres;
+            movieToEdit.Countries = countries;
 
             return this.View(movieToEdit);
         }
@@ -87,9 +103,12 @@
                     .GetAllDirectorsAsync<DirectorDetailsViewModel>();
                 var genres = await this.genresService
                     .GetAllGenresAsync<GenreDetailsViewModel>();
+                var countries = await this.countriesService
+                    .GetAllCountriesAsync<CountryDetailsViewModel>();
 
                 movieEditViewModel.Directors = directors;
                 movieEditViewModel.Genres = genres;
+                movieEditViewModel.Countries = countries;
 
                 return this.View(movieEditViewModel);
             }

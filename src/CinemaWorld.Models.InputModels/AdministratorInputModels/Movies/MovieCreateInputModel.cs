@@ -4,10 +4,12 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using CinemaWorld.Models.ViewModels.Countries;
     using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Models.ViewModels.Genres;
 
     using static Common.ModelValidation;
+    using static Common.ModelValidation.Country;
     using static Common.ModelValidation.Director;
     using static Common.ModelValidation.Genre;
     using static Common.ModelValidation.Movie;
@@ -70,7 +72,12 @@
 
         public IEnumerable<GenreDetailsViewModel> Genres { get; set; }
 
+        public IEnumerable<CountryDetailsViewModel> Countries { get; set; }
+
         [Display(Name = GenresDisplayName)]
         public IList<int> SelectedGenres { get; set; }
+
+        [Display(Name = CountriesDisplayName)]
+        public IList<int> SelectedCountries { get; set; }
     }
 }

@@ -28,7 +28,7 @@
                                         <th>Year</th>
                                         <th>Resolution</th>
                                         <th>Country</th>
-                                        <th>Genre/Genres</th>
+                                        <th>Genre</th>
                                         <th>Director</th>
                                         <th>Rating</th>
                                         <th>Functions</th>
@@ -45,11 +45,16 @@
                                             <td>@movie.CinemaCategory</td>
                                             <td>@movie.DateOfRelease.Year</td>
                                             <td>@movie.Resolution</td>
-                                            <td class="w3-list-info"><a href="#">@movie.CountryName</a></td>
                                             <td class="w3-list-info">
-                                                @foreach (var genre in movie.MovieGenres)
+                                                @foreach (var movieCountry in movie.MovieCountries)
                                                 {
-                                                    <a href="#">@genre.GenreName</a>
+                                                    <span>@movieCountry.CountryName</span>
+                                                }
+                                            </td>
+                                            <td class="w3-list-info">
+                                                @foreach (var movieGenre in movie.MovieGenres)
+                                                {
+                                                    <span>@movieGenre.GenreName</span>
                                                 }
                                             </td>
                                             <td>@movie.Director.FullName</td>

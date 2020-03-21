@@ -105,6 +105,26 @@
                 </div>
                 <span asp-validation-for="SelectedGenres" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="SelectedCountries"></label>
+                <div class="container">
+                    <select multiple asp-for="SelectedCountries" class="selectpicker">
+                        <option value="" disabled>Select Country/Countries</option>
+                        @foreach (var country in Model.Countries)
+                        {
+                            @if (Model.MovieCountries.Select(x => x.CountryId).Any(x => x == country.Id))
+                            {
+                                <option value="@country.Id" selected>@country.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@country.Id">@country.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <span asp-validation-for="SelectedCountries" class="text-danger"></span>
+            </div>
             <button type="submit" class="btn btn-success">Save changes</button>
             <button asp-area="Administration" asp-controller="Movies" asp-action="GetAll" class="btn btn-primary">Back to all movies</button>
         </form>

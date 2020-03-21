@@ -50,12 +50,14 @@
             public const string DateOfReleaseAllMoviesDisplayName = "Year";
 
             public const string MovieGenreDisplayName = "Genre Name";
+            public const string MovieCountryDisplayName = "Country Name";
         }
 
         public static class Country
         {
             public const int NameMinLength = 3;
             public const int NameMaxLength = 40;
+            public const string CountriesDisplayName = "Countries";
         }
 
         public static class Director

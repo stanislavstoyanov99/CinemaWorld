@@ -21,15 +21,18 @@
         private readonly IDeletableEntityRepository<Movie> moviesRepository;
         private readonly IDeletableEntityRepository<Director> directorsRepository;
         private readonly IDeletableEntityRepository<MovieGenre> movieGenresRepository;
+        private readonly IDeletableEntityRepository<MovieCountry> movieCountriesRepository;
 
         public MoviesService(
             IDeletableEntityRepository<Movie> moviesRepository,
             IDeletableEntityRepository<Director> directorsRepository,
-            IDeletableEntityRepository<MovieGenre> movieGenresRepository)
+            IDeletableEntityRepository<MovieGenre> movieGenresRepository,
+            IDeletableEntityRepository<MovieCountry> movieCountriesRepository)
         {
             this.moviesRepository = moviesRepository;
             this.directorsRepository = directorsRepository;
             this.movieGenresRepository = movieGenresRepository;
+            this.movieCountriesRepository = movieCountriesRepository;
         }
 
         public async Task<MovieDetailsViewModel> CreateAsync(MovieCreateInputModel movieCreateInputModel)
@@ -85,9 +88,22 @@
                 movie.MovieGenres.Add(movieGenre);
             }
 
+            foreach (var countryId in movieCreateInputModel.SelectedCountries)
+            {
+                var movieCountry = new MovieCountry
+                {
+                    MovieId = movie.Id,
+                    CountryId = countryId,
+                };
+
+                await this.movieCountriesRepository.AddAsync(movieCountry);
+                movie.MovieCountries.Add(movieCountry);
+            }
+
             await this.moviesRepository.AddAsync(movie);
             await this.moviesRepository.SaveChangesAsync();
             await this.movieGenresRepository.SaveChangesAsync();
+            await this.movieCountriesRepository.SaveChangesAsync();
 
             var viewModel = this.GetViewModelByIdAsync<MovieDetailsViewModel>(movie.Id)
                 .GetAwaiter()
@@ -128,10 +144,16 @@
             movie.DirectorId = movieEditViewModel.DirectorId;
             movie.ModifiedOn = DateTime.UtcNow;
             movie.MovieGenres.Clear();
+            movie.MovieCountries.Clear();
 
             await this.moviesRepository.SaveChangesAsync();
 
             var movieGenres = await this.movieGenresRepository
+                .All()
+                .Where(x => x.MovieId == movie.Id)
+                .ToListAsync();
+
+            var movieCountries = await this.movieCountriesRepository
                 .All()
                 .Where(x => x.MovieId == movie.Id)
                 .ToListAsync();
@@ -149,6 +171,21 @@
             else
             {
                 await this.UpdateMovieGenres(movieEditViewModel, movie);
+            }
+
+            if (movieCountries.Count != 0)
+            {
+                foreach (var movieCountry in movieCountries)
+                {
+                    this.movieCountriesRepository.HardDelete(movieCountry);
+                    await this.movieCountriesRepository.SaveChangesAsync();
+                }
+
+                await this.UpdateMovieCountries(movieEditViewModel, movie);
+            }
+            else
+            {
+                await this.UpdateMovieCountries(movieEditViewModel, movie);
             }
         }
 
@@ -170,6 +207,11 @@
                 .Where(m => m.MovieId == id)
                 .ToListAsync();
 
+            var movieCountries = await this.movieCountriesRepository
+                .All()
+                .Where(m => m.MovieId == id)
+                .ToListAsync();
+
             foreach (var movieGenre in movieGenres)
             {
                 movieGenre.IsDeleted = true;
@@ -177,7 +219,15 @@
                 this.movieGenresRepository.Update(movieGenre);
             }
 
+            foreach (var movieCountry in movieCountries)
+            {
+                movieCountry.IsDeleted = true;
+                movieCountry.DeletedOn = DateTime.UtcNow;
+                this.movieCountriesRepository.Update(movieCountry);
+            }
+
             await this.movieGenresRepository.SaveChangesAsync();
+            await this.movieCountriesRepository.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllMoviesAsync<TViewModel>()
@@ -248,6 +298,24 @@
             }
 
             await this.movieGenresRepository.SaveChangesAsync();
+            await this.moviesRepository.SaveChangesAsync();
+        }
+
+        private async Task UpdateMovieCountries(MovieEditViewModel model, Movie movie)
+        {
+            for (int i = 0; i < model.SelectedCountries.Count; i++)
+            {
+                var movieCountry = new MovieCountry
+                {
+                    MovieId = movie.Id,
+                    CountryId = model.SelectedCountries[i],
+                };
+
+                await this.movieCountriesRepository.AddAsync(movieCountry);
+                movie.MovieCountries.Add(movieCountry);
+            }
+
+            await this.movieCountriesRepository.SaveChangesAsync();
             await this.moviesRepository.SaveChangesAsync();
         }
     }

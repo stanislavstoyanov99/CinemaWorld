@@ -93,6 +93,18 @@
                 </div>
                 <span asp-validation-for="SelectedGenres" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="SelectedCountries"></label>
+                <div class="container">
+                    <select multiple asp-for="SelectedCountries" class="selectpicker">
+                        @foreach (var country in Model.Countries)
+                        {
+                            <option value="@country.Id">@country.Name</option>
+                        }
+                    </select>
+                </div>
+                <span asp-validation-for="SelectedCountries" class="text-danger"></span>
+            </div>
             <button type="submit" class="btn btn-success">Save changes</button>
         </form>
     </div>

@@ -24,10 +24,9 @@
 
         public string Resolution { get; set; }
 
-        [Display(Name = nameof(Country))]
-        public string CountryName { get; set; }
-
         public IEnumerable<MovieGenreViewModel> MovieGenres { get; set; }
+
+        public IEnumerable<MovieCountryViewModel> MovieCountries { get; set; }
 
         [Display(Name = nameof(Director))]
         public DirectorDetailsViewModel Director { get; set; }

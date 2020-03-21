@@ -71,6 +71,17 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group">
+                <label asp-for="MovieCountries"></label>
+                <div class="container">
+                    <select multiple asp-for="MovieCountries" class="selectpicker">
+                        @foreach (var movieCountry in Model.MovieCountries)
+                        {
+                            <option disabled selected>@movieCountry.CountryName</option>
+                        }
+                    </select>
+                </div>
+            </div>
             <button type="submit" class="btn btn-danger">Delete movie</button>
             <button asp-area="Administration" asp-controller="Movies" asp-action="GetAll" class="btn btn-primary">Back to all movies</button>
         </form>
