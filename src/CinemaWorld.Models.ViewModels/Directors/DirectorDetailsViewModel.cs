@@ -7,7 +7,7 @@
 
     using static CinemaWorld.Models.Common.ModelValidation.Director;
 
-    public class DirectorEditViewModel : IMapFrom<Director>
+    public class DirectorDetailsViewModel : IMapFrom<Director>
     {
         public int Id { get; set; }
 
@@ -16,5 +16,8 @@
 
         [Display(Name = LastNameDisplayName)]
         public string LastName { get; set; }
+
+        [Display(Name = FullNameDisplayName)]
+        public string FullName => string.Concat(this.FirstName, " ", this.LastName);
     }
 }

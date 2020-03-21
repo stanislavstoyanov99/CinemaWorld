@@ -66,7 +66,7 @@
         [Display(Name = nameof(Director))]
         public int DirectorId { get; set; }
 
-        public IEnumerable<DirectorViewModel> Directors { get; set; }
+        public IEnumerable<DirectorDetailsViewModel> Directors { get; set; }
 
         public IEnumerable<GenreDetailsViewModel> Genres { get; set; }
 

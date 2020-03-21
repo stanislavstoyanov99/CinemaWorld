@@ -45,7 +45,7 @@
         public int Length { get; set; }
 
         [Display(Name = nameof(Director))]
-        public DirectorViewModel Director { get; set; }
+        public DirectorDetailsViewModel Director { get; set; }
 
         [Display(Name = GenresDisplayName)]
         public IEnumerable<MovieGenreViewModel> MovieGenres { get; set; }

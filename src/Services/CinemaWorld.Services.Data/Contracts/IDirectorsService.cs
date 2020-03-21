@@ -8,7 +8,7 @@
 
     public interface IDirectorsService : IBaseDataService
     {
-        Task<DirectorViewModel> CreateAsync(DirectorCreateInputModel directorCreateInputModel);
+        Task<DirectorDetailsViewModel> CreateAsync(DirectorCreateInputModel directorCreateInputModel);
 
         Task EditAsync(DirectorEditViewModel directorEditViewModel);
 

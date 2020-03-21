@@ -1,1 +1,30 @@
-﻿
+﻿@model CinemaWorld.Models.ViewModels.Directors.DirectorEditViewModel
+@{
+    this.ViewData["Title"] = "Edit Director";
+    this.ViewData["ActivePage"] = DirectorNavPages.Directors;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Directors" asp-action="Edit" method="post">
+            <h4>Edit <b>@Model.FirstName @Model.LastName</b> director with id: @Model.Id</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Edit director</button>
+            <button asp-area="Administration" asp-controller="Directors" asp-action="GetAll" class="btn btn-primary">Back to all directors</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

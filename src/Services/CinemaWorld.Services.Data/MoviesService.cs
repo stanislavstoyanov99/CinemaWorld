@@ -126,6 +126,7 @@
             movie.IMDBLink = movieEditViewModel.IMDBLink;
             movie.Length = movieEditViewModel.Length;
             movie.DirectorId = movieEditViewModel.DirectorId;
+            movie.ModifiedOn = DateTime.UtcNow;
             movie.MovieGenres.Clear();
 
             await this.moviesRepository.SaveChangesAsync();

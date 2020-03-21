@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using CinemaWorld.Data.Models;
     using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Models.ViewModels.Genres;
     using CinemaWorld.Services.Mapping;
@@ -15,7 +16,7 @@
     using Director = CinemaWorld.Data.Models.Director;
     using Movie = CinemaWorld.Data.Models.Movie;
 
-    public class MovieEditViewModel : IMapFrom<Movie>, IMapFrom<Director>
+    public class MovieEditViewModel : IMapFrom<Movie>, IMapFrom<Director>, IMapFrom<MovieGenre>
     {
         public int Id { get; set; }
 
@@ -71,11 +72,13 @@
         [Display(Name = nameof(Director))]
         public int DirectorId { get; set; }
 
-        public IEnumerable<DirectorViewModel> Directors { get; set; }
+        public IEnumerable<DirectorDetailsViewModel> Directors { get; set; }
 
         [Display(Name = GenresDisplayName)]
         public IList<int> SelectedGenres { get; set; }
 
         public IEnumerable<GenreDetailsViewModel> Genres { get; set; }
+
+        public IEnumerable<MovieGenreViewModel> MovieGenres { get; set; }
     }
 }

@@ -60,12 +60,12 @@
 
         public async Task<IActionResult> Remove(int id)
         {
-            var directorToDelete = await this.directorsService.GetViewModelByIdAsync<DirectorViewModel>(id);
+            var directorToDelete = await this.directorsService.GetViewModelByIdAsync<DirectorDetailsViewModel>(id);
             return this.View(directorToDelete);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Remove(DirectorViewModel directorViewModel)
+        public async Task<IActionResult> Remove(DirectorDetailsViewModel directorViewModel)
         {
             await this.directorsService.DeleteByIdAsync(directorViewModel.Id);
             return this.RedirectToAction("GetAll", "Directors", new { area = "Administration" });
@@ -73,7 +73,7 @@
 
         public async Task<IActionResult> GetAll()
         {
-            var directors = await this.directorsService.GetAllDirectorsAsync<DirectorViewModel>();
+            var directors = await this.directorsService.GetAllDirectorsAsync<DirectorDetailsViewModel>();
             return this.View(directors);
         }
     }

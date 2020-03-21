@@ -28,7 +28,8 @@
                                         <th>Year</th>
                                         <th>Resolution</th>
                                         <th>Country</th>
-                                        <th>Genre</th>
+                                        <th>Genre/Genres</th>
+                                        <th>Director</th>
                                         <th>Rating</th>
                                         <th>Functions</th>
                                     </tr>
@@ -38,7 +39,7 @@
                                     {
                                         <tr>
                                             <td>@movie.Id</td>
-                                            <td class="w3-list-img"><a href="@movie.TrailerPath"><img src="@movie.CoverPath" alt="" /><span>@movie.Name</span></a></td>
+                                            <td><a href="@movie.TrailerPath"><strong>@movie.Name</strong></a></td>
                                             <td>@movie.Language</td>
                                             <td>@movie.Length</td>
                                             <td>@movie.CinemaCategory</td>
@@ -51,6 +52,7 @@
                                                     <a href="#">@genre.GenreName</a>
                                                 }
                                             </td>
+                                            <td>@movie.Director.FullName</td>
                                             <td>@movie.Rating</td>
                                             <td>
                                                 <a class="badge badge-success" asp-action="Edit" asp-route-id="@movie.Id">Edit</a>

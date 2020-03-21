@@ -31,7 +31,7 @@
         public async Task<IActionResult> Create()
         {
             var directors = await this.directorsService
-                .GetAllDirectorsAsync<DirectorViewModel>();
+                .GetAllDirectorsAsync<DirectorDetailsViewModel>();
             var genres = await this.genresService
                 .GetAllGenresAsync<GenreDetailsViewModel>();
             var model = new MovieCreateInputModel
@@ -49,7 +49,7 @@
             if (!this.ModelState.IsValid)
             {
                 var directors = await this.directorsService
-                    .GetAllDirectorsAsync<DirectorViewModel>();
+                    .GetAllDirectorsAsync<DirectorDetailsViewModel>();
                 var genres = await this.genresService
                     .GetAllGenresAsync<GenreDetailsViewModel>();
 
@@ -66,7 +66,7 @@
         public async Task<IActionResult> Edit(int id)
         {
             var directors = await this.directorsService
-                .GetAllDirectorsAsync<DirectorViewModel>();
+                .GetAllDirectorsAsync<DirectorDetailsViewModel>();
             var genres = await this.genresService
                 .GetAllGenresAsync<GenreDetailsViewModel>();
             var movieToEdit = await this.moviesService
@@ -84,7 +84,7 @@
             if (!this.ModelState.IsValid)
             {
                 var directors = await this.directorsService
-                    .GetAllDirectorsAsync<DirectorViewModel>();
+                    .GetAllDirectorsAsync<DirectorDetailsViewModel>();
                 var genres = await this.genresService
                     .GetAllGenresAsync<GenreDetailsViewModel>();
 

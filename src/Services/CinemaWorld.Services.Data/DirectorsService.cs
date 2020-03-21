@@ -24,7 +24,7 @@
             this.directorsRepository = directorsRepository;
         }
 
-        public async Task<DirectorViewModel> CreateAsync(DirectorCreateInputModel directorCreateInputModel)
+        public async Task<DirectorDetailsViewModel> CreateAsync(DirectorCreateInputModel directorCreateInputModel)
         {
             var director = new Director
             {
@@ -42,7 +42,7 @@
             await this.directorsRepository.AddAsync(director);
             await this.directorsRepository.SaveChangesAsync();
 
-            var viewModel = this.GetViewModelByIdAsync<DirectorViewModel>(director.Id)
+            var viewModel = this.GetViewModelByIdAsync<DirectorDetailsViewModel>(director.Id)
                 .GetAwaiter()
                 .GetResult();
 
@@ -64,10 +64,22 @@
             await this.directorsRepository.SaveChangesAsync();
         }
 
-        // TODO
-        public Task EditAsync(DirectorEditViewModel directorEditViewModel)
+        public async Task EditAsync(DirectorEditViewModel directorEditViewModel)
         {
-            throw new NotImplementedException();
+            var director = this.directorsRepository.All().FirstOrDefault(d => d.Id == directorEditViewModel.Id);
+
+            if (director == null)
+            {
+                throw new NullReferenceException(
+                    string.Format(ExceptionMessages.DirectorNotFound, directorEditViewModel.Id));
+            }
+
+            director.FirstName = directorEditViewModel.FirstName;
+            director.LastName = directorEditViewModel.LastName;
+            director.ModifiedOn = DateTime.UtcNow;
+
+            this.directorsRepository.Update(director);
+            await this.directorsRepository.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllDirectorsAsync<TViewModel>()

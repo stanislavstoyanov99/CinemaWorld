@@ -74,6 +74,8 @@
             }
 
             genre.Name = genreEditViewModel.Name;
+            genre.ModifiedOn = DateTime.UtcNow;
+
             this.genresRepository.Update(genre);
             await this.genresRepository.SaveChangesAsync();
         }

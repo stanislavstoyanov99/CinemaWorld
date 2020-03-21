@@ -6,6 +6,7 @@
 
     using CinemaWorld.Data.Models;
     using CinemaWorld.Data.Models.Enumerations;
+    using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Services.Mapping;
 
     using static Common.ModelValidation.Movie;
@@ -27,6 +28,9 @@
         public string CountryName { get; set; }
 
         public IEnumerable<MovieGenreViewModel> MovieGenres { get; set; }
+
+        [Display(Name = nameof(Director))]
+        public DirectorDetailsViewModel Director { get; set; }
 
         public decimal Rating { get; set; }
 
