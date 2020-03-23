@@ -58,6 +58,7 @@
             public const int NameMinLength = 3;
             public const int NameMaxLength = 40;
             public const string CountriesDisplayName = "Countries";
+            public const string CountryIdError = "Please select country name.";
         }
 
         public static class Director

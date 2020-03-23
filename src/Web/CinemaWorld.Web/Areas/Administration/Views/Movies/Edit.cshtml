@@ -3,6 +3,8 @@
 @{
     this.ViewData["Title"] = "Edit Movie";
     this.ViewData["ActivePage"] = MovieNavPages.Movies;
+
+    var directors = Model.Directors.Select(x => new SelectListItem(x.FullName, x.Id.ToString()));
 }
 
 <div class="row">
@@ -75,12 +77,8 @@
             <div class="form-group">
                 <label asp-for="DirectorId"></label>
                 <div class="container">
-                    <select asp-for="DirectorId" class="selectpicker">
-                        <option selected="" disabled="">Select director</option>
-                        @foreach (var director in Model.Directors)
-                        {
-                            <option value="@director.Id">@director.FirstName @director.LastName</option>
-                        }
+                    <select asp-for="DirectorId" asp-items="directors" class="selectpicker">
+                        <option selected="" disabled="">Select Director</option>
                     </select>
                 </div>
                 <span asp-validation-for="DirectorId" class="text-danger"></span>
@@ -89,7 +87,7 @@
                 <label asp-for="SelectedGenres"></label>
                 <div class="container">
                     <select multiple asp-for="SelectedGenres" class="selectpicker">
-                        <option value="" disabled>Select Genre/Genres</option>
+                        <option disabled>Select Genre/Genres</option>
                         @foreach (var genre in Model.Genres)
                         {
                             @if (Model.MovieGenres.Select(x => x.GenreId).Any(x => x == genre.Id))
@@ -109,7 +107,7 @@
                 <label asp-for="SelectedCountries"></label>
                 <div class="container">
                     <select multiple asp-for="SelectedCountries" class="selectpicker">
-                        <option value="" disabled>Select Country/Countries</option>
+                        <option disabled>Select Country/Countries</option>
                         @foreach (var country in Model.Countries)
                         {
                             @if (Model.MovieCountries.Select(x => x.CountryId).Any(x => x == country.Id))
@@ -130,7 +128,3 @@
         </form>
     </div>
 </div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}

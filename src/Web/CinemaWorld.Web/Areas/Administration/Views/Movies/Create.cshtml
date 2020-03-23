@@ -3,6 +3,10 @@
 @{
     this.ViewData["Title"] = "Create Movie";
     this.ViewData["ActivePage"] = MovieNavPages.Movies;
+
+    var directors = Model.Directors.Select(x => new SelectListItem(x.FullName, x.Id.ToString()));
+    var genres = Model.Genres.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var countries = Model.Countries.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
 }
 
 <div class="row">
@@ -71,12 +75,8 @@
             <div class="form-group">
                 <label asp-for="DirectorId"></label>
                 <div class="container">
-                    <select asp-for="DirectorId" class="selectpicker">
-                        <option selected="" disabled="">Select director</option>
-                        @foreach (var director in Model.Directors)
-                        {
-                            <option value="@director.Id">@director.FirstName @director.LastName</option>
-                        }
+                    <select asp-for="DirectorId" asp-items="directors" class="selectpicker">
+                        <option selected="" disabled="">Select Director</option>
                     </select>
                 </div>
                 <span asp-validation-for="DirectorId" class="text-danger"></span>
@@ -84,11 +84,8 @@
             <div class="form-group">
                 <label asp-for="SelectedGenres"></label>
                 <div class="container">
-                    <select multiple asp-for="SelectedGenres" class="selectpicker">
-                        @foreach (var genre in Model.Genres)
-                        {
-                            <option value="@genre.Id">@genre.Name</option>
-                        }
+                    <select multiple asp-for="SelectedGenres" asp-items="genres" class="selectpicker">
+                        <option disabled="">Select Genre/Genres</option>
                     </select>
                 </div>
                 <span asp-validation-for="SelectedGenres" class="text-danger"></span>
@@ -96,11 +93,8 @@
             <div class="form-group">
                 <label asp-for="SelectedCountries"></label>
                 <div class="container">
-                    <select multiple asp-for="SelectedCountries" class="selectpicker">
-                        @foreach (var country in Model.Countries)
-                        {
-                            <option value="@country.Id">@country.Name</option>
-                        }
+                    <select multiple asp-for="SelectedCountries" asp-items="countries" class="selectpicker">
+                        <option disabled="">Select Country/Countries</option>
                     </select>
                 </div>
                 <span asp-validation-for="SelectedCountries" class="text-danger"></span>
@@ -109,7 +103,3 @@
         </form>
     </div>
 </div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}

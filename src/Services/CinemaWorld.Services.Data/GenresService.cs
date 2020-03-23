@@ -84,6 +84,7 @@
         {
             var genres = await this.genresRepository
                 .All()
+                .OrderBy(x => x.Name)
                 .To<TViewModel>()
                 .ToListAsync();
 

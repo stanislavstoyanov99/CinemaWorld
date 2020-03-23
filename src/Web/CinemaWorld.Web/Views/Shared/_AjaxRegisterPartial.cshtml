@@ -1,19 +1,23 @@
-﻿<div class="form">
+﻿@model CinemaWorld.Web.Areas.Identity.Pages.Account.InputModels.AjaxRegisterInputModel
+
+<div class="form">
     <h3>Create an account</h3>
     <form id="formRegisterAjax" asp-area="" asp-controller="Users" asp-action="AjaxRegister" method="post">
         <div class="shadow">
             <div class="lds-dual-ring"></div>
         </div>
         <span id="register-error" class="text-danger" style="display: none; white-space: pre-line"></span>
-        <input type="text" name="Username" placeholder="Username">
-        <input type="text" name="FullName" placeholder="Full Name">
-        <input type="password" name="Password" placeholder="Password">
-        <input type="password" name="ConfirmPassword" placeholder="Confirm password">
-        <input type="email" name="Email" placeholder="Email Address">
-        <label class="form-check-label">Male</label>
-        <input type="radio" name="gender" id="genderMaleId" value="male" />
-        <label class="form-check-inline">Female</label>
-        <input type="radio" name="gender" id="genderFemaleId" value="female" />
+        <input asp-for="Username" placeholder="Username">
+        <input asp-for="FullName" placeholder="Full Name">
+        <input asp-for="Password" placeholder="Password">
+        <input asp-for="ConfirmPassword" placeholder="Confirm password">
+        <input asp-for="Email" placeholder="Email Address">
+        <div class="form-group form-check-inline">
+            @foreach (var gender in Model.Genders)
+            {
+                <input type="radio" asp-for="SelectedGender" value="@gender" class="form-check-input" />@gender
+            }
+        </div>
         <hr />
         <input type="submit" value="Register">
     </form>

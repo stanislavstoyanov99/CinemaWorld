@@ -1,7 +1,6 @@
 ﻿namespace CinemaWorld.Web.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Text.Encodings.Web;
@@ -9,10 +8,10 @@
 
     using CinemaWorld.Common;
     using CinemaWorld.Data.Models;
+    using CinemaWorld.Data.Models.Enumerations;
     using CinemaWorld.Web.Areas.Identity.Pages.Account.InputModels;
     using CinemaWorld.Web.Infrastructure;
 
-    using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
@@ -39,10 +38,8 @@
             this.emailSender = emailSender;
         }
 
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
-
         [HttpPost]
-        public async Task<IActionResult> AjaxLogin(LoginInputModel loginInput, string returnUrl = null)
+        public async Task<IActionResult> AjaxLogin(AjaxLoginInputModel loginInput, string returnUrl = null)
         {
             returnUrl = returnUrl ?? this.Url.Content("~/");
 
@@ -84,20 +81,21 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> AjaxRegister(RegisterInputModel registerInput, string returnUrl = null)
+        public async Task<IActionResult> AjaxRegister(AjaxRegisterInputModel registerInput, string returnUrl = null)
         {
             returnUrl = returnUrl ?? this.Url.Content("~/");
-            this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             var ajaxObject = new AjaxObject();
             if (this.ModelState.IsValid)
             {
+                Enum.TryParse<Gender>(registerInput.SelectedGender, out Gender gender);
+
                 var user = new CinemaWorldUser
                 {
                     UserName = registerInput.Username,
                     Email = registerInput.Email,
                     FullName = registerInput.FullName,
-                    Gender = registerInput.Gender,
+                    Gender = gender,
                 };
 
                 var result = await this.userManager.CreateAsync(user, registerInput.Password);

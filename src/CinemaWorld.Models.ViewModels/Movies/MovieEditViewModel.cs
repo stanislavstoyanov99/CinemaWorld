@@ -11,9 +11,9 @@
     using CinemaWorld.Services.Mapping;
 
     using static Common.ModelValidation;
+    using static Common.ModelValidation.Country;
     using static Common.ModelValidation.Genre;
     using static Common.ModelValidation.Movie;
-    using static Common.ModelValidation.Country;
 
     using Director = CinemaWorld.Data.Models.Director;
     using Movie = CinemaWorld.Data.Models.Movie;
@@ -76,9 +76,11 @@
 
         public IEnumerable<DirectorDetailsViewModel> Directors { get; set; }
 
+        [Required(ErrorMessage = GenreIdError)]
         [Display(Name = GenresDisplayName)]
         public IList<int> SelectedGenres { get; set; }
 
+        [Required(ErrorMessage = CountryIdError)]
         [Display(Name = CountriesDisplayName)]
         public IList<int> SelectedCountries { get; set; }
 

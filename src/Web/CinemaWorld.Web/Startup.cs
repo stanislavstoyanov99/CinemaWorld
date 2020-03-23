@@ -71,6 +71,15 @@
             services.AddTransient<IDirectorsService, DirectorsService>();
             services.AddTransient<IGenresService, GenresService>();
             services.AddTransient<ICountriesService, CountriesService>();
+
+            // External login providers
+            services.AddAuthentication()
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = this.configuration["Authentication:Facebook:AppId"];
+                    facebookOptions.AppSecret = this.configuration["Authentication:Facebook:AppSecret"];
+                    facebookOptions.Fields.Add("name");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

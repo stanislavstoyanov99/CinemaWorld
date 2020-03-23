@@ -74,9 +74,11 @@
 
         public IEnumerable<CountryDetailsViewModel> Countries { get; set; }
 
+        [Required(ErrorMessage = GenreIdError)]
         [Display(Name = GenresDisplayName)]
         public IList<int> SelectedGenres { get; set; }
 
+        [Required(ErrorMessage = CountryIdError)]
         [Display(Name = CountriesDisplayName)]
         public IList<int> SelectedCountries { get; set; }
     }

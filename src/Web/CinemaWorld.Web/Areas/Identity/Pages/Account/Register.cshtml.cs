@@ -1,5 +1,6 @@
 ﻿namespace CinemaWorld.Web.Areas.Identity.Pages.Account
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
@@ -8,6 +9,7 @@
 
     using CinemaWorld.Common;
     using CinemaWorld.Data.Models;
+    using CinemaWorld.Data.Models.Enumerations;
     using CinemaWorld.Web.Areas.Identity.Pages.Account.InputModels;
 
     using Microsoft.AspNetCore.Authentication;
@@ -41,7 +43,7 @@
             this.emailSender = emailSender;
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public RegisterInputModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
@@ -69,12 +71,13 @@
 
             if (this.ModelState.IsValid)
             {
+                Enum.TryParse<Gender>(this.Input.SelectedGender, out Gender gender);
                 var user = new CinemaWorldUser
                 {
                     UserName = this.Input.Username,
                     Email = this.Input.Email,
                     FullName = this.Input.FullName,
-                    Gender = this.Input.Gender,
+                    Gender = gender,
                 };
 
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);

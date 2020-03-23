@@ -84,6 +84,7 @@
         {
             var countries = await this.countriesRepository
                 .All()
+                .OrderBy(x => x.Name)
                 .To<TViewModel>()
                 .ToListAsync();
 

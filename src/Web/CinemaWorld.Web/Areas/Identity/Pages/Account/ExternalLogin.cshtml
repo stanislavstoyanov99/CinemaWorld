@@ -1,0 +1,55 @@
+﻿@page
+@model ExternalLoginModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container container_addon">
+    <h2>@ViewData["Title"]</h2>
+    <h4>Associate your @Model.LoginProvider account.</h4>
+    <hr />
+
+    <div class="form-group">
+        <p class="alert alert-success">
+            You've successfully authenticated with <strong>@Model.LoginProvider</strong>.
+            Please enter an email address, username and gender for this site below and click the <strong>Register</strong> button to finish
+            logging in.
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Username"></label>
+                    <input asp-for="Input.Username" class="form-control" />
+                    <span asp-validation-for="Input.Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.FullName"></label>
+                    <input asp-for="Input.FullName" class="form-control" />
+                    <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check-inline">
+                    @foreach (var gender in Model.Input.Genders)
+                    {
+                        <input type="radio" asp-for="Input.SelectedGender" value="@gender" class="form-check-input" />@gender
+                    }
+                </div>
+                <span asp-validation-for="Input.SelectedGender" class="text-danger"></span>
+                <hr />
+                <button type="submit" class="btn btn-success">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

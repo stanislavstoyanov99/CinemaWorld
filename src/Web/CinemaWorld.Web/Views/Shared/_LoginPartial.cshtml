@@ -1,6 +1,7 @@
 ﻿@using CinemaWorld.Common
 @using CinemaWorld.Data.Models
 @using Microsoft.AspNetCore.Identity
+
 @inject SignInManager<CinemaWorldUser> SignInManager
 @inject UserManager<CinemaWorldUser> UserManager
 
@@ -25,38 +26,7 @@
 }
 else
 {
-    <div class="w3l_sign_in_register">
-        <ul>
-            <li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 123 345 653</li>
-            <li><a data-toggle="modal" data-target="#myModal">Login</a></li>
-        </ul>
-    </div>
-
-    <div class="modal video-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    Sign In & Sign Up
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <section>
-                    <div class="modal-body">
-                        <div class="w3_login_module">
-                            <div class="module form-module">
-                                <div class="toggle">
-                                    <i class="fa fa-times fa-pencil"></i>
-                                    <div class="tooltip">Register</div>
-                                </div>
-                                <partial name="_AjaxLoginPartial" />
-                                <partial name="_AjaxRegisterPartial" />
-                                <div class="cta"><a id="forgot-password" href="/Identity/Account/ForgotPassword">Forgot your password?</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </div>
+    <partial name="_AjaxPartial" />
     <script>
         $('.toggle').click(function () {
             // Switches the Icon

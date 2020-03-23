@@ -12,7 +12,6 @@
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
                 <h4>Create a new account.</h4>
                 <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Input.Email"></label>
                     <input asp-for="Input.Email" class="form-control" />
@@ -38,14 +37,13 @@
                     <input asp-for="Input.ConfirmPassword" class="form-control" />
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
-                <div class="form-check form-check-inline">
-                    <input asp-for="Input.Gender" class="form-check-input" type="radio" name="gender" id="genderMaleId" value="male">
-                    <label class="form-check-label">Male</label>
+                <div class="form-group form-check-inline">
+                    @foreach (var gender in Model.Input.Genders)
+                    {
+                        <input type="radio" asp-for="Input.SelectedGender" value="@gender" class="form-check-input" />@gender
+                    }
                 </div>
-                <div class="form-check form-check-inline">
-                    <input asp-for="Input.Gender" class="form-check-input" type="radio" name="gender" id="genderFemaleId" value="female">
-                    <label class="form-check-label">Female</label>
-                </div>
+                <span asp-validation-for="Input.SelectedGender" class="text-danger"></span>
                 <hr />
                 <button type="submit" class="btn btn-success">Register</button>
             </form>
@@ -71,7 +69,7 @@
                                 <p>
                                     @foreach (var provider in Model.ExternalLogins)
                                     {
-                                        <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                        <button type="submit" class="btn btn-success" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                                     }
                                 </p>
                             </div>

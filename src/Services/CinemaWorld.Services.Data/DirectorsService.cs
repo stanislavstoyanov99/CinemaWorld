@@ -86,6 +86,7 @@
         {
             var directors = await this.directorsRepository
                 .All()
+                .OrderBy(x => x.FirstName)
                 .To<TViewModel>()
                 .ToListAsync();
 

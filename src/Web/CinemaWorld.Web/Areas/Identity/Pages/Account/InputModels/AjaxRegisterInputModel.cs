@@ -4,16 +4,9 @@
     using System.ComponentModel.DataAnnotations;
 
     using CinemaWorld.Data.Common;
-    using CinemaWorld.Data.Models.Enumerations;
 
-    public class RegisterInputModel
+    public class AjaxRegisterInputModel
     {
-        public IEnumerable<string> Genders = new[]
-        {
-            nameof(Gender.Male),
-            nameof(Gender.Female),
-        };
-
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -31,6 +24,8 @@
         [Required]
         [Display(Name = "Gender")]
         public string SelectedGender { get; set; }
+
+        public IEnumerable<string> Genders { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
