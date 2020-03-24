@@ -1,6 +1,7 @@
 ﻿namespace CinemaWorld.Services.Data.Contracts
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.InputModels.AdministratorInputModels.Movies;

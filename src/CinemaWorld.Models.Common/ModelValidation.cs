@@ -48,6 +48,7 @@
             public const string IdDisplayName = "No.";
             public const string NameDisplayName = "Movie Name";
             public const string DateOfReleaseAllMoviesDisplayName = "Year";
+            public const string OnlyDateAllMoviesDisplayName = "Date of release";
 
             public const string MovieGenreDisplayName = "Genre Name";
             public const string MovieCountryDisplayName = "Country Name";
