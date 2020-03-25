@@ -1,0 +1,257 @@
+﻿@using CinemaWorld.Models.ViewModels.Movies
+@model AllMoviesListingViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
+
+<div class="single-page-agile-main">
+    <div class="container">
+        <div class="agileits-single-top">
+            <ol class="breadcrumb">
+                <li><a asp-action="All">Home</a></li>
+                <li class="active">Single</li>
+            </ol>
+        </div>
+        <div class="single-page-agile-info">
+            <div class="show-top-grids-w3lagile">
+                <div class="col-sm-8 single-left">
+                    <div class="song">
+                        <div class="song-info">
+                            <h3>@Model.MovieDetailsViewModel.Name</h3>
+                        </div>
+                        <div class="video-grid-single-page-agileits">
+                            <div data-video="@Model.MovieDetailsViewModel.TrailerPath" id="video">
+                                <img src="@Model.MovieDetailsViewModel.CoverPath" alt="Movie Cover Path" class="img-responsive" /> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="song-grid-right">
+                        <div class="share">
+                            <h5>Share this</h5>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                    <div class="media-grids">
+                        <div class="media-left">
+                            @Model.MovieDetailsViewModel.Description
+                        </div>
+                    </div>
+                    <div class="all-comments">
+                        <div class="all-comments-info">
+                            <a href="#commentsId">Comments</a>
+                            <div class="agile-info-wthree-box">
+                                <form>
+                                    <input type="text" placeholder="Name" required="">
+                                    <input type="text" placeholder="Email" required="">
+                                    <input type="text" placeholder="Phone" required="">
+                                    <textarea placeholder="Message" required=""></textarea>
+                                    <input type="submit" value="SEND">
+                                    <div class="clearfix"> </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="media-grids" id="commentsId">
+                            <div class="media">
+                                <h5>TOM BROWN</h5>
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img src="~/images/user.jpg" title="One movies" alt=" " />
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
+                                    <span>View all posts by :<a href="#"> Admin </a></span>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <h5>MARK JOHNSON</h5>
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img src="~/images/user.jpg" title="One movies" alt=" " />
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
+                                    <span>View all posts by :<a href="#"> Admin </a></span>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <h5>STEVEN SMITH</h5>
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img src="~/images/user.jpg" title="One movies" alt=" " />
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
+                                    <span>View all posts by :<a href="#"> Admin </a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 single-right">
+                    <h3>Up Next</h3>
+                    <div class="single-grid-right">
+                        <div class="single-right-grids">
+                            <div class="col-md-4 single-right-grid-left">
+                                <a href="single.html"><img src="~/images/m1.jpg" alt="" /></a>
+                            </div>
+                            <div class="col-md-8 single-right-grid-right">
+                                <a href="single.html" class="title"> Nullam interdum metus</a>
+                                <p class="author"><a href="#" class="author">John Maniya</a></p>
+                                <p class="views">2,114,200 views</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="single-right-grids">
+                            <div class="col-md-4 single-right-grid-left">
+                                <a href="single.html"><img src="~/images/m2.jpg" alt="" /></a>
+                            </div>
+                            <div class="col-md-8 single-right-grid-right">
+                                <a href="single.html" class="title"> Nullam interdum metus</a>
+                                <p class="author"><a href="#" class="author">John Maniya</a></p>
+                                <p class="views">2,114,200 views </p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="single-right-grids">
+                            <div class="col-md-4 single-right-grid-left">
+                                <a href="single.html"><img src="~/images/m3.jpg" alt="" /></a>
+                            </div>
+                            <div class="col-md-8 single-right-grid-right">
+                                <a href="single.html" class="title"> Nullam interdum metus</a>
+                                <p class="author"><a href="#" class="author">John Maniya</a></p>
+                                <p class="views">2,114,200 views</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="single-right-grids">
+                            <div class="col-md-4 single-right-grid-left">
+                                <a href="single.html"><img src="~/images/m4.jpg" alt="" /></a>
+                            </div>
+                            <div class="col-md-8 single-right-grid-right">
+                                <a href="single.html" class="title"> Nullam interdum metus</a>
+                                <p class="author"><a href="#" class="author">John Maniya</a></p>
+                                <p class="views">2,114,200 views</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="single-right-grids">
+                            <div class="col-md-4 single-right-grid-left">
+                                <a href="single.html"><img src="~/images/m5.jpg" alt="" /></a>
+                            </div>
+                            <div class="col-md-8 single-right-grid-right">
+                                <a href="single.html" class="title"> Nullam interdum metus</a>
+                                <p class="author"><a href="#" class="author">John Maniya</a></p>
+                                <p class="views">2,114,200 views</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="single-right-grids">
+                            <div class="col-md-4 single-right-grid-left">
+                                <a href="single.html"><img src="~/images/c5.jpg" alt="" /></a>
+                            </div>
+                            <div class="col-md-8 single-right-grid-right">
+                                <a href="single.html" class="title"> Nullam interdum metus</a>
+                                <p class="author"><a href="#" class="author">John Maniya</a></p>
+                                <p class="views">2,114,200 views</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="single-right-grids">
+                            <div class="col-md-4 single-right-grid-left">
+                                <a href="single.html"><img src="~/images/m6.jpg" alt="" /></a>
+                            </div>
+                            <div class="col-md-8 single-right-grid-right">
+                                <a href="single.html" class="title"> Nullam interdum metus</a>
+                                <p class="author">By <a href="#" class="author">John Maniya</a></p>
+                                <p class="views">2,114,200 views</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="single-right-grids">
+                            <div class="col-md-4 single-right-grid-left">
+                                <a href="single.html"><img src="~/images/m15.jpg" alt="" /></a>
+                            </div>
+                            <div class="col-md-8 single-right-grid-right">
+                                <a href="single.html" class="title"> Nullam interdum metus</a>
+                                <p class="author">By <a href="#" class="author">John Maniya</a></p>
+                                <p class="views">2,114,200 views</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="w3_agile_banner_bottom_grid">
+                <div id="owl-demo" class="owl-carousel owl-theme">
+                    @foreach (var movie in Model.AllMovies)
+                    {
+                        <div class="item">
+                            <div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+                                <a asp-action="Details" asp-route-id="@movie.Id" class="hvr-shutter-out-horizontal">
+                                    <img src="@movie.CoverPath" title="movie-cover" class="img-responsive" alt="Movie Cover Path" />
+                                </a>
+                                <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                    <div class="w3l-movie-text">
+                                        <h6><a asp-action="Details" asp-route-id="@movie.Id">@movie.Name</a></h6>
+                                    </div>
+                                    <div class="mid-2 agile_mid_2_home">
+                                        <p>@movie.DateOfRelease.Year</p>
+                                        <div class="block-stars">
+                                            <ul class="w3l-ratings">
+                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                @if (movie.DateOfRelease.CompareTo(DateTime.UtcNow) > 0)
+                                {
+                                    <div class="ribben">
+                                        <p>NEW</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/owl.carousel.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#owl-demo").owlCarousel({
+
+                autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+                items: 5,
+                itemsDesktop: [640, 5],
+                itemsDesktopSmall: [414, 4]
+
+            });
+
+        });
+    </script>
+
+    <script src="~/js/simplePlayer.js"></script>
+    <script>
+        $("document").ready(function () {
+            $("#video").simplePlayer();
+        });
+    </script>
+}

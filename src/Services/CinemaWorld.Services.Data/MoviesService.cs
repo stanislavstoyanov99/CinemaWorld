@@ -240,6 +240,15 @@
             return movies;
         }
 
+        public IQueryable<TViewModel> GetAllMoviesAsQueryeable<TViewModel>()
+        {
+            var movies = this.moviesRepository
+                .All()
+                .To<TViewModel>();
+
+            return movies;
+        }
+
         public async Task<IEnumerable<TViewModel>> GetAllMovieGenresAsync<TViewModel>(int movieId)
         {
             var movieGenres = await this.movieGenresRepository

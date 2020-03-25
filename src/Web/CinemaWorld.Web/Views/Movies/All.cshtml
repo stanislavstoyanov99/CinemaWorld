@@ -1,8 +1,18 @@
 ﻿@using CinemaWorld.Models.ViewModels.Movies
-@model IEnumerable<MovieDetailsViewModel>
+@using CinemaWorld.Web.Infrastructure
+@model PaginatedList<MovieDetailsViewModel>
 @{
     ViewData["Title"] = "All";
 }
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    int movieCounter = 0;
+}
+
+<link rel="stylesheet" type="text/css" href="~/list-css/table-style.css" />
+<link rel="stylesheet" type="text/css" href="~/list-css/basictable.css" />
 
 <!-- faq-banner -->
 <div class="faq">
@@ -16,7 +26,7 @@
         </div>
         <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
             <ul id="myTab" class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">0 - 9</a></li>
+                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">1 - 10</a></li>
                 <li role="presentation"><a href="#a" role="tab" id="a-tab" data-toggle="tab" aria-controls="a">A</a></li>
                 <li role="presentation"><a href="#b" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">B</a></li>
                 <li role="presentation"><a href="#c" role="tab" id="c-tab" data-toggle="tab" aria-controls="c">C</a></li>
@@ -44,11 +54,29 @@
                 <li role="presentation"><a href="#y" role="tab" id="y-tab" data-toggle="tab" aria-controls="y">Y</a></li>
                 <li role="presentation"><a href="#z" role="tab" id="z-tab" data-toggle="tab" aria-controls="z">Z</a></li>
             </ul>
+            <form asp-action="All" method="get">
+                <div class="form-actions no-color">
+                    <p>
+                        Find by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                        <input type="submit" value="Search" class="btn btn-sm btn-primary" /> |
+                        <a asp-action="All">Back to Full List</a>
+                    </p>
+                </div>
+            </form>
+            <hr />
             <div id="myTabContent" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
                     <div class="agile-news-table">
                         <div class="w3ls-news-result">
                             <h4>Total Count : <span>@Model.Count()</span></h4>
+                        </div>
+                        <div class="w3ls-news-result">
+                            <a asp-action="All" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-primary @prevDisabled">
+                                Previous
+                            </a>
+                            <a asp-action="All" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-primary @nextDisabled">
+                                Next
+                            </a>
                         </div>
                         <table id="table-breakpoint">
                             <thead>
@@ -69,10 +97,11 @@
                             <tbody>
                                 @foreach (var movie in Model)
                                 {
+                                    movieCounter++;
                                     <tr>
-                                        <td>@movie.Id</td>
+                                        <td>@movieCounter</td>
                                         <td class="w3-list-img">
-                                            <a href="@movie.TrailerPath">
+                                            <a asp-action="Details" asp-route-id="@movie.Id">
                                                 <img src="@movie.CoverPath" alt="Movie Cover" />
                                                 <span>
                                                     <strong>@movie.Name</strong>
@@ -104,310 +133,42 @@
                         </table>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="a" aria-labelledby="a-tab">
-                    <div class="agile-news-table">
-                        <div class="w3ls-news-result">
-                            <h4>Search Results : <span>17</span></h4>
-                        </div>
-                        <table id="table-breakpoint1">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Movie Name</th>
-                                    <th>Year</th>
-                                    <th>Resolution</th>
-                                    <th>Country</th>
-                                    <th>Genre</th>
-                                    <th>Rating</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n3.jpg" alt="" /> <span>2 Sausage Party</span></a></td>
-                                    <td>2013</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy, Drama</a></td>
-                                    <td>7.0</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n4.jpg" alt="" /> <span>2.0 Morgan</span></a></td>
-                                    <td>2014</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United States</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Action</a></td>
-                                    <td>7.1</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n5.jpg" alt="" /> <span>24</span></a></td>
-                                    <td>2016</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">India</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Thriller, Drama</a></td>
-                                    <td>9.0</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n6.jpg" alt="" /> <span>001 The Secret Life of Pets</span></a></td>
-                                    <td>2012</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">Euro, France</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Thriller, Crime, Drama</a></td>
-                                    <td>8.2</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n7.jpg" alt="" /> <span>12 Hell or High Water</span></a></td>
-                                    <td>2010</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">China</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy</a></td>
-                                    <td>8.9</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n8.jpg" alt="" /> <span>2 Central Intelligence</span></a></td>
-                                    <td>2010</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy, Drama</a></td>
-                                    <td>7.0</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n9.jpg" alt="" /> <span>3 The Jungle Book</span></a></td>
-                                    <td>2014</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">Japan</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Action</a></td>
-                                    <td>7.1</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n10.jpg" alt="" /> <span>01 Independence Day</span></a></td>
-                                    <td>2013</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy, Drama</a></td>
-                                    <td>7.0</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n1.jpg" alt="" /> <span>01 Ben-Hur</span></a></td>
-                                    <td>2013</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy, Drama</a></td>
-                                    <td>7.0</td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n2.jpg" alt="" /> <span>001 Southside with you</span></a></td>
-                                    <td>2011</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">Korea</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Drama</a></td>
-                                    <td>7.5</td>
-                                </tr>
-                                <tr>
-                                    <td>11</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n11.jpg" alt="" /> <span>12 Bad Moms</span></a></td>
-                                    <td>2010</td>
-                                    <td>SD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy</a></td>
-                                    <td>6.5</td>
-                                </tr>
-                                <tr>
-                                    <td>12</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n3.jpg" alt="" /> <span>2 Sausage Party</span></a></td>
-                                    <td>2013</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy, Drama</a></td>
-                                    <td>7.0</td>
-                                </tr>
-                                <tr>
-                                    <td>13</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n4.jpg" alt="" /> <span>2.0 Morgan</span></a></td>
-                                    <td>2014</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United States</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Action</a></td>
-                                    <td>7.1</td>
-                                </tr>
-                                <tr>
-                                    <td>14</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n5.jpg" alt="" /> <span>24</span></a></td>
-                                    <td>2016</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">India</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Thriller, Drama</a></td>
-                                    <td>9.0</td>
-                                </tr>
-                                <tr>
-                                    <td>15</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n6.jpg" alt="" /> <span>001 The Secret Life of Pets</span></a></td>
-                                    <td>2012</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">Euro, France</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Thriller, Crime, Drama</a></td>
-                                    <td>8.2</td>
-                                </tr>
-                                <tr>
-                                    <td>16</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n7.jpg" alt="" /> <span>12 Hell or High Water</span></a></td>
-                                    <td>2010</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">China</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy</a></td>
-                                    <td>8.9</td>
-                                </tr>
-                                <tr>
-                                    <td>17</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n8.jpg" alt="" /> <span>2 Central Intelligence</span></a></td>
-                                    <td>2010</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy, Drama</a></td>
-                                    <td>7.0</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="b" aria-labelledby="b-tab">
-                    <div class="agile-news-table">
-                        <div class="w3ls-news-result">
-                            <h4>Search Results : <span>12</span></h4>
-                        </div>
-                        <table id="table-breakpoint2">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Movie Name</th>
-                                    <th>Year</th>
-                                    <th>Resolution</th>
-                                    <th>Country</th>
-                                    <th>Genre</th>
-                                    <th>Rating</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n1.jpg" alt="" /> <span>01 Ben-Hur</span></a></td>
-                                    <td>2013</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy, Drama</a></td>
-                                    <td>7.0</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n2.jpg" alt="" /> <span>001 Southside with you</span></a></td>
-                                    <td>2011</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">Korea</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Drama</a></td>
-                                    <td>7.5</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n11.jpg" alt="" /> <span>12 Bad Moms</span></a></td>
-                                    <td>2010</td>
-                                    <td>SD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy</a></td>
-                                    <td>6.5</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n3.jpg" alt="" /> <span>2 Sausage Party</span></a></td>
-                                    <td>2013</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy, Drama</a></td>
-                                    <td>7.0</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n4.jpg" alt="" /> <span>2.0 Morgan</span></a></td>
-                                    <td>2014</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United States</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Action</a></td>
-                                    <td>7.1</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n5.jpg" alt="" /> <span>24</span></a></td>
-                                    <td>2016</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">India</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Thriller, Drama</a></td>
-                                    <td>9.0</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n6.jpg" alt="" /> <span>001 The Secret Life of Pets</span></a></td>
-                                    <td>2012</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">Euro, France</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Thriller, Crime, Drama</a></td>
-                                    <td>8.2</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n7.jpg" alt="" /> <span>12 Hell or High Water</span></a></td>
-                                    <td>2010</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">China</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy</a></td>
-                                    <td>8.9</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n8.jpg" alt="" /> <span>2 Central Intelligence</span></a></td>
-                                    <td>2010</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy, Drama</a></td>
-                                    <td>7.0</td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n9.jpg" alt="" /> <span>3 The Jungle Book</span></a></td>
-                                    <td>2014</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">Japan</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Action</a></td>
-                                    <td>7.1</td>
-                                </tr>
-                                <tr>
-                                    <td>11</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n10.jpg" alt="" /> <span>01 Independence Day</span></a></td>
-                                    <td>2013</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy, Drama</a></td>
-                                    <td>7.0</td>
-                                </tr>
-                                <tr>
-                                    <td>12</td>
-                                    <td class="w3-list-img"><a href="single.html"><img src="~/images/n1.jpg" alt="" /> <span>01 Ben-Hur</span></a></td>
-                                    <td>2013</td>
-                                    <td>HD</td>
-                                    <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                    <td class="w3-list-info"><a href="genres.html">Comedy, Drama</a></td>
-                                    <td>7.0</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="a" aria-labelledby="a-tab">
+                <div class="agile-news-table">
+                    <table id="table-breakpoint1">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Movie Name</th>
+                                <th>Year</th>
+                                <th>Resolution</th>
+                                <th>Country</th>
+                                <th>Genre</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td class="w3-list-img"><a href="single.html"><img src="~/images/n3.jpg" alt="" /> <span>2 Sausage Party</span></a></td>
+                                <td>2013</td>
+                                <td>HD</td>
+                                <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
+                                <td class="w3-list-info"><a href="genres.html">Comedy, Drama</a></td>
+                                <td>7.0</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td class="w3-list-img"><a href="single.html"><img src="~/images/n4.jpg" alt="" /> <span>2.0 Morgan</span></a></td>
+                                <td>2014</td>
+                                <td>HD</td>
+                                <td class="w3-list-info"><a href="genres.html">United States</a></td>
+                                <td class="w3-list-info"><a href="genres.html">Action</a></td>
+                                <td>7.1</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -417,8 +178,6 @@
 
 @section Scripts
 {
-    <link rel="stylesheet" type="text/css" href="~/list-css/table-style.css" />
-    <link rel="stylesheet" type="text/css" href="~/list-css/basictable.css" />
     <script type="text/javascript" src="~/list-js/jquery.basictable.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {

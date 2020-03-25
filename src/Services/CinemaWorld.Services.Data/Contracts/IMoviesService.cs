@@ -16,5 +16,7 @@
         Task<IEnumerable<TEntity>> GetAllMoviesAsync<TEntity>();
 
         Task<IEnumerable<TEntity>> GetAllMovieGenresAsync<TEntity>(int movieId);
+
+        IQueryable<TViewModel> GetAllMoviesAsQueryeable<TViewModel>();
     }
 }

@@ -3,8 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Globalization;
-    using CinemaWorld.Common;
+
     using CinemaWorld.Data.Models;
     using CinemaWorld.Data.Models.Enumerations;
     using CinemaWorld.Models.ViewModels.Directors;
@@ -27,6 +26,8 @@
         public string OnlyDate => this.DateOfRelease.ToShortDateString();
 
         public string Resolution { get; set; }
+
+        public string Description { get; set; }
 
         public IEnumerable<MovieGenreViewModel> MovieGenres { get; set; }
 
