@@ -42,7 +42,8 @@
             public const string DateOfReleaseDisplayName = "Date of release";
             public const string CinemaCategoryDisplayName = "Cinema Category";
             public const string TrailerPathDisplayName = "Trailer Path";
-            public const string CoverPathDisplayName = "Cover Path";
+            public const string NewCoverImageDisplayName = "New Cover Image";
+            public const string CoverImageDisplayName = "Cover Image";
             public const string IMDBLinkDisplayName = "IMDB Link";
 
             public const string IdDisplayName = "No.";

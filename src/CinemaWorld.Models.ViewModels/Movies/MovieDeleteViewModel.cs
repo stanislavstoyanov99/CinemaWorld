@@ -37,7 +37,7 @@
         [Display(Name = TrailerPathDisplayName)]
         public string TrailerPath { get; set; }
 
-        [Display(Name = CoverPathDisplayName)]
+        [Display(Name = CoverImageDisplayName)]
         public string CoverPath { get; set; }
 
         [Display(Name = IMDBLinkDisplayName)]

@@ -11,7 +11,7 @@
         <div class="agileits-single-top">
             <ol class="breadcrumb">
                 <li><a asp-action="All">Home</a></li>
-                <li class="active">Single</li>
+                <li class="active">Details</li>
             </ol>
         </div>
         <div class="single-page-agile-info">
@@ -195,7 +195,7 @@
                         <div class="item">
                             <div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
                                 <a asp-action="Details" asp-route-id="@movie.Id" class="hvr-shutter-out-horizontal">
-                                    <img src="@movie.CoverPath" title="movie-cover" class="img-responsive" alt="Movie Cover Path" />
+                                    <img src="@movie.CoverPath" title="movie-cover" class="img-responsive img-fluid" alt="Movie Cover Path" />
                                 </a>
                                 <div class="mid-1 agileits_w3layouts_mid_1_home">
                                     <div class="w3l-movie-text">
@@ -205,11 +205,11 @@
                                         <p>@movie.DateOfRelease.Year</p>
                                         <div class="block-stars">
                                             <ul class="w3l-ratings">
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                                <li><a><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                <li><a><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                <li><a><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                <li><a><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                <li><a><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
                                             </ul>
                                         </div>
                                         <div class="clearfix"></div>

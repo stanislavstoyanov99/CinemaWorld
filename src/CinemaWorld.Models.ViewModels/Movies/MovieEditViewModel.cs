@@ -10,6 +10,8 @@
     using CinemaWorld.Models.ViewModels.Genres;
     using CinemaWorld.Services.Mapping;
 
+    using Microsoft.AspNetCore.Http;
+
     using static Common.ModelValidation;
     using static Common.ModelValidation.Country;
     using static Common.ModelValidation.Genre;
@@ -18,7 +20,7 @@
     using Director = CinemaWorld.Data.Models.Director;
     using Movie = CinemaWorld.Data.Models.Movie;
 
-    public class MovieEditViewModel : IMapFrom<Movie>, IMapFrom<Director>, IMapFrom<MovieGenre>
+    public class MovieEditViewModel : IMapFrom<Movie>, IMapFrom<Director>, IMapFrom<MovieGenre>, IMapFrom<MovieCountry>
     {
         public int Id { get; set; }
 
@@ -56,11 +58,13 @@
         [Display(Name = TrailerPathDisplayName)]
         public string TrailerPath { get; set; }
 
-        [Required(ErrorMessage = EmptyFieldLengthError)]
         [DataType(DataType.Url)]
         [StringLength(CoverPathMaxLength, MinimumLength = CoverPathMinLength, ErrorMessage = CoverPathError)]
-        [Display(Name = CoverPathDisplayName)]
         public string CoverPath { get; set; }
+
+        [Display(Name = NewCoverImageDisplayName)]
+        [DataType(DataType.Upload)]
+        public IFormFile CoverImage { get; set; }
 
         [StringLength(ImdbLinkMaxLength, MinimumLength = ImdbLinkMinLength, ErrorMessage = ImdbLinkError)]
         [DataType(DataType.Url)]

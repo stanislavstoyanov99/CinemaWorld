@@ -15,6 +15,8 @@
     using CinemaWorld.Services.Messaging;
     using CinemaWorld.Web.Middlewares;
 
+    using CloudinaryDotNet;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -71,6 +73,7 @@
             services.AddTransient<IDirectorsService, DirectorsService>();
             services.AddTransient<IGenresService, GenresService>();
             services.AddTransient<ICountriesService, CountriesService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
 
             // External login providers
             services.AddAuthentication()
@@ -80,6 +83,15 @@
                     facebookOptions.AppSecret = this.configuration["Authentication:Facebook:AppSecret"];
                     facebookOptions.Fields.Add("name");
                 });
+
+            Account account = new CloudinaryDotNet.Account(
+                this.configuration["Cloudinary:AppName"],
+                this.configuration["Cloudinary:AppKey"],
+                this.configuration["Cloudinary:AppSecret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            services.AddSingleton(cloudinary);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

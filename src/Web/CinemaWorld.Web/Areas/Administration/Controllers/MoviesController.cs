@@ -9,6 +9,7 @@
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Contracts;
 
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     public class MoviesController : AdministrationController
@@ -84,12 +85,19 @@
                 .GetAllGenresAsync<GenreDetailsViewModel>();
             var countries = await this.countriesService
                 .GetAllCountriesAsync<CountryDetailsViewModel>();
+            var movieGenres = await this.moviesService
+                .GetAllMovieGenresAsync<MovieGenreViewModel>();
+            var movieCountries = await this.moviesService
+                .GetAllMovieCountriesAsync<MovieCountryViewModel>();
+
             var movieToEdit = await this.moviesService
                 .GetViewModelByIdAsync<MovieEditViewModel>(id);
 
             movieToEdit.Directors = directors;
             movieToEdit.Genres = genres;
             movieToEdit.Countries = countries;
+            movieToEdit.MovieGenres = movieGenres;
+            movieToEdit.MovieCountries = movieCountries;
 
             return this.View(movieToEdit);
         }
@@ -105,10 +113,16 @@
                     .GetAllGenresAsync<GenreDetailsViewModel>();
                 var countries = await this.countriesService
                     .GetAllCountriesAsync<CountryDetailsViewModel>();
+                var movieGenres = await this.moviesService
+                    .GetAllMovieGenresAsync<MovieGenreViewModel>();
+                var movieCountries = await this.moviesService
+                    .GetAllMovieCountriesAsync<MovieCountryViewModel>();
 
                 movieEditViewModel.Directors = directors;
                 movieEditViewModel.Genres = genres;
                 movieEditViewModel.Countries = countries;
+                movieEditViewModel.MovieGenres = movieGenres;
+                movieEditViewModel.MovieCountries = movieCountries;
 
                 return this.View(movieEditViewModel);
             }

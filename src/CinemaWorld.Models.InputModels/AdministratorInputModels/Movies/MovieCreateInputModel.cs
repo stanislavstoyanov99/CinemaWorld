@@ -8,6 +8,8 @@
     using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Models.ViewModels.Genres;
 
+    using Microsoft.AspNetCore.Http;
+
     using static Common.ModelValidation;
     using static Common.ModelValidation.Country;
     using static Common.ModelValidation.Director;
@@ -50,11 +52,13 @@
         [Display(Name = TrailerPathDisplayName)]
         public string TrailerPath { get; set; }
 
-        [Required(ErrorMessage = EmptyFieldLengthError)]
         [DataType(DataType.Url)]
         [StringLength(CoverPathMaxLength, MinimumLength = CoverPathMinLength, ErrorMessage = CoverPathError)]
-        [Display(Name = CoverPathDisplayName)]
         public string CoverPath { get; set; }
+
+        [Required]
+        [Display(Name = CoverImageDisplayName)]
+        public IFormFile CoverImage { get; set; }
 
         [StringLength(ImdbLinkMaxLength, MinimumLength = ImdbLinkMinLength, ErrorMessage = ImdbLinkError)]
         [DataType(DataType.Url)]

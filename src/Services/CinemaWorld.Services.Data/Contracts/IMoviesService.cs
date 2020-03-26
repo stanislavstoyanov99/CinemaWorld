@@ -6,6 +6,7 @@
 
     using CinemaWorld.Models.InputModels.AdministratorInputModels.Movies;
     using CinemaWorld.Models.ViewModels.Movies;
+    using Microsoft.AspNetCore.Http;
 
     public interface IMoviesService : IBaseDataService
     {
@@ -15,7 +16,9 @@
 
         Task<IEnumerable<TEntity>> GetAllMoviesAsync<TEntity>();
 
-        Task<IEnumerable<TEntity>> GetAllMovieGenresAsync<TEntity>(int movieId);
+        Task<IEnumerable<TEntity>> GetAllMovieGenresAsync<TEntity>();
+
+        Task<IEnumerable<TEntity>> GetAllMovieCountriesAsync<TEntity>();
 
         IQueryable<TViewModel> GetAllMoviesAsQueryeable<TViewModel>();
     }

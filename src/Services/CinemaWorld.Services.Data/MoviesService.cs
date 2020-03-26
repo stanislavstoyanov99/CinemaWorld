@@ -22,17 +22,20 @@
         private readonly IDeletableEntityRepository<Director> directorsRepository;
         private readonly IDeletableEntityRepository<MovieGenre> movieGenresRepository;
         private readonly IDeletableEntityRepository<MovieCountry> movieCountriesRepository;
+        private readonly ICloudinaryService cloudinaryService;
 
         public MoviesService(
             IDeletableEntityRepository<Movie> moviesRepository,
             IDeletableEntityRepository<Director> directorsRepository,
             IDeletableEntityRepository<MovieGenre> movieGenresRepository,
-            IDeletableEntityRepository<MovieCountry> movieCountriesRepository)
+            IDeletableEntityRepository<MovieCountry> movieCountriesRepository,
+            ICloudinaryService cloudinaryService)
         {
             this.moviesRepository = moviesRepository;
             this.directorsRepository = directorsRepository;
             this.movieGenresRepository = movieGenresRepository;
             this.movieCountriesRepository = movieCountriesRepository;
+            this.cloudinaryService = cloudinaryService;
         }
 
         public async Task<MovieDetailsViewModel> CreateAsync(MovieCreateInputModel movieCreateInputModel)
@@ -53,6 +56,9 @@
                     string.Format(ExceptionMessages.DirectorNotFound, movieCreateInputModel.DirectorId));
             }
 
+            var coverUrl = await this.cloudinaryService
+                .UploadAsync(movieCreateInputModel.CoverImage);
+
             var movie = new Movie
             {
                 Name = movieCreateInputModel.Name,
@@ -63,7 +69,7 @@
                 Language = movieCreateInputModel.Language,
                 CinemaCategory = cinemaCategory,
                 TrailerPath = movieCreateInputModel.TrailerPath,
-                CoverPath = movieCreateInputModel.CoverPath,
+                CoverPath = coverUrl,
                 IMDBLink = movieCreateInputModel.IMDBLink,
                 Length = movieCreateInputModel.Length,
                 Director = director,
@@ -130,6 +136,12 @@
                     string.Format(ExceptionMessages.MovieNotFound, movieEditViewModel.Id));
             }
 
+            if (movieEditViewModel.CoverImage != null)
+            {
+                var newCoverImageUrl = await this.cloudinaryService.UploadAsync(movieEditViewModel.CoverImage);
+                movie.CoverPath = newCoverImageUrl;
+            }
+
             movie.Name = movieEditViewModel.Name;
             movie.DateOfRelease = movieEditViewModel.DateOfRelease;
             movie.Resolution = movieEditViewModel.Resolution;
@@ -138,7 +150,6 @@
             movie.Language = movieEditViewModel.Language;
             movie.CinemaCategory = cinemaCategory;
             movie.TrailerPath = movieEditViewModel.TrailerPath;
-            movie.CoverPath = movieEditViewModel.CoverPath;
             movie.IMDBLink = movieEditViewModel.IMDBLink;
             movie.Length = movieEditViewModel.Length;
             movie.DirectorId = movieEditViewModel.DirectorId;
@@ -249,15 +260,24 @@
             return movies;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllMovieGenresAsync<TViewModel>(int movieId)
+        public async Task<IEnumerable<TViewModel>> GetAllMovieGenresAsync<TViewModel>()
         {
             var movieGenres = await this.movieGenresRepository
                 .All()
-                .Where(x => x.MovieId == movieId)
                 .To<TViewModel>()
                 .ToListAsync();
 
             return movieGenres;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetAllMovieCountriesAsync<TViewModel>()
+        {
+            var movieCountries = await this.movieCountriesRepository
+                .All()
+                .To<TViewModel>()
+                .ToListAsync();
+
+            return movieCountries;
         }
 
         public async Task<MovieGenreViewModel> GetMovieGenreIdAsync(int movieId)
