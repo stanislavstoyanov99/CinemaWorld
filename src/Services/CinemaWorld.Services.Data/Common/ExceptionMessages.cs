@@ -21,5 +21,9 @@
         public const string CountryAlreadyExists = "Country with id {0} already exists";
 
         public const string CountryNotFound = "Country with id {0} is not found.";
+
+        public const string CinemaNotFound = "Cinema with id {0} is not found.";
+
+        public const string CinemaAlreadyExists = "Cinema with id {0} already exists";
     }
 }

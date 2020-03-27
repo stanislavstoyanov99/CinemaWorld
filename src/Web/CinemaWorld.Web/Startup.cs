@@ -73,6 +73,7 @@
             services.AddTransient<IDirectorsService, DirectorsService>();
             services.AddTransient<IGenresService, GenresService>();
             services.AddTransient<ICountriesService, CountriesService>();
+            services.AddTransient<ICinemasService, CinemasService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
 
             // External login providers

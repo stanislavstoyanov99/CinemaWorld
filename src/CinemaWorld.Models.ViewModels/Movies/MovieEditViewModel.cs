@@ -65,7 +65,6 @@
         [StringLength(CoverPathMaxLength, MinimumLength = CoverPathMinLength, ErrorMessage = CoverPathError)]
         public string CoverPath { get; set; }
 
-        [Required(ErrorMessage = EmptyFieldLengthError)]
         [DataType(DataType.Upload)]
         [MaxFileSize(CoverImageMaxSize)]
         [AllowedExtensions]

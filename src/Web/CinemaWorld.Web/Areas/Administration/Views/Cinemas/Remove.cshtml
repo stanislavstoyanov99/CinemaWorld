@@ -1,0 +1,24 @@
+﻿@model CinemaWorld.Models.ViewModels.Cinemas.CinemaDetailsViewModel
+@{
+    this.ViewData["Title"] = "Delete Cinema";
+    this.ViewData["ActivePage"] = CinemaNavPages.Cinemas;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Cinemas" asp-action="Remove" method="post">
+            <h4 class="text-danger">Are you sure you want to delete <b>@Model.Name</b> cinema?</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" disabled="" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Address"></label>
+                <input asp-for="Address" class="form-control" disabled="" />
+            </div>
+            <button type="submit" class="btn btn-danger">Delete cinema</button>
+            <button asp-area="Administration" asp-controller="Cinemas" asp-action="GetAll" class="btn btn-primary">Back to all cinemas</button>
+        </form>
+    </div>
+</div>

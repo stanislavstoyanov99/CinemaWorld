@@ -136,9 +136,12 @@
                     string.Format(ExceptionMessages.MovieNotFound, movieEditViewModel.Id));
             }
 
-            var newCoverImageUrl = await this.cloudinaryService
-                .UploadAsync(movieEditViewModel.CoverImage, movieEditViewModel.Name);
-            movie.CoverPath = newCoverImageUrl;
+            if (movieEditViewModel.CoverImage != null)
+            {
+                var newCoverImageUrl = await this.cloudinaryService
+                    .UploadAsync(movieEditViewModel.CoverImage, movieEditViewModel.Name);
+                movie.CoverPath = newCoverImageUrl;
+            }
 
             movie.Name = movieEditViewModel.Name;
             movie.DateOfRelease = movieEditViewModel.DateOfRelease;

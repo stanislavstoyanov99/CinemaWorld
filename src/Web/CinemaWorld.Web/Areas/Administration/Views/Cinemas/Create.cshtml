@@ -1,0 +1,25 @@
+﻿@model CinemaWorld.Models.InputModels.AdministratorInputModels.Cinemas.CinemaCreateInputModel
+@{
+    this.ViewData["Title"] = "Create Cinema";
+    this.ViewData["ActivePage"] = CinemaNavPages.Cinemas;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Cinemas" asp-action="Create" method="post">
+            <h4>Create new cinema</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Create cinema</button>
+        </form>
+    </div>
+</div>

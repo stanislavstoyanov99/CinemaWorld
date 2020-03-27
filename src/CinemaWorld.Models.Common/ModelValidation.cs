@@ -83,5 +83,16 @@
             public const string GenresDisplayName = "Genres";
             public const string GenreIdError = "Please select genre name.";
         }
+
+        public static class Cinema
+        {
+            public const int NameMinLength = 3;
+            public const int NameMaxLength = 60;
+            public const int AddressMaxLength = 500;
+            public const int AddressMinLength = 20;
+
+            public const string AddressLengthError = "Address must be between {2} and {1} symbols";
+            public const string NameDisplayName = "Cinema Name";
+        }
     }
 }
