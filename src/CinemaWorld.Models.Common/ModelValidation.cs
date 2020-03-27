@@ -53,6 +53,8 @@
 
             public const string MovieGenreDisplayName = "Genre Name";
             public const string MovieCountryDisplayName = "Country Name";
+
+            public const int CoverImageMaxSize = 10 * 1024 * 1024;
         }
 
         public static class Country

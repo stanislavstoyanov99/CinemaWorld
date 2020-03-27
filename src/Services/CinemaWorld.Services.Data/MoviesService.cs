@@ -57,7 +57,7 @@
             }
 
             var coverUrl = await this.cloudinaryService
-                .UploadAsync(movieCreateInputModel.CoverImage);
+                .UploadAsync(movieCreateInputModel.CoverImage, movieCreateInputModel.Name);
 
             var movie = new Movie
             {
@@ -136,11 +136,9 @@
                     string.Format(ExceptionMessages.MovieNotFound, movieEditViewModel.Id));
             }
 
-            if (movieEditViewModel.CoverImage != null)
-            {
-                var newCoverImageUrl = await this.cloudinaryService.UploadAsync(movieEditViewModel.CoverImage);
-                movie.CoverPath = newCoverImageUrl;
-            }
+            var newCoverImageUrl = await this.cloudinaryService
+                .UploadAsync(movieEditViewModel.CoverImage, movieEditViewModel.Name);
+            movie.CoverPath = newCoverImageUrl;
 
             movie.Name = movieEditViewModel.Name;
             movie.DateOfRelease = movieEditViewModel.DateOfRelease;

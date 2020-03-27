@@ -15,5 +15,11 @@
         public const string AdministratorFullName = "Stanislav";
 
         public const string UserRoleName = "User";
+
+        public const string AllowedExtensionsErrorMessage = "This photo extension is not allowed.";
+
+        public const string MaxFileSizeErrorMessage = "Maximum allowed file size is {0} megabytes.";
+
+        public static readonly string[] AllowedImageExtensions = { ".jpg", ".png", ".jpeg", ".gif" };
     }
 }

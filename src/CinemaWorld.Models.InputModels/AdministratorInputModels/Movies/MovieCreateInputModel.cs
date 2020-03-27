@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using CinemaWorld.Common.Attributes;
     using CinemaWorld.Models.ViewModels.Countries;
     using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Models.ViewModels.Genres;
@@ -56,7 +57,10 @@
         [StringLength(CoverPathMaxLength, MinimumLength = CoverPathMinLength, ErrorMessage = CoverPathError)]
         public string CoverPath { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [DataType(DataType.Upload)]
+        [MaxFileSize(CoverImageMaxSize)]
+        [AllowedExtensions]
         [Display(Name = CoverImageDisplayName)]
         public IFormFile CoverImage { get; set; }
 

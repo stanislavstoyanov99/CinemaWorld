@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using CinemaWorld.Data.Models;
+    using CinemaWorld.Common.Attributes;
     using CinemaWorld.Models.ViewModels.Countries;
     using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Models.ViewModels.Genres;
@@ -20,12 +20,15 @@
     using Director = CinemaWorld.Data.Models.Director;
     using Movie = CinemaWorld.Data.Models.Movie;
 
-    public class MovieEditViewModel : IMapFrom<Movie>, IMapFrom<Director>, IMapFrom<MovieGenre>, IMapFrom<MovieCountry>
+    public class MovieEditViewModel : IMapFrom<Movie>, IMapFrom<Director>
     {
         public int Id { get; set; }
 
         [Required(ErrorMessage = EmptyFieldLengthError)]
-        [StringLength(Common.ModelValidation.Movie.NameMaxLength, MinimumLength = Common.ModelValidation.Movie.NameMinLength, ErrorMessage = NameLengthError)]
+        [StringLength(
+            Common.ModelValidation.Movie.NameMaxLength,
+            MinimumLength = Common.ModelValidation.Movie.NameMinLength,
+            ErrorMessage = NameLengthError)]
         public string Name { get; set; }
 
         [Required(ErrorMessage = EmptyFieldLengthError)]
@@ -62,8 +65,11 @@
         [StringLength(CoverPathMaxLength, MinimumLength = CoverPathMinLength, ErrorMessage = CoverPathError)]
         public string CoverPath { get; set; }
 
-        [Display(Name = NewCoverImageDisplayName)]
+        [Required(ErrorMessage = EmptyFieldLengthError)]
         [DataType(DataType.Upload)]
+        [MaxFileSize(CoverImageMaxSize)]
+        [AllowedExtensions]
+        [Display(Name = NewCoverImageDisplayName)]
         public IFormFile CoverImage { get; set; }
 
         [StringLength(ImdbLinkMaxLength, MinimumLength = ImdbLinkMinLength, ErrorMessage = ImdbLinkError)]
