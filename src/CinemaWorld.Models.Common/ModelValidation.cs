@@ -94,5 +94,24 @@
             public const string AddressLengthError = "Address must be between {2} and {1} symbols";
             public const string NameDisplayName = "Cinema Name";
         }
+
+        public static class ContactFormEntry
+        {
+            public const int FirstNameMinLength = 3;
+            public const int FirstNameMaxLength = 30;
+            public const int LastNameMinLength = 3;
+            public const int LastNameMaxLength = 30;
+
+            public const int SubjectMaxLength = 100;
+            public const int SubjectMinLegth = 5;
+
+            public const int ContentMaxLength = 10000;
+            public const int ContentMinLegth = 20;
+
+            public const string FirstNameLengthError = "First name must be between {2} and {1} symbols";
+            public const string LastNameLengthError = "Last name must be between {2} and {1} symbols";
+            public const string SubjectLengthError = "Subject must be between {2} and {1} symbols";
+            public const string ContentLengthError = "Content must be between {2} and {1} symbols";
+        }
     }
 }

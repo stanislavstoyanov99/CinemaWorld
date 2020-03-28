@@ -4,6 +4,8 @@
     {
         public const string SystemName = "Cinema World";
 
+        public const string SystemEmail = "slavkata_99@abv.bg";
+
         public const string AdministratorRoleName = "Administrator";
 
         public const string AdministratorUsername = "Admin";

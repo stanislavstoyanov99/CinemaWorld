@@ -47,5 +47,11 @@
             public const int TitleMaxLength = 100;
             public const int DescriptionMaxLength = 1500;
         }
+
+        public static class ContactForm
+        {
+            public const int SubjectMaxLength = 100;
+            public const int ContentMaxLength = 10000;
+        }
     }
 }

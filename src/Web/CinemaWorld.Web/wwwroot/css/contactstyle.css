@@ -120,17 +120,28 @@ li.twt {
     -ms-transform: rotatey(360deg);
     transition: .5s all;
 }
-.contact-agile input[type="text"] {
-    font-size: 14px;
-    border: 1px solid #d5d3d3;
-    background: transparent;
-    outline: none;
-    padding: 10px;
-    width: 48.5%;
-    margin-bottom: 15px;
+
+.contact-custom_container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 15px;
+}
+
+.contact-custom_container > * {
+	margin-top: 3px;
+}
+
+.contact-agile input[type="text"], input[type="email"] {
+	font-size: 14px;
+	border: 1px solid #d5d3d3;
+	background: transparent;
+	outline: none;
+	padding: 10px;
+	width: 48.5%;
 }
 .contact-agile textarea {
-    width: 100%;
+    width: 60%;
     padding: 10px;
     outline: none;
     resize: none;
@@ -138,8 +149,9 @@ li.twt {
     border: 1px solid #d5d3d3;
     font-size: 14px;
 }
-.contact-agile input[type="text"]:nth-child(1), .contact-agile input[type="text"]:nth-child(3) {
-    margin-right: 2.4%;
+.contact-agile input[type="text"]:nth-child(1), .contact-agile input[type="text"]:nth-child(3),
+.contact-agile input[type="email"]:nth-child(1), contact-agile input[type="email"]:nth-child(3) {
+	margin-right: 2.4%;
 }
 .contact-agile input[type="submit"] {
    background: #212121;
@@ -211,15 +223,17 @@ li.twt {
 	#map {
 		height: 250px;
 	}
-	.contact-agile input[type="text"]:nth-child(1), .contact-agile input[type="text"]:nth-child(3) {
+	.contact-agile input[type="text"]:nth-child(1), .contact-agile input[type="text"]:nth-child(3),
+	.contact-agile input[type="email"]:nth-child(1), .contact-agile input[type="email"]:nth-child(3) {
 		margin-right: 2.3%;
 	}
 }
 @media screen and (max-width: 480px){
-	.contact-agile input[type="text"]:nth-child(1), .contact-agile input[type="text"]:nth-child(3) {
+	.contact-agile input[type="text"]:nth-child(1), .contact-agile input[type="text"]:nth-child(3),
+	.contact-agile input[type="email"]:nth-child(3), .contact-agile input[type="email"]:nth-child(3) {
 		margin-right: 2%;
 	}
-	.contact-agile textarea,.contact-agile input[type="text"] {
+	.contact-agile textarea, .contact-agile input[type="text"], .contact-agile input[type="email"] {
 		font-size: 13px;
 	}
 	.contact-agile input[type="submit"] {
@@ -236,10 +250,11 @@ li.twt {
 	}
 }
 @media screen and (max-width: 384px){
-	.contact-agile input[type="text"]:nth-child(1), .contact-agile input[type="text"]:nth-child(3) {
+	.contact-agile input[type="text"]:nth-child(1), .contact-agile input[type="text"]:nth-child(3),
+	.contact-agile input[type="email"]:nth-child(1), .contact-agile input[type="email"]:nth-child(3) {
 		margin-right: 0%;
 	}
-	.contact-agile input[type="text"] {
+	.contact-agile input[type="text"], .contact-agile input[type="email"] {
 		width: 99.5%;
 	}
 }
