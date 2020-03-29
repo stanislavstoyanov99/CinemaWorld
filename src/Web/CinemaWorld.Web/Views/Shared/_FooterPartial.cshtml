@@ -5,10 +5,19 @@
                 <div class="w3ls_footer_grid_left1">
                     <h2>Subscribe to us</h2>
                     <div class="w3ls_footer_grid_left1_pos">
-                        <form action="#" method="post">
-                            <input type="email" name="email" placeholder="Your email..." required="">
-                            <input type="submit" value="Send">
-                        </form>
+                        <div class="sendgrid-subscription-widget widget-1388" data-emailerror="Please enter a valid email address" data-nameerror="Please enter your name" data-checkboxerror="Please tick the box to accept our conditions">
+                            <form class="sg-widget" data-token="6086224edc86d6ee0432b790ea6e6534" onsubmit="return false;">
+                                <div class="sg-response"></div>
+                                <input class="sg_email" type="email" name="sg_email" placeholder="your_email@example.com" required="required">
+                                <input type="submit" class="sg-submit-btn" id="widget-1388" value="Subscribe">
+                                <div class="sg-consent-text">
+                                    <label>
+                                        <input type="checkbox" class="sg_consent_checkbox" name="sg_consent_checkbox"> I understand and consent to the following
+                                    </label>
+                                    <a href=#>Privacy Notice</a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -41,9 +50,6 @@
                     <a href="comedy.html">Comedy</a>
                 </li>
                 <li>
-                    <a href="icons.html">Icons</a>
-                </li>
-                <li>
                     <a asp-area="" asp-controller="Contacts" asp-action="Index">Contact Us</a>
                 </li>
             </ul>
@@ -51,3 +57,5 @@
         <div class="clearfix"> </div>
     </div>
 </div>
+
+<script type="text/javascript" src="//app.sgwidget.com/js/sg-widget-v2.js"></script>
