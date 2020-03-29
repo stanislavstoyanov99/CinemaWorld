@@ -1,0 +1,12 @@
+﻿@model string
+@{
+    this.ViewData["Title"] = "Success";
+}
+
+<div class="alert alert-success col-md-9" role="alert">
+    <center><h3 class="alert-heading">You have successfully send message to <strong>@Model</strong>!</h3></center>
+    <hr>
+    <p class="mb-0">
+        <center><a class="btn btn-lg btn-primary" asp-controller="Movies" asp-action="Index" role="button">Back to admin dashboard</a></center>
+    </p>
+</div>

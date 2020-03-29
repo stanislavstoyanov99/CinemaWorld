@@ -1,7 +1,13 @@
-﻿<ul class="nav nav-pills nav-stacked">
+﻿<h4>Model's administration</h4>
+<ul class="nav nav-pills nav-stacked">
     <li class="@AdminNavPages.MoviesNavClass(ViewContext)"><a asp-area="Administration" asp-controller="Movies" asp-action="Index">Movies</a></li>
     <li class="@AdminNavPages.GenresNavClass(ViewContext)"><a asp-area="Administration" asp-controller="Genres" asp-action="Index">Genres</a></li>
     <li class="@AdminNavPages.CinemasNavClass(ViewContext)"><a asp-area="Administration" asp-controller="Cinemas" asp-action="Index">Cinemas</a></li>
     <li class="@AdminNavPages.DirectorsNavClass(ViewContext)"><a asp-area="Administration" asp-controller="Directors" asp-action="Index">Directors</a></li>
     <li class="@AdminNavPages.CountriesNavClass(ViewContext)"><a asp-area="Administration" asp-controller="Countries" asp-action="Index">Countries</a></li>
+</ul>
+<hr />
+<h4>User's administration</h4>
+<ul class="nav nav-pills nav-stacked">
+    <li class="@AdminNavPages.ContactsNavClass(ViewContext)"><a asp-area="Administration" asp-controller="Contacts" asp-action="Send">Contacts</a></li>
 </ul>

@@ -12,12 +12,12 @@
     {
         [Required(AllowEmptyStrings = false)]
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength, ErrorMessage = FirstNameLengthError)]
-        [Display(Name = "First Name")]
+        [Display(Name = FirstNameDisplayName)]
         public string FirstName { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength, ErrorMessage = LastNameLengthError)]
-        [Display(Name = "Last Name")]
+        [Display(Name = LastNameDispalyName)]
         public string LastName { get; set; }
 
         [Required(AllowEmptyStrings = false)]

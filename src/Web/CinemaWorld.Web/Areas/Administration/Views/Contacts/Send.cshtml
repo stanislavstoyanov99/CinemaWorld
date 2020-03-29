@@ -1,0 +1,54 @@
+﻿@model CinemaWorld.Models.InputModels.AdministratorInputModels.Contacts.SendContactInputModel
+@{
+    this.ViewData["Title"] = "Send email";
+    this.ViewData["ActivePage"] = AdminNavPages.Contacts;
+
+    var userEmails = Model.UserEmails.Select(x => new SelectListItem(x, x));
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Contacts" asp-action="Send" method="post">
+            <h4>Send new email</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="FullName"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <div class="container">
+                    <select asp-for="Email" asp-items="userEmails" class="selectpicker">
+                        <option selected="" disabled="">Select User email</option>
+                    </select>
+                </div>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subject"></label>
+                <input asp-for="Subject" class="form-control" />
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content"></label>
+                <textarea asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Send email</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",
+            plugins: [
+                "image paste table link code media"
+            ]
+        });
+    </script>
+}

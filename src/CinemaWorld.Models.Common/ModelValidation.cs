@@ -112,6 +112,27 @@
             public const string LastNameLengthError = "Last name must be between {2} and {1} symbols";
             public const string SubjectLengthError = "Subject must be between {2} and {1} symbols";
             public const string ContentLengthError = "Content must be between {2} and {1} symbols";
+
+            public const string FirstNameDisplayName = "First Name";
+            public const string LastNameDispalyName = "Last Name";
+        }
+
+        public static class AdminContactFormEntry
+        {
+            public const int FullNameMinLength = 10;
+            public const int FullNameMaxLegth = 60;
+
+            public const int SubjectMaxLength = 100;
+            public const int SubjectMinLegth = 5;
+
+            public const int ContentMaxLength = 10000;
+            public const int ContentMinLegth = 20;
+
+            public const string FullNameLengthError = "Full name must be between {2} and {1} symbols";
+            public const string SubjectLengthError = "Subject must be between {2} and {1} symbols";
+            public const string ContentLengthError = "Content must be between {2} and {1} symbols";
+
+            public const string FullNameDisplayName = "Full Name";
         }
     }
 }
