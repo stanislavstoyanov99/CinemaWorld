@@ -59,6 +59,9 @@
             var coverUrl = await this.cloudinaryService
                 .UploadAsync(movieCreateInputModel.CoverImage, movieCreateInputModel.Name);
 
+            var wallpaperUrl = await this.cloudinaryService
+                .UploadAsync(movieCreateInputModel.Wallpaper, movieCreateInputModel.Name + Suffixes.WallpaperSuffix);
+
             var movie = new Movie
             {
                 Name = movieCreateInputModel.Name,
@@ -70,6 +73,7 @@
                 CinemaCategory = cinemaCategory,
                 TrailerPath = movieCreateInputModel.TrailerPath,
                 CoverPath = coverUrl,
+                WallpaperPath = wallpaperUrl,
                 IMDBLink = movieCreateInputModel.IMDBLink,
                 Length = movieCreateInputModel.Length,
                 Director = director,
@@ -141,6 +145,13 @@
                 var newCoverImageUrl = await this.cloudinaryService
                     .UploadAsync(movieEditViewModel.CoverImage, movieEditViewModel.Name);
                 movie.CoverPath = newCoverImageUrl;
+            }
+
+            if (movieEditViewModel.Wallpaper != null)
+            {
+                var newWallpaperUrl = await this.cloudinaryService
+                    .UploadAsync(movieEditViewModel.Wallpaper, movieEditViewModel.Name + Suffixes.WallpaperSuffix);
+                movie.WallpaperPath = newWallpaperUrl;
             }
 
             movie.Name = movieEditViewModel.Name;
@@ -311,6 +322,17 @@
             }
 
             return movie;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetTopMoviesAsync<TViewModel>()
+        {
+            var topMovies = await this.moviesRepository
+                .All()
+                .Where(m => m.Rating > 6)
+                .To<TViewModel>()
+                .ToListAsync();
+
+            return topMovies;
         }
 
         private async Task UpdateMovieGenres(MovieEditViewModel model, Movie movie)
