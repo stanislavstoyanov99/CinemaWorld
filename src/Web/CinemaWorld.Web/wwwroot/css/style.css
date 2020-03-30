@@ -987,7 +987,7 @@ h3.head {
 	display: none;
 	text-decoration: none;
 	position: fixed;
-	bottom: 20px;
+	bottom: 80px;
 	right: 2%;
 	overflow: hidden;
 	z-index: 999; 
