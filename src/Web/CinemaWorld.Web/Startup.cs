@@ -76,6 +76,7 @@
             services.AddTransient<ICountriesService, CountriesService>();
             services.AddTransient<ICinemasService, CinemasService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<IContactsService, ContactsService>();
 
             // External login providers
             services.AddAuthentication()
@@ -145,6 +146,7 @@
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Contacts}/{action=SuccessfullySend}/{userEmail?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                        endpoints.MapControllerRoute("subscription", "{controller=Home}/{action=ThankYouSubscription}/{email?}");
                         endpoints.MapRazorPages();
                     });
         }

@@ -1,16 +1,42 @@
 ﻿namespace CinemaWorld.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
     using CinemaWorld.Models.ViewModels;
+    using CinemaWorld.Models.ViewModels.Movies;
+    using CinemaWorld.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IMoviesService moviesService;
+
+        public HomeController(IMoviesService moviesService)
         {
-            return this.View();
+            this.moviesService = moviesService;
+        }
+
+        public async Task<IActionResult> Index(string email)
+        {
+            if (email != null)
+            {
+                return this.RedirectToAction("ThankYouSubscription", new { email = email });
+            }
+
+            var viewModel = new MoviesHomePageListingViewModel
+            {
+                AllMovies = await this.moviesService.GetAllMoviesAsync<MovieDetailsViewModel>(),
+                TopMovies = await this.moviesService.GetTopMoviesAsync<TopMovieDetailsViewModel>(),
+            };
+
+            return this.View(viewModel);
+        }
+
+        public IActionResult ThankYouSubscription(string email)
+        {
+            return this.View("SuccessfullySubscribed", email);
         }
 
         public IActionResult Privacy()
