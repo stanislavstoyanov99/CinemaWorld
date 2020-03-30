@@ -46,6 +46,8 @@
 
         public string TrailerPath { get; set; }
 
+        public string WallpaperPath { get; set; }
+
         public int Length { get; set; }
     }
 }

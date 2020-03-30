@@ -27,6 +27,7 @@
     <ProjectReference Include="..\..\Data\CinemaWorld.Data.Common\CinemaWorld.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\CinemaWorld.Data.Models\CinemaWorld.Data.Models.csproj" />
     <ProjectReference Include="..\CinemaWorld.Services.Mapping\CinemaWorld.Services.Mapping.csproj" />
+    <ProjectReference Include="..\CinemaWorld.Services.Messaging\CinemaWorld.Services.Messaging.csproj" />
   </ItemGroup>
 
 </Project>

@@ -195,7 +195,7 @@
                         <div class="item">
                             <div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
                                 <a asp-action="Details" asp-route-id="@movie.Id" class="hvr-shutter-out-horizontal">
-                                    <img src="@movie.CoverPath" title="movie-cover" class="img-responsive img-fluid" alt="Movie Cover Path" />
+                                    <img src="@movie.CoverPath" title="@movie.Name" class="img-responsive img-fluid" alt="Movie Cover Path" />
                                 </a>
                                 <div class="mid-1 agileits_w3layouts_mid_1_home">
                                     <div class="w3l-movie-text">
@@ -232,22 +232,6 @@
 
 @section Scripts
 {
-    <script src="~/js/owl.carousel.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#owl-demo").owlCarousel({
-
-                autoPlay: 3000, //Set AutoPlay to 3 seconds
-
-                items: 5,
-                itemsDesktop: [640, 5],
-                itemsDesktopSmall: [414, 4]
-
-            });
-
-        });
-    </script>
-
     <script src="~/js/simplePlayer.js"></script>
     <script>
         $("document").ready(function () {

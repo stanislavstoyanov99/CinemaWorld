@@ -40,6 +40,9 @@
         [Display(Name = CoverImageDisplayName)]
         public string CoverPath { get; set; }
 
+        [Display(Name = WallpaperDisplayName)]
+        public string WallpaperPath { get; set; }
+
         [Display(Name = IMDBLinkDisplayName)]
         public string IMDBLink { get; set; }
 

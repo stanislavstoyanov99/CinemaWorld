@@ -28,6 +28,9 @@
             public const int CoverPathMinLength = 10;
             public const int CoverPathMaxLength = 500;
 
+            public const int WallpaperPathMinLength = 10;
+            public const int WallpaperPathMaxLength = 500;
+
             public const int ImdbLinkMinLength = 10;
             public const int ImdbLinkMaxLength = 500;
 
@@ -37,6 +40,7 @@
             public const string LanguageError = "Language must be between {2} and {1} symbols";
             public const string TrailerPathError = "Trailer path must be between {2} and {1} symbols";
             public const string CoverPathError = "Cover path must be between {2} and {1} symbols";
+            public const string WallpaperPathError = "Wallpaper must be between {2} and {1} symbols";
             public const string ImdbLinkError = "IMDB link must be between {2} and {1} symbols";
 
             public const string DateOfReleaseDisplayName = "Date of release";
@@ -44,6 +48,8 @@
             public const string TrailerPathDisplayName = "Trailer Path";
             public const string NewCoverImageDisplayName = "New Cover Image";
             public const string CoverImageDisplayName = "Cover Image";
+            public const string NewWallpaperDisplayName = "New Wallpaper";
+            public const string WallpaperDisplayName = "Wallpaper";
             public const string IMDBLinkDisplayName = "IMDB Link";
 
             public const string IdDisplayName = "No.";
@@ -55,6 +61,7 @@
             public const string MovieCountryDisplayName = "Country Name";
 
             public const int CoverImageMaxSize = 10 * 1024 * 1024;
+            public const int WallpaperMaxSize = 15 * 1024 * 1024;
         }
 
         public static class Country

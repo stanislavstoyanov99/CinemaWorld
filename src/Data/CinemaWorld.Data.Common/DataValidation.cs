@@ -29,6 +29,7 @@
             public const int TrailerPathMaxLength = 500;
             public const int ImdbLinkMaxLength = 500;
             public const int CoverPathMaxLength = 500;
+            public const int WallpaperPathMaxLength = 500;
         }
 
         public static class News

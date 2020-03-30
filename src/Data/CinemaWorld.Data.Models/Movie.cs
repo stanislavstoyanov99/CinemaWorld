@@ -50,6 +50,10 @@
         [MaxLength(CoverPathMaxLength)]
         public string CoverPath { get; set; }
 
+        [Required]
+        [MaxLength(WallpaperPathMaxLength)]
+        public string WallpaperPath { get; set; }
+
         [MaxLength(ImdbLinkMaxLength)]
         public string IMDBLink { get; set; }
 

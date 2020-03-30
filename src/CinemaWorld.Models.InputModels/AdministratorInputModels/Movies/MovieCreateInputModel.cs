@@ -64,6 +64,17 @@
         [Display(Name = CoverImageDisplayName)]
         public IFormFile CoverImage { get; set; }
 
+        [DataType(DataType.Url)]
+        [StringLength(WallpaperPathMaxLength, MinimumLength = WallpaperPathMinLength, ErrorMessage = WallpaperPathError)]
+        public string WallpaperPath { get; set; }
+
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [DataType(DataType.Upload)]
+        [MaxFileSize(WallpaperMaxSize)]
+        [AllowedExtensions]
+        [Display(Name = WallpaperDisplayName)]
+        public IFormFile Wallpaper { get; set; }
+
         [StringLength(ImdbLinkMaxLength, MinimumLength = ImdbLinkMinLength, ErrorMessage = ImdbLinkError)]
         [DataType(DataType.Url)]
         [Display(Name = IMDBLinkDisplayName)]

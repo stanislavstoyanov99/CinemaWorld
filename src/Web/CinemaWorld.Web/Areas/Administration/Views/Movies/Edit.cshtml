@@ -71,6 +71,20 @@
                 <span asp-validation-for="CoverImage" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label>Old Wallpaper</label>
+                <div class="form-group">
+                    <input asp-for="WallpaperPath" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <img class="img-fluid img-thumbnail" src="@Model.WallpaperPath" alt="Wallpaper" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Wallpaper"></label>
+                <input type="file" asp-for="Wallpaper" name="Wallpaper" />
+                <span asp-validation-for="Wallpaper" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="IMDBLink"></label>
                 <input asp-for="IMDBLink" class="form-control" />
                 <span asp-validation-for="IMDBLink" class="text-danger"></span>
