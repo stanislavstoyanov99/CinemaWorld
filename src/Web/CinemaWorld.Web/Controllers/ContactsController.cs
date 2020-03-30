@@ -2,23 +2,18 @@
 {
     using System.Threading.Tasks;
 
-    using CinemaWorld.Common;
-    using CinemaWorld.Data.Common.Repositories;
-    using CinemaWorld.Data.Models;
     using CinemaWorld.Models.ViewModels.Contacts;
-    using CinemaWorld.Services.Messaging;
+    using CinemaWorld.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Mvc;
 
     public class ContactsController : Controller
     {
-        private readonly IRepository<ContactFormEntry> contactsRepository;
-        private readonly IEmailSender emailSender;
+        private readonly IContactsService contactsService;
 
-        public ContactsController(IRepository<ContactFormEntry> contactsRepository, IEmailSender emailSender)
+        public ContactsController(IContactsService contactsService)
         {
-            this.contactsRepository = contactsRepository;
-            this.emailSender = emailSender;
+            this.contactsService = contactsService;
         }
 
         public IActionResult Index()
@@ -34,24 +29,7 @@
                 return this.View(contactFormViewModel);
             }
 
-            var contactFormEntry = new ContactFormEntry
-            {
-                FirstName = contactFormViewModel.FirstName,
-                LastName = contactFormViewModel.LastName,
-                Email = contactFormViewModel.Email,
-                Subject = contactFormViewModel.Subject,
-                Content = contactFormViewModel.Content,
-            };
-
-            await this.contactsRepository.AddAsync(contactFormEntry);
-            await this.contactsRepository.SaveChangesAsync();
-
-            await this.emailSender.SendEmailAsync(
-                contactFormViewModel.Email,
-                string.Concat(contactFormViewModel.FirstName, " ", contactFormViewModel.LastName),
-                GlobalConstants.SystemEmail,
-                contactFormViewModel.Subject,
-                contactFormViewModel.Content);
+            await this.contactsService.SendContactToAdmin(contactFormViewModel);
 
             return this.RedirectToAction("ThankYou");
         }

@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using CinemaWorld.Models.ViewModels.Contacts;
+
     using static CinemaWorld.Models.Common.ModelValidation.AdminContactFormEntry;
 
     public class SendContactInputModel
@@ -24,6 +26,6 @@
         [StringLength(ContentMaxLength, MinimumLength = ContentMinLegth, ErrorMessage = ContentLengthError)]
         public string Content { get; set; }
 
-        public IEnumerable<string> UserEmails { get; set; }
+        public IEnumerable<UserEmailViewModel> UserEmails { get; set; }
     }
 }

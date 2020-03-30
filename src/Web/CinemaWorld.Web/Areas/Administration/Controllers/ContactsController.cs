@@ -1,40 +1,25 @@
 ﻿namespace CinemaWorld.Web.Areas.Administration.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
-    using CinemaWorld.Common;
-    using CinemaWorld.Data.Common.Repositories;
-    using CinemaWorld.Data.Models;
     using CinemaWorld.Models.InputModels.AdministratorInputModels.Contacts;
-    using CinemaWorld.Services.Messaging;
+    using CinemaWorld.Models.ViewModels.Contacts;
+    using CinemaWorld.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Mvc;
 
     public class ContactsController : AdministrationController
     {
-        private readonly IRepository<AdminContactFromEntry> adminContactsRepository;
-        private readonly IRepository<ContactFormEntry> contactFormRepository;
-        private readonly IEmailSender emailSender;
+        private readonly IContactsService contactsService;
 
-        public ContactsController(
-            IRepository<AdminContactFromEntry> adminContactsRepository,
-            IRepository<ContactFormEntry> contactFormRepository,
-            IEmailSender emailSender)
+        public ContactsController(IContactsService contactsService)
         {
-            this.adminContactsRepository = adminContactsRepository;
-            this.contactFormRepository = contactFormRepository;
-            this.emailSender = emailSender;
+            this.contactsService = contactsService;
         }
 
-        public IActionResult Send()
+        public async Task<IActionResult> Send()
         {
-            var userEmails = this.contactFormRepository
-                .All()
-                .Select(x => x.Email)
-                .ToList();
+            var userEmails = await this.contactsService.GetAllUserEmailsAsync<UserEmailViewModel>();
 
             var model = new SendContactInputModel
             {
@@ -49,34 +34,13 @@
         {
             if (!this.ModelState.IsValid)
             {
-                var userEmails = this.contactFormRepository
-                    .All()
-                    .Select(x => x.Email)
-                    .ToList();
-
+                var userEmails = await this.contactsService.GetAllUserEmailsAsync<UserEmailViewModel>();
                 sendContactInputModel.UserEmails = userEmails;
 
                 return this.View(sendContactInputModel);
             }
 
-            var adminContactFormEntry = new AdminContactFromEntry
-            {
-                FullName = sendContactInputModel.FullName,
-                Email = sendContactInputModel.Email,
-                Subject = sendContactInputModel.Subject,
-                Content = sendContactInputModel.Content,
-            };
-
-            await this.adminContactsRepository.AddAsync(adminContactFormEntry);
-            await this.adminContactsRepository.SaveChangesAsync();
-
-            await this.emailSender.SendEmailAsync(
-                GlobalConstants.SystemEmail,
-                sendContactInputModel.FullName,
-                sendContactInputModel.Email,
-                sendContactInputModel.Subject,
-                sendContactInputModel.Content);
-
+            await this.contactsService.SendContactToUser(sendContactInputModel);
             return this.RedirectToAction("SuccessfullySend", new { userEmail = sendContactInputModel.Email });
         }
 
