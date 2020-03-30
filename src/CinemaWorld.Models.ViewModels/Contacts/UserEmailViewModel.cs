@@ -5,6 +5,8 @@
 
     public class UserEmailViewModel : IMapFrom<ContactFormEntry>
     {
+        public int Id { get; set; }
+
         public string Email { get; set; }
     }
 }

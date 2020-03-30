@@ -2,13 +2,11 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using CinemaWorld.Services.Mapping;
+    using CinemaWorld.Common.Attributes;
 
     using static CinemaWorld.Models.Common.ModelValidation.ContactFormEntry;
 
-    using ContactFormEntry = CinemaWorld.Data.Models.ContactFormEntry;
-
-    public class ContactFormEntryViewModel : IMapFrom<ContactFormEntry>
+    public class ContactFormEntryViewModel
     {
         [Required(AllowEmptyStrings = false)]
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength, ErrorMessage = FirstNameLengthError)]
@@ -31,5 +29,8 @@
         [Required(AllowEmptyStrings = false)]
         [StringLength(ContentMaxLength, MinimumLength = ContentMinLegth, ErrorMessage = ContentLengthError)]
         public string Content { get; set; }
+
+        [GoogleReCaptchaValidation]
+        public string RecaptchaValue { get; set; }
     }
 }

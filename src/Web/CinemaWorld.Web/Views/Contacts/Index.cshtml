@@ -1,4 +1,5 @@
-﻿@using CinemaWorld.Models.ViewModels.Contacts
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@using CinemaWorld.Models.ViewModels.Contacts
 @model ContactFormEntryViewModel
 @{
     ViewData["Title"] = "Contact us";
@@ -69,6 +70,7 @@
                     <textarea asp-for="Content" placeholder="YOUR MESSAGE" rows="15"></textarea>
                     <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
+                <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
                 <input type="submit" value="SEND MESSAGE" />
             </form>
         </div>
@@ -93,5 +95,13 @@
                 map: map,
             });
         }
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Key"]', { action: 'contact_form' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
     </script>
 }
