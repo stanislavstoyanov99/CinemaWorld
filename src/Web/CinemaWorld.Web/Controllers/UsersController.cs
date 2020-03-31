@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Security.Claims;
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
@@ -10,6 +11,7 @@
     using CinemaWorld.Data.Models;
     using CinemaWorld.Data.Models.Enumerations;
     using CinemaWorld.Web.Areas.Identity.Pages.Account.InputModels;
+    using CinemaWorld.Web.Areas.Identity.Pages.Account.Manage.InputModels;
     using CinemaWorld.Web.Infrastructure;
 
     using Microsoft.AspNetCore.Identity;
@@ -37,6 +39,13 @@
             this.logger = logger;
             this.emailSender = emailSender;
         }
+
+        [TempData]
+        public string ErrorMessage { get; set; }
+
+        public string ReturnUrl { get; set; }
+
+        public string LoginProvider { get; set; }
 
         [HttpPost]
         public async Task<IActionResult> AjaxLogin(AjaxLoginInputModel loginInput, string returnUrl = null)
@@ -144,6 +153,65 @@
 
             var jsonResult = new JsonResult(ajaxObject);
             return jsonResult;
+        }
+
+        public IActionResult FacebookLogin()
+        {
+            var properties = this.signInManager
+                .ConfigureExternalAuthenticationProperties("Facebook", this.Url.Action("ExternalLoginCallback", "Users"));
+
+            return this.Challenge(properties, "Facebook");
+        }
+
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        {
+            returnUrl ??= this.Url.Content("~/");
+
+            if (remoteError != null)
+            {
+                this.ErrorMessage = $"Error from external provider: {remoteError}";
+                return this.RedirectToPage("/Login", new { ReturnUrl = returnUrl });
+            }
+
+            var info = await this.signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                this.ErrorMessage = "Error loading external login information.";
+                return this.RedirectToPage("/Login", new { ReturnUrl = returnUrl });
+            }
+
+            var result = await this.signInManager
+                .ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+
+            if (result.Succeeded)
+            {
+                this.logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+                return this.LocalRedirect(returnUrl);
+            }
+
+            if (result.IsLockedOut)
+            {
+                return this.RedirectToPage("/Lockout");
+            }
+            else
+            {
+                this.ReturnUrl = returnUrl;
+                this.LoginProvider = info.LoginProvider;
+                if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
+                {
+                    var input = new ExternalLoginInputModel
+                    {
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                        FullName = info.Principal.FindFirstValue(ClaimTypes.Name),
+                    };
+                }
+
+                return this.Redirect("~/");
+            }
+
+            // TODO
+            //to associate a local user account to an external login provider
+            //await _userInManager.AddLoginAsync(aUserYoullHaveToCreate, info);
         }
 
         private string ModelErorrs(ModelStateDictionary modelState)
