@@ -25,5 +25,9 @@
         public const string CinemaNotFound = "Cinema with id {0} is not found.";
 
         public const string CinemaAlreadyExists = "Cinema with id {0} already exists";
+
+        public const string FaqNotFound = "Faq with id {0} is not found.";
+
+        public const string FaqAlreadyExists = "Faq with id {0} already exists";
     }
 }

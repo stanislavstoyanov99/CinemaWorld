@@ -5,7 +5,7 @@
     using CinemaWorld.Data.Common.Models;
 
     using static CinemaWorld.Data.Common.DataValidation;
-    using static CinemaWorld.Data.Common.DataValidation.ContactForm;
+    using static CinemaWorld.Data.Common.DataValidation.ContactFormEntry;
 
     public class AdminContactFromEntry : BaseModel<int>
     {

@@ -76,6 +76,8 @@
 
         public DbSet<AdminContactFromEntry> AdminContactFormEntries { get; set; }
 
+        public DbSet<FaqEntry> FaqEntries { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

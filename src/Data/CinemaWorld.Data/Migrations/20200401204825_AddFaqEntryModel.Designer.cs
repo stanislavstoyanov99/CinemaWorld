@@ -4,14 +4,16 @@ using CinemaWorld.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CinemaWorld.Data.Migrations
 {
     [DbContext(typeof(CinemaWorldDbContext))]
-    partial class CinemaWorldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200401204825_AddFaqEntryModel")]
+    partial class AddFaqEntryModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -419,12 +421,6 @@ namespace CinemaWorld.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
@@ -434,8 +430,6 @@ namespace CinemaWorld.Data.Migrations
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
 
                     b.ToTable("FaqEntries");
                 });

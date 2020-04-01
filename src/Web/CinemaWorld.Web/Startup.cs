@@ -77,6 +77,7 @@
             services.AddTransient<ICinemasService, CinemasService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IContactsService, ContactsService>();
+            services.AddTransient<IAboutService, AboutService>();
 
             // External login providers
             services.AddAuthentication()

@@ -49,10 +49,16 @@
             public const int DescriptionMaxLength = 1500;
         }
 
-        public static class ContactForm
+        public static class ContactFormEntry
         {
             public const int SubjectMaxLength = 100;
             public const int ContentMaxLength = 10000;
+        }
+
+        public static class FaqEntry
+        {
+            public const int QuestionMaxLength = 100;
+            public const int AnswerMaxLength = 1000;
         }
     }
 }
