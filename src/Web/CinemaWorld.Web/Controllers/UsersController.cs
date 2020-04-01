@@ -10,8 +10,7 @@
     using CinemaWorld.Common;
     using CinemaWorld.Data.Models;
     using CinemaWorld.Data.Models.Enumerations;
-    using CinemaWorld.Web.Areas.Identity.Pages.Account.InputModels;
-    using CinemaWorld.Web.Areas.Identity.Pages.Account.Manage.InputModels;
+    using CinemaWorld.Models.InputModels.Users;
     using CinemaWorld.Web.Infrastructure;
 
     using Microsoft.AspNetCore.Identity;
@@ -157,13 +156,14 @@
 
         public IActionResult FacebookLogin()
         {
+            this.LoginProvider = "Facebook";
             var properties = this.signInManager
-                .ConfigureExternalAuthenticationProperties("Facebook", this.Url.Action("ExternalLoginCallback", "Users"));
+                .ConfigureExternalAuthenticationProperties(this.LoginProvider, this.Url.Action("ExternalFacebookLoginCallback", "Users"));
 
-            return this.Challenge(properties, "Facebook");
+            return this.Challenge(properties, this.LoginProvider);
         }
 
-        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        public async Task<IActionResult> ExternalFacebookLoginCallback(string returnUrl = null, string remoteError = null)
         {
             returnUrl ??= this.Url.Content("~/");
 
@@ -199,19 +199,88 @@
                 this.LoginProvider = info.LoginProvider;
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
                 {
-                    var input = new ExternalLoginInputModel
+                    var inputModel = new ExternalLoginInputModel
                     {
                         Email = info.Principal.FindFirstValue(ClaimTypes.Email),
                         FullName = info.Principal.FindFirstValue(ClaimTypes.Name),
+                        LoginProvider = this.LoginProvider,
+                        ReturnUrl = this.ReturnUrl,
                     };
+
+                    return this.View(inputModel);
                 }
 
-                return this.Redirect("~/");
+                return this.RedirectToAction(this.ReturnUrl);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Confirmation(ExternalLoginInputModel inputModel, string returnUrl = null)
+        {
+            returnUrl = returnUrl ?? this.Url.Content("~/");
+
+            var info = await this.signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                this.ErrorMessage = "Error loading external login information during confirmation.";
+                return this.RedirectToPage("/Login", new { ReturnUrl = returnUrl });
             }
 
-            // TODO
-            //to associate a local user account to an external login provider
-            //await _userInManager.AddLoginAsync(aUserYoullHaveToCreate, info);
+            if (this.ModelState.IsValid)
+            {
+                Enum.TryParse<Gender>(inputModel.SelectedGender, out Gender gender);
+
+                var user = new CinemaWorldUser
+                {
+                    UserName = inputModel.Username,
+                    Email = inputModel.Email,
+                    Gender = gender,
+                    FullName = inputModel.FullName,
+                };
+
+                var result = await this.userManager.CreateAsync(user);
+                if (result.Succeeded)
+                {
+                    result = await this.userManager.AddLoginAsync(user, info);
+                    if (result.Succeeded)
+                    {
+                        this.logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+                        await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
+
+                        // If account confirmation is required, we need to show the link if we don't have a real email sender
+                        if (this.userManager.Options.SignIn.RequireConfirmedAccount)
+                        {
+                            return this.RedirectToPage("/RegisterConfirmation", new { Email = inputModel.Email });
+                        }
+
+                        await this.signInManager.SignInAsync(user, isPersistent: false);
+                        var userId = await this.userManager.GetUserIdAsync(user);
+                        var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
+                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                        var callbackUrl = this.Url.Page(
+                            "/Account/ConfirmEmail",
+                            pageHandler: null,
+                            values: new { area = "Identity", userId = userId, code = code },
+                            protocol: this.Request.Scheme);
+
+                        await this.emailSender.SendEmailAsync(
+                            inputModel.Email,
+                            "Confirm your email",
+                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                        return this.LocalRedirect(returnUrl);
+                    }
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    this.ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            this.LoginProvider = info.LoginProvider;
+            this.ReturnUrl = returnUrl;
+            return this.View("ExternalFacebookLoginCallback", inputModel);
         }
 
         private string ModelErorrs(ModelStateDictionary modelState)
