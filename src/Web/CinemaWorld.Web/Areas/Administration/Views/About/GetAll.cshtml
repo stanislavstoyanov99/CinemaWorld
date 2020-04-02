@@ -1,0 +1,64 @@
+﻿@using CinemaWorld.Models.ViewModels.About
+@model IEnumerable<FaqDetailsViewModel>
+@{
+    this.ViewData["Title"] = "All faqs";
+    this.ViewData["ActivePage"] = FaqNavPages.About;
+}
+
+<link rel="stylesheet" type="text/css" href="~/list-css/table-style.css" />
+<link rel="stylesheet" type="text/css" href="~/list-css/basictable.css" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h4>Faqs List</h4>
+            <hr />
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                        <div class="agile-news-table">
+                            <table id="table-breakpoint">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Question</th>
+                                        <th>Answer</th>
+                                        <th>Functions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var faq in Model)
+                                    {
+                                        <tr>
+                                            <td>@faq.Id</td>
+                                            <td>@faq.Question</td>
+                                            <td>@Html.Raw(faq.Answer)</td>
+                                            <td>
+                                                <a class="badge badge-success" asp-action="Edit" asp-route-id="@faq.Id">Edit</a>
+                                                <a class="badge badge-danger" asp-action="Remove" asp-route-id="@faq.Id">Remove</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/list-js/jquery.basictable.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table').basictable();
+
+            $('#table-breakpoint').basictable({
+                breakpoint: 768
+            });
+        });
+    </script>
+}

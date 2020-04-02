@@ -1,14 +1,14 @@
 ﻿@{
     this.ViewData["ActivePage"] = FaqNavPages.About;
-    this.ViewData["Title"] = "Genres";
+    this.ViewData["Title"] = "Faqs";
 }
 
 <div class="container">
     <div class="row">
         <div class="col-md-3">
             <ul class="nav nav-pills nav-stacked">
-                <li class="@GenreNavPages.CreateGenreNavClass(ViewContext)"><a asp-controller="Genres" asp-action="Create">Create genre</a></li>
-                <li class="@GenreNavPages.GetAllNavClass(ViewContext)"><a asp-controller="Genres" asp-action="GetAll">List genres</a></li>
+                <li class="@FaqNavPages.CreateFaqNavClass(ViewContext)"><a asp-controller="About" asp-action="Create">Create faq</a></li>
+                <li class="@FaqNavPages.GetAllNavClass(ViewContext)"><a asp-controller="About" asp-action="GetAll">List faqs</a></li>
             </ul>
         </div>
     </div>

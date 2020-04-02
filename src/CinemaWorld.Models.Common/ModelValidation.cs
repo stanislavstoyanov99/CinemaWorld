@@ -144,10 +144,10 @@
 
         public static class FaqEntry
         {
-            public const int QuestionMinLength = 30;
+            public const int QuestionMinLength = 10;
             public const int QuestionMaxLength = 100;
 
-            public const int AnswerMinLength = 30;
+            public const int AnswerMinLength = 10;
             public const int AnswerMaxLength = 1000;
 
             public const string QuestionLengthError = "Question must be between {2} and {1} symbols";

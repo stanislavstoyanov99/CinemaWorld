@@ -1,0 +1,24 @@
+﻿@model CinemaWorld.Models.ViewModels.About.FaqDetailsViewModel
+@{
+    this.ViewData["Title"] = "Delete Faq";
+    this.ViewData["ActivePage"] = FaqNavPages.About;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="About" asp-action="Remove" method="post">
+            <h4 class="text-danger">Are you sure you want to delete faq with <b>@Model.Id</b> id?</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Question"></label>
+                <input asp-for="Question" class="form-control" disabled="" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Answer"></label>
+                <textarea asp-for="Answer" class="form-control" disabled=""></textarea>
+            </div>
+            <button type="submit" class="btn btn-danger">Delete faq</button>
+            <button asp-area="Administration" asp-controller="About" asp-action="GetAll" class="btn btn-primary">Back to all faqs</button>
+        </form>
+    </div>
+</div>
