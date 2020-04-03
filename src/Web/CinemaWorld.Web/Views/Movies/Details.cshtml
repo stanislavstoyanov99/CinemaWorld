@@ -22,8 +22,8 @@
                             <h3>@Model.MovieDetailsViewModel.Name</h3>
                         </div>
                         <div class="video-grid-single-page-agileits">
-                            <div data-video="@Model.MovieDetailsViewModel.TrailerPath" id="video">
-                                <img src="@Model.MovieDetailsViewModel.CoverPath" alt="Movie Cover Path" class="img-responsive" /> 
+                            <div data-video="@Model.MovieDetailsViewModel.TrailerPath" id="video" onclick="toggleFullScreen()">
+                                <img src="@Model.MovieDetailsViewModel.CoverPath" alt="Movie Cover Path" class="img-responsive" />
                             </div>
                         </div>
                     </div>

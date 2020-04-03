@@ -329,6 +329,7 @@
             var topMovies = await this.moviesRepository
                 .All()
                 .Where(m => m.Rating > 6)
+                .Take(7)
                 .To<TViewModel>()
                 .ToListAsync();
 

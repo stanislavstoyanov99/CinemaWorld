@@ -74,8 +74,8 @@
 
         public async Task<IActionResult> GetAll()
         {
-            var genres = await this.aboutService.GetAllFaqsAsync<FaqDetailsViewModel>();
-            return this.View(genres);
+            var faqs = await this.aboutService.GetAllFaqsAsync<FaqDetailsViewModel>();
+            return this.View(faqs);
         }
     }
 }

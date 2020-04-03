@@ -1,17 +1,25 @@
 ﻿namespace CinemaWorld.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
+    using CinemaWorld.Models.ViewModels.About;
+    using CinemaWorld.Services.Data.Contracts;
     using Microsoft.AspNetCore.Mvc;
 
     public class AboutController : Controller
     {
-        public IActionResult Faq()
+        private readonly IAboutService aboutService;
+
+        public AboutController(IAboutService aboutService)
         {
-            return this.View();
+            this.aboutService = aboutService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var faqs = await this.aboutService.GetAllFaqsAsync<FaqDetailsViewModel>();
+
+            return this.View(faqs);
         }
     }
 }

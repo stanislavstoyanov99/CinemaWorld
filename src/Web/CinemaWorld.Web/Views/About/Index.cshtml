@@ -1,0 +1,30 @@
+﻿@using CinemaWorld.Models.ViewModels.About
+@model IEnumerable<FaqDetailsViewModel>
+@{
+    ViewData["Title"] = "FAQ";
+}
+
+<div class="faq">
+    <h4 class="latest-text w3_faq_latest_text w3_latest_text">FAQ</h4>
+    <div class="container">
+        <div class="panel-group w3l_panel_group_faq" id="accordion" role="tablist" aria-multiselectable="true">
+            @foreach (var faq in Model)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="@faq.Question">
+                        <h4 class="panel-title asd">
+                            <a href="#collapse_@faq.Id" class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                <i class="glyphicon glyphicon-minus" aria-hidden="true"></i>
+                                @faq.Question
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse_@faq.Id" class="panel-collapse collapse" role="tabpanel" aria-labelledby="@faq.Question">
+                        <div class="panel-body panel_text">@Html.Raw(faq.SanitizedAnswer)</div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

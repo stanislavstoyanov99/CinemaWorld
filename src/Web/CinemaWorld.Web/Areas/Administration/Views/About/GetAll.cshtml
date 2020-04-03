@@ -32,7 +32,7 @@
                                         <tr>
                                             <td>@faq.Id</td>
                                             <td>@faq.Question</td>
-                                            <td>@Html.Raw(faq.Answer)</td>
+                                            <td>@Html.Raw(faq.SanitizedAnswer)</td>
                                             <td>
                                                 <a class="badge badge-success" asp-action="Edit" asp-route-id="@faq.Id">Edit</a>
                                                 <a class="badge badge-danger" asp-action="Remove" asp-route-id="@faq.Id">Remove</a>

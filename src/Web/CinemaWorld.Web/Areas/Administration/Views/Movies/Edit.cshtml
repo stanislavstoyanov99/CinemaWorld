@@ -110,7 +110,7 @@
                         <option disabled>Select Genre/Genres</option>
                         @foreach (var genre in Model.Genres)
                         {
-                            @if (Model.MovieGenres.Select(x => x.GenreId).Any(x => x == genre.Id))
+                            @if (Model.MovieGenres.Any(x => x.MovieId == Model.Id && x.GenreId == genre.Id))
                             {
                                 <option value="@genre.Id" selected>@genre.Name</option>
                             }
@@ -130,7 +130,7 @@
                         <option disabled>Select Country/Countries</option>
                         @foreach (var country in Model.Countries)
                         {
-                            @if (Model.MovieCountries.Select(x => x.CountryId).Any(x => x == country.Id))
+                            @if (Model.MovieCountries.Any(x => x.MovieId == Model.Id && x.CountryId == country.Id))
                             {
                                 <option value="@country.Id" selected>@country.Name</option>
                             }

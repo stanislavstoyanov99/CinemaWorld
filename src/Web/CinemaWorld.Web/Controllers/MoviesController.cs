@@ -13,6 +13,7 @@
 
     public class MoviesController : Controller
     {
+        private const int PageSize = 10;
         private readonly IMoviesService moviesService;
 
         public MoviesController(IMoviesService moviesService)
@@ -35,9 +36,7 @@
                 movies = movies.Where(m => m.Name.ToLower().Contains(searchString.ToLower()));
             }
 
-            int pageSize = 10;
-
-            return this.View(await PaginatedList<MovieDetailsViewModel>.CreateAsync(movies, pageNumber ?? 1, pageSize));
+            return this.View(await PaginatedList<MovieDetailsViewModel>.CreateAsync(movies, pageNumber ?? 1, PageSize));
         }
 
         public async Task<IActionResult> Details(int id)
@@ -45,7 +44,21 @@
             var movie = await this.moviesService.GetViewModelByIdAsync<MovieDetailsViewModel>(id);
             var allMovies = await this.moviesService.GetAllMoviesAsync<MovieDetailsViewModel>();
 
-            var uri = new Uri(movie.TrailerPath);
+            string videoId = ExtractVideoId(movie.TrailerPath);
+            movie.TrailerPath = videoId;
+
+            var viewModel = new AllMoviesListingViewModel
+            {
+                MovieDetailsViewModel = movie,
+                AllMovies = allMovies,
+            };
+
+            return this.View(viewModel);
+        }
+
+        private static string ExtractVideoId(string trailerPath)
+        {
+            var uri = new Uri(trailerPath);
             var query = HttpUtility.ParseQueryString(uri.Query);
 
             var videoId = string.Empty;
@@ -59,15 +72,7 @@
                 videoId = uri.Segments.Last();
             }
 
-            movie.TrailerPath = videoId;
-
-            var viewModel = new AllMoviesListingViewModel
-            {
-                MovieDetailsViewModel = movie,
-                AllMovies = allMovies,
-            };
-
-            return this.View(viewModel);
+            return videoId;
         }
     }
 }
