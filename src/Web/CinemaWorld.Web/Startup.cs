@@ -57,6 +57,10 @@
             {
                 configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
             services.AddRazorPages();
 
             services.AddSingleton(this.configuration);
@@ -78,6 +82,7 @@
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IContactsService, ContactsService>();
             services.AddTransient<IAboutService, AboutService>();
+            services.AddTransient<IRatingsService, RatingsService>();
 
             // External login providers
             services.AddAuthentication()
@@ -145,6 +150,10 @@
                 endpoints =>
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                        endpoints.MapControllerRoute(
+                            "genreName",
+                            "{name}",
+                            new { controller = "Genres", action = "ByName" });
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Contacts}/{action=SuccessfullySend}/{userEmail?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("subscription", "{controller=Home}/{action=ThankYouSubscription}/{email?}");

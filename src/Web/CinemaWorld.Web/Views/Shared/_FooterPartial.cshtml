@@ -28,6 +28,7 @@
         </div>
         <div class="col-md-5 w3ls_footer_grid1_left">
             <p>&copy; 2020 Cinema World. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+            <p><a href="https://github.com/stanislavstoyanov99/CinemaWorld">Open source project</a></p>
         </div>
         <div class="col-md-7 w3ls_footer_grid1_right">
             <ul>
@@ -41,13 +42,16 @@
                     <a asp-area="" asp-controller="About" asp-action="Index">FAQ</a>
                 </li>
                 <li>
-                    <a asp-area="" asp-controller="Genres" asp-action="Action">Action</a>
+                    <a asp-area="" asp-controller="Genres" asp-action="ByName" asp-route-name="Action">Action</a>
                 </li>
                 <li>
-                    <a asp-area="" asp-controller="Genres">Adventure</a>
+                    <a asp-area="" asp-controller="Genres" asp-action="ByName" asp-route-name="Adventure">Adventure</a>
                 </li>
                 <li>
-                    <a href="comedy.html">Comedy</a>
+                    <a asp-area="" asp-controller="Genres" asp-action="ByName" asp-route-name="Comedy">Comedy</a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Genres" asp-action="ByName" asp-route-name="Drama">Drama</a>
                 </li>
                 <li>
                     <a asp-area="" asp-controller="Contacts" asp-action="Index">Contact Us</a>

@@ -1,4 +1,11 @@
-﻿<div class="container">
+﻿@inject CinemaWorld.Services.Data.Contracts.IGenresService GenresService
+@using CinemaWorld.Models.ViewModels.Genres
+
+@{
+    var genres = await GenresService.GetAllGenresAsync<NavbarGenreViewModel>();
+}
+
+<div class="container">
     <nav class="navbar navbar-default">
         <div class="navbar-header navbar-left">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -18,37 +25,14 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-column columns-3">
                             <li>
-                                <div class="col-sm-4">
-                                    <ul class="multi-column-dropdown">
-                                        <li><a asp-area="" asp-controller="Genres" asp-action="Action">Action</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">Biography</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">Crime</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">Family</a></li>
-                                        <li><a href="horror.html">Horror</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">Romance</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">Sports</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">War</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-4">
-                                    <ul class="multi-column-dropdown">
-                                        <li><a asp-area="" asp-controller="Genres">Adventure</a></li>
-                                        <li><a href="comedy.html">Comedy</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">Documentary</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">Fantasy</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">Thriller</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-4">
-                                    <ul class="multi-column-dropdown">
-                                        <li><a asp-area="" asp-controller="Genres">Animation</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">Costume</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">Drama</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">History</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">Musical</a></li>
-                                        <li><a asp-area="" asp-controller="Genres">Psychological</a></li>
-                                    </ul>
-                                </div>
+                                @foreach (var genre in genres)
+                                {
+                                    <div class="col-sm-4">
+                                        <ul class="multi-column-dropdown">
+                                            <li><a asp-area="" asp-controller="Genres" asp-action="ByName" asp-route-name="@genre.Name">@genre.Name</a></li>
+                                        </ul>
+                                    </div>
+                                }
                                 <div class="clearfix"></div>
                             </li>
                         </ul>

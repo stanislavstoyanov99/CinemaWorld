@@ -22,5 +22,7 @@
         Task<IEnumerable<TEntity>> GetAllMovieCountriesAsync<TEntity>();
 
         IQueryable<TViewModel> GetAllMoviesAsQueryeable<TViewModel>();
+
+        Task<IEnumerable<MovieDetailsViewModel>> GetByGenreNameAsync(string name);
     }
 }

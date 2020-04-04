@@ -336,6 +336,17 @@
             return topMovies;
         }
 
+        public async Task<IEnumerable<MovieDetailsViewModel>> GetByGenreNameAsync(string name)
+        {
+            var movies = await this.moviesRepository
+                .All()
+                .Where(m => m.MovieGenres.Any(mg => mg.Genre.Name == name))
+                .To<MovieDetailsViewModel>()
+                .ToListAsync();
+
+            return movies;
+        }
+
         private async Task UpdateMovieGenres(MovieEditViewModel model, Movie movie)
         {
             for (int i = 0; i < model.SelectedGenres.Count; i++)
