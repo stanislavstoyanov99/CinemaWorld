@@ -74,5 +74,7 @@
         public virtual ICollection<MovieProjection> Projections { get; set; }
 
         public virtual ICollection<MovieNews> MovieNews { get; set; }
+
+        public virtual ICollection<StarRating> Ratings { get; set; }
     }
 }

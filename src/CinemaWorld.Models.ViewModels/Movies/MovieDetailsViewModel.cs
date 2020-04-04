@@ -3,6 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+
+    using AutoMapper;
 
     using CinemaWorld.Data.Models;
     using CinemaWorld.Data.Models.Enumerations;
@@ -11,7 +14,7 @@
 
     using static Common.ModelValidation.Movie;
 
-    public class MovieDetailsViewModel : IMapFrom<Movie>
+    public class MovieDetailsViewModel : IMapFrom<Movie>, IHaveCustomMappings
     {
         [Display(Name = IdDisplayName)]
         public int Id { get; set; }
@@ -49,5 +52,16 @@
         public string WallpaperPath { get; set; }
 
         public int Length { get; set; }
+
+        public int StarRatingsSum { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Movie, MovieDetailsViewModel>()
+                .ForMember(x => x.StarRatingsSum, options =>
+                {
+                    options.MapFrom(m => m.Ratings.Sum(st => st.Rate));
+                });
+        }
     }
 }

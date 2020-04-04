@@ -4,14 +4,16 @@ using CinemaWorld.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CinemaWorld.Data.Migrations
 {
     [DbContext(typeof(CinemaWorldDbContext))]
-    partial class CinemaWorldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200404154536_AddStarRatingModel")]
+    partial class AddStarRatingModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1067,17 +1069,11 @@ namespace CinemaWorld.Data.Migrations
                     b.Property<int>("Rate")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("MovieId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("StarRatings");
                 });
@@ -1412,12 +1408,6 @@ namespace CinemaWorld.Data.Migrations
                     b.HasOne("CinemaWorld.Data.Models.Movie", "Movie")
                         .WithMany("Ratings")
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CinemaWorld.Data.Models.CinemaWorldUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
