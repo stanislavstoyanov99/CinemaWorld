@@ -8,11 +8,13 @@
     using CinemaWorld.Models.ViewModels.Genres;
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Contracts;
-
+    using CinemaWorld.Web.Infrastructure;
     using Microsoft.AspNetCore.Mvc;
 
     public class MoviesController : AdministrationController
     {
+        private const int PageSize = 10;
+
         private readonly IMoviesService moviesService;
         private readonly IDirectorsService directorsService;
         private readonly IGenresService genresService;
@@ -143,10 +145,10 @@
             return this.RedirectToAction("GetAll", "Movies", new { area = "Administration" });
         }
 
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int? pageNumber)
         {
-            var movies = await this.moviesService.GetAllMoviesAsync<MovieDetailsViewModel>();
-            return this.View(movies);
+            var movies = this.moviesService.GetAllMoviesAsQueryeable<MovieDetailsViewModel>();
+            return this.View(await PaginatedList<MovieDetailsViewModel>.CreateAsync(movies, pageNumber ?? 1, PageSize));
         }
     }
 }

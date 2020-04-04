@@ -1,8 +1,14 @@
 ﻿@using CinemaWorld.Models.ViewModels.Movies
-@model IEnumerable<MovieDetailsViewModel>
+@using CinemaWorld.Web.Infrastructure
+@model PaginatedList<MovieDetailsViewModel>
 @{
     this.ViewData["Title"] = "All movies";
     this.ViewData["ActivePage"] = MovieNavPages.Movies;
+}
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 
 <link rel="stylesheet" type="text/css" href="~/list-css/table-style.css" />
@@ -17,10 +23,13 @@
                 <div id="myTabContent" class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
                         <div class="agile-news-table">
+                            <div class="w3ls-news-result">
+                                <h4>Total Count : <span>@Model.Count()</span></h4>
+                            </div>
                             <table id="table-breakpoint">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
+                                        <th>Id</th>
                                         <th>Movie Name</th>
                                         <th>Movie Language</th>
                                         <th>Length</th>
@@ -71,6 +80,13 @@
                     </div>
                 </div>
             </div>
+            <hr />
+            <a asp-action="GetAll" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-primary @prevDisabled">
+                Previous
+            </a>
+            <a asp-action="GetAll" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-primary @nextDisabled">
+                Next
+            </a>
         </div>
     </div>
 </div>
