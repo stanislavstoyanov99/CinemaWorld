@@ -1,5 +1,6 @@
 ﻿namespace CinemaWorld.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using CinemaWorld.Data.Models;
@@ -27,13 +28,23 @@
         public async Task<ActionResult<StarRatingResponseModel>> Post(RatingInputModel input)
         {
             var userId = this.userManager.GetUserId(this.User);
-            await this.ratingsService.VoteAsync(input.MovieId, userId, input.Rating);
-            var starRatingsSum = this.ratingsService.GetStarRatings(input.MovieId);
+            var starRatingResponseModel = new StarRatingResponseModel();
 
-            return new StarRatingResponseModel
+            try
             {
-                StarRatingsSum = starRatingsSum,
-            };
+                await this.ratingsService.VoteAsync(input.MovieId, userId, input.Rating);
+            }
+            catch (ArgumentException ex)
+            {
+                starRatingResponseModel.ErrorMessage = ex.Message;
+                return starRatingResponseModel;
+            }
+            finally
+            {
+                starRatingResponseModel.StarRatingsSum = this.ratingsService.GetStarRatings(input.MovieId);
+            }
+
+            return starRatingResponseModel;
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿namespace CinemaWorld.Models.InputModels.Ratings
 {
+    using System;
+
     public class RatingInputModel
     {
         public int MovieId { get; set; }

@@ -1,10 +1,12 @@
 ﻿namespace CinemaWorld.Services.Data
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
     using CinemaWorld.Data.Common.Repositories;
     using CinemaWorld.Data.Models;
+    using CinemaWorld.Services.Data.Common;
     using CinemaWorld.Services.Data.Contracts;
 
     public class RatingsService : IRatingsService
@@ -34,6 +36,12 @@
 
             if (starRating != null)
             {
+                if (starRating.CreatedOn.Date == DateTime.UtcNow.Date)
+                {
+                    throw new ArgumentException(
+                        string.Format(ExceptionMessages.AlreadySendVote, DateTime.UtcNow.AddDays(1)));
+                }
+
                 starRating.Rate += rating;
             }
             else

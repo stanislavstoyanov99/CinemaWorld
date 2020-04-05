@@ -36,14 +36,36 @@
                                 </div>
                                 <div class="mid-2 agile_mid_2_home">
                                     <p>@movie.DateOfRelease.Year</p>
-                                    <div class="block-stars">
+                                    <form id="starRatingsForm" method="post"></form>
+                                    <div class="block-stars stars_ratings">
                                         <ul class="w3l-ratings">
-                                            <li><a><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                            <li><a><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                            <li><a><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                            <li><a><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                            <li><a><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                            <li>
+                                                <a href="#@movie.Id" onclick="sendRating(@movie.Id, 1)">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#@movie.Id" onclick="sendRating(@movie.Id, 2)">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#@movie.Id" onclick="sendRating(@movie.Id, 3)">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#@movie.Id" onclick="sendRating(@movie.Id, 4)">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#@movie.Id" onclick="sendRating(@movie.Id, 5)">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
                                         </ul>
+                                        <div id="starRatingsSum_@movie.Id">(@movie.StarRatingsSum)</div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -1401,4 +1423,5 @@
             });
         });
     </script>
+    <script type="text/javascript" src="~/js/rating.js"></script>
 }

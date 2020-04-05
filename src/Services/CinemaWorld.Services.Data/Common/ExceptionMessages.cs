@@ -29,5 +29,7 @@
         public const string FaqNotFound = "Faq with id {0} is not found.";
 
         public const string FaqAlreadyExists = "Faq with id {0} already exists";
+
+        public const string AlreadySendVote = "You cannot vote twice in the same day. To vote come back again tommorrow at {0}.";
     }
 }
