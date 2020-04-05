@@ -15,7 +15,7 @@
 
         Task<IEnumerable<TEntity>> GetAllMoviesAsync<TEntity>();
 
-        Task<IEnumerable<TEntity>> GetTopMoviesAsync<TEntity>();
+        Task<IEnumerable<TEntity>> GetTopMoviesAsync<TEntity>(decimal rating = 0);
 
         Task<IEnumerable<TEntity>> GetAllMovieGenresAsync<TEntity>();
 

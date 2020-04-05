@@ -4,7 +4,7 @@
 
     public class AllMoviesListingViewModel
     {
-        public IEnumerable<MovieDetailsViewModel> AllMovies { get; set; }
+        public IEnumerable<TopRatingMovieDetailsViewModel> AllMovies { get; set; }
 
         public MovieDetailsViewModel MovieDetailsViewModel { get; set; }
     }

@@ -1,6 +1,7 @@
 ﻿namespace CinemaWorld.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.ViewModels;
@@ -11,6 +12,7 @@
 
     public class HomeController : Controller
     {
+        private const decimal RatingInSlider = 6;
         private readonly IMoviesService moviesService;
 
         public HomeController(IMoviesService moviesService)
@@ -25,10 +27,26 @@
                 return this.RedirectToAction("ThankYouSubscription", new { email = email });
             }
 
+            var allMovies = await this.moviesService
+                .GetAllMoviesAsync<TopRatingMovieDetailsViewModel>();
+            var topMoviesInSlider = await this.moviesService
+                .GetTopMoviesAsync<TopMovieDetailsViewModel>(RatingInSlider);
+            var topRatingMovies = await this.moviesService
+                .GetTopMoviesAsync<TopRatingMovieDetailsViewModel>();
+
             var viewModel = new MoviesHomePageListingViewModel
             {
-                AllMovies = await this.moviesService.GetAllMoviesAsync<MovieDetailsViewModel>(),
-                TopMovies = await this.moviesService.GetTopMoviesAsync<TopMovieDetailsViewModel>(),
+                AllMovies = allMovies
+                    .OrderByDescending(x => x.StarRatingsSum)
+                    .ThenByDescending(x => x.DateOfRelease.Year)
+                    .ToList(),
+                TopMoviesInSlider = topMoviesInSlider
+                    .Take(7)
+                    .ToList(),
+                TopRatingMovies = topRatingMovies
+                    .OrderByDescending(x => x.StarRatingsSum)
+                    .ThenByDescending(x => x.DateOfRelease.Year)
+                    .ToList(),
             };
 
             return this.View(viewModel);

@@ -42,7 +42,7 @@
         public async Task<IActionResult> Details(int id)
         {
             var movie = await this.moviesService.GetViewModelByIdAsync<MovieDetailsViewModel>(id);
-            var allMovies = await this.moviesService.GetAllMoviesAsync<MovieDetailsViewModel>();
+            var allMovies = await this.moviesService.GetAllMoviesAsync<TopRatingMovieDetailsViewModel>();
 
             string videoId = ExtractVideoId(movie.TrailerPath);
             movie.TrailerPath = videoId;
@@ -50,7 +50,10 @@
             var viewModel = new AllMoviesListingViewModel
             {
                 MovieDetailsViewModel = movie,
-                AllMovies = allMovies,
+                AllMovies = allMovies
+                    .OrderByDescending(x => x.StarRatingsSum)
+                    .ThenByDescending(x => x.DateOfRelease.Year)
+                    .ToList(),
             };
 
             return this.View(viewModel);

@@ -324,12 +324,11 @@
             return movie;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetTopMoviesAsync<TViewModel>()
+        public async Task<IEnumerable<TViewModel>> GetTopMoviesAsync<TViewModel>(decimal rating = 0)
         {
             var topMovies = await this.moviesRepository
                 .All()
-                .Where(m => m.Rating > 6)
-                .Take(7)
+                .Where(m => m.Rating > rating)
                 .To<TViewModel>()
                 .ToListAsync();
 

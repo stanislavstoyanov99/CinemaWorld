@@ -4,8 +4,10 @@
 
     public class MoviesHomePageListingViewModel
     {
-        public IEnumerable<MovieDetailsViewModel> AllMovies { get; set; }
+        public IEnumerable<TopRatingMovieDetailsViewModel> AllMovies { get; set; }
 
-        public IEnumerable<TopMovieDetailsViewModel> TopMovies { get; set; }
+        public IEnumerable<TopMovieDetailsViewModel> TopMoviesInSlider { get; set; }
+
+        public IEnumerable<TopRatingMovieDetailsViewModel> TopRatingMovies { get; set; }
     }
 }

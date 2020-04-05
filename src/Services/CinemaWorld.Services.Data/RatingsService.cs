@@ -36,10 +36,9 @@
 
             if (starRating != null)
             {
-                if (starRating.CreatedOn.Date == DateTime.UtcNow.Date)
+                if (starRating.CreatedOn < DateTime.UtcNow)
                 {
-                    throw new ArgumentException(
-                        string.Format(ExceptionMessages.AlreadySendVote, DateTime.UtcNow.AddDays(1)));
+                    throw new ArgumentException(ExceptionMessages.AlreadySentVote);
                 }
 
                 starRating.Rate += rating;

@@ -41,7 +41,23 @@ function sendRating(movieId, rating) {
         success: function (data) {
             $("#starRatingsSum_" + movieId).html("(" + data.starRatingsSum + ")");
             if (data.errorMessage != null) {
-                $("#ratingError").html(data.errorMessage);
+                var currentDate = new Date();
+                var dateTime = currentDate.getDate() + 1 + "/"
+                    + (currentDate.getMonth() + 1) + "/"
+                    + currentDate.getFullYear() + " "
+                    + currentDate.getHours() + ":"
+                    + currentDate.getMinutes() + ":"
+                    + currentDate.getSeconds();
+                let button = document.createElement("button");
+                button.setAttribute("type", "button");
+                button.setAttribute("data-dismiss", "alert")
+                button.className = "close";
+                button.innerHTML = "&times;";
+
+                let rating_error = document.getElementById("rating-error");
+                rating_error.style.display = "block";
+                rating_error.innerHTML = data.errorMessage + " " + dateTime;
+                rating_error.appendChild(button);
             }
 
             showRating();
