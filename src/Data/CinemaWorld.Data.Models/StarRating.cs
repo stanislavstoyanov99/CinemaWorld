@@ -1,5 +1,6 @@
 ﻿namespace CinemaWorld.Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
 
     using CinemaWorld.Data.Common.Models;
@@ -16,5 +17,7 @@
         public string UserId { get; set; }
 
         public CinemaWorldUser User { get; set; }
+
+        public DateTime NextVoteDate { get; set; }
     }
 }

@@ -6,8 +6,10 @@
     using CinemaWorld.Data.Models;
     using CinemaWorld.Models.InputModels.Ratings;
     using CinemaWorld.Models.ViewModels.Ratings;
+    using CinemaWorld.Services.Data.Common;
     using CinemaWorld.Services.Data.Contracts;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +26,7 @@
             this.userManager = userManager;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<StarRatingResponseModel>> Post(RatingInputModel input)
         {

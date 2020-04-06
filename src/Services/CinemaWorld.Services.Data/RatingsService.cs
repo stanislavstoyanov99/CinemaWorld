@@ -36,7 +36,7 @@
 
             if (starRating != null)
             {
-                if (starRating.CreatedOn < DateTime.UtcNow)
+                if (DateTime.UtcNow < starRating.NextVoteDate)
                 {
                     throw new ArgumentException(ExceptionMessages.AlreadySentVote);
                 }
@@ -50,6 +50,7 @@
                     MovieId = movieId,
                     UserId = userId,
                     Rate = rating,
+                    NextVoteDate = DateTime.UtcNow.AddDays(1),
                 };
 
                 await this.starRatingsRepository.AddAsync(starRating);

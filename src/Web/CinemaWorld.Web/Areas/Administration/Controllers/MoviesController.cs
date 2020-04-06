@@ -147,7 +147,7 @@
 
         public async Task<IActionResult> GetAll(int? pageNumber)
         {
-            var movies = this.moviesService.GetAllMoviesAsQueryeable<MovieDetailsViewModel>();
+            var movies = await Task.Run(() => this.moviesService.GetAllMoviesAsQueryeable<MovieDetailsViewModel>());
             return this.View(await PaginatedList<MovieDetailsViewModel>.CreateAsync(movies, pageNumber ?? 1, PageSize));
         }
     }

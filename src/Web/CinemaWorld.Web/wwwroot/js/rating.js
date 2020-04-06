@@ -48,6 +48,7 @@ function sendRating(movieId, rating) {
                     + currentDate.getHours() + ":"
                     + currentDate.getMinutes() + ":"
                     + currentDate.getSeconds();
+
                 let button = document.createElement("button");
                 button.setAttribute("type", "button");
                 button.setAttribute("data-dismiss", "alert")
@@ -61,6 +62,6 @@ function sendRating(movieId, rating) {
             }
 
             showRating();
-        }
+        },
     });
 }

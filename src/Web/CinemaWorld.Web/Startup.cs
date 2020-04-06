@@ -1,6 +1,10 @@
 ﻿namespace CinemaWorld.Web
 {
+    using System;
+    using System.Globalization;
+    using System.Net;
     using System.Reflection;
+    using System.Threading.Tasks;
 
     using CinemaWorld.Data;
     using CinemaWorld.Data.Common;
@@ -41,6 +45,20 @@
             services.AddDbContext<CinemaWorldDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
+                options.SchemaName = "dbo";
+                options.TableName = "CacheData";
+            });
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = new TimeSpan(0, 6, 0, 0);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddDefaultIdentity<CinemaWorldUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<CinemaWorldDbContext>();
@@ -57,11 +75,18 @@
             {
                 configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
+
             services.AddAntiforgery(options =>
             {
                 options.HeaderName = "X-CSRF-TOKEN";
             });
+
             services.AddRazorPages();
+
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+            });
 
             services.AddSingleton(this.configuration);
 
@@ -135,11 +160,13 @@
                 app.UseHsts();
             }
 
+            app.UseResponseCompression();
             app.UseStatusCodePagesWithRedirects("/Home/HttpError?statusCode={0}"); // Midleware for missing page
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthentication();
