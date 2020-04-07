@@ -1,7 +1,7 @@
-﻿function showRating() {
-    var stars_elements = document.getElementsByClassName("stars_ratings");
+﻿function showRating(classes) {
+    var stars_elements = document.getElementsByClassName(classes);
 
-    for (let a = 0; a < stars_elements.length; a++) {
+    for (let a = 0; a < stars_elements.length; a++) { 
         let rating_number = stars_elements[a].querySelector("div").textContent;
 
         rating_number = rating_number.replace("(", "");
@@ -25,7 +25,7 @@
     }
 }
 
-showRating();
+showRating("stars_ratings");
 
 function sendRating(movieId, rating) {
     var token = $("#starRatingsForm input[name='__RequestVerificationToken']").val();
@@ -39,29 +39,41 @@ function sendRating(movieId, rating) {
         dataType: "json",
         headers: { 'X-CSRF-TOKEN': token },
         success: function (data) {
-            $("#starRatingsSum_" + movieId).html("(" + data.starRatingsSum + ")");
             if (data.errorMessage != null) {
-                var currentDate = new Date();
-                var dateTime = currentDate.getDate() + 1 + "/"
-                    + (currentDate.getMonth() + 1) + "/"
-                    + currentDate.getFullYear() + " "
-                    + currentDate.getHours() + ":"
-                    + currentDate.getMinutes() + ":"
-                    + currentDate.getSeconds();
-
                 let button = document.createElement("button");
                 button.setAttribute("type", "button");
                 button.setAttribute("data-dismiss", "alert")
                 button.className = "close";
                 button.innerHTML = "&times;";
 
+                let date = convertUTCDateToLocalDate(new Date(data.nextVoteDate));
                 let rating_error = document.getElementById("rating-error");
                 rating_error.style.display = "block";
-                rating_error.innerHTML = data.errorMessage + " " + dateTime;
+
+                rating_error.innerHTML = data.errorMessage + " " + date.toLocaleString();
                 rating_error.appendChild(button);
             }
 
-            showRating();
+            // Update Ratings on all divs
+            let elements = document.getElementsByClassName("movie_" + movieId);
+            for (let a = 0; a < elements.length; a++) {
+                let votes = elements[a].querySelector(".starRatingsSum");
+                votes.innerHTML = "(" + data.starRatingsSum + ")";
+            }
+
+            showRating("movie_" + movieId);
         },
     });
+}
+
+function convertUTCDateToLocalDate(date) {
+    console.log(date);
+    var newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+
+    var offset = date.getTimezoneOffset() / 60;
+    var hours = date.getHours();
+
+    newDate.setHours(hours - offset);
+
+    return newDate;
 }

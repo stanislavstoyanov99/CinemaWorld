@@ -36,7 +36,7 @@
                                     <div class="mid-2">
                                         <p>@movie.DateOfRelease.Year</p>
                                         <form id="starRatingsForm" method="post"></form>
-                                        <div class="block-stars stars_ratings" >
+                                        <div class="block-stars stars_ratings movie_@movie.Id" >
                                             <ul class="w3l-ratings">
                                                 <li>
                                                     <a href="#@movie.Id" onclick="sendRating(@movie.Id, 1)">
@@ -64,7 +64,7 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                            <div id="starRatingsSum_@movie.Id">(@movie.StarRatingsSum)</div>
+                                            <div class="starRatingsSum">(@movie.StarRatingsSum)</div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>

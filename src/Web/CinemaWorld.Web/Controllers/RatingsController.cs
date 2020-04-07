@@ -6,7 +6,6 @@
     using CinemaWorld.Data.Models;
     using CinemaWorld.Models.InputModels.Ratings;
     using CinemaWorld.Models.ViewModels.Ratings;
-    using CinemaWorld.Services.Data.Common;
     using CinemaWorld.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Authorization;
@@ -26,7 +25,6 @@
             this.userManager = userManager;
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<ActionResult<StarRatingResponseModel>> Post(RatingInputModel input)
         {
@@ -44,7 +42,8 @@
             }
             finally
             {
-                starRatingResponseModel.StarRatingsSum = this.ratingsService.GetStarRatings(input.MovieId);
+                starRatingResponseModel.StarRatingsSum = await this.ratingsService.GetStarRatingsAsync(input.MovieId);
+                starRatingResponseModel.NextVoteDate = await this.ratingsService.GetNextVoteDateAsync(input.MovieId, userId);
             }
 
             return starRatingResponseModel;

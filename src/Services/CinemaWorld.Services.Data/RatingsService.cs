@@ -9,6 +9,8 @@
     using CinemaWorld.Services.Data.Common;
     using CinemaWorld.Services.Data.Contracts;
 
+    using Microsoft.EntityFrameworkCore;
+
     public class RatingsService : IRatingsService
     {
         private readonly IDeletableEntityRepository<StarRating> starRatingsRepository;
@@ -18,21 +20,30 @@
             this.starRatingsRepository = starRatingsRepository;
         }
 
-        public int GetStarRatings(int movieId)
+        public async Task<int> GetStarRatingsAsync(int movieId)
         {
-            var starRatings = this.starRatingsRepository
+            var starRatings = await this.starRatingsRepository
                 .All()
                 .Where(x => x.MovieId == movieId)
-                .Sum(x => x.Rate);
+                .SumAsync(x => x.Rate);
 
             return starRatings;
         }
 
+        public async Task<DateTime> GetNextVoteDateAsync(int movieId, string userId)
+        {
+            var starRating = await this.starRatingsRepository
+                .All()
+                .FirstAsync(x => x.MovieId == movieId && x.UserId == userId);
+
+            return starRating.NextVoteDate;
+        }
+
         public async Task VoteAsync(int movieId, string userId, int rating)
         {
-            var starRating = this.starRatingsRepository
+            var starRating = await this.starRatingsRepository
                 .All()
-                .FirstOrDefault(x => x.MovieId == movieId && x.UserId == userId);
+                .FirstOrDefaultAsync(x => x.MovieId == movieId && x.UserId == userId);
 
             if (starRating != null)
             {
@@ -42,6 +53,7 @@
                 }
 
                 starRating.Rate += rating;
+                starRating.NextVoteDate = DateTime.UtcNow.AddDays(1);
             }
             else
             {

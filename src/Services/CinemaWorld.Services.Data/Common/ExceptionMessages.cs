@@ -30,7 +30,7 @@
 
         public const string FaqAlreadyExists = "Faq with id {0} already exists";
 
-        public const string AlreadySentVote = "You cannot vote twice in the same day. To vote come back again tommorrow at";
+        public const string AlreadySentVote = "You cannot vote twice in the same day. To vote come back again tomorrow at";
 
         public const string UserShouldBeLoggedIn = "You have to log into your account in order to vote for a movie.";
     }
