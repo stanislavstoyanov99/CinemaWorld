@@ -17,6 +17,8 @@
 
         Task<IEnumerable<TEntity>> GetTopMoviesAsync<TEntity>(decimal rating = 0);
 
+        Task<IEnumerable<TViewModel>> GetRecentlyAddedMoviesAsync<TViewModel>(int count = 0);
+
         Task<IEnumerable<TEntity>> GetAllMovieGenresAsync<TEntity>();
 
         Task<IEnumerable<TEntity>> GetAllMovieCountriesAsync<TEntity>();

@@ -272,6 +272,19 @@
             return movies;
         }
 
+        public async Task<IEnumerable<TViewModel>> GetRecentlyAddedMoviesAsync<TViewModel>(int count = 0)
+        {
+            var recentlyAddedMovies = await this.moviesRepository
+                .All()
+                .OrderByDescending(x => x.CreatedOn)
+                .ThenByDescending(x => x.DateOfRelease)
+                .Take(count)
+                .To<TViewModel>()
+                .ToListAsync();
+
+            return recentlyAddedMovies;
+        }
+
         public async Task<IEnumerable<TViewModel>> GetAllMovieGenresAsync<TViewModel>()
         {
             var movieGenres = await this.movieGenresRepository

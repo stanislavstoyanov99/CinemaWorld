@@ -9,5 +9,7 @@
         public IEnumerable<TopMovieDetailsViewModel> TopMoviesInSlider { get; set; }
 
         public IEnumerable<TopRatingMovieDetailsViewModel> TopRatingMovies { get; set; }
+
+        public IEnumerable<RecentlyAddedMovieDetailsViewModel> RecentlyAddedMovies { get; set; }
     }
 }

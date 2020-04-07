@@ -13,6 +13,8 @@
     public class HomeController : Controller
     {
         private const decimal RatingInSlider = 6;
+        private const int TopMoviesInSliderCount = 7;
+        private const int RecentlyAddedMoviesCount = 12;
         private readonly IMoviesService moviesService;
 
         public HomeController(IMoviesService moviesService)
@@ -33,6 +35,8 @@
                 .GetTopMoviesAsync<TopMovieDetailsViewModel>(RatingInSlider);
             var topRatingMovies = await this.moviesService
                 .GetTopMoviesAsync<TopRatingMovieDetailsViewModel>();
+            var recentlyAddedMovies = await this.moviesService
+                .GetRecentlyAddedMoviesAsync<RecentlyAddedMovieDetailsViewModel>(RecentlyAddedMoviesCount);
 
             var viewModel = new MoviesHomePageListingViewModel
             {
@@ -41,12 +45,13 @@
                     .ThenByDescending(x => x.DateOfRelease.Year)
                     .ToList(),
                 TopMoviesInSlider = topMoviesInSlider
-                    .Take(7)
+                    .Take(TopMoviesInSliderCount)
                     .ToList(),
                 TopRatingMovies = topRatingMovies
                     .OrderByDescending(x => x.StarRatingsSum)
                     .ThenByDescending(x => x.DateOfRelease.Year)
                     .ToList(),
+                RecentlyAddedMovies = recentlyAddedMovies,
             };
 
             return this.View(viewModel);
