@@ -14,7 +14,7 @@
                                     <label>
                                         <input type="checkbox" class="sg_consent_checkbox" name="sg_consent_checkbox"> I understand and consent to the following
                                     </label>
-                                    <a href=#>Privacy Notice</a>
+                                    <a asp-controller="Home" asp-action="Privacy">Privacy Notice</a>
                                 </div>
                             </form>
                         </div>
@@ -34,6 +34,9 @@
             <ul>
                 <li>
                     <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="News" asp-action="Index">News</a>
                 </li>
                 <li>
                     <a asp-area="" asp-controller="Schedule" asp-action="Index">Schedule</a>

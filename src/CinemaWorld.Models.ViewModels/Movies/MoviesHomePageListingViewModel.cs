@@ -6,7 +6,7 @@
     {
         public IEnumerable<TopRatingMovieDetailsViewModel> AllMovies { get; set; }
 
-        public IEnumerable<TopMovieDetailsViewModel> TopMoviesInSlider { get; set; }
+        public IEnumerable<SliderMovieDetailsViewModel> TopMoviesInSlider { get; set; }
 
         public IEnumerable<TopRatingMovieDetailsViewModel> TopRatingMovies { get; set; }
 

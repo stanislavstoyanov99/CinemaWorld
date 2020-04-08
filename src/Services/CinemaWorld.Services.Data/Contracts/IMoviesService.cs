@@ -13,15 +13,15 @@
 
         Task EditAsync(MovieEditViewModel movieEditViewModel);
 
-        Task<IEnumerable<TEntity>> GetAllMoviesAsync<TEntity>();
+        Task<IEnumerable<TViewModel>> GetAllMoviesAsync<TViewModel>();
 
-        Task<IEnumerable<TEntity>> GetTopMoviesAsync<TEntity>(decimal rating = 0);
+        Task<IEnumerable<TViewModel>> GetTopMoviesAsync<TViewModel>(decimal rating = 0);
 
         Task<IEnumerable<TViewModel>> GetRecentlyAddedMoviesAsync<TViewModel>(int count = 0);
 
-        Task<IEnumerable<TEntity>> GetAllMovieGenresAsync<TEntity>();
+        Task<IEnumerable<TViewModel>> GetAllMovieGenresAsync<TViewModel>();
 
-        Task<IEnumerable<TEntity>> GetAllMovieCountriesAsync<TEntity>();
+        Task<IEnumerable<TViewModel>> GetAllMovieCountriesAsync<TViewModel>();
 
         IQueryable<TViewModel> GetAllMoviesAsQueryeable<TViewModel>();
 

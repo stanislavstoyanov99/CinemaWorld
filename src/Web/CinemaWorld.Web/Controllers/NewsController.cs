@@ -9,7 +9,7 @@
 
     public class NewsController : Controller
     {
-        public IActionResult All()
+        public IActionResult Index()
         {
             return this.View();
         }

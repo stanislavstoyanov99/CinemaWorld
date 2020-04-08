@@ -15,7 +15,6 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
             <nav>
                 <ul class="nav navbar-nav">
@@ -25,19 +24,21 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-column columns-3">
                             <li>
-                                @foreach (var genre in genres)
-                                {
-                                    <div class="col-sm-4">
-                                        <ul class="multi-column-dropdown">
-                                            <li><a asp-area="" asp-controller="Genres" asp-action="ByName" asp-route-name="@genre.Name">@genre.Name</a></li>
-                                        </ul>
-                                    </div>
-                                }
+                                <cache expires-after="@TimeSpan.FromDays(30)" vary-by="@genres.Count().ToString()">
+                                    @foreach (var genre in genres)
+                                    {
+                                        <div class="col-sm-4">
+                                            <ul class="multi-column-dropdown">
+                                                <li><a asp-area="" asp-controller="Genres" asp-action="ByName" asp-route-name="@genre.Name">@genre.Name</a></li>
+                                            </ul>
+                                        </div>
+                                    }
+                                </cache>
                                 <div class="clearfix"></div>
                             </li>
                         </ul>
                     </li>
-                    <li><a asp-area="" asp-controller="News" asp-action="All">news</a></li>
+                    <li><a asp-area="" asp-controller="News" asp-action="Index">News</a></li>
                     <li><a asp-area="" asp-controller="Schedule" asp-action="Index">Schedule</a></li>
                 </ul>
             </nav>

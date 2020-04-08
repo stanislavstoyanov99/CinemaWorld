@@ -305,22 +305,6 @@
             return movieCountries;
         }
 
-        public async Task<MovieGenreViewModel> GetMovieGenreIdAsync(int movieId)
-        {
-            var movieGenre = await this.movieGenresRepository
-                .All()
-                .To<MovieGenreViewModel>()
-                .FirstOrDefaultAsync(x => x.MovieId == movieId);
-
-            if (movieGenre == null)
-            {
-                throw new NullReferenceException(
-                    string.Format(ExceptionMessages.MovieGenreNotFound, movieId, movieGenre.GenreId));
-            }
-
-            return movieGenre;
-        }
-
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
         {
             var movie = await this.moviesRepository

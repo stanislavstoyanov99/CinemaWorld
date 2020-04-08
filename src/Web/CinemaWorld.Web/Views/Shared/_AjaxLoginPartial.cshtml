@@ -25,6 +25,9 @@
             type: 'POST',
             dataType: 'json',
             url: $('#formLoginAjax').attr('action'),
+            xhrFields: {
+                withCredentials: true
+            },
             data: $('#formLoginAjax').serialize(),
             beforeSend: function () {
                 $('.shadow').show(900);
@@ -50,4 +53,4 @@
             }
         });
     });
-</script>
+</script> 
