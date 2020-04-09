@@ -8,6 +8,8 @@
 
         public string ErrorMessage { get; set; }
 
+        public string AuthenticateErrorMessage { get; set; }
+
         public DateTime NextVoteDate { get; set; }
     }
 }

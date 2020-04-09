@@ -6,9 +6,9 @@
     using CinemaWorld.Data.Models;
     using CinemaWorld.Models.InputModels.Ratings;
     using CinemaWorld.Models.ViewModels.Ratings;
+    using CinemaWorld.Services.Data.Common;
     using CinemaWorld.Services.Data.Contracts;
 
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +30,14 @@
         {
             var userId = this.userManager.GetUserId(this.User);
             var starRatingResponseModel = new StarRatingResponseModel();
+
+            if (userId == null)
+            {
+                starRatingResponseModel.AuthenticateErrorMessage = ExceptionMessages.AuthenticatedErrorMessage;
+                starRatingResponseModel.StarRatingsSum = await this.ratingsService.GetStarRatingsAsync(input.MovieId);
+
+                return starRatingResponseModel;
+            }
 
             try
             {

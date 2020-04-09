@@ -33,5 +33,7 @@
         public const string AlreadySentVote = "You cannot vote twice in the same day. To vote come back again tomorrow at";
 
         public const string UserShouldBeLoggedIn = "You have to log into your account in order to vote for a movie.";
+
+        public const string AuthenticatedErrorMessage = "Please, login in order to vote.";
     }
 }

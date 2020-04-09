@@ -1,7 +1,7 @@
 ﻿function showRating(classes) {
     var stars_elements = document.getElementsByClassName(classes);
 
-    for (let a = 0; a < stars_elements.length; a++) { 
+    for (let a = 0; a < stars_elements.length; a++) {
         let rating_number = stars_elements[a].querySelector("div").textContent;
 
         rating_number = rating_number.replace("(", "");
@@ -39,6 +39,12 @@ function sendRating(movieId, rating) {
         dataType: "json",
         headers: { 'X-CSRF-TOKEN': token },
         success: function (data) {
+            if (data.authenticateErrorMessage != null) {
+                let authenticate_error = document.getElementById("error");
+                authenticate_error.style.display = "block";
+                authenticate_error.innerHTML = data.authenticateErrorMessage;
+            }
+
             if (data.errorMessage != null) {
                 let button = document.createElement("button");
                 button.setAttribute("type", "button");
@@ -47,7 +53,7 @@ function sendRating(movieId, rating) {
                 button.innerHTML = "&times;";
 
                 let date = convertUTCDateToLocalDate(new Date(data.nextVoteDate));
-                let rating_error = document.getElementById("rating-error");
+                let rating_error = document.getElementById("error");
                 rating_error.style.display = "block";
 
                 rating_error.innerHTML = data.errorMessage + " " + date.toLocaleString();
@@ -62,7 +68,7 @@ function sendRating(movieId, rating) {
             }
 
             showRating("movie_" + movieId);
-        },
+        }
     });
 }
 
