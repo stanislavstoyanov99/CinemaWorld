@@ -1,0 +1,28 @@
+﻿@model CinemaWorld.Models.ViewModels.News.NewsDeleteViewModel
+@{
+    this.ViewData["Title"] = "Delete News";
+    this.ViewData["ActivePage"] = NewsNavPages.News;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="News" asp-action="Remove" method="post">
+            <h4 class="text-danger">Are you sure you want to delete news with <b>@Model.Id</b> id?</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="CreationDate"></label>
+                <input asp-for="CreationDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePath"></label>
+                <input asp-for="ImagePath" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-danger">Delete news</button>
+            <button asp-area="Administration" asp-controller="News" asp-action="GetAll" class="btn btn-primary">Back to all news</button>
+        </form>
+    </div>
+</div>

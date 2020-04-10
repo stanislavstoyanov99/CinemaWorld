@@ -42,9 +42,7 @@
             await this.directorsRepository.AddAsync(director);
             await this.directorsRepository.SaveChangesAsync();
 
-            var viewModel = this.GetViewModelByIdAsync<DirectorDetailsViewModel>(director.Id)
-                .GetAwaiter()
-                .GetResult();
+            var viewModel = await this.GetViewModelByIdAsync<DirectorDetailsViewModel>(director.Id);
 
             return viewModel;
         }

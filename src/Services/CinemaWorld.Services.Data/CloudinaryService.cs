@@ -28,6 +28,8 @@
             destinationImage = memoryStream.ToArray();
 
             using var destinationStream = new MemoryStream(destinationImage);
+
+            fileName = fileName.Replace("&", "And");
             var uploadParams = new ImageUploadParams()
             {
                 File = new FileDescription(fileName, destinationStream),

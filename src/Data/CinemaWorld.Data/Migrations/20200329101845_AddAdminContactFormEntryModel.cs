@@ -1,7 +1,7 @@
-﻿
-namespace CinemaWorld.Data.Migrations
+﻿namespace CinemaWorld.Data.Migrations
 {
     using System;
+
     using Microsoft.EntityFrameworkCore.Migrations;
 
     public partial class AddAdminContactFormEntryModel : Migration

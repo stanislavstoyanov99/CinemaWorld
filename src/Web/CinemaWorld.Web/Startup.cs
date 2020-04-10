@@ -108,6 +108,7 @@
             services.AddTransient<IContactsService, ContactsService>();
             services.AddTransient<IAboutService, AboutService>();
             services.AddTransient<IRatingsService, RatingsService>();
+            services.AddTransient<INewsService, NewsService>();
 
             // External login providers
             services.AddAuthentication()

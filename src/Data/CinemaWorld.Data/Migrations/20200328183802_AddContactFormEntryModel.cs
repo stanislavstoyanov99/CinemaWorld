@@ -20,7 +20,7 @@
                     LastName = table.Column<string>(maxLength: 30, nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Subject = table.Column<string>(maxLength: 100, nullable: false),
-                    Content = table.Column<string>(maxLength: 10000, nullable: false)
+                    Content = table.Column<string>(maxLength: 10000, nullable: false),
                 },
                 constraints: table =>
                 {

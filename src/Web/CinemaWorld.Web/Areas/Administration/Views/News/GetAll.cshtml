@@ -1,0 +1,66 @@
+﻿@using CinemaWorld.Models.ViewModels.News
+@model IEnumerable<NewsDetailsViewModel>
+@{
+    this.ViewData["Title"] = "All news";
+    this.ViewData["ActivePage"] = NewsNavPages.News;
+}
+
+<link rel="stylesheet" type="text/css" href="~/list-css/table-style.css" />
+<link rel="stylesheet" type="text/css" href="~/list-css/basictable.css" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h4>News List</h4>
+            <hr />
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                        <div class="agile-news-table">
+                            <table id="table-breakpoint">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Author</th>
+                                        <th>Date</th>
+                                        <th>Title</th>
+                                        <th>Functions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var news in Model)
+                                    {
+                                    <tr>
+                                        <td>@news.Id</td>
+                                        <td>@news.UserUserName</td>
+                                        <td>@news.CreatedOn</td>
+                                        <td>@news.Title</td>
+                                        <td>
+                                            <a class="badge badge-success" asp-action="Edit" asp-route-id="@news.Id">Edit</a>
+                                            <a class="badge badge-danger" asp-action="Remove" asp-route-id="@news.Id">Remove</a>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/list-js/jquery.basictable.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table').basictable();
+
+            $('#table-breakpoint').basictable({
+                breakpoint: 768
+            });
+        });
+    </script>
+}

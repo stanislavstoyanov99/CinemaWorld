@@ -41,9 +41,7 @@
             await this.countriesRepository.AddAsync(country);
             await this.countriesRepository.SaveChangesAsync();
 
-            var viewModel = this.GetViewModelByIdAsync<CountryDetailsViewModel>(country.Id)
-                .GetAwaiter()
-                .GetResult();
+            var viewModel = await this.GetViewModelByIdAsync<CountryDetailsViewModel>(country.Id);
 
             return viewModel;
         }

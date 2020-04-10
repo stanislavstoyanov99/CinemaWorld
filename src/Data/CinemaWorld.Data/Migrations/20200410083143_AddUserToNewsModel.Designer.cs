@@ -4,14 +4,16 @@ using CinemaWorld.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CinemaWorld.Data.Migrations
 {
     [DbContext(typeof(CinemaWorldDbContext))]
-    partial class CinemaWorldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200410083143_AddUserToNewsModel")]
+    partial class AddUserToNewsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -648,6 +650,29 @@ namespace CinemaWorld.Data.Migrations
                     b.ToTable("MovieGenres");
                 });
 
+            modelBuilder.Entity("CinemaWorld.Data.Models.MovieNews", b =>
+                {
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NewsId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("MovieId", "NewsId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("NewsId");
+
+                    b.ToTable("MovieNews");
+                });
+
             modelBuilder.Entity("CinemaWorld.Data.Models.MovieProjection", b =>
                 {
                     b.Property<int>("Id")
@@ -723,6 +748,9 @@ namespace CinemaWorld.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedOn")
@@ -1291,6 +1319,21 @@ namespace CinemaWorld.Data.Migrations
                     b.HasOne("CinemaWorld.Data.Models.Movie", "Movie")
                         .WithMany("MovieGenres")
                         .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CinemaWorld.Data.Models.MovieNews", b =>
+                {
+                    b.HasOne("CinemaWorld.Data.Models.Movie", "Movie")
+                        .WithMany("MovieNews")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CinemaWorld.Data.Models.News", "News")
+                        .WithMany("MovieNews")
+                        .HasForeignKey("NewsId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

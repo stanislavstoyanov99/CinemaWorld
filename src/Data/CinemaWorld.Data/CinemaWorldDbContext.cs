@@ -48,8 +48,6 @@
 
         public DbSet<MovieGenre> MovieGenres { get; set; }
 
-        public DbSet<MovieNews> MovieNews { get; set; }
-
         public DbSet<MovieProjection> MovieProjections { get; set; }
 
         public DbSet<News> News { get; set; }
@@ -113,9 +111,6 @@
 
             builder.Entity<MovieGenre>()
                 .HasKey(mg => new { mg.MovieId, mg.GenreId });
-
-            builder.Entity<MovieNews>()
-                .HasKey(mn => new { mn.MovieId, mn.NewsId });
 
             builder.Entity<ReviewAuthor>()
                 .HasKey(ra => new { ra.ReviewId, ra.AuthorId });

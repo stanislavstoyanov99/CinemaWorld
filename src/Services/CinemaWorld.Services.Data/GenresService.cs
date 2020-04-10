@@ -41,9 +41,7 @@
             await this.genresRepository.AddAsync(genre);
             await this.genresRepository.SaveChangesAsync();
 
-            var viewModel = this.GetViewModelByIdAsync<GenreDetailsViewModel>(genre.Id)
-                .GetAwaiter()
-                .GetResult();
+            var viewModel = await this.GetViewModelByIdAsync<GenreDetailsViewModel>(genre.Id);
 
             return viewModel;
         }

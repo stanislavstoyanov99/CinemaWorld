@@ -42,9 +42,7 @@
             await this.faqEntriesRepository.AddAsync(faq);
             await this.faqEntriesRepository.SaveChangesAsync();
 
-            var viewModel = this.GetViewModelByIdAsync<FaqDetailsViewModel>(faq.Id)
-                .GetAwaiter()
-                .GetResult();
+            var viewModel = await this.GetViewModelByIdAsync<FaqDetailsViewModel>(faq.Id);
 
             return viewModel;
         }

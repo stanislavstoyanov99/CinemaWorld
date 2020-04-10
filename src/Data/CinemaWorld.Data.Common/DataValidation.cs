@@ -35,7 +35,8 @@
         public static class News
         {
             public const int TitleMaxLength = 100;
-            public const int DescriptionMaxLength = 1200;
+            public const int DescriptionMaxLength = 10000;
+            public const int ImagePathMaxLength = 500;
         }
 
         public static class Promotion

@@ -4,14 +4,16 @@ using CinemaWorld.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CinemaWorld.Data.Migrations
 {
     [DbContext(typeof(CinemaWorldDbContext))]
-    partial class CinemaWorldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200410070342_AddImagePathPropertryToNewsModel")]
+    partial class AddImagePathPropertryToNewsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -648,6 +650,29 @@ namespace CinemaWorld.Data.Migrations
                     b.ToTable("MovieGenres");
                 });
 
+            modelBuilder.Entity("CinemaWorld.Data.Models.MovieNews", b =>
+                {
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NewsId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("MovieId", "NewsId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("NewsId");
+
+                    b.ToTable("MovieNews");
+                });
+
             modelBuilder.Entity("CinemaWorld.Data.Models.MovieProjection", b =>
                 {
                     b.Property<int>("Id")
@@ -725,13 +750,16 @@ namespace CinemaWorld.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasMaxLength(10000);
+                        .HasColumnType("nvarchar(1200)")
+                        .HasMaxLength(1200);
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
@@ -749,15 +777,9 @@ namespace CinemaWorld.Data.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("News");
                 });
@@ -1295,6 +1317,21 @@ namespace CinemaWorld.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CinemaWorld.Data.Models.MovieNews", b =>
+                {
+                    b.HasOne("CinemaWorld.Data.Models.Movie", "Movie")
+                        .WithMany("MovieNews")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CinemaWorld.Data.Models.News", "News")
+                        .WithMany("MovieNews")
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CinemaWorld.Data.Models.MovieProjection", b =>
                 {
                     b.HasOne("CinemaWorld.Data.Models.Cinema", "Cinema")
@@ -1327,15 +1364,6 @@ namespace CinemaWorld.Data.Migrations
                     b.HasOne("CinemaWorld.Data.Models.Review", "Review")
                         .WithMany("MovieReviews")
                         .HasForeignKey("ReviewId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CinemaWorld.Data.Models.News", b =>
-                {
-                    b.HasOne("CinemaWorld.Data.Models.CinemaWorldUser", "User")
-                        .WithMany("News")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

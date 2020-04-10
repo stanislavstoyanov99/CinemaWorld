@@ -1,0 +1,15 @@
+﻿@{
+    this.ViewData["ActivePage"] = NewsNavPages.News;
+    this.ViewData["Title"] = "News";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="@NewsNavPages.CreateNewsNavClass(ViewContext)"><a asp-controller="News" asp-action="Create">Create news</a></li>
+                <li class="@NewsNavPages.GetAllNavClass(ViewContext)"><a asp-controller="News" asp-action="GetAll">List news</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

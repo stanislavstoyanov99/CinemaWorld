@@ -115,9 +115,7 @@
             await this.movieGenresRepository.SaveChangesAsync();
             await this.movieCountriesRepository.SaveChangesAsync();
 
-            var viewModel = this.GetViewModelByIdAsync<MovieDetailsViewModel>(movie.Id)
-                .GetAwaiter()
-                .GetResult();
+            var viewModel = await this.GetViewModelByIdAsync<MovieDetailsViewModel>(movie.Id);
 
             return viewModel;
         }

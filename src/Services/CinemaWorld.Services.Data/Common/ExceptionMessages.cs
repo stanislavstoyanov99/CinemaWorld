@@ -35,5 +35,9 @@
         public const string UserShouldBeLoggedIn = "You have to log into your account in order to vote for a movie.";
 
         public const string AuthenticatedErrorMessage = "Please, login in order to vote.";
+
+        public const string NewsAlreadyExists = "News with id {0} already exists";
+
+        public const string NewsNotFound = "News with id {0} is not found.";
     }
 }

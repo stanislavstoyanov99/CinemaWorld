@@ -42,9 +42,7 @@
             await this.cinemasRepository.AddAsync(cinema);
             await this.cinemasRepository.SaveChangesAsync();
 
-            var viewModel = this.GetViewModelByIdAsync<CinemaDetailsViewModel>(cinema.Id)
-                .GetAwaiter()
-                .GetResult();
+            var viewModel = await this.GetViewModelByIdAsync<CinemaDetailsViewModel>(cinema.Id);
 
             return viewModel;
         }

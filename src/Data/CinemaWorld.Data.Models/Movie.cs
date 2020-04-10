@@ -18,7 +18,6 @@
             this.MovieCountries = new HashSet<MovieCountry>();
             this.MovieActors = new HashSet<MovieActor>();
             this.Projections = new HashSet<MovieProjection>();
-            this.MovieNews = new HashSet<MovieNews>();
         }
 
         [Required]
@@ -72,8 +71,6 @@
         public virtual ICollection<MovieActor> MovieActors { get; set; }
 
         public virtual ICollection<MovieProjection> Projections { get; set; }
-
-        public virtual ICollection<MovieNews> MovieNews { get; set; }
 
         public virtual ICollection<StarRating> Ratings { get; set; }
     }
