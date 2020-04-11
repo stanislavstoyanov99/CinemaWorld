@@ -36,6 +36,7 @@
         {
             public const int TitleMaxLength = 100;
             public const int DescriptionMaxLength = 10000;
+            public const int ShortDescriptionMaxLength = 400;
             public const int ImagePathMaxLength = 500;
         }
 

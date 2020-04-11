@@ -28,7 +28,7 @@
             this.cloudinaryService = cloudinaryService;
         }
 
-        public async Task<NewsDetailsViewModel> CreateAsync(NewsCreateInputModel newsCreateInputModel, string userId)
+        public async Task<AllNewsListingViewModel> CreateAsync(NewsCreateInputModel newsCreateInputModel, string userId)
         {
             var imageUrl = await this.cloudinaryService
                .UploadAsync(newsCreateInputModel.Image, newsCreateInputModel.Title + Suffixes.NewsSuffix);
@@ -37,6 +37,7 @@
             {
                 Title = newsCreateInputModel.Title,
                 Description = newsCreateInputModel.Description,
+                ShortDescription = newsCreateInputModel.ShortDescription,
                 ImagePath = imageUrl,
                 UserId = userId,
             };
@@ -51,7 +52,7 @@
             await this.newsRepository.AddAsync(news);
             await this.newsRepository.SaveChangesAsync();
 
-            var viewModel = await this.GetViewModelByIdAsync<NewsDetailsViewModel>(news.Id);
+            var viewModel = await this.GetViewModelByIdAsync<AllNewsListingViewModel>(news.Id);
 
             return viewModel;
         }
@@ -90,6 +91,7 @@
 
             news.Title = newsEditViewModel.Title;
             news.Description = newsEditViewModel.Description;
+            news.ShortDescription = newsEditViewModel.ShortDescription;
             news.UserId = userId;
             news.ModifiedOn = DateTime.UtcNow;
 
@@ -108,6 +110,42 @@
             return news;
         }
 
+        public async Task<IEnumerable<TViewModel>> GetTopNewsAsync<TViewModel>(int count = 0)
+        {
+            var topNews = await this.newsRepository
+                 .All()
+                 .Take(count)
+                 .OrderByDescending(x => x.ViewsCounter)
+                 .To<TViewModel>()
+                 .ToListAsync();
+
+            return topNews;
+        }
+
+        public async Task<NewsDetailsViewModel> SetViewsCounter(int id)
+        {
+            var news = await this.newsRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (news == null)
+            {
+                throw new NullReferenceException(
+                       string.Format(ExceptionMessages.NewsNotFound, id));
+            }
+
+            news.ViewsCounter++;
+            await this.newsRepository.SaveChangesAsync();
+
+            var viewModel = await this.newsRepository
+                .All()
+                .Where(x => x.Id == id)
+                .To<NewsDetailsViewModel>()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return viewModel;
+        }
+
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
         {
             var newsViewModel = await this.newsRepository
@@ -122,6 +160,15 @@
             }
 
             return newsViewModel;
+        }
+
+        public IQueryable<TViewModel> GetAllNewsAsQueryeable<TViewModel>()
+        {
+            var news = this.newsRepository
+                .All()
+                .To<TViewModel>();
+
+            return news;
         }
     }
 }

@@ -72,7 +72,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Remove(NewsDetailsViewModel newsDetailsViewModel)
+        public async Task<IActionResult> Remove(AllNewsListingViewModel newsDetailsViewModel)
         {
             await this.newsService.DeleteByIdAsync(newsDetailsViewModel.Id);
             return this.RedirectToAction("GetAll", "News", new { area = "Administration" });
@@ -80,7 +80,7 @@
 
         public async Task<IActionResult> GetAll()
         {
-            var news = await this.newsService.GetAllNewsAsync<NewsDetailsViewModel>();
+            var news = await this.newsService.GetAllNewsAsync<AllNewsListingViewModel>();
             return this.View(news);
         }
     }

@@ -1,6 +1,7 @@
 ﻿namespace CinemaWorld.Services.Data.Contracts
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.InputModels.AdministratorInputModels.News;
@@ -8,10 +9,16 @@
 
     public interface INewsService : IBaseDataService
     {
-        Task<NewsDetailsViewModel> CreateAsync(NewsCreateInputModel newsCreateInputModel, string userId);
+        Task<AllNewsListingViewModel> CreateAsync(NewsCreateInputModel newsCreateInputModel, string userId);
 
         Task EditAsync(NewsEditViewModel newsEditViewModel, string userId);
 
         Task<IEnumerable<TEntity>> GetAllNewsAsync<TEntity>();
+
+        IQueryable<TViewModel> GetAllNewsAsQueryeable<TViewModel>();
+
+        Task<IEnumerable<TViewModel>> GetTopNewsAsync<TViewModel>(int count = 0);
+
+        Task<NewsDetailsViewModel> SetViewsCounter(int id);
     }
 }

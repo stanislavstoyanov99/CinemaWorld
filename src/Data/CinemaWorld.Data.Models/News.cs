@@ -17,6 +17,10 @@
         public string Description { get; set; }
 
         [Required]
+        [MaxLength(ShortDescriptionMaxLength)]
+        public string ShortDescription { get; set; }
+
+        [Required]
         [MaxLength(ImagePathMaxLength)]
         public string ImagePath { get; set; }
 
@@ -24,5 +28,7 @@
         public string UserId { get; set; }
 
         public virtual CinemaWorldUser User { get; set; }
+
+        public int ViewsCounter { get; set; }
     }
 }

@@ -162,11 +162,15 @@
             public const int DescriptionMinLength = 10;
             public const int DescriptionMaxLength = 10000;
 
+            public const int ShortDescriptionMinLength = 10;
+            public const int ShortDescriptionMaxLength = 400;
+
             public const int ImagePathMinLength = 10;
             public const int ImagePathMaxLength = 500;
 
             public const string TitleLengthError = "Title must be between {2} and {1} symbols";
             public const string DescriptionLengthError = "Description must be between {2} and {1} symbols";
+            public const string ShortDescriptionLengthError = "Short description must be between {2} and {1} symbols";
             public const string ImagePathLengthError = "Image path must be between {2} and {1} symbols";
 
             public const string NewImageDisplayName = "New Image";
@@ -174,6 +178,7 @@
             public const int ImageMaxSize = 10 * 1024 * 1024;
 
             public const string CreationDateDisplayName = "Creation Date";
+            public const string ShortDescriptionDisplayName = "Short Description";
         }
     }
 }

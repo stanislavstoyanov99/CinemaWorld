@@ -19,6 +19,11 @@
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = DescriptionLengthError)]
         public string Description { get; set; }
 
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [Display(Name = ShortDescriptionDisplayName)]
+        [StringLength(ShortDescriptionMaxLength, MinimumLength = ShortDescriptionMinLength, ErrorMessage = ShortDescriptionLengthError)]
+        public string ShortDescription { get; set; }
+
         [DataType(DataType.Url)]
         [StringLength(ImagePathMaxLength, MinimumLength = ImagePathMinLength, ErrorMessage = ImagePathLengthError)]
         public string ImagePath { get; set; }

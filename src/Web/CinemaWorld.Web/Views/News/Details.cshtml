@@ -1,0 +1,134 @@
+﻿@using CinemaWorld.Models.ViewModels.News
+@model NewsSingleDetailsViewModel
+@{
+    ViewData["Title"] = "Single";
+}
+
+<!-- faq-banner -->
+<div class="faq">
+    <div class="container">
+        <div class="agileits-news-top">
+            <ol class="breadcrumb">
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-controller="News" asp-action="Index">News</a></li>
+                <li class="active">Single</li>
+            </ol>
+        </div>
+        <div class="agileinfo-news-top-grids">
+            <div class="col-md-8 wthree-top-news-left">
+                <div class="wthree-news-left">
+                    <div class="wthree-news-left-img">
+                        <img src="@Model.News.ImagePath" alt="News Image" />
+                        <h4>@Model.News.Title</h4>
+                        <div class="s-author">
+                            <p>
+                                Posted By
+                                <i class="fa fa-user" aria-hidden="true"></i> @Model.News.UserUserName
+                                &nbsp;&nbsp;
+                                <i class="fa fa-calendar" aria-hidden="true"></i> @Model.News.CreationDate &nbsp;&nbsp;
+                                <i class="fa fa-comments" aria-hidden="true"></i> Comments (10)
+                            </p>
+                        </div>
+                        <div class="w3-agile-news-text">
+                            @Html.Raw(Model.News.SanitizedDescription)
+                        </div>
+                    </div>
+                </div>
+                <!-- agile-comments -->
+                <div class="agile-news-comments">
+                    <div class="agile-news-comments-info">
+                        <h4>Comments</h4>
+                        <div class="fb-comments" data-href="https://w3layouts.com/" data-width="100%" data-numposts="5"></div>
+                    </div>
+                </div>
+                <!-- //agile-comments -->
+            </div>
+            <div class="col-md-4 wthree-news-right">
+                <div class="news-right-bottom">
+                    <div class="wthree-news-right-heading">
+                        <h3>Top News</h3>
+                    </div>
+                    <div class="news-right-bottom-bg">
+                        <div class="news-grids-bottom">
+                            @foreach (var news in Model.TopNews)
+                            {
+                                <div class="top-news-grid">
+                                    <div class="top-news-grid-heading">
+                                        <a asp-controller="News" asp-action="Details" asp-route-id="@news.Id">
+                                            @news.Title
+                                        </a>
+                                    </div>
+                                    <div class="w3ls-news-t-grid top-t-grid">
+                                        <ul>
+                                            <li><i class="fa fa-clock-o"></i> @news.CreatedOnBefore h</li>
+                                            <li><i class="fa fa-user"></i> @news.UserUserName</li>
+                                            <li><i class="fa fa-eye" aria-hidden="true"></i> @news.ViewsCounter</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="w3l-latest-movies-grids">
+        <h4 class="latest-text w3_latest_text">Latest Movies</h4>
+        <div class="container">
+            <div class="browse-inner">
+                @foreach (var latestMovie in Model.LatestMovies)
+                {
+                    <div class="col-md-2 w3l-movie-gride-agile">
+                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@latestMovie.Id" class="hvr-shutter-out-horizontal">
+                            <img src="@latestMovie.CoverPath" title="@latestMovie.Name" class="img-responsive" alt="Movie Cover Path" />
+                            <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                        </a>
+                        <div class="mid-1">
+                            <div class="w3l-movie-text">
+                                <h6><a asp-controller="Movies" asp-action="Details" asp-route-id="@latestMovie.Id">@latestMovie.Name</a></h6>
+                            </div>
+                            <div class="mid-2">
+                                <p>@latestMovie.DateOfRelease.Year</p>
+                                <div class="block-stars stars_ratings movie_@latestMovie.Id">
+                                    <ul class="w3l-ratings">
+                                        <li>
+                                            <a><i class="fa fa-star-o" aria-hidden="true"></i></a>
+                                        </li>
+                                        <li>
+                                            <a><i class="fa fa-star-o" aria-hidden="true"></i></a>
+                                        </li>
+                                        <li>
+                                            <a><i class="fa fa-star-o" aria-hidden="true"></i></a>
+                                        </li>
+                                        <li>
+                                            <a><i class="fa fa-star-o" aria-hidden="true"></i></a>
+                                        </li>
+                                        <li>
+                                            <a><i class="fa fa-star-o" aria-hidden="true"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="starRatingsSum">(@latestMovie.StarRatingsSum)</div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        @if (latestMovie.DateOfRelease.CompareTo(DateTime.UtcNow) > 0)
+                        {
+                            <div class="ribben">
+                                <p>NEW</p>
+                            </div>
+                        }
+                    </div>
+                }
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/js/rating.js"></script>
+}

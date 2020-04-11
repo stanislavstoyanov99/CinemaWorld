@@ -4,14 +4,16 @@ using CinemaWorld.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CinemaWorld.Data.Migrations
 {
     [DbContext(typeof(CinemaWorldDbContext))]
-    partial class CinemaWorldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200411072407_AddShortDescriptionPropertyToNewsModel")]
+    partial class AddShortDescriptionPropertyToNewsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -757,9 +759,6 @@ namespace CinemaWorld.Data.Migrations
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("ViewsCounter")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
