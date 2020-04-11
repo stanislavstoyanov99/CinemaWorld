@@ -1,7 +1,5 @@
 ﻿namespace CinemaWorld.Data.Models
 {
-    using System;
-
     using CinemaWorld.Data.Common.Models;
     using CinemaWorld.Data.Models.Enumerations;
 

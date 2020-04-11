@@ -104,6 +104,7 @@
                     Email = registerInput.Email,
                     FullName = registerInput.FullName,
                     Gender = gender,
+                    ShoppingCart = new ShoppingCart(),
                 };
 
                 var result = await this.userManager.CreateAsync(user, registerInput.Password);
@@ -236,6 +237,7 @@
                     Email = inputModel.Email,
                     Gender = gender,
                     FullName = inputModel.FullName,
+                    //ShoppingCart = new ShoppingCart(),
                 };
 
                 var result = await this.userManager.CreateAsync(user);

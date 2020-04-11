@@ -6,6 +6,7 @@
 
     using CinemaWorld.Common;
     using CinemaWorld.Data.Models;
+    using CinemaWorld.Data.Models.Enumerations;
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
@@ -34,6 +35,7 @@
                     UserName = GlobalConstants.AdministratorUsername,
                     Email = GlobalConstants.AdministratorEmail,
                     FullName = GlobalConstants.AdministratorFullName,
+                    ShoppingCart = new ShoppingCart(),
                 };
 
                 var result = await userManager.CreateAsync(user, GlobalConstants.AdministratorPassword);

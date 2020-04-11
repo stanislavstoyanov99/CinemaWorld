@@ -11,7 +11,6 @@
         public Ticket()
         {
             this.SaleTransactions = new HashSet<SaleTransaction>();
-            this.TicketOrders = new HashSet<TicketOrder>();
         }
 
         public int Row { get; set; }
@@ -27,7 +26,5 @@
         public int Quantity { get; set; }
 
         public virtual ICollection<SaleTransaction> SaleTransactions { get; set; }
-
-        public virtual ICollection<TicketOrder> TicketOrders { get; set; }
     }
 }

@@ -62,13 +62,11 @@
 
         public DbSet<Seat> Seats { get; set; }
 
-        public DbSet<Seller> Sellers { get; set; }
-
         public DbSet<Setting> Settings { get; set; } // Default from template
 
         public DbSet<Ticket> Tickets { get; set; }
 
-        public DbSet<TicketOrder> TicketOrders { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
         public DbSet<ContactFormEntry> ContactFormEntries { get; set; }
 
@@ -99,6 +97,12 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<ShoppingCart>()
+                .HasOne(tc => tc.User)
+                .WithOne(u => u.ShoppingCart)
+                .HasForeignKey<CinemaWorldUser>(u => u.ShoppingCartId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // Needed for many-to-many relationships
             builder.Entity<MovieActor>()
                 .HasKey(ma => new { ma.MovieId, ma.ActorId });
@@ -114,9 +118,6 @@
 
             builder.Entity<ReviewAuthor>()
                 .HasKey(ra => new { ra.ReviewId, ra.AuthorId });
-
-            builder.Entity<TicketOrder>()
-                .HasKey(to => new { to.TicketId, to.SellerId });
 
             // Needed for Identity models configuration
             base.OnModelCreating(builder);

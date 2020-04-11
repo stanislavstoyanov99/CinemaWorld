@@ -1,0 +1,28 @@
+﻿@using CinemaWorld.Data.Models.Enumerations
+@model CinemaWorld.Models.ViewModels.Halls.HallEditViewModel
+@{
+    this.ViewData["Title"] = "Edit Hall";
+    this.ViewData["ActivePage"] = HallNavPages.Halls;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Halls" asp-action="Edit" method="post">
+            <h4>Edit hall with id: @Model.Id</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <div class="container">
+                    <select class="selectpicker" asp-for="Category"
+                            asp-items="@(Html.GetEnumSelectList<HallCategory>())">
+                        <option selected="">@Model.Category</option>
+                        <option disabled="">Select cinema category</option>
+                    </select>
+                </div>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Edit hall</button>
+            <button asp-area="Administration" asp-controller="Halls" asp-action="GetAll" class="btn btn-primary">Back to all halls</button>
+        </form>
+    </div>
+</div>

@@ -20,7 +20,6 @@ namespace CinemaWorld.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
 
-            this.SaleTransactions = new HashSet<SaleTransaction>();
             this.News = new HashSet<News>();
         }
 
@@ -30,6 +29,10 @@ namespace CinemaWorld.Data.Models
 
         [Required]
         public Gender Gender { get; set; }
+
+        public int ShoppingCartId { get; set; }
+
+        public virtual ShoppingCart ShoppingCart { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
@@ -46,8 +49,6 @@ namespace CinemaWorld.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
-
-        public virtual ICollection<SaleTransaction> SaleTransactions { get; set; }
 
         public virtual ICollection<News> News { get; set; }
     }

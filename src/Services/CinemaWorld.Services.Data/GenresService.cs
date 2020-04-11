@@ -48,7 +48,7 @@
 
         public async Task DeleteByIdAsync(int id)
         {
-            var genre = this.genresRepository.All().FirstOrDefault(x => x.Id == id);
+            var genre = await this.genresRepository.All().FirstOrDefaultAsync(x => x.Id == id);
             if (genre == null)
             {
                 throw new NullReferenceException(
@@ -63,7 +63,7 @@
 
         public async Task EditAsync(GenreEditViewModel genreEditViewModel)
         {
-            var genre = this.genresRepository.All().FirstOrDefault(g => g.Id == genreEditViewModel.Id);
+            var genre = await this.genresRepository.All().FirstOrDefaultAsync(g => g.Id == genreEditViewModel.Id);
 
             if (genre == null)
             {

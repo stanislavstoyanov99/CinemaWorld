@@ -1,0 +1,26 @@
+﻿@using CinemaWorld.Data.Models.Enumerations
+@model CinemaWorld.Models.InputModels.AdministratorInputModels.Halls.HallCreateInputModel
+@{
+    this.ViewData["Title"] = "Create Hall";
+    this.ViewData["ActivePage"] = HallNavPages.Halls;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Halls" asp-action="Create" method="post">
+            <h4>Create new hall</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <div class="container">
+                    <select class="selectpicker" asp-for="Category"
+                            asp-items="@(Html.GetEnumSelectList<HallCategory>())">
+                        <option selected="" disabled="">Select hall category</option>
+                    </select>
+                </div>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Create hall</button>
+        </form>
+    </div>
+</div>

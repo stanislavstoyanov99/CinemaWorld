@@ -1,0 +1,15 @@
+﻿@{
+    this.ViewData["ActivePage"] = HallNavPages.Halls;
+    this.ViewData["Title"] = "Halls";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="@HallNavPages.CreateHallNavClass(ViewContext)"><a asp-controller="Halls" asp-action="Create">Create hall</a></li>
+                <li class="@HallNavPages.GetAllNavClass(ViewContext)"><a asp-controller="Halls" asp-action="GetAll">List halls</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

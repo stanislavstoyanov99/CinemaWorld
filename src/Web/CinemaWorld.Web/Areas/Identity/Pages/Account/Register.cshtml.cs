@@ -78,6 +78,7 @@
                     Email = this.Input.Email,
                     FullName = this.Input.FullName,
                     Gender = gender,
+                    ShoppingCart = new ShoppingCart(),
                 };
 
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);

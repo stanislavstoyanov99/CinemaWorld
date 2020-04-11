@@ -1,0 +1,20 @@
+﻿@model CinemaWorld.Models.ViewModels.Halls.HallDetailsViewModel
+@{
+    this.ViewData["Title"] = "Delete Hall";
+    this.ViewData["ActivePage"] = HallNavPages.Halls;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Halls" asp-action="Remove" method="post">
+            <h4 class="text-danger">Are you sure you want to delete <b>@Model.Category</b> hall with <b>@Model.Id</b> id?</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <input asp-for="Category" class="form-control" disabled="" />
+            </div>
+            <button type="submit" class="btn btn-danger">Delete hall</button>
+            <button asp-area="Administration" asp-controller="Halls" asp-action="GetAll" class="btn btn-primary">Back to all halls</button>
+        </form>
+    </div>
+</div>
