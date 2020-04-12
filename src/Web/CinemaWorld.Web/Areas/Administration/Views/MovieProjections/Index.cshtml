@@ -1,0 +1,19 @@
+﻿@{
+    this.ViewData["ActivePage"] = MovieProjectionNavPages.MovieProjections;
+    this.ViewData["Title"] = "Movie Projections";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="@MovieProjectionNavPages.CreateMovieProjectionsNavClass(ViewContext)">
+                    <a asp-controller="MovieProjections" asp-action="Create">Create movie projection</a>
+                </li>
+                <li class="@MovieProjectionNavPages.GetAllNavClass(ViewContext)">
+                    <a asp-controller="MovieProjections" asp-action="GetAll">List movie projections</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

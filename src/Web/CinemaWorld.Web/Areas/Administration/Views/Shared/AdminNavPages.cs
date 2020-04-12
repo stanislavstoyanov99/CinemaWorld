@@ -27,6 +27,8 @@
 
         public static string Seats => "Seats";
 
+        public static string MovieProjections => "MovieProjections";
+
         public static string MoviesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Movies);
 
         public static string CinemasNavClass(ViewContext viewContext) => PageNavClass(viewContext, Cinemas);
@@ -46,6 +48,8 @@
         public static string HallNavClass(ViewContext viewContext) => PageNavClass(viewContext, Halls);
 
         public static string SeatNavClass(ViewContext viewContext) => PageNavClass(viewContext, Seats);
+
+        public static string MovieProjectionsNavClass(ViewContext viewContext) => PageNavClass(viewContext, MovieProjections);
 
         protected static string PageNavClass(ViewContext viewContext, string page)
         {

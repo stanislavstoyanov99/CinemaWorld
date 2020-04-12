@@ -62,6 +62,8 @@
 
             public const int CoverImageMaxSize = 10 * 1024 * 1024;
             public const int WallpaperMaxSize = 15 * 1024 * 1024;
+
+            public const string MovieIdError = "Please select movie.";
         }
 
         public static class Country
@@ -100,6 +102,8 @@
 
             public const string AddressLengthError = "Address must be between {2} and {1} symbols";
             public const string NameDisplayName = "Cinema Name";
+
+            public const string CinemaIdError = "Please select cinema.";
         }
 
         public static class ContactFormEntry

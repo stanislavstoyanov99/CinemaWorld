@@ -1,0 +1,52 @@
+﻿@model CinemaWorld.Models.InputModels.AdministratorInputModels.MovieProjections.MovieProjectionCreateInputModel
+@{
+    this.ViewData["Title"] = "Create Movie projection";
+    this.ViewData["ActivePage"] = MovieProjectionNavPages.MovieProjections;
+
+    var movies = Model.Movies.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var halls = Model.Halls
+        .Select(x => new SelectListItem(x.Id.ToString() + " - " + x.Capacity.ToString() + " capacity", x.Id.ToString()));
+    var cinemas = Model.Cinemas.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="MovieProjections" asp-action="Create" method="post">
+            <h4>Create new movie projection</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Date"></label>
+                <input asp-for="Date" class="form-control" value="@DateTime.Now" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieId"></label>
+                <div class="container">
+                    <select asp-for="MovieId" asp-items="movies" class="selectpicker">
+                        <option selected="" disabled="">Select Movie</option>
+                    </select>
+                </div>
+                <span asp-validation-for="MovieId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HallId"></label>
+                <div class="container">
+                    <select asp-for="HallId" asp-items="halls" class="selectpicker">
+                        <option selected="" disabled="">Select Hall</option>
+                    </select>
+                </div>
+                <span asp-validation-for="HallId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CinemaId"></label>
+                <div class="container">
+                    <select asp-for="CinemaId" asp-items="cinemas" class="selectpicker">
+                        <option selected="" disabled="">Select Cinema</option>
+                    </select>
+                </div>
+                <span asp-validation-for="CinemaId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Create movie projection</button>
+        </form>
+    </div>
+</div>

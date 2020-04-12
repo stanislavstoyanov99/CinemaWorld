@@ -53,5 +53,9 @@
         public const string SeatNotFound = "Seat with id {0} is not found.";
 
         public const string InvalidHallCapacity = "Hall with id {0} has reached maximum {1} capacity";
+
+        public const string MovieProjectionAlreadyExists = "Movie projection with id {0} already exists";
+
+        public const string MovieProjectionNotFound = "Movie projection with id {0} is not found.";
     }
 }

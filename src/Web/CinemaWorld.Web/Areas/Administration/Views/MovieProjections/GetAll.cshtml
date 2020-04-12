@@ -1,0 +1,87 @@
+﻿@using CinemaWorld.Models.ViewModels.MovieProjections
+@using CinemaWorld.Web.Infrastructure
+@model PaginatedList<MovieProjectionDetailsViewModel>
+@{
+    this.ViewData["Title"] = "All movie projections";
+    this.ViewData["ActivePage"] = MovieProjectionNavPages.MovieProjections;
+}
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<link rel="stylesheet" type="text/css" href="~/list-css/table-style.css" />
+<link rel="stylesheet" type="text/css" href="~/list-css/basictable.css" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h4>Movie projections List</h4>
+            <hr />
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                        <div class="agile-news-table">
+                            <div class="w3ls-news-result">
+                                <h4>Total Count : <span>@Model.Count()</span></h4>
+                            </div>
+                            <table id="table-breakpoint">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Date</th>
+                                        <th>Movie Name</th>
+                                        <th>Hall</th>
+                                        <th>Cinema Name</th>
+                                        <th>Functions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var movieProjection in Model)
+                                    {
+                                        <tr>
+                                            <td>@movieProjection.Id</td>
+                                            <td>@movieProjection.Date</td>
+                                            <td>@movieProjection.Movie.Name</td>
+                                            <td>@movieProjection.Hall.Id</td>
+                                            <td>@movieProjection.Cinema.Name</td>
+                                            <td>
+                                                <a class="badge badge-success" asp-action="Edit" asp-route-id="@movieProjection.Id">Edit</a>
+                                                <a class="badge badge-danger" asp-action="Remove" asp-route-id="@movieProjection.Id">Remove</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <a asp-action="GetAll" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-primary @prevDisabled">
+                Previous
+            </a>
+            <a asp-action="GetAll" asp-route-pageNumber="1" class="btn btn-primary @prevDisabled">
+                Back to first page
+            </a>
+            <a asp-action="GetAll" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-primary @nextDisabled">
+                Next
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/list-js/jquery.basictable.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table').basictable();
+
+            $('#table-breakpoint').basictable({
+                breakpoint: 768
+            });
+        });
+    </script>
+}

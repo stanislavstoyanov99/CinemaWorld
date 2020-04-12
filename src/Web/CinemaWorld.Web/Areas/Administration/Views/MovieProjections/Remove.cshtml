@@ -1,0 +1,32 @@
+﻿@model CinemaWorld.Models.ViewModels.MovieProjections.MovieProjectionDetailsViewModel
+@{
+    this.ViewData["Title"] = "Delete Movie projection";
+    this.ViewData["ActivePage"] = MovieProjectionNavPages.MovieProjections;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Seats" asp-action="Remove" method="post">
+            <h4 class="text-danger">Are you sure you want to delete movie projection with <b>@Model.Id</b> id?</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Date"></label>
+                <input asp-for="Date" class="form-control" disabled="" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie"></label>
+                <input asp-for="Movie.Name" class="form-control" disabled="" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Hall"></label>
+                <input asp-for="Hall.Id" class="form-control" disabled="" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Cinema"></label>
+                <input asp-for="Cinema.Name" class="form-control" disabled="" />
+            </div>
+            <button type="submit" class="btn btn-danger">Delete movie projection</button>
+            <button asp-area="Administration" asp-controller="MovieProjections" asp-action="GetAll" class="btn btn-primary">Back to all movie projections</button>
+        </form>
+    </div>
+</div>

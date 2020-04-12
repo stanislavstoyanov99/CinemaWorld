@@ -111,6 +111,7 @@
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<IHallsService, HallsService>();
             services.AddTransient<ISeatsService, SeatsService>();
+            services.AddTransient<IMovieProjectionsService, MovieProjectionsService>();
 
             // External login providers
             services.AddAuthentication()
