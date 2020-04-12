@@ -22,20 +22,22 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Category</th>
+                                        <th>Capacity</th>
                                         <th>Functions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var hall in Model)
                                     {
-                                        <tr>
-                                            <td>@hall.Id</td>                                         
-                                            <td>@hall.Category</td>
-                                            <td>
-                                                <a class="badge badge-success" asp-action="Edit" asp-route-id="@hall.Id">Edit</a>
-                                                <a class="badge badge-danger" asp-action="Remove" asp-route-id="@hall.Id">Remove</a>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td>@hall.Id</td>
+                                        <td>@hall.Category</td>
+                                        <td>@hall.Capacity</td>
+                                        <td>
+                                            <a class="badge badge-success" asp-action="Edit" asp-route-id="@hall.Id">Edit</a>
+                                            <a class="badge badge-danger" asp-action="Remove" asp-route-id="@hall.Id">Remove</a>
+                                        </td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>

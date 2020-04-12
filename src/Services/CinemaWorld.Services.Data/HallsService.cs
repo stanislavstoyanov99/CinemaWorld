@@ -36,6 +36,7 @@
             var hall = new Hall
             {
                 Category = hallCategory,
+                Capacity = hallCreateInputModel.Capacity,
             };
 
             bool doesHallExist = await this.hallsRepository.All().AnyAsync(x => x.Id == hall.Id);
@@ -85,6 +86,7 @@
             }
 
             hall.Category = hallCategory;
+            hall.Capacity = hallEditViewModel.Capacity;
             hall.ModifiedOn = DateTime.UtcNow;
 
             this.hallsRepository.Update(hall);

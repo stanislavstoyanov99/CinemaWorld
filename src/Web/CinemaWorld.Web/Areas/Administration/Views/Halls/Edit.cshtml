@@ -21,6 +21,11 @@
                 </div>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Capacity"></label>
+                <input asp-for="Capacity" class="form-control" />
+                <span asp-validation-for="Capacity" class="text-danger"></span>
+            </div>
             <button type="submit" class="btn btn-success">Edit hall</button>
             <button asp-area="Administration" asp-controller="Halls" asp-action="GetAll" class="btn btn-primary">Back to all halls</button>
         </form>

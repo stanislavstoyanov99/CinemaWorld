@@ -2,10 +2,12 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using CinemaWorld.Data.Models;
     using CinemaWorld.Services.Mapping;
 
     using static CinemaWorld.Models.Common.ModelValidation;
+    using static CinemaWorld.Models.Common.ModelValidation.Hall;
+
+    using Hall = CinemaWorld.Data.Models.Hall;
 
     public class HallEditViewModel : IMapFrom<Hall>
     {
@@ -13,5 +15,8 @@
 
         [Required(ErrorMessage = EmptyFieldLengthError)]
         public string Category { get; set; }
+
+        [Range(CapacityMinLength, CapacityMaxLength)]
+        public int Capacity { get; set; }
     }
 }

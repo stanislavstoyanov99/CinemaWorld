@@ -7,6 +7,8 @@
     using CinemaWorld.Data.Common.Models;
     using CinemaWorld.Data.Models.Enumerations;
 
+    using static CinemaWorld.Data.Common.DataValidation.Hall;
+
     public class Hall : BaseDeletableModel<int>
     {
         public Hall()
@@ -17,6 +19,9 @@
 
         [Required]
         public HallCategory Category { get; set; }
+
+        [Range(CapacityMinLength, CapacityMaxLength)]
+        public int Capacity { get; set; }
 
         public virtual ICollection<Seat> Seats { get; set; }
 

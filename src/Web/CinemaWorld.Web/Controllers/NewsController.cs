@@ -26,7 +26,7 @@
 
         public async Task<IActionResult> Index(int? pageNumber)
         {
-            var news = this.newsService.GetAllNewsAsQueryeable<AllNewsListingViewModel>();
+            var news = await Task.Run(() => this.newsService.GetAllNewsAsQueryeable<AllNewsListingViewModel>());
 
             return this.View(await PaginatedList<AllNewsListingViewModel>.CreateAsync(news, pageNumber ?? 1, PageSize));
         }
