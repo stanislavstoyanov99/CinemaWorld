@@ -1,0 +1,34 @@
+﻿@model CinemaWorld.Models.ViewModels.Seats.SeatDetailsViewModel
+@{
+    this.ViewData["Title"] = "Delete Seat";
+    this.ViewData["ActivePage"] = SeatsNavPages.Seats;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Seats" asp-action="Remove" method="post">
+            <h4 class="text-danger">Are you sure you want to delete seat with <b>@Model.Id</b> id?</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Number"></label>
+                <input asp-for="Number" class="form-control" disabled="" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RowNumber"></label>
+                <input asp-for="RowNumber" class="form-control" disabled="" />
+                <span asp-validation-for="RowNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hall"></label>
+                <input asp-for="Hall.Id" class="form-control" disabled="" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <input asp-for="Category" class="form-control" disabled="" />
+            </div>
+            <button type="submit" class="btn btn-danger">Delete seat</button>
+            <button asp-area="Administration" asp-controller="Seats" asp-action="GetAll" class="btn btn-primary">Back to all seats</button>
+        </form>
+    </div>
+</div>

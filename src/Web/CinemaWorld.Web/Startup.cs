@@ -110,6 +110,7 @@
             services.AddTransient<IRatingsService, RatingsService>();
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<IHallsService, HallsService>();
+            services.AddTransient<ISeatsService, SeatsService>();
 
             // External login providers
             services.AddAuthentication()

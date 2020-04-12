@@ -27,6 +27,7 @@
                           {
                               new RolesSeeder(),
                               new DirectorsSeeder(),
+                              new SeatsSeeder(new Random()),
                           };
 
             foreach (var seeder in seeders)

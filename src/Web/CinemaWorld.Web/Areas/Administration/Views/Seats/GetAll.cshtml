@@ -1,0 +1,89 @@
+﻿@using CinemaWorld.Models.ViewModels.Seats
+@using CinemaWorld.Web.Infrastructure
+@model PaginatedList<SeatDetailsViewModel>
+@{
+    this.ViewData["Title"] = "All news";
+    this.ViewData["ActivePage"] = SeatsNavPages.Seats;
+}
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<link rel="stylesheet" type="text/css" href="~/list-css/table-style.css" />
+<link rel="stylesheet" type="text/css" href="~/list-css/basictable.css" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h4>Seats List</h4>
+            <hr />
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                        <div class="agile-news-table">
+                            <div class="w3ls-news-result">
+                                <h4>Total Count : <span>@Model.Count()</span></h4>
+                            </div>
+                            <table id="table-breakpoint">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Seat Number</th>
+                                        <th>Row Number</th>
+                                        <th>Category</th>
+                                        <th>Is Available</th>
+                                        <th>Is Sold</th>
+                                        <th>Functions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var seat in Model)
+                                    {
+                                        <tr>
+                                            <td>@seat.Id</td>
+                                            <td>@seat.Number</td>
+                                            <td>@seat.RowNumber</td>
+                                            <td>@seat.Category</td>
+                                            <td>@seat.IsAvailable</td>
+                                            <td>@seat.IsSold</td>
+                                            <td>
+                                                <a class="badge badge-success" asp-action="Edit" asp-route-id="@seat.Id">Edit</a>
+                                                <a class="badge badge-danger" asp-action="Remove" asp-route-id="@seat.Id">Remove</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <a asp-action="GetAll" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-primary @prevDisabled">
+                Previous
+            </a>
+            <a asp-action="GetAll" asp-route-pageNumber="1" class="btn btn-primary @prevDisabled">
+                Back to first page
+            </a>
+            <a asp-action="GetAll" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-primary @nextDisabled">
+                Next
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/list-js/jquery.basictable.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table').basictable();
+
+            $('#table-breakpoint').basictable({
+                breakpoint: 768
+            });
+        });
+    </script>
+}

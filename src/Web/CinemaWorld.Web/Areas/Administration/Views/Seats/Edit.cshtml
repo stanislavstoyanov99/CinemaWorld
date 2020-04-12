@@ -1,0 +1,50 @@
+﻿@using CinemaWorld.Data.Models.Enumerations
+@model CinemaWorld.Models.ViewModels.Seats.SeatEditViewModel
+@{
+    this.ViewData["Title"] = "Edit Seat";
+    this.ViewData["ActivePage"] = SeatsNavPages.Seats;
+
+    var halls = Model.Halls
+        .Select(x => new SelectListItem(x.Id.ToString() + " - " + x.Capacity.ToString() + " capacity", x.Id.ToString()));
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Seats" asp-action="Edit" method="post">
+            <h4>Edit seat with id: @Model.Id</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Number"></label>
+                <input asp-for="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RowNumber"></label>
+                <input asp-for="RowNumber" class="form-control" />
+                <span asp-validation-for="RowNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HallId"></label>
+                <div class="container">
+                    <select asp-for="HallId" asp-items="halls" class="selectpicker">
+                        <option selected="" disabled="">Select Hall</option>
+                    </select>
+                </div>
+                <span asp-validation-for="HallId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <div class="container">
+                    <select class="selectpicker" asp-for="Category"
+                            asp-items="@(Html.GetEnumSelectList<SeatCategory>())">
+                        <option selected="">@Model.Category</option>
+                        <option disabled="">Select seat category</option>
+                    </select>
+                </div>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Edit seat</button>
+            <button asp-area="Administration" asp-controller="Seats" asp-action="GetAll" class="btn btn-primary">Back to all seats</button>
+        </form>
+    </div>
+</div>

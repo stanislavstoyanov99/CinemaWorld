@@ -14,5 +14,9 @@
         public virtual Hall Hall { get; set; }
 
         public SeatCategory Category { get; set; }
+
+        public bool IsAvailable { get; set; }
+
+        public bool IsSold { get; set; }
     }
 }

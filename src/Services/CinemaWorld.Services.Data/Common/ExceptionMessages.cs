@@ -45,5 +45,13 @@
         public const string InvalidHallCategoryType = "Hall category type {0} is invalid.";
 
         public const string HallNotFound = "Hall with id {0} is not found.";
+
+        public const string SeatAlreadyExists = "Seat with id {0} already exists";
+
+        public const string InvalidSeatCategoryType = "Seat category type {0} is invalid.";
+
+        public const string SeatNotFound = "Seat with id {0} is not found.";
+
+        public const string InvalidHallCapacity = "Hall with id {0} has reached maximum {1} capacity";
     }
 }

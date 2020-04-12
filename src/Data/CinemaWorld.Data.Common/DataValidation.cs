@@ -62,5 +62,11 @@
             public const int QuestionMaxLength = 100;
             public const int AnswerMaxLength = 1000;
         }
+
+        public static class Hall
+        {
+            public const int CapacityMinLength = 1;
+            public const int CapacityMaxLength = 100;
+        }
     }
 }

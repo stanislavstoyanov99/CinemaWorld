@@ -180,5 +180,26 @@
             public const string CreationDateDisplayName = "Creation Date";
             public const string ShortDescriptionDisplayName = "Short Description";
         }
+
+        public static class Hall
+        {
+            public const int CapacityMinLength = 1;
+            public const int CapacityMaxLength = 150;
+
+            public const string HallIdError = "Please select hall id.";
+        }
+
+        public static class Seat
+        {
+            public const string IsAvailableDisplayName = "Is Available";
+            public const string IsSoldDisplayName = "Is Sold";
+
+            public const string RowNumberDisplayName = "Row Number";
+            public const string NumberDisplayName = "Seat Number";
+            public const string HallIdDisplayName = "Hall Id";
+
+            public const string RowNumberIdError = "Please select row number.";
+            public const string SeatNumberIdError = "Please select seat number.";
+        }
     }
 }

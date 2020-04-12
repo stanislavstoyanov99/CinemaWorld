@@ -1,0 +1,15 @@
+﻿@{
+    this.ViewData["ActivePage"] = SeatsNavPages.Seats;
+    this.ViewData["Title"] = "Seats";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="@SeatsNavPages.CreateSeatsNavClass(ViewContext)"><a asp-controller="Seats" asp-action="Create">Create seat</a></li>
+                <li class="@SeatsNavPages.GetAllNavClass(ViewContext)"><a asp-controller="Seats" asp-action="GetAll">List seats</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
