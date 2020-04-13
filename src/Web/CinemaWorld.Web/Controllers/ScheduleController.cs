@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.ViewModels;
+    using CinemaWorld.Models.ViewModels.Cinemas;
     using CinemaWorld.Models.ViewModels.MovieProjections;
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Models.ViewModels.Schedule;
@@ -22,17 +23,25 @@
 
         private readonly IMovieProjectionsService movieProjectionsService;
         private readonly IMoviesService moviesService;
+        private readonly ICinemasService cinemasService;
 
-        public ScheduleController(IMovieProjectionsService movieProjectionsService, IMoviesService moviesService)
+        public ScheduleController(
+            IMovieProjectionsService movieProjectionsService,
+            IMoviesService moviesService,
+            ICinemasService cinemasService)
         {
             this.movieProjectionsService = movieProjectionsService;
             this.moviesService = moviesService;
+            this.cinemasService = cinemasService;
         }
 
-        public async Task<IActionResult> Index(int? pageNumber)
+        public async Task<IActionResult> Index(int? pageNumber, string cinemaName)
         {
-            var movieProjections = await Task.Run(() => this.movieProjectionsService
-                .GetAllMovieProjectionsAsQueryeable<MovieProjectionDetailsViewModel>());
+            this.ViewData["CurrentFilter"] = cinemaName;
+
+            var movieProjections = await Task.Run(
+                    () => this.movieProjectionsService
+                        .GetAllMovieProjectionsByCinemaAsQueryeable<MovieProjectionDetailsViewModel>(cinemaName));
 
             var movieProjectionsPaginated = await PaginatedList<MovieProjectionDetailsViewModel>
                     .CreateAsync(movieProjections, pageNumber ?? 1, SchedulePageSize);
@@ -40,10 +49,14 @@
             var latestMovies = await this.moviesService
                 .GetRecentlyAddedMoviesAsync<RecentlyAddedMovieDetailsViewModel>(LatestMoviesCount);
 
+            var cinemas = await this.cinemasService
+                .GetAllCinemasAsync<CinemaDetailsViewModel>();
+
             var viewModel = new ScheduleDetailsViewModel
             {
                 MovieProjections = movieProjectionsPaginated,
                 LatestMovies = latestMovies,
+                Cinemas = cinemas,
             };
 
             return this.View(viewModel);

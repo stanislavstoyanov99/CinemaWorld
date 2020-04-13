@@ -15,6 +15,8 @@
 
         Task<IEnumerable<TViewModel>> GetAllMovieProjectionsAsync<TViewModel>();
 
+        IQueryable<TViewModel> GetAllMovieProjectionsByCinemaAsQueryeable<TViewModel>(string cinemaName = null);
+
         IQueryable<TViewModel> GetAllMovieProjectionsAsQueryeable<TViewModel>();
     }
 }

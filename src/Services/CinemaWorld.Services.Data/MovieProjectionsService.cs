@@ -140,6 +140,18 @@
             return movieProjections;
         }
 
+        public IQueryable<TViewModel> GetAllMovieProjectionsByCinemaAsQueryeable<TViewModel>(string cinemaName = null)
+        {
+            var movieProjections = this.movieProjectionsRepository
+                .All()
+                .Where(x => x.Cinema.Name == cinemaName)
+                .OrderBy(x => x.Movie.Name)
+                .ThenBy(x => x.HallId)
+                .To<TViewModel>();
+
+            return movieProjections;
+        }
+
         public IQueryable<TViewModel> GetAllMovieProjectionsAsQueryeable<TViewModel>()
         {
             var movieProjections = this.movieProjectionsRepository

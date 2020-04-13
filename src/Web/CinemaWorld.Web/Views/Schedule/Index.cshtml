@@ -2,6 +2,7 @@
 @model ScheduleDetailsViewModel
 @{
     ViewData["Title"] = "Schedule";
+    var cinemas = Model.Cinemas.Select(x => new SelectListItem(x.Name, x.Name.ToString()));
 }
 
 @{
@@ -24,6 +25,21 @@
                         <div class="w3ls-news-result">
                             <h4>Total Count : <span>@Model.MovieProjections.Count()</span></h4>
                         </div>
+                        <form asp-action="Index" method="get">
+                            <div class="w3ls-news-result">
+                                <p>
+                                    Show by cinema name:
+                                    <div class="form-group">
+                                        <div class="container">
+                                            <select asp-for="CinemaId" asp-items="cinemas" name="cinemaName" value="@ViewData["currentFilter"]" class="selectpicker">
+                                                <option selected="" disabled="">Select Cinema</option>
+                                            </select>
+                                            <input type="submit" value="Show" class="btn btn-sm btn-success" />
+                                        </div>
+                                    </div>
+                                </p>
+                            </div>
+                        </form>
                         <div class="w3ls-news-result">
                             <a asp-action="Index" asp-route-pageNumber="@(Model.MovieProjections.PageIndex - 1)" class="btn btn-primary @prevDisabled">
                                 Previous
@@ -76,7 +92,7 @@
                                                     </ul>
                                                 }
                                                 <ul>
-                                                    <li><i class="fa fa-star"></i> IMDB rating: @movieProjection.Movie.Rating</li>
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i> IMDB rating: @movieProjection.Movie.Rating</li>
                                                 </ul>
                                             </div>
                                             <div class="clearfix"> </div>
