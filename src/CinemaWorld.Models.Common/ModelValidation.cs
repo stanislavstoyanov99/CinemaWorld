@@ -57,9 +57,6 @@
             public const string DateOfReleaseAllMoviesDisplayName = "Year";
             public const string OnlyDateAllMoviesDisplayName = "Date of release";
 
-            public const string MovieGenreDisplayName = "Genre Name";
-            public const string MovieCountryDisplayName = "Country Name";
-
             public const int CoverImageMaxSize = 10 * 1024 * 1024;
             public const int WallpaperMaxSize = 15 * 1024 * 1024;
 

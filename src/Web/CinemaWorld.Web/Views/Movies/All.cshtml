@@ -116,13 +116,13 @@
                                         <td class="w3-list-info">
                                             @foreach (var movieCountry in movie.MovieCountries)
                                             {
-                                                <span>@movieCountry.CountryName</span>
+                                                <span>@movieCountry.Country.Name</span>
                                             }
                                         </td>
                                         <td class="w3-list-info">
                                             @foreach (var movieGenre in movie.MovieGenres)
                                             {
-                                                <span>@movieGenre.GenreName</span>
+                                                <span>@movieGenre.Genre.Name</span>
                                             }
                                         </td>
                                         <td>@movie.Director.FullName</td>

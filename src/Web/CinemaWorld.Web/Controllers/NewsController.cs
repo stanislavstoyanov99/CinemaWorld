@@ -2,10 +2,10 @@
 {
     using System.Threading.Tasks;
 
+    using CinemaWorld.Models.ViewModels;
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Models.ViewModels.News;
     using CinemaWorld.Services.Data.Contracts;
-    using CinemaWorld.Web.Infrastructure;
 
     using Microsoft.AspNetCore.Mvc;
 

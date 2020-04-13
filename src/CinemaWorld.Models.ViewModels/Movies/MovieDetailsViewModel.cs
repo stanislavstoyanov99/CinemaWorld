@@ -32,6 +32,17 @@
 
         public string Description { get; set; }
 
+        public string ShortDescription
+        {
+            get
+            {
+                var shortDescription = this.Description;
+                return shortDescription.Length > 200
+                        ? shortDescription.Substring(0, 200) + " ..."
+                        : shortDescription;
+            }
+        }
+
         public IEnumerable<MovieGenreViewModel> MovieGenres { get; set; }
 
         public IEnumerable<MovieCountryViewModel> MovieCountries { get; set; }

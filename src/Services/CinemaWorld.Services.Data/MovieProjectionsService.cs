@@ -144,6 +144,8 @@
         {
             var movieProjections = this.movieProjectionsRepository
                 .All()
+                .OrderBy(x => x.Movie.Name)
+                .ThenBy(x => x.HallId)
                 .To<TViewModel>();
 
             return movieProjections;

@@ -3,12 +3,12 @@
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.InputModels.AdministratorInputModels.MovieProjections;
+    using CinemaWorld.Models.ViewModels;
     using CinemaWorld.Models.ViewModels.Cinemas;
     using CinemaWorld.Models.ViewModels.Halls;
     using CinemaWorld.Models.ViewModels.MovieProjections;
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Contracts;
-    using CinemaWorld.Web.Infrastructure;
     using Microsoft.AspNetCore.Mvc;
 
     public class MovieProjectionsController : AdministrationController

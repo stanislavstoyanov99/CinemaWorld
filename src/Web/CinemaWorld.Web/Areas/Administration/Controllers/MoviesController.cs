@@ -3,12 +3,13 @@
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.InputModels.AdministratorInputModels.Movies;
+    using CinemaWorld.Models.ViewModels;
     using CinemaWorld.Models.ViewModels.Countries;
     using CinemaWorld.Models.ViewModels.Directors;
     using CinemaWorld.Models.ViewModels.Genres;
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Contracts;
-    using CinemaWorld.Web.Infrastructure;
+
     using Microsoft.AspNetCore.Mvc;
 
     public class MoviesController : AdministrationController

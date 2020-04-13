@@ -5,9 +5,9 @@
     using System.Threading.Tasks;
     using System.Web;
 
+    using CinemaWorld.Models.ViewModels;
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Contracts;
-    using CinemaWorld.Web.Infrastructure;
 
     using Microsoft.AspNetCore.Mvc;
 

@@ -71,7 +71,7 @@
                     <select multiple asp-for="MovieGenres" class="selectpicker">
                         @foreach (var movieGenre in Model.MovieGenres)
                         {
-                            <option disabled selected>@movieGenre.GenreName</option>
+                            <option disabled selected>@movieGenre.Genre.Name</option>
                         }
                     </select>
                 </div>
@@ -82,7 +82,7 @@
                     <select multiple asp-for="MovieCountries" class="selectpicker">
                         @foreach (var movieCountry in Model.MovieCountries)
                         {
-                            <option disabled selected>@movieCountry.CountryName</option>
+                            <option disabled selected>@movieCountry.Country.Name</option>
                         }
                     </select>
                 </div>

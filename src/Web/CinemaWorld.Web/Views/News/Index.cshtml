@@ -1,5 +1,4 @@
 ﻿@using CinemaWorld.Models.ViewModels.News
-@using CinemaWorld.Web.Infrastructure
 @model PaginatedList<AllNewsListingViewModel>
 @{
     ViewData["Title"] = "News";
@@ -73,31 +72,31 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="w3bsd" aria-labelledby="w3bsd-tab">
                             @*@for (int i = counter; i < Model.Count(); i++)
-            {
-                <div class="wthree-news-top-left">
-                    <div class="col-md-6 w3-agileits-news-left">
-                        <div class="col-sm-5 wthree-news-img">
-                            <a asp-controller="News" asp-action="Details" asp-route-id="@Model[i].Id">
-                                <img src="@Model[i].ImagePath" alt="Image" />
-                            </a>
-                        </div>
-                        <div class="col-sm-7 wthree-news-info">
-                            <h5>
-                                <a asp-controller ="News" asp-action="Details" asp-route-id="@Model[i].Id">
-                                    @Model[i].Title
-                                </a>
-                            </h5>
-                            <p>@Model[i].SanitizedShortDescription</p>
-                            <ul>
-                                <li><i class="fa fa-clock-o" aria-hidden="true"></i> @Model[i].CreationDate</li>
-                                <li><i class="fa fa-eye" aria-hidden="true"></i> 2642</li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-            }*@
+                                {
+                                    <div class="wthree-news-top-left">
+                                        <div class="col-md-6 w3-agileits-news-left">
+                                            <div class="col-sm-5 wthree-news-img">
+                                                <a asp-controller="News" asp-action="Details" asp-route-id="@Model[i].Id">
+                                                    <img src="@Model[i].ImagePath" alt="Image" />
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-7 wthree-news-info">
+                                                <h5>
+                                                    <a asp-controller ="News" asp-action="Details" asp-route-id="@Model[i].Id">
+                                                        @Model[i].Title
+                                                    </a>
+                                                </h5>
+                                                <p>@Model[i].SanitizedShortDescription</p>
+                                                <ul>
+                                                    <li><i class="fa fa-clock-o" aria-hidden="true"></i> @Model[i].CreationDate</li>
+                                                    <li><i class="fa fa-eye" aria-hidden="true"></i> 2642</li>
+                                                </ul>
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                        </div>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                }*@
                         </div>
                     </div>
                 </div>

@@ -1,13 +1,13 @@
 ﻿namespace CinemaWorld.Web.Areas.Administration.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.InputModels.AdministratorInputModels.Seats;
+    using CinemaWorld.Models.ViewModels;
     using CinemaWorld.Models.ViewModels.Halls;
     using CinemaWorld.Models.ViewModels.Seats;
     using CinemaWorld.Services.Data.Contracts;
-    using CinemaWorld.Web.Infrastructure;
+
     using Microsoft.AspNetCore.Mvc;
 
     public class SeatsController : AdministrationController
