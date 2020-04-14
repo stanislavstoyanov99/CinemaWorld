@@ -11,7 +11,7 @@
 
     public class NewsController : Controller
     {
-        private const int PageSize = 6;
+        private const int NewsCount = 6;
         private const int LatestMoviesCount = 6;
         private const int TopMoviesCount = 10;
 
@@ -26,9 +26,24 @@
 
         public async Task<IActionResult> Index(int? pageNumber)
         {
-            var news = await Task.Run(() => this.newsService.GetAllNewsAsQueryeable<AllNewsListingViewModel>());
+            var news = await Task.Run(
+                () => this.newsService.GetAllNewsAsQueryeable<AllNewsListingViewModel>());
 
-            return this.View(await PaginatedList<AllNewsListingViewModel>.CreateAsync(news, pageNumber ?? 1, PageSize));
+            var newsPaginated = await PaginatedList<AllNewsListingViewModel>
+                .CreateAsync(news, pageNumber ?? 1, NewsCount);
+            var updatedNews = await this.newsService
+                .GetUpdatedNewsAsync<UpdatedNewsDetailsViewModel>();
+            var topNews = await this.newsService
+                .GetTopNewsAsync<TopNewsViewModel>(TopMoviesCount);
+
+            var viewModel = new NewsIndexViewModel
+            {
+                News = newsPaginated,
+                UpdatedNews = updatedNews,
+                TopNews = topNews,
+            };
+
+            return this.View(viewModel);
         }
 
         public async Task<IActionResult> Details(int id)

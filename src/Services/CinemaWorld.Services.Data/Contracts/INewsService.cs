@@ -19,6 +19,8 @@
 
         Task<IEnumerable<TViewModel>> GetTopNewsAsync<TViewModel>(int count = 0);
 
+        Task<IEnumerable<TViewModel>> GetUpdatedNewsAsync<TViewModel>();
+
         Task<NewsDetailsViewModel> SetViewsCounter(int id);
     }
 }

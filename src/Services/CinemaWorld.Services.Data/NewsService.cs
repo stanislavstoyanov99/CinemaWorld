@@ -122,6 +122,18 @@
             return topNews;
         }
 
+        public async Task<IEnumerable<TViewModel>> GetUpdatedNewsAsync<TViewModel>()
+        {
+            var updatedNews = await this.newsRepository
+                 .All()
+                 .OrderByDescending(x => x.CreatedOn)
+                 .Where(x => x.ModifiedOn != null)
+                 .To<TViewModel>()
+                 .ToListAsync();
+
+            return updatedNews;
+        }
+
         public async Task<NewsDetailsViewModel> SetViewsCounter(int id)
         {
             var news = await this.newsRepository

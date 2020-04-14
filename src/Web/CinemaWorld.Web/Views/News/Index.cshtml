@@ -1,15 +1,14 @@
 ﻿@using CinemaWorld.Models.ViewModels.News
-@model PaginatedList<AllNewsListingViewModel>
+@model NewsIndexViewModel
 @{
     ViewData["Title"] = "News";
-    int topNewsCount = 10;
 }
 
 @{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-    var topNews = Model.Take(topNewsCount).OrderByDescending(x => x.ViewsCounter).ToList();
-    var updatedNews = Model.OrderByDescending(x => x.CreationDate).Where(x => x.ModifiedOn != null).ToList();
+    var prevDisabled = !Model.News.HasPreviousPage ? "disabled" : "";
+    var prevPage = !Model.News.HasPreviousPage ? "1" : (Model.News.PageIndex - 1).ToString();
+    var nextDisabled = !Model.News.HasNextPage ? "disabled" : "";
+    var nextPage = !Model.News.HasNextPage ? "1" : (Model.News.PageIndex + 1).ToString();
 }
 
 <div class="faq">
@@ -29,19 +28,39 @@
                             <li role="presentation"><a href="#w3bsd" role="tab" id="w3bsd-tab" data-toggle="tab" aria-controls="w3bsd">Movie News</a></li>
                         </ul>
                         <div class="w3ls-news-result">
-                            <h4>Total Count : <span>@Model.Count()</span></h4>
+                            <h4>Total Count : <span>@Model.News.Count()</span></h4>
                         </div>
-                        <div class="w3ls-news-result">
-                            <a asp-action="All" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-primary @prevDisabled">
-                                Previous
-                            </a>
-                            <a asp-action="All" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-primary @nextDisabled">
-                                Next
-                            </a>
-                        </div>
+                        @if (Model.News.TotalPages != 0)
+                        {
+                            <div class="blog-pagenat-wthree">
+                                <ul class="pagination">
+                                    <li>
+                                        <a class="frist @prevDisabled" asp-action="Index" asp-route-pageNumber="@prevPage">
+                                            Previous
+                                        </a>
+                                    </li>
+                                    @for (int i = 1; i <= Model.News.TotalPages; i++)
+                                    {
+                                        if (i == Model.News.PageIndex)
+                                        {
+                                            <li class="active"><a asp-action="Index" asp-route-pageNumber="@i">@i</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a asp-action="Index" asp-route-pageNumber="@i">@i</a></li>
+                                        }
+                                    }
+                                    <li>
+                                        <a class="last @nextDisabled" asp-action="Index" asp-route-pageNumber="@nextPage">
+                                            Next
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
                         <div id="myTabContent" class="tab-content">
                             <div role="tabpanel" class="tab-pane fade in active" id="home1" aria-labelledby="home1-tab">
-                                @foreach (var news in Model)
+                                @foreach (var news in Model.News)
                                 {
                                     <div class="wthree-news-top-left">
                                         <div class="col-md-7 w3-agileits-news-left">
@@ -111,7 +130,7 @@
                         <div class="news-grids-bottom">
                             <div id="design" class="date">
                                 <div id="cycler">
-                                    @foreach (var updatedNewsItem in updatedNews)
+                                    @foreach (var updatedNewsItem in Model.UpdatedNews)
                                     {
                                         <div class="date-text">
                                             <a asp-controller="News" asp-action="Details" asp-route-id="@updatedNewsItem.Id">
@@ -137,7 +156,7 @@
                     </div>
                     <div class="news-right-bottom-bg">
                         <div class="news-grids-bottom">
-                            @foreach (var news in topNews)
+                            @foreach (var news in Model.TopNews)
                             {
                                 <div class="top-news-grid">
                                     <div class="top-news-grid-heading">

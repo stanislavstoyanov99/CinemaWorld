@@ -1,8 +1,16 @@
 ﻿@using CinemaWorld.Models.ViewModels.Movies
-@model IEnumerable<MovieDetailsViewModel>
+@model PaginatedList<MovieDetailsViewModel>
 @{
     ViewData["Title"] = "Genres";
 }
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var prevPage = !Model.HasPreviousPage ? "1" : (Model.PageIndex - 1).ToString();
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var nextPage = !Model.HasNextPage ? "1" : (Model.PageIndex + 1).ToString();
+}
+
 
 <div class="general-agileits-w3l">
     <div class="w3l-medile-movies-grids">
@@ -36,7 +44,7 @@
                                     <div class="mid-2">
                                         <p>@movie.DateOfRelease.Year</p>
                                         <form id="starRatingsForm" method="post"></form>
-                                        <div class="block-stars stars_ratings movie_@movie.Id" >
+                                        <div class="block-stars stars_ratings movie_@movie.Id">
                                             <ul class="w3l-ratings">
                                                 <li>
                                                     <a href="#@movie.Id" onclick="sendRating(@movie.Id, 1)">
@@ -80,17 +88,34 @@
                     </div>
                 </div>
             </div>
-            <div class="blog-pagenat-wthree">
-                <ul>
-                    <li><a class="frist" href="#">Prev</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a class="last" href="#">Next</a></li>
-                </ul>
-            </div>
+            @if (Model.TotalPages != 0)
+            {
+                <div class="blog-pagenat-wthree">
+                    <ul class="pagination">
+                        <li>
+                            <a class="frist @prevDisabled" asp-action="ByName" asp-route-pageNumber="@prevPage">
+                                Prev
+                            </a>
+                        </li>
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            if (i == Model.PageIndex)
+                            {
+                                <li class="active"><a asp-action="ByName" asp-route-pageNumber="@i">@i</a></li>
+                            }
+                            else
+                            {
+                                <li><a asp-action="ByName" asp-route-pageNumber="@i">@i</a></li>
+                            }
+                        }
+                        <li>
+                            <a class="last @nextDisabled" asp-action="ByName" asp-route-pageNumber="@nextPage">
+                                Next
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            }
         </div>
         <!-- //movie-browse-agile -->
         <!--body wrapper start-->
