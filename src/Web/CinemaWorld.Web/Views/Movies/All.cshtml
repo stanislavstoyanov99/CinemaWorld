@@ -1,5 +1,4 @@
 ﻿@using CinemaWorld.Models.ViewModels.Movies
-@using CinemaWorld.Web.Infrastructure
 @model PaginatedList<MovieDetailsViewModel>
 @{
     ViewData["Title"] = "All";
@@ -7,7 +6,9 @@
 
 @{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var prevPage = !Model.HasPreviousPage ? "1" : (Model.PageIndex - 1).ToString();
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var nextPage = !Model.HasNextPage ? "1" : (Model.PageIndex + 1).ToString();
     int movieCounter = 0;
 }
 
@@ -70,14 +71,34 @@
                         <div class="w3ls-news-result">
                             <h4>Total Count : <span>@Model.Count()</span></h4>
                         </div>
-                        <div class="w3ls-news-result">
-                            <a asp-action="All" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-primary @prevDisabled">
-                                Previous
-                            </a>
-                            <a asp-action="All" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-primary @nextDisabled">
-                                Next
-                            </a>
-                        </div>
+                        @if (Model.TotalPages != 0)
+                        {
+                            <div class="blog-pagenat-wthree">
+                                <ul class="pagination">
+                                    <li>
+                                        <a class="frist @prevDisabled" asp-action="All" asp-route-pageNumber="@prevPage">
+                                            Previous
+                                        </a>
+                                    </li>
+                                    @for (int i = 1; i <= Model.TotalPages; i++)
+                                    {
+                                        if (i == Model.PageIndex)
+                                        {
+                                            <li class="active"><a asp-action="All" asp-route-pageNumber="@i">@i</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a asp-action="All" asp-route-pageNumber="@i">@i</a></li>
+                                        }
+                                    }
+                                    <li>
+                                        <a class="last @nextDisabled" asp-action="All" asp-route-pageNumber="@nextPage">
+                                            Next
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
                         <table id="table-breakpoint">
                             <thead>
                                 <tr>

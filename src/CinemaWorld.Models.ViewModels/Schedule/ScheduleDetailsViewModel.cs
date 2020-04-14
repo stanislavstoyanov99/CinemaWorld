@@ -1,13 +1,10 @@
 ﻿namespace CinemaWorld.Models.ViewModels.Schedule
 {
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
     using CinemaWorld.Models.ViewModels.Cinemas;
     using CinemaWorld.Models.ViewModels.MovieProjections;
     using CinemaWorld.Models.ViewModels.Movies;
-
-    using static CinemaWorld.Models.Common.ModelValidation;
 
     public class ScheduleDetailsViewModel
     {
@@ -17,7 +14,6 @@
 
         public IEnumerable<CinemaDetailsViewModel> Cinemas { get; set; }
 
-        [Required(ErrorMessage = EmptyFieldLengthError)]
-        public int CinemaId { get; set; }
+        public int CinemaName { get; set; }
     }
 }

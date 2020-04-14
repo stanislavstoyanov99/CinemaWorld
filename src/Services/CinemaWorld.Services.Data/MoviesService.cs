@@ -330,13 +330,12 @@
             return topMovies;
         }
 
-        public async Task<IEnumerable<MovieDetailsViewModel>> GetByGenreNameAsync(string name)
+        public IQueryable<MovieDetailsViewModel> GetByGenreNameAsQueryable(string name)
         {
-            var movies = await this.moviesRepository
+            var movies = this.moviesRepository
                 .All()
                 .Where(m => m.MovieGenres.Any(mg => mg.Genre.Name == name))
-                .To<MovieDetailsViewModel>()
-                .ToListAsync();
+                .To<MovieDetailsViewModel>();
 
             return movies;
         }

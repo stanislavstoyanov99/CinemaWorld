@@ -320,7 +320,7 @@ ol.breadcrumb li a {
 /*--/blog-pagenat-wthree--*/
 .blog-pagenat-wthree {
     text-align: center;
-    margin: 0em 0 2em 0;
+    margin: 0em 0 1em 0;
 }
 .blog-pagenat-wthree ul li {
     display: inline-block;
@@ -339,6 +339,13 @@ ol.breadcrumb li a {
     text-decoration: none;
     border: 1px solid #ddd;
 	    font-family: 'Roboto Condensed', sans-serif;
+}
+.blog-pagenat-wthree ul li a.frist.disabled, .blog-pagenat-wthree ul li a.last.disabled {
+    color: #777;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #ddd;
+    pointer-events: none;
 }
 .blog-pagenat-wthree ul li a.frist,.blog-pagenat-wthree ul li a.last {
     background: #000;

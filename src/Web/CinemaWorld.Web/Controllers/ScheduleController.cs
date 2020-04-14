@@ -1,7 +1,5 @@
 ﻿namespace CinemaWorld.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -39,9 +37,20 @@
         {
             this.ViewData["CurrentFilter"] = cinemaName;
 
-            var movieProjections = await Task.Run(
+            var movieProjections = Enumerable.Empty<MovieProjectionDetailsViewModel>().AsQueryable();
+
+            if (!string.IsNullOrEmpty(cinemaName))
+            {
+                movieProjections = await Task.Run(
                     () => this.movieProjectionsService
                         .GetAllMovieProjectionsByCinemaAsQueryeable<MovieProjectionDetailsViewModel>(cinemaName));
+            }
+            else
+            {
+                movieProjections = await Task.Run(
+                    () => this.movieProjectionsService
+                        .GetAllMovieProjectionsAsQueryeable<MovieProjectionDetailsViewModel>());
+            }
 
             var movieProjectionsPaginated = await PaginatedList<MovieProjectionDetailsViewModel>
                     .CreateAsync(movieProjections, pageNumber ?? 1, SchedulePageSize);

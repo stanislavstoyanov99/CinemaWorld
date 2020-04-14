@@ -25,6 +25,6 @@
 
         IQueryable<TViewModel> GetAllMoviesAsQueryeable<TViewModel>();
 
-        Task<IEnumerable<MovieDetailsViewModel>> GetByGenreNameAsync(string name);
+        IQueryable<MovieDetailsViewModel> GetByGenreNameAsQueryable(string name);
     }
 }

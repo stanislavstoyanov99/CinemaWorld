@@ -7,7 +7,9 @@
 
 @{
     var prevDisabled = !Model.MovieProjections.HasPreviousPage ? "disabled" : "";
+    var prevPage = !Model.MovieProjections.HasPreviousPage ? "1" : (Model.MovieProjections.PageIndex - 1).ToString();
     var nextDisabled = !Model.MovieProjections.HasNextPage ? "disabled" : "";
+    var nextPage = !Model.MovieProjections.HasNextPage ? "1" : (Model.MovieProjections.PageIndex + 1).ToString();
 }
 
 <div class="faq">
@@ -31,7 +33,7 @@
                                     Show by cinema name:
                                     <div class="form-group">
                                         <div class="container">
-                                            <select asp-for="CinemaId" asp-items="cinemas" name="cinemaName" value="@ViewData["currentFilter"]" class="selectpicker">
+                                            <select asp-for="CinemaName" asp-items="cinemas" name="cinemaName" class="selectpicker">
                                                 <option selected="" disabled="">Select Cinema</option>
                                             </select>
                                             <input type="submit" value="Show" class="btn btn-sm btn-success" />
@@ -40,17 +42,34 @@
                                 </p>
                             </div>
                         </form>
-                        <div class="w3ls-news-result">
-                            <a asp-action="Index" asp-route-pageNumber="@(Model.MovieProjections.PageIndex - 1)" class="btn btn-primary @prevDisabled">
-                                Previous
-                            </a>
-                            <a asp-action="Index" asp-route-pageNumber="1" class="btn btn-primary @prevDisabled">
-                                Back to first page
-                            </a>
-                            <a asp-action="Index" asp-route-pageNumber="@(Model.MovieProjections.PageIndex + 1)" class="btn btn-primary @nextDisabled">
-                                Next
-                            </a>
-                        </div>
+                        @if (Model.MovieProjections.TotalPages != 0)
+                        {
+                            <div class="blog-pagenat-wthree">
+                                <ul class="pagination">
+                                    <li>
+                                        <a class="frist @prevDisabled" asp-action="Index" asp-route-pageNumber="@prevPage">
+                                            Previous
+                                        </a>
+                                    </li>
+                                    @for (int i = 1; i <= Model.MovieProjections.TotalPages; i++)
+                                    {
+                                        if (i == Model.MovieProjections.PageIndex)
+                                        {
+                                            <li class="active"><a asp-action="Index" asp-route-pageNumber="@i" asp-route-cinemaName="@ViewData["currentFilter"]">@i</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a asp-action="Index" asp-route-pageNumber="@i" asp-route-cinemaName="@ViewData["currentFilter"]">@i</a></li>
+                                        }
+                                    }
+                                    <li>
+                                        <a class="last @nextDisabled" asp-action="Index" asp-route-pageNumber="@nextPage" asp-route-cinemaName="@ViewData["currentFilter"]">
+                                            Next
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
                         <div id="myTabContent" class="tab-content">
                             <div role="tabpanel" class="tab-pane fade in active" id="home1" aria-labelledby="home1-tab">
                                 @foreach (var movieProjection in Model.MovieProjections)
