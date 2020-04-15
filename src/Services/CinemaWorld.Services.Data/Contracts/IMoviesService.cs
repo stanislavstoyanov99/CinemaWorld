@@ -26,5 +26,7 @@
         IQueryable<TViewModel> GetAllMoviesAsQueryeable<TViewModel>();
 
         IQueryable<MovieDetailsViewModel> GetByGenreNameAsQueryable(string name);
+
+        IQueryable<TViewModel> GetAllMoviesByLetterOrDigitAsQueryeable<TViewModel>(string letter = null);
     }
 }

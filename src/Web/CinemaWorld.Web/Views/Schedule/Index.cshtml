@@ -47,7 +47,7 @@
                             <div class="blog-pagenat-wthree">
                                 <ul class="pagination">
                                     <li>
-                                        <a class="frist @prevDisabled" asp-action="Index" asp-route-pageNumber="@prevPage">
+                                        <a class="frist @prevDisabled" asp-action="Index" asp-route-pageNumber="@prevPage" asp-route-cinemaName="@ViewData["currentFilter"]">
                                             Previous
                                         </a>
                                     </li>

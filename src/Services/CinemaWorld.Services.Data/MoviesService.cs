@@ -340,6 +340,29 @@
             return movies;
         }
 
+        public IQueryable<TViewModel> GetAllMoviesByLetterOrDigitAsQueryeable<TViewModel>(string letter = null)
+        {
+            var numbers = Enumerable.Range(0, 10).Select(i => i.ToString());
+            var moviesByLetterOrDigit = Enumerable.Empty<TViewModel>().AsQueryable();
+
+            if (letter != "0 - 9")
+            {
+                moviesByLetterOrDigit = this.moviesRepository
+                    .All()
+                    .Where(x => x.Name.StartsWith(letter))
+                    .To<TViewModel>();
+            }
+            else
+            {
+                moviesByLetterOrDigit = this.moviesRepository
+                    .All()
+                    .Where(x => numbers.Contains(x.Name.Substring(0, 1)))
+                    .To<TViewModel>();
+            }
+
+            return moviesByLetterOrDigit;
+        }
+
         private async Task UpdateMovieGenres(MovieEditViewModel model, Movie movie)
         {
             for (int i = 0; i < model.SelectedGenres.Count; i++)

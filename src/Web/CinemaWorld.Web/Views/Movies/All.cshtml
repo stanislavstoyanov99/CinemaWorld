@@ -1,14 +1,15 @@
 ﻿@using CinemaWorld.Models.ViewModels.Movies
-@model PaginatedList<MovieDetailsViewModel>
+@using System.Linq
+@model MoviesListingViewModel
 @{
     ViewData["Title"] = "All";
 }
 
 @{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var prevPage = !Model.HasPreviousPage ? "1" : (Model.PageIndex - 1).ToString();
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-    var nextPage = !Model.HasNextPage ? "1" : (Model.PageIndex + 1).ToString();
+    var prevDisabled = !Model.Movies.HasPreviousPage ? "disabled" : "";
+    var prevPage = !Model.Movies.HasPreviousPage ? "1" : (Model.Movies.PageIndex - 1).ToString();
+    var nextDisabled = !Model.Movies.HasNextPage ? "disabled" : "";
+    var nextPage = !Model.Movies.HasNextPage ? "1" : (Model.Movies.PageIndex + 1).ToString();
     int movieCounter = 0;
 }
 
@@ -27,38 +28,26 @@
         </div>
         <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
             <ul id="myTab" class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">1 - @Model.Count()</a></li>
-                <li role="presentation"><a href="#a" role="tab" id="a-tab" data-toggle="tab" aria-controls="a">A</a></li>
-                <li role="presentation"><a href="#b" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">B</a></li>
-                <li role="presentation"><a href="#c" role="tab" id="c-tab" data-toggle="tab" aria-controls="c">C</a></li>
-                <li role="presentation"><a href="#d" role="tab" id="d-tab" data-toggle="tab" aria-controls="d">D</a></li>
-                <li role="presentation"><a href="#e" role="tab" id="e-tab" data-toggle="tab" aria-controls="e">E</a></li>
-                <li role="presentation"><a href="#f" role="tab" id="f-tab" data-toggle="tab" aria-controls="f">F</a></li>
-                <li role="presentation"><a href="#g" role="tab" id="g-tab" data-toggle="tab" aria-controls="g">G</a></li>
-                <li role="presentation"><a href="#h" role="tab" id="h-tab" data-toggle="tab" aria-controls="h">H</a></li>
-                <li role="presentation"><a href="#i" role="tab" id="i-tab" data-toggle="tab" aria-controls="i">I</a></li>
-                <li role="presentation"><a href="#j" role="tab" id="j-tab" data-toggle="tab" aria-controls="j">J</a></li>
-                <li role="presentation"><a href="#k" role="tab" id="k-tab" data-toggle="tab" aria-controls="k">K</a></li>
-                <li role="presentation"><a href="#l" role="tab" id="l-tab" data-toggle="tab" aria-controls="l">L</a></li>
-                <li role="presentation"><a href="#m" role="tab" id="m-tab" data-toggle="tab" aria-controls="m">M</a></li>
-                <li role="presentation"><a href="#n" role="tab" id="n-tab" data-toggle="tab" aria-controls="n">N</a></li>
-                <li role="presentation"><a href="#o" role="tab" id="o-tab" data-toggle="tab" aria-controls="o">O</a></li>
-                <li role="presentation"><a href="#p" role="tab" id="p-tab" data-toggle="tab" aria-controls="p">P</a></li>
-                <li role="presentation"><a href="#q" role="tab" id="q-tab" data-toggle="tab" aria-controls="q">Q</a></li>
-                <li role="presentation"><a href="#r" role="tab" id="r-tab" data-toggle="tab" aria-controls="r">R</a></li>
-                <li role="presentation"><a href="#s" role="tab" id="s-tab" data-toggle="tab" aria-controls="s">S</a></li>
-                <li role="presentation"><a href="#t" role="tab" id="t-tab" data-toggle="tab" aria-controls="t">T</a></li>
-                <li role="presentation"><a href="#u" role="tab" id="u-tab" data-toggle="tab" aria-controls="u">U</a></li>
-                <li role="presentation"><a href="#v" role="tab" id="v-tab" data-toggle="tab" aria-controls="v">V</a></li>
-                <li role="presentation"><a href="#w" role="tab" id="w-tab" data-toggle="tab" aria-controls="w">W</a></li>
-                <li role="presentation"><a href="#x" role="tab" id="x-tab" data-toggle="tab" aria-controls="x">X</a></li>
-                <li role="presentation"><a href="#y" role="tab" id="y-tab" data-toggle="tab" aria-controls="y">Y</a></li>
-                <li role="presentation"><a href="#z" role="tab" id="z-tab" data-toggle="tab" aria-controls="z">Z</a></li>
+                @foreach (var link in Model.Alphabet)
+                {
+                    @if (Model.SelectedLetter == link || string.IsNullOrEmpty(Model.SelectedLetter) && link == "All")
+                    {
+                        <li class="active">
+                            <a asp-action="All" asp-route-selectedLetter="@link">@link</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a asp-action="All" asp-route-selectedLetter="@link">@link</a>
+                        </li>
+                    }
+                }
             </ul>
             <form asp-action="All" method="get">
                 <div class="form-actions no-color">
                     <p>
-                        Find by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                        Find by name: <input type="text" name="SearchString" value="@ViewData["currentSearchFilter"]" />
                         <input type="submit" value="Search" class="btn btn-sm btn-primary" /> |
                         <a asp-action="All">Back to Full List</a>
                     </p>
@@ -69,30 +58,30 @@
                 <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
                     <div class="agile-news-table">
                         <div class="w3ls-news-result">
-                            <h4>Total Count : <span>@Model.Count()</span></h4>
+                            <h4>Total Count : <span>@Model.Movies.Count()</span></h4>
                         </div>
-                        @if (Model.TotalPages != 0)
+                        @if (Model.Movies.TotalPages != 0)
                         {
                             <div class="blog-pagenat-wthree">
                                 <ul class="pagination">
                                     <li>
-                                        <a class="frist @prevDisabled" asp-action="All" asp-route-pageNumber="@prevPage">
+                                        <a class="frist @prevDisabled" asp-action="All" asp-route-pageNumber="@prevPage" asp-route-selectedLetter="@Model.SelectedLetter"  asp-route-currentFilter="@ViewData["CurrentSearchFilter"]">
                                             Previous
                                         </a>
                                     </li>
-                                    @for (int i = 1; i <= Model.TotalPages; i++)
+                                    @for (int i = 1; i <= Model.Movies.TotalPages; i++)
                                     {
-                                        if (i == Model.PageIndex)
+                                        if (i == Model.Movies.PageIndex)
                                         {
-                                            <li class="active"><a asp-action="All" asp-route-pageNumber="@i">@i</a></li>
+                                            <li class="active"><a asp-action="All" asp-route-pageNumber="@i" asp-route-selectedLetter="@Model.SelectedLetter" asp-route-currentFilter="@ViewData["CurrentSearchFilter"]">@i</a></li>
                                         }
                                         else
                                         {
-                                            <li><a asp-action="All" asp-route-pageNumber="@i">@i</a></li>
+                                            <li><a asp-action="All" asp-route-pageNumber="@i" asp-route-selectedLetter="@Model.SelectedLetter" asp-route-currentFilter="@ViewData["CurrentSearchFilter"]">@i</a></li>
                                         }
                                     }
                                     <li>
-                                        <a class="last @nextDisabled" asp-action="All" asp-route-pageNumber="@nextPage">
+                                        <a class="last @nextDisabled" asp-action="All" asp-route-selectedLetter="@Model.SelectedLetter" asp-route-currentFilter="@ViewData["CurrentSearchFilter"]">
                                             Next
                                         </a>
                                     </li>
@@ -116,7 +105,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var movie in Model)
+                                @foreach (var movie in Model.Movies)
                                 {
                                     movieCounter++;
                                     <tr>
@@ -153,43 +142,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="a" aria-labelledby="a-tab">
-                <div class="agile-news-table">
-                    <table id="table-breakpoint1">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Movie Name</th>
-                                <th>Year</th>
-                                <th>Resolution</th>
-                                <th>Country</th>
-                                <th>Genre</th>
-                                <th>Rating</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td class="w3-list-img"><a href="single.html"><img src="~/images/n3.jpg" alt="" /> <span>2 Sausage Party</span></a></td>
-                                <td>2013</td>
-                                <td>HD</td>
-                                <td class="w3-list-info"><a href="genres.html">United Kingdom</a></td>
-                                <td class="w3-list-info"><a href="genres.html">Comedy, Drama</a></td>
-                                <td>7.0</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td class="w3-list-img"><a href="single.html"><img src="~/images/n4.jpg" alt="" /> <span>2.0 Morgan</span></a></td>
-                                <td>2014</td>
-                                <td>HD</td>
-                                <td class="w3-list-info"><a href="genres.html">United States</a></td>
-                                <td class="w3-list-info"><a href="genres.html">Action</a></td>
-                                <td>7.1</td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>

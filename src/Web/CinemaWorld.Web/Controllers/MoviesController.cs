@@ -21,36 +21,58 @@
             this.moviesService = moviesService;
         }
 
-        public async Task<IActionResult> All(string searchString, int? pageNumber)
+        public async Task<IActionResult> All(string searchString, string selectedLetter, int? pageNumber)
         {
             if (searchString != null)
             {
                 pageNumber = 1;
             }
 
-            this.ViewData["CurrentFilter"] = searchString;
-            var movies = this.moviesService.GetAllMoviesAsQueryeable<MovieDetailsViewModel>();
+            this.ViewData["CurrentSearchFilter"] = searchString;
+
+            var movies = Enumerable.Empty<MovieDetailsViewModel>().AsQueryable();
+
+            if ((!string.IsNullOrEmpty(selectedLetter) && selectedLetter != "All") || selectedLetter == "0 - 9")
+            {
+                movies = await Task.Run(
+                    () => this.moviesService
+                        .GetAllMoviesByLetterOrDigitAsQueryeable<MovieDetailsViewModel>(selectedLetter));
+            }
+            else if (selectedLetter == "All" || string.IsNullOrEmpty(selectedLetter))
+            {
+                movies = await Task.Run(
+                    () => this.moviesService
+                        .GetAllMoviesAsQueryeable<MovieDetailsViewModel>());
+            }
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 movies = movies.Where(m => m.Name.ToLower().Contains(searchString.ToLower()));
             }
 
-            return this.View(await PaginatedList<MovieDetailsViewModel>.CreateAsync(movies, pageNumber ?? 1, PageSize));
+            var moviesPaginated = await PaginatedList<MovieDetailsViewModel>.CreateAsync(movies, pageNumber ?? 1, PageSize);
+
+            var viewModel = new MoviesListingViewModel
+            {
+               Movies = moviesPaginated,
+               SelectedLetter = selectedLetter,
+            };
+
+            return this.View(viewModel);
         }
 
         public async Task<IActionResult> Details(int id)
         {
             var movie = await this.moviesService.GetViewModelByIdAsync<MovieDetailsViewModel>(id);
-            var allMovies = await this.moviesService.GetAllMoviesAsync<TopRatingMovieDetailsViewModel>();
+            var topRatingMovies = await this.moviesService.GetAllMoviesAsync<TopRatingMovieDetailsViewModel>();
 
             string videoId = ExtractVideoId(movie.TrailerPath);
             movie.TrailerPath = videoId;
 
-            var viewModel = new AllMoviesListingViewModel
+            var viewModel = new DetailsListingViewModel
             {
                 MovieDetailsViewModel = movie,
-                AllMovies = allMovies
+                AllMovies = topRatingMovies
                     .OrderByDescending(x => x.StarRatingsSum)
                     .ThenByDescending(x => x.DateOfRelease.Year)
                     .ToList(),
