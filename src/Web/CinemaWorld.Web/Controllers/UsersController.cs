@@ -237,7 +237,7 @@
                     Email = inputModel.Email,
                     Gender = gender,
                     FullName = inputModel.FullName,
-                    //ShoppingCart = new ShoppingCart(),
+                    ShoppingCart = new ShoppingCart(),
                 };
 
                 var result = await this.userManager.CreateAsync(user);

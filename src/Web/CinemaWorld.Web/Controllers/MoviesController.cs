@@ -14,6 +14,9 @@
     public class MoviesController : Controller
     {
         private const int PageSize = 10;
+        private const string AllPaginationFilter = "All";
+        private const string DigitPaginationFilter = "0 - 9";
+
         private readonly IMoviesService moviesService;
 
         public MoviesController(IMoviesService moviesService)
@@ -21,29 +24,19 @@
             this.moviesService = moviesService;
         }
 
-        public async Task<IActionResult> All(string searchString, string selectedLetter, int? pageNumber)
+        public async Task<IActionResult> All(string searchString, string currentFilter, string selectedLetter, int? pageNumber)
         {
             if (searchString != null)
             {
                 pageNumber = 1;
             }
+            else
+            {
+                searchString = currentFilter;
+            }
 
             this.ViewData["CurrentSearchFilter"] = searchString;
-
-            var movies = Enumerable.Empty<MovieDetailsViewModel>().AsQueryable();
-
-            if ((!string.IsNullOrEmpty(selectedLetter) && selectedLetter != "All") || selectedLetter == "0 - 9")
-            {
-                movies = await Task.Run(
-                    () => this.moviesService
-                        .GetAllMoviesByLetterOrDigitAsQueryeable<MovieDetailsViewModel>(selectedLetter));
-            }
-            else if (selectedLetter == "All" || string.IsNullOrEmpty(selectedLetter))
-            {
-                movies = await Task.Run(
-                    () => this.moviesService
-                        .GetAllMoviesAsQueryeable<MovieDetailsViewModel>());
-            }
+            var movies = await this.GetMoviesByLetterOrDigit(selectedLetter);
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -52,10 +45,15 @@
 
             var moviesPaginated = await PaginatedList<MovieDetailsViewModel>.CreateAsync(movies, pageNumber ?? 1, PageSize);
 
+            var alphabeticalPagingViewModel = new AlphabeticalPagingViewModel
+            {
+                SelectedLetter = selectedLetter,
+            };
+
             var viewModel = new MoviesListingViewModel
             {
-               Movies = moviesPaginated,
-               SelectedLetter = selectedLetter,
+                Movies = moviesPaginated,
+                AlphabeticalPagingViewModel = alphabeticalPagingViewModel,
             };
 
             return this.View(viewModel);
@@ -66,7 +64,7 @@
             var movie = await this.moviesService.GetViewModelByIdAsync<MovieDetailsViewModel>(id);
             var topRatingMovies = await this.moviesService.GetAllMoviesAsync<TopRatingMovieDetailsViewModel>();
 
-            string videoId = ExtractVideoId(movie.TrailerPath);
+            string videoId = this.ExtractVideoId(movie.TrailerPath);
             movie.TrailerPath = videoId;
 
             var viewModel = new DetailsListingViewModel
@@ -81,7 +79,28 @@
             return this.View(viewModel);
         }
 
-        private static string ExtractVideoId(string trailerPath)
+        private async Task<IQueryable<MovieDetailsViewModel>> GetMoviesByLetterOrDigit(string selectedLetter)
+        {
+            var movies = Enumerable.Empty<MovieDetailsViewModel>().AsQueryable();
+
+            if ((!string.IsNullOrEmpty(selectedLetter) && selectedLetter != AllPaginationFilter)
+                || selectedLetter == DigitPaginationFilter)
+            {
+                movies = await Task.Run(
+                    () => this.moviesService
+                        .GetAllMoviesByLetterOrDigitAsQueryeable<MovieDetailsViewModel>(selectedLetter));
+            }
+            else
+            {
+                movies = await Task.Run(
+                    () => this.moviesService
+                        .GetAllMoviesAsQueryeable<MovieDetailsViewModel>());
+            }
+
+            return movies;
+        }
+
+        private string ExtractVideoId(string trailerPath)
         {
             var uri = new Uri(trailerPath);
             var query = HttpUtility.ParseQueryString(uri.Query);

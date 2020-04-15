@@ -1,5 +1,5 @@
-﻿@using CinemaWorld.Models.ViewModels.Movies
-@using System.Linq
+﻿@using System.Linq
+@using CinemaWorld.Models.ViewModels.Movies
 @model MoviesListingViewModel
 @{
     ViewData["Title"] = "All";
@@ -7,16 +7,13 @@
 
 @{
     var prevDisabled = !Model.Movies.HasPreviousPage ? "disabled" : "";
-    var prevPage = !Model.Movies.HasPreviousPage ? "1" : (Model.Movies.PageIndex - 1).ToString();
     var nextDisabled = !Model.Movies.HasNextPage ? "disabled" : "";
-    var nextPage = !Model.Movies.HasNextPage ? "1" : (Model.Movies.PageIndex + 1).ToString();
     int movieCounter = 0;
 }
 
 <link rel="stylesheet" type="text/css" href="~/list-css/table-style.css" />
 <link rel="stylesheet" type="text/css" href="~/list-css/basictable.css" />
 
-<!-- faq-banner -->
 <div class="faq">
     <h4 class="latest-text w3_faq_latest_text w3_latest_text">Movies List</h4>
     <div class="container">
@@ -28,9 +25,10 @@
         </div>
         <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
             <ul id="myTab" class="nav nav-tabs" role="tablist">
-                @foreach (var link in Model.Alphabet)
+                @foreach (var link in Model.AlphabeticalPagingViewModel.Alphabet)
                 {
-                    @if (Model.SelectedLetter == link || string.IsNullOrEmpty(Model.SelectedLetter) && link == "All")
+                    @if (Model.AlphabeticalPagingViewModel.SelectedLetter == link ||
+                    string.IsNullOrEmpty(Model.AlphabeticalPagingViewModel.SelectedLetter) && link == "All")
                     {
                         <li class="active">
                             <a asp-action="All" asp-route-selectedLetter="@link">@link</a>
@@ -44,28 +42,29 @@
                     }
                 }
             </ul>
-            <form asp-action="All" method="get">
-                <div class="form-actions no-color">
-                    <p>
-                        Find by name: <input type="text" name="SearchString" value="@ViewData["currentSearchFilter"]" />
-                        <input type="submit" value="Search" class="btn btn-sm btn-primary" /> |
-                        <a asp-action="All">Back to Full List</a>
-                    </p>
-                </div>
-            </form>
-            <hr />
+            <div class="container">
+                <form asp-action="All" method="get">
+                    <div class="form-group col-md-6">
+                        <label for="search">Find by name:</label>
+                        <input id="search" type="text" class="form-control" name="SearchString" value="@ViewData["currentSearchFilter"]" />
+                    </div>
+                    <div class="form-group col-md-9">
+                        <input type="submit" value="Search" class="btn btn-sm btn-primary" />
+                    </div>
+                </form>
+            </div>
             <div id="myTabContent" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
                     <div class="agile-news-table">
-                        <div class="w3ls-news-result">
-                            <h4>Total Count : <span>@Model.Movies.Count()</span></h4>
-                        </div>
                         @if (Model.Movies.TotalPages != 0)
                         {
                             <div class="blog-pagenat-wthree">
                                 <ul class="pagination">
                                     <li>
-                                        <a class="frist @prevDisabled" asp-action="All" asp-route-pageNumber="@prevPage" asp-route-selectedLetter="@Model.SelectedLetter"  asp-route-currentFilter="@ViewData["CurrentSearchFilter"]">
+                                        <a class="frist @prevDisabled"
+                                           asp-action="All"
+                                           asp-route-selectedLetter="@Model.AlphabeticalPagingViewModel.SelectedLetter"
+                                           asp-route-currentFilter="@ViewData["CurrentSearchFilter"]">
                                             Previous
                                         </a>
                                     </li>
@@ -73,21 +72,41 @@
                                     {
                                         if (i == Model.Movies.PageIndex)
                                         {
-                                            <li class="active"><a asp-action="All" asp-route-pageNumber="@i" asp-route-selectedLetter="@Model.SelectedLetter" asp-route-currentFilter="@ViewData["CurrentSearchFilter"]">@i</a></li>
+                                            <li class="active">
+                                                <a asp-action="All"
+                                                   asp-route-pageNumber="@i"
+                                                   asp-route-selectedLetter="@Model.AlphabeticalPagingViewModel.SelectedLetter"
+                                                   asp-route-currentFilter="@ViewData["CurrentSearchFilter"]">
+                                                    @i
+                                                </a>
+                                            </li>
                                         }
                                         else
                                         {
-                                            <li><a asp-action="All" asp-route-pageNumber="@i" asp-route-selectedLetter="@Model.SelectedLetter" asp-route-currentFilter="@ViewData["CurrentSearchFilter"]">@i</a></li>
+                                            <li>
+                                                <a asp-action="All"
+                                                   asp-route-pageNumber="@i"
+                                                   asp-route-selectedLetter="@Model.AlphabeticalPagingViewModel.SelectedLetter"
+                                                   asp-route-currentFilter="@ViewData["CurrentSearchFilter"]">
+                                                    @i
+                                                </a>
+                                            </li>
                                         }
                                     }
                                     <li>
-                                        <a class="last @nextDisabled" asp-action="All" asp-route-selectedLetter="@Model.SelectedLetter" asp-route-currentFilter="@ViewData["CurrentSearchFilter"]">
+                                        <a class="last @nextDisabled"
+                                           asp-action="All"
+                                           asp-route-selectedLetter="@Model.AlphabeticalPagingViewModel.SelectedLetter"
+                                           asp-route-currentFilter="@ViewData["CurrentSearchFilter"]">
                                             Next
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         }
+                        <div class="w3ls-news-result">
+                            <h4>Total Count : <span>@Model.Movies.Count()</span></h4>
+                        </div>
                         <table id="table-breakpoint">
                             <thead>
                                 <tr>
@@ -147,7 +166,6 @@
         </div>
     </div>
 </div>
-<!-- //faq-banner -->
 
 @section Scripts
 {

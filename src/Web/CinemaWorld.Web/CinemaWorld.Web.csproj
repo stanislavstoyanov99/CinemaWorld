@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-CinemaWorld-BBB373B5-EF3F-4DBB-B8AA-7152CEC275BF</UserSecretsId>
+    <NoWarn>$(NoWarn);NU1701</NoWarn>
 	<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>

@@ -8,12 +8,6 @@
 
     public class RegisterInputModel
     {
-        public IEnumerable<string> Genders = new[]
-        {
-            nameof(Gender.Male),
-            nameof(Gender.Female),
-        };
-
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -42,5 +36,11 @@
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public IEnumerable<string> Genders { get; set; } = new[]
+        {
+            nameof(Gender.Male),
+            nameof(Gender.Female),
+        };
     }
 }

@@ -8,12 +8,6 @@
 
     public class ExternalLoginInputModel
     {
-        public IEnumerable<string> Genders = new[]
-        {
-            nameof(Gender.Male),
-            nameof(Gender.Female),
-        };
-
         [Required]
         [EmailAddress]
         public string Email { get; set; }
@@ -30,5 +24,11 @@
         [Required]
         [Display(Name = "Gender")]
         public string SelectedGender { get; set; }
+
+        public IEnumerable<string> Genders { get; set; } = new[]
+        {
+            nameof(Gender.Male),
+            nameof(Gender.Female),
+        };
     }
 }
