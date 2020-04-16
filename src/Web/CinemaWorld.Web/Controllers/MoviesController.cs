@@ -26,6 +26,8 @@
 
         public async Task<IActionResult> All(string searchString, string currentFilter, string selectedLetter, int? pageNumber)
         {
+            this.ViewData["Current"] = nameof(this.All);
+
             if (searchString != null)
             {
                 pageNumber = 1;
