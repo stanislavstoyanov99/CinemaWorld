@@ -5807,6 +5807,11 @@ button.close {
   position: relative;
   padding: 15px;
 }
+.modal-button-body {
+  position: relative;
+  padding: 15px;
+  background-image: url("https://i.postimg.cc/bvfggjTW/banner2.jpg");
+}
 .modal-footer {
   padding: 15px;
   text-align: right;

@@ -404,6 +404,22 @@ p.fexi_header_para1 a i {
     border: none;
 	padding:10px 0;
 }
+.w3ls_btn_submit a {
+	display: inline-block;
+	outline: none;
+	width: 100%;
+	background: #FF8D1B;
+	font-size: 14px;
+	text-transform: uppercase;
+	text-align: center;
+	color: #fff;
+	border: none;
+	padding: 10px 0;
+}
+.w3ls_btn_submit a:hover {
+	background: #212121;
+	color: #fff;
+}
 .w3ls_footer_grid_left1_pos input[type="submit"]:hover{
     background:#fff;
 	color:#212121;

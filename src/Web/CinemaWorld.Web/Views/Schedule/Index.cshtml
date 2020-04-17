@@ -124,6 +124,11 @@
                                                 <span>@movieProjection.Hall.Id</span>
                                                 <hr />
                                                 <h5>
+                                                    Time:
+                                                </h5>
+                                                <span>@movieProjection.Date.DayOfWeek @movieProjection.Date</span>
+                                                <hr />
+                                                <h5>
                                                     Cinema:
                                                 </h5>
                                                 <span>@movieProjection.Cinema.Name</span>
@@ -147,6 +152,10 @@
                                                     Resolution:
                                                 </h5>
                                                 <span>@movieProjection.Movie.Resolution</span>
+                                                <hr />
+                                                <div class="w3ls_btn_submit">
+                                                    <a asp-controller="Tickets" asp-action="Book" asp-route-id="@movieProjection.Id">Book Ticket</a>
+                                                </div>
                                             </div>
                                             <div class="clearfix"> </div>
                                         </div>
