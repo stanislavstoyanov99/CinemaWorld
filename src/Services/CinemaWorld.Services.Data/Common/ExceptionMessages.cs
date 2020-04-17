@@ -57,5 +57,17 @@
         public const string MovieProjectionAlreadyExists = "Movie projection with id {0} already exists";
 
         public const string MovieProjectionNotFound = "Movie projection with id {0} is not found.";
+
+        public const string InvalidTicketType = "Ticket type {0} is invalid.";
+
+        public const string TicketAlreadyExists = "Ticket with id {0} already exists";
+
+        public const string InvalidTimeSlot = "Time slot type {0} is invalid.";
+
+        public const string TicketNotFound = "Ticket with id {0} is not found.";
+
+        public const string SeatSoldError = "Seat with id {0} is sold.";
+
+        public const string SeatUnavailableError = "Seat with id {0} is unavailable.";
     }
 }

@@ -112,6 +112,7 @@
             services.AddTransient<IHallsService, HallsService>();
             services.AddTransient<ISeatsService, SeatsService>();
             services.AddTransient<IMovieProjectionsService, MovieProjectionsService>();
+            services.AddTransient<ITicketsService, TicketsService>();
 
             // External login providers
             services.AddAuthentication()

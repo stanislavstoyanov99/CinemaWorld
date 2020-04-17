@@ -1,6 +1,5 @@
 ﻿namespace CinemaWorld.Data.Models
 {
-    using System;
     using System.Collections.Generic;
 
     using CinemaWorld.Data.Common.Models;

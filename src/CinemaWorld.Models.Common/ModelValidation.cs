@@ -202,5 +202,10 @@
             public const string RowNumberIdError = "Please select row number.";
             public const string SeatNumberIdError = "Please select seat number.";
         }
+
+        public static class Ticket
+        {
+            public const string InvalidSeat = "Please choose seat.";
+        }
     }
 }
