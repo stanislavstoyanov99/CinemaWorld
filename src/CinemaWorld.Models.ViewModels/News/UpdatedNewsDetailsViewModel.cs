@@ -15,6 +15,24 @@
 
         public DateTime? ModifiedOn { get; set; }
 
+        public int UpdatedSince
+        {
+            get
+            {
+                if (this.IsUpdated)
+                {
+                    var updatedSince = (int)Math.Round((DateTime.UtcNow - this.ModifiedOn).Value.TotalHours);
+                    return updatedSince;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
         public string CreationDate => this.CreatedOn.ToShortDateString();
+
+        public bool IsUpdated { get; set; }
     }
 }

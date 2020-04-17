@@ -10,7 +10,7 @@
 
     public class GenresController : Controller
     {
-        private const int GenrePageSize = 2;
+        private const int GenresPerPage = 12;
 
         private readonly IMoviesService moviesService;
 
@@ -22,10 +22,10 @@
         public async Task<IActionResult> ByName(int? pageNumber, string name)
         {
             this.TempData["GenreName"] = name;
-            var moviesByGenreName = this.moviesService.GetByGenreNameAsQueryable(name);
+            var moviesByGenreName = await Task.Run(() => this.moviesService.GetByGenreNameAsQueryable(name));
 
             var moviesByGenreNamePaginated = await PaginatedList<MovieDetailsViewModel>
-                    .CreateAsync(moviesByGenreName, pageNumber ?? 1, GenrePageSize);
+                    .CreateAsync(moviesByGenreName, pageNumber ?? 1, GenresPerPage);
 
             return this.View(moviesByGenreNamePaginated);
         }

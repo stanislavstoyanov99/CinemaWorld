@@ -1,21 +1,18 @@
 ﻿namespace CinemaWorld.Web.Controllers
 {
-    using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Web;
 
     using CinemaWorld.Models.ViewModels;
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Contracts;
+    using CinemaWorld.Web.Helpers;
 
     using Microsoft.AspNetCore.Mvc;
 
     public class MoviesController : Controller
     {
         private const int PageSize = 10;
-        private const string AllPaginationFilter = "All";
-        private const string DigitPaginationFilter = "0 - 9";
 
         private readonly IMoviesService moviesService;
 
@@ -38,7 +35,8 @@
             }
 
             this.ViewData["CurrentSearchFilter"] = searchString;
-            var movies = await this.GetMoviesByLetterOrDigit(selectedLetter);
+            var movies = this.moviesService
+                .GetAllMoviesByFilterAsQueryeable<MovieDetailsViewModel>(selectedLetter);
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -66,7 +64,7 @@
             var movie = await this.moviesService.GetViewModelByIdAsync<MovieDetailsViewModel>(id);
             var topRatingMovies = await this.moviesService.GetAllMoviesAsync<TopRatingMovieDetailsViewModel>();
 
-            string videoId = this.ExtractVideoId(movie.TrailerPath);
+            string videoId = ExtractVideoHelper.ExtractVideoId(movie.TrailerPath);
             movie.TrailerPath = videoId;
 
             var viewModel = new DetailsListingViewModel
@@ -79,46 +77,6 @@
             };
 
             return this.View(viewModel);
-        }
-
-        private async Task<IQueryable<MovieDetailsViewModel>> GetMoviesByLetterOrDigit(string selectedLetter)
-        {
-            var movies = Enumerable.Empty<MovieDetailsViewModel>().AsQueryable();
-
-            if ((!string.IsNullOrEmpty(selectedLetter) && selectedLetter != AllPaginationFilter)
-                || selectedLetter == DigitPaginationFilter)
-            {
-                movies = await Task.Run(
-                    () => this.moviesService
-                        .GetAllMoviesByLetterOrDigitAsQueryeable<MovieDetailsViewModel>(selectedLetter));
-            }
-            else
-            {
-                movies = await Task.Run(
-                    () => this.moviesService
-                        .GetAllMoviesAsQueryeable<MovieDetailsViewModel>());
-            }
-
-            return movies;
-        }
-
-        private string ExtractVideoId(string trailerPath)
-        {
-            var uri = new Uri(trailerPath);
-            var query = HttpUtility.ParseQueryString(uri.Query);
-
-            var videoId = string.Empty;
-
-            if (query.AllKeys.Contains("v"))
-            {
-                videoId = query["v"];
-            }
-            else
-            {
-                videoId = uri.Segments.Last();
-            }
-
-            return videoId;
         }
     }
 }

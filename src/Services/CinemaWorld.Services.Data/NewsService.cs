@@ -94,6 +94,7 @@
             news.ShortDescription = newsEditViewModel.ShortDescription;
             news.UserId = userId;
             news.ModifiedOn = DateTime.UtcNow;
+            news.IsUpdated = true;
 
             this.newsRepository.Update(news);
             await this.newsRepository.SaveChangesAsync();
@@ -126,8 +127,8 @@
         {
             var updatedNews = await this.newsRepository
                  .All()
-                 .OrderByDescending(x => x.CreatedOn)
-                 .Where(x => x.ModifiedOn != null)
+                 .OrderByDescending(x => x.ModifiedOn)
+                 .Where(x => x.IsUpdated == true)
                  .To<TViewModel>()
                  .ToListAsync();
 
@@ -147,6 +148,7 @@
             }
 
             news.ViewsCounter++;
+            this.newsRepository.Update(news);
             await this.newsRepository.SaveChangesAsync();
 
             var viewModel = await this.newsRepository

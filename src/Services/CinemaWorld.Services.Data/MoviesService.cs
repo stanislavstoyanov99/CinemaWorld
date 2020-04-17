@@ -18,6 +18,9 @@
 
     public class MoviesService : IMoviesService
     {
+        private const string AllPaginationFilter = "All";
+        private const string DigitPaginationFilter = "0 - 9";
+
         private readonly IDeletableEntityRepository<Movie> moviesRepository;
         private readonly IDeletableEntityRepository<Director> directorsRepository;
         private readonly IDeletableEntityRepository<MovieGenre> movieGenresRepository;
@@ -340,27 +343,31 @@
             return movies;
         }
 
-        public IQueryable<TViewModel> GetAllMoviesByLetterOrDigitAsQueryeable<TViewModel>(string letter = null)
+        public IQueryable<TViewModel> GetAllMoviesByFilterAsQueryeable<TViewModel>(string letter = null)
         {
-            var numbers = Enumerable.Range(0, 10).Select(i => i.ToString());
-            var moviesByLetterOrDigit = Enumerable.Empty<TViewModel>().AsQueryable();
+            var moviesByFilter = Enumerable.Empty<TViewModel>().AsQueryable();
 
-            if (letter != "0 - 9")
+            if (!string.IsNullOrEmpty(letter) && letter != AllPaginationFilter && letter != DigitPaginationFilter)
             {
-                moviesByLetterOrDigit = this.moviesRepository
+                moviesByFilter = this.moviesRepository
                     .All()
                     .Where(x => x.Name.StartsWith(letter))
                     .To<TViewModel>();
             }
-            else
+            else if (letter == DigitPaginationFilter)
             {
-                moviesByLetterOrDigit = this.moviesRepository
+                var numbers = Enumerable.Range(0, 10).Select(i => i.ToString());
+                moviesByFilter = this.moviesRepository
                     .All()
                     .Where(x => numbers.Contains(x.Name.Substring(0, 1)))
                     .To<TViewModel>();
             }
+            else
+            {
+                moviesByFilter = this.GetAllMoviesAsQueryeable<TViewModel>();
+            }
 
-            return moviesByLetterOrDigit;
+            return moviesByFilter;
         }
 
         private async Task UpdateMovieGenres(MovieEditViewModel model, Movie movie)

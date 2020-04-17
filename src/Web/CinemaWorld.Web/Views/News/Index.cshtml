@@ -9,6 +9,8 @@
     var prevPage = !Model.News.HasPreviousPage ? "1" : (Model.News.PageIndex - 1).ToString();
     var nextDisabled = !Model.News.HasNextPage ? "disabled" : "";
     var nextPage = !Model.News.HasNextPage ? "1" : (Model.News.PageIndex + 1).ToString();
+
+    int updatedSinceHourLimit = 12;
 }
 
 <div class="faq">
@@ -134,7 +136,7 @@
                                     {
                                         <div class="date-text">
                                             <a asp-controller="News" asp-action="Details" asp-route-id="@updatedNewsItem.Id">
-                                                @if (updatedNewsItem.ModifiedOn != null)
+                                                @if (updatedNewsItem.UpdatedSince <= updatedSinceHourLimit)
                                                 {
                                                     <span class="blinking"><img src="images/new.png" alt="Blinking image" /></span>
                                                 }

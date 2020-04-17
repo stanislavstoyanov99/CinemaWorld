@@ -46,7 +46,7 @@
                 <form asp-action="All" method="get">
                     <div class="form-group col-md-6">
                         <label for="search">Find by name:</label>
-                        <input id="search" type="text" class="form-control" name="SearchString" value="@ViewData["currentSearchFilter"]" />
+                        <input id="search" type="text" class="form-control" name="SearchString" value="@ViewData["currentSearchFilter"]" required />
                     </div>
                     <div class="form-group col-md-9">
                         <input type="submit" value="Search" class="btn btn-sm btn-primary" />

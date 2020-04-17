@@ -30,5 +30,7 @@
         public virtual CinemaWorldUser User { get; set; }
 
         public int ViewsCounter { get; set; }
+
+        public bool IsUpdated { get; set; }
     }
 }
