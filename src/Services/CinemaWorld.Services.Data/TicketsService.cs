@@ -1,6 +1,7 @@
 ﻿namespace CinemaWorld.Services.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -23,16 +24,19 @@
 
         private readonly IDeletableEntityRepository<Ticket> ticketsRepository;
         private readonly IDeletableEntityRepository<Seat> seatsRepository;
+        private readonly IDeletableEntityRepository<MovieProjection> movieProjectionsRepository;
 
         public TicketsService(
             IDeletableEntityRepository<Ticket> ticketsRepository,
-            IDeletableEntityRepository<Seat> seatsRepository)
+            IDeletableEntityRepository<Seat> seatsRepository,
+            IDeletableEntityRepository<MovieProjection> movieProjectionsRepository)
         {
             this.ticketsRepository = ticketsRepository;
             this.seatsRepository = seatsRepository;
+            this.movieProjectionsRepository = movieProjectionsRepository;
         }
 
-        public async Task<TicketDetailsViewModel> BuyAsync(TicketInputModel ticketInputModel)
+        public async Task<TicketDetailsViewModel> BuyAsync(TicketInputModel ticketInputModel, int movieProjectionId)
         {
             if (!Enum.TryParse(ticketInputModel.TicketType, true, out TicketType ticketType))
             {
@@ -40,9 +44,20 @@
                     string.Format(ExceptionMessages.InvalidTicketType, ticketInputModel.TicketType));
             }
 
+            var movieProjection = await this.movieProjectionsRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == movieProjectionId);
+
+            if (movieProjection == null)
+            {
+                throw new ArgumentException(
+                    string.Format(ExceptionMessages.MovieProjectionNotFound, movieProjection.Id));
+            }
+
             var seat = await this.seatsRepository
                 .All()
-                .FirstOrDefaultAsync(x => x.RowNumber == ticketInputModel.Row && x.Number == ticketInputModel.Seat);
+                .FirstOrDefaultAsync(x => x.RowNumber == ticketInputModel.Row &&
+                    x.Number == ticketInputModel.Seat && x.HallId == movieProjection.HallId);
 
             if (seat == null)
             {
@@ -54,12 +69,6 @@
             {
                 throw new ArgumentException(
                     string.Format(ExceptionMessages.SeatSoldError, seat.Id));
-            }
-
-            if (!seat.IsAvailable)
-            {
-                throw new ArgumentException(
-                    string.Format(ExceptionMessages.SeatUnavailableError, seat.Id));
             }
 
             var ticket = new Ticket

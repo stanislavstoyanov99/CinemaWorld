@@ -3,26 +3,36 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    using static CinemaWorld.Models.Common.ModelValidation;
+    using Microsoft.AspNetCore.Mvc;
+
     using static CinemaWorld.Models.Common.ModelValidation.Ticket;
 
     public class TicketInputModel
     {
+        [HiddenInput]
         public int Row { get; set; }
 
+        [HiddenInput]
         public int Seat { get; set; }
 
-        [Range(1, double.MaxValue, ErrorMessage = InvalidSeat)]
+        [HiddenInput]
         public decimal Price { get; set; }
 
         public string TimeSlot { get; set; }
 
-        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [HiddenInput]
+        [Required(ErrorMessage = MissingTicketType)]
         public string TicketType { get; set; }
 
+        [HiddenInput]
+        [Required(ErrorMessage = MissingTicketType)]
+        public string SeatCategory { get; set; }
+
+        [HiddenInput]
         [Range(1, int.MaxValue, ErrorMessage = InvalidSeat)]
         public int Quantity { get; set; }
 
+        [HiddenInput]
         public DateTime MovieProjectionTime { get; set; }
     }
 }

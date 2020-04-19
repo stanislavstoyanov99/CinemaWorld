@@ -1,0 +1,33 @@
+﻿@model BookingErrorViewModel
+@{
+    this.ViewData["Title"] = "Error";
+}
+
+<div class="container container_addon">
+    <h1 class="text-danger">Error.</h1>
+    <h2 class="text-danger">An error occurred while processing your request.</h2>
+
+    @if (this.Model.ShowRequestId)
+    {
+        <p>
+            <strong>Request ID:</strong> <code>@this.Model.RequestId</code>
+        </p>
+        @if (this.Model.ErrorMessage != null)
+        {
+            <hr />
+            <div class="alert alert-danger">
+                @this.Model.ErrorMessage
+            </div>
+            <div class="grid_3 grid_3 w3">
+                <h3>
+                    <a asp-controller="Home" asp-action="Index">
+                        <span class="label label-primary">Home</span>
+                    </a>
+                    <a asp-controller="Tickets" asp-action="Book">
+                        <span class="label label-primary">Back to booking</span>
+                    </a>
+                </h3>
+            </div>
+        }
+    }
+</div>

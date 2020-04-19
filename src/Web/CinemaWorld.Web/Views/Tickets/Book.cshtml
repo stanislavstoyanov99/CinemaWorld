@@ -22,6 +22,7 @@
                     <li>Tickets</li>
                     <li>Total</li>
                     <li>Ticket Type</li>
+                    <li>Seat category</li>
                     <li>Seats</li>
                 </ul>
                 <form asp-controller="Tickets" asp-action="Book" method="post">
@@ -30,25 +31,28 @@
                         <li>@Model.MovieProjection.Date</li>
                         <li>
                             <span id="counter">0</span>
-                            <input id="quantity" name="Quantity" type="hidden" value="" />
+                            <input asp-for="@Model.Ticket.Quantity" value="0" />
+                            <span asp-validation-for="@Model.Ticket.Quantity" class="text-danger"></span>
                         </li>
                         <li>
                             <b>
                                 <i>$</i><span id="total">0</span>
-                                <input id="price" name="Price" type="hidden" value="" />
+                                <input asp-for="@Model.Ticket.Price" value="0" />
                             </b>
+                            <span asp-validation-for="@Model.Ticket.Price" class="text-danger"></span>
                         </li>
                     </ul>
-                    <select class="selectpicker" data-width="fit" name="TicketType"
+                    <select class="selectpicker" data-width="fit" asp-for="@Model.Ticket.TicketType"
                             asp-items="@(Html.GetEnumSelectList<TicketType>())">
                         <option selected="" disabled="">Select Ticket Type</option>
                     </select>
-                    <input name="MovieProjectionTime" type="hidden" value="@Model.MovieProjection.Date" />
+                    <div class="container">
+                        <span asp-validation-for="@Model.Ticket.TicketType" class="text-danger"></span>
+                    </div>
+                    <input asp-for="@Model.Ticket.MovieProjectionTime" type="hidden" value="@Model.MovieProjection.Date" />
                     <div class="clear"></div>
                     <ul id="selected-seats" class="scrollbar scrollbar1"></ul>
-                    <input id="row" name="Row" type="hidden" value="" />
-                    <input id="seat" name="Seat" type="hidden" value="" />
-                    <button type="submit" class="checkout-button" asp-route-movieProjectionId="@Model.MovieProjection.Id">Book Now</button>
+                    <button type="submit" class="checkout-button">Book Now</button>
                 </form>
                 <div id="legend"></div>
             </div>
@@ -68,26 +72,17 @@
                 $ticketCounter = $('#counter'), //Tickets
                 $total = $('#total'); //Total money
 
+            let availableSeats = @Html.Raw(Json.Serialize(Model.AvailableSeats));
             var sc = $('#seat-map').seatCharts({
-                map: [  //Seating chart
-                    'aaaaaaaaaa',
-                    'aaaaaaaaaa',
-                    '__________',
-                    'aaaaaaaa__',
-                    'aaaaaaaaaa',
-                    'aaaaaaaaaa',
-                    'aaaaaaaaaa',
-                    'aaaaaaaaaa',
-                    'aaaaaaaaaa',
-                    '__aaaaaa__'
-                ],
+                //Seating chart
+                map: availableSeats,
                 naming: {
                     top: false,
                     getLabel: function (character, row, column) {
                         return column;
                     }
                 },
-                legend: { //Definition legend
+                legend: { //Definition legend tva e legendata
                     node: $('#legend'),
                     items: [
                         ['a', 'available', 'Available'],
@@ -109,10 +104,10 @@
 
                         $ticketCounter.text(quantity);
                         $total.text(totalPrice);
-                        document.getElementById('quantity').value = quantity;
-                        document.getElementById('price').value = totalPrice;
-                        document.getElementById('row').value = row;
-                        document.getElementById('seat').value = seat;
+                        document.getElementById('Ticket_Quantity').value = quantity;
+                        document.getElementById('Ticket_Price').value = totalPrice;
+                        document.getElementById('Ticket_Row').value = row;
+                        document.getElementById('Ticket_Seat').value = seat;
 
                         return 'selected';
                     } else if (this.status() == 'selected') { //Checked
@@ -125,7 +120,7 @@
                         $('#cart-item-' + this.settings.id).remove();
                         //optional
                         return 'available';
-                    } else if (this.status() == 'unavailable') { //sold
+                    } else if (this.status() == 'unavailable') {
                         return 'unavailable';
                     } else {
                         return this.style();
@@ -133,9 +128,9 @@
                 }
             });
 
-            //sold seat
-            sc.get(['1_2', '4_4', '4_5', '6_6', '6_7', '8_5', '8_6', '8_7', '8_8', '10_1', '10_2']).status('unavailable');
-
+            //sold seats
+            let soldSeats = @Html.Raw(Json.Serialize(Model.SoldSeats));
+            sc.get(soldSeats).status('unavailable');
         });
 
         //sum total money

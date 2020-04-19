@@ -67,7 +67,5 @@
         public const string TicketNotFound = "Ticket with id {0} is not found.";
 
         public const string SeatSoldError = "Seat with id {0} is sold.";
-
-        public const string SeatUnavailableError = "Seat with id {0} is unavailable.";
     }
 }

@@ -18,6 +18,8 @@
 
     public class SeatsService : ISeatsService
     {
+        private const int SeatsPerRowCount = 10;
+
         private readonly IDeletableEntityRepository<Seat> seatsRepository;
         private readonly IDeletableEntityRepository<Hall> hallsRepository;
 
@@ -124,6 +126,64 @@
                 .ToListAsync();
 
             return seats;
+        }
+
+        public async Task<IEnumerable<string>> GetAllSoldSeatsAsync(int hallId)
+        {
+            var soldSeats = await this.seatsRepository
+                .All()
+                .Where(x => x.IsSold == true && x.HallId == hallId)
+                .Select(x => x.RowNumber.ToString() + "_" + x.Number.ToString())
+                .ToListAsync();
+
+            return soldSeats;
+        }
+
+        public async Task<IEnumerable<string>> GetAllAvailableSeatsAsync(int hallId)
+        {
+            var availableSeats = await this.seatsRepository
+                .All()
+                .Where(x => x.IsAvailable == true && x.HallId == hallId)
+                .ToListAsync();
+
+            var seatMap = new List<string>();
+            var seatsCount = availableSeats.Count;
+            int numberOfRows = 0;
+
+            while (seatsCount > 10)
+            {
+                seatsCount -= 10;
+                numberOfRows++;
+            }
+
+            // Fill full row
+            for (int i = 0; i < numberOfRows; i++)
+            {
+                string currentRow = string.Empty;
+                for (int j = 0; j < SeatsPerRowCount; j++)
+                {
+                    currentRow += "a";
+                }
+
+                seatMap.Add(currentRow);
+            }
+
+            // Fill row with empty seats
+            string row = string.Empty;
+            for (int i = 0; i < SeatsPerRowCount; i++)
+            {
+                if (i < seatsCount)
+                {
+                    row += "a";
+                }
+                else
+                {
+                    row += "_";
+                }
+            }
+
+            seatMap.Add(row);
+            return seatMap;
         }
 
         public IQueryable<TViewModel> GetAllSeatsAsQueryeable<TViewModel>()

@@ -15,6 +15,10 @@
 
         Task<IEnumerable<TViewModel>> GetAllSeatsAsync<TViewModel>();
 
+        Task<IEnumerable<string>> GetAllSoldSeatsAsync(int hallId);
+
+        Task<IEnumerable<string>> GetAllAvailableSeatsAsync(int hallId);
+
         IQueryable<TViewModel> GetAllSeatsAsQueryeable<TViewModel>();
     }
 }

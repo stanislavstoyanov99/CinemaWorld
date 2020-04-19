@@ -29,7 +29,7 @@
 
             for (int row = 1; row <= 10; row++)
             {
-                for (int col = 1; col <= 8; col++)
+                for (int col = 1; col <= 10; col++)
                 {
                     int category = this.random.Next((int)SeatCategory.Normal, (int)SeatCategory.Wheelchair + 1);
 
@@ -37,7 +37,7 @@
                     {
                         RowNumber = row,
                         Number = col,
-                        HallId = 5,
+                        HallId = 1,
                         Category = (SeatCategory)category,
                     };
 

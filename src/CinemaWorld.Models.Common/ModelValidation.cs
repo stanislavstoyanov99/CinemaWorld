@@ -205,7 +205,8 @@
 
         public static class Ticket
         {
-            public const string InvalidSeat = "Please choose seat.";
+            public const string InvalidSeat = "Please choose seat";
+            public const string MissingTicketType = "Please choose ticket type";
         }
     }
 }
