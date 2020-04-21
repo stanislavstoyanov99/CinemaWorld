@@ -25,10 +25,6 @@
         public string TicketType { get; set; }
 
         [HiddenInput]
-        [Required(ErrorMessage = MissingTicketType)]
-        public string SeatCategory { get; set; }
-
-        [HiddenInput]
         [Range(1, int.MaxValue, ErrorMessage = InvalidSeat)]
         public int Quantity { get; set; }
 

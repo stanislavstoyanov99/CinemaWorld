@@ -20,6 +20,7 @@
     {
         private const string AllPaginationFilter = "All";
         private const string DigitPaginationFilter = "0 - 9";
+        private const int MostPopularMoviesRating = 40;
 
         private readonly IDeletableEntityRepository<Movie> moviesRepository;
         private readonly IDeletableEntityRepository<Director> directorsRepository;
@@ -284,6 +285,18 @@
                 .ToListAsync();
 
             return recentlyAddedMovies;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetMostPopularMoviesAsync<TViewModel>(int count = 0)
+        {
+            var mostPopularMovies = await this.moviesRepository
+                .All()
+                .Where(x => x.Ratings.Any(x => x.Rate >= MostPopularMoviesRating))
+                .Take(count)
+                .To<TViewModel>()
+                .ToListAsync();
+
+            return mostPopularMovies;
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllMovieGenresAsync<TViewModel>()

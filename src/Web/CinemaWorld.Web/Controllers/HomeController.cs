@@ -12,9 +12,9 @@
 
     public class HomeController : Controller
     {
-        private const decimal RatingInSlider = 6;
         private const int TopMoviesInHeaderSliderCount = 6;
         private const int RecentlyAddedMoviesCount = 12;
+        private const int MostPopularMoviesCount = 3;
 
         private readonly IMoviesService moviesService;
 
@@ -33,11 +33,13 @@
             var allMovies = await this.moviesService
                 .GetAllMoviesAsync<TopRatingMovieDetailsViewModel>();
             var topMoviesInSlider = await this.moviesService
-                .GetTopMoviesAsync<SliderMovieDetailsViewModel>(RatingInSlider);
+                .GetTopMoviesAsync<SliderMovieDetailsViewModel>(TopMoviesInHeaderSliderCount);
             var topRatingMovies = await this.moviesService
                 .GetTopMoviesAsync<TopRatingMovieDetailsViewModel>();
             var recentlyAddedMovies = await this.moviesService
                 .GetRecentlyAddedMoviesAsync<RecentlyAddedMovieDetailsViewModel>(RecentlyAddedMoviesCount);
+            var mostPopularMovies = await this.moviesService
+                .GetMostPopularMoviesAsync<MostPopularDetailsViewModel>(MostPopularMoviesCount);
 
             var viewModel = new MoviesHomePageListingViewModel
             {
@@ -45,14 +47,13 @@
                     .OrderByDescending(x => x.StarRatingsSum)
                     .ThenByDescending(x => x.DateOfRelease.Year)
                     .ToList(),
-                TopMoviesInSlider = topMoviesInSlider
-                    .Take(TopMoviesInHeaderSliderCount)
-                    .ToList(),
+                TopMoviesInSlider = topMoviesInSlider,
                 TopRatingMovies = topRatingMovies
                     .OrderByDescending(x => x.StarRatingsSum)
                     .ThenByDescending(x => x.DateOfRelease.Year)
                     .ToList(),
                 RecentlyAddedMovies = recentlyAddedMovies,
+                MostPopularMovies = mostPopularMovies,
             };
 
             return this.View(viewModel);

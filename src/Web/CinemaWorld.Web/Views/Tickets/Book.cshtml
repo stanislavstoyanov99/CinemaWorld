@@ -52,6 +52,9 @@
                     <input asp-for="@Model.Ticket.MovieProjectionTime" type="hidden" value="@Model.MovieProjection.Date" />
                     <div class="clear"></div>
                     <ul id="selected-seats" class="scrollbar scrollbar1"></ul>
+                    <input asp-for="@Model.Ticket.Row" />
+                    <input asp-for="@Model.Ticket.Seat" />
+                    <input id="choosen-seats" name="ChoosenSeats" type="hidden" />
                     <button type="submit" class="checkout-button">Book Now</button>
                 </form>
                 <div id="legend"></div>
@@ -99,8 +102,8 @@
 
                         let quantity = sc.find('selected').length + 1;
                         let totalPrice = recalculateTotal(sc) + price;
-                        let row = this.settings.row + 1;
-                        let seat = this.settings.label;
+                        var row = this.settings.row + 1;
+                        var seat = this.settings.label;
 
                         $ticketCounter.text(quantity);
                         $total.text(totalPrice);
@@ -142,5 +145,11 @@
 
             return total;
         }
+
+        let selectedSeats = document.getElementById('selected-seats');
+        let elements = selectedSeats.getElementsByTagName('li');
+        let json = { "selectedSeats": elements };
+
+        document.getElementById('choosen-seats').value = json;
     </script>
 }

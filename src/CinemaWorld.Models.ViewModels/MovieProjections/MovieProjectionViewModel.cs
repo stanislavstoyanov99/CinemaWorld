@@ -13,5 +13,7 @@
         public IEnumerable<string> AvailableSeats { get; set; }
 
         public TicketInputModel Ticket { get; set; }
+
+        public object ChoosenSeats { get; set; }
     }
 }

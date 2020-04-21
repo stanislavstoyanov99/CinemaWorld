@@ -19,6 +19,8 @@
 
         Task<IEnumerable<TViewModel>> GetRecentlyAddedMoviesAsync<TViewModel>(int count = 0);
 
+        Task<IEnumerable<TViewModel>> GetMostPopularMoviesAsync<TViewModel>(int count = 0);
+
         Task<IEnumerable<TViewModel>> GetAllMovieGenresAsync<TViewModel>();
 
         Task<IEnumerable<TViewModel>> GetAllMovieCountriesAsync<TViewModel>();

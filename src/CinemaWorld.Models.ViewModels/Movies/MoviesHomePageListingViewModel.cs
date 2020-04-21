@@ -11,5 +11,7 @@
         public IEnumerable<TopRatingMovieDetailsViewModel> TopRatingMovies { get; set; }
 
         public IEnumerable<RecentlyAddedMovieDetailsViewModel> RecentlyAddedMovies { get; set; }
+
+        public IEnumerable<MostPopularDetailsViewModel> MostPopularMovies { get; set; }
     }
 }
