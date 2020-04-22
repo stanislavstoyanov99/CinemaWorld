@@ -23,18 +23,21 @@
             var targetController = this.ActiveWhen.Split("/")[1];
             var targetAction = this.ActiveWhen.Split("/")[2];
 
-            var currentController = this.ViewContextData.RouteData.Values["controller"].ToString();
-            var currentAction = this.ViewContextData.RouteData.Values["action"].ToString();
+            var currentController = this.ViewContextData.RouteData.Values["controller"]?.ToString();
+            var currentAction = this.ViewContextData.RouteData.Values["action"]?.ToString();
 
-            if (currentController.Equals(targetController) && currentAction.Equals(targetAction))
+            if (currentController != null || currentAction != null)
             {
-                if (output.Attributes.ContainsName("class"))
+                if (currentController.Equals(targetController) && currentAction.Equals(targetAction))
                 {
-                    output.Attributes.SetAttribute("class", $"{output.Attributes["class"].Value} active");
-                }
-                else
-                {
-                    output.Attributes.SetAttribute("class", "active");
+                    if (output.Attributes.ContainsName("class"))
+                    {
+                        output.Attributes.SetAttribute("class", $"{output.Attributes["class"].Value} active");
+                    }
+                    else
+                    {
+                        output.Attributes.SetAttribute("class", "active");
+                    }
                 }
             }
         }

@@ -746,9 +746,12 @@ section#tables  p {
 .alert {
 	font-size: 0.85em;
 }
-h1.t-button,h2.t-button,h3.t-button,h4.t-button,h5.t-button {
-	line-height:2em;
-	margin-top:0.5em;
+#cookieConsent {
+	margin: 0.5vw;
+}
+h1.t-button, h2.t-button, h3.t-button, h4.t-button, h5.t-button {
+	line-height: 2em;
+	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 }
 li.list-group-item1 {

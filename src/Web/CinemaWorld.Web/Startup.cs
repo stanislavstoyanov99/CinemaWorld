@@ -1,10 +1,7 @@
 ﻿namespace CinemaWorld.Web
 {
     using System;
-    using System.Globalization;
-    using System.Net;
     using System.Reflection;
-    using System.Threading.Tasks;
 
     using CinemaWorld.Data;
     using CinemaWorld.Data.Common;
