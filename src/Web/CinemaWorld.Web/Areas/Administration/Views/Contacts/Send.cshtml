@@ -3,7 +3,7 @@
     this.ViewData["Title"] = "Send email";
     this.ViewData["ActivePage"] = AdminNavPages.Contacts;
 
-    var userEmails = Model.UserEmails.Select(x => new SelectListItem(x.Email + " - " + x.Id, x.Id.ToString()));
+    var userEmails = Model.UserEmails.Select(x => new SelectListItem(x.Email + " - " + x.Id, x.Email.ToString()));
 }
 
 <div class="row">

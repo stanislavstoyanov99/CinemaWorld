@@ -182,10 +182,10 @@
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute(
                             "genreName",
-                            "genre/{name}",
+                            "genre/{name:minlength(3)}",
                             new { controller = "Genres", action = "ByName" });
-                        endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Contacts}/{action=SuccessfullySend}/{userEmail?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                        endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Contacts}/{action=SuccessfullySend}/{userEmail?}");
                         endpoints.MapControllerRoute("subscription", "{controller=Home}/{action=ThankYouSubscription}/{email?}");
                         endpoints.MapRazorPages();
                     });

@@ -1,8 +1,10 @@
 ﻿namespace CinemaWorld.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.ViewModels;
+    using CinemaWorld.Models.ViewModels.Genres;
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Contracts;
 
@@ -21,9 +23,14 @@
 
         public async Task<IActionResult> ByName(int? pageNumber, string name)
         {
-            this.TempData["GenreName"] = name;
             var moviesByGenreName = await Task.Run(() => this.moviesService.GetByGenreNameAsQueryable(name));
 
+            if (moviesByGenreName.Count() == 0)
+            {
+                return this.NotFound();
+            }
+
+            this.TempData["GenreName"] = name;
             var moviesByGenreNamePaginated = await PaginatedList<MovieDetailsViewModel>
                     .CreateAsync(moviesByGenreName, pageNumber ?? 1, GenresPerPage);
 

@@ -63,7 +63,7 @@ window.onYouTubeIframeAPIReady = function() {
 					id: 'player',
 					src: 'https://www.youtube.com/embed/' + video.data('video') + '?' + $.param(defaults)
 				})
-				.attr({ width: video.width(), height: video.height(), seamless: 'seamless' })
+			    .attr({ width: video.width(), height: video.height(), seamless: 'seamless', allowFullScreen: '' })
 				.css('border', 'none')
 				.appendTo( video );
 

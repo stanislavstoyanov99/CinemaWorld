@@ -303,6 +303,9 @@ p.fexi_header_para1 a i {
 .w3_facebook{
 	background:#3b5998;
 }
+.w3_instagram {
+	background: #fd1d1d;
+}
 .w3_g_plus{
 	background:#dd4b39;
 }
@@ -311,6 +314,9 @@ p.fexi_header_para1 a i {
 }
 .w3_facebook:hover{
 	background:#6187D5;
+}
+.w3_instagram:hover {
+	background:#833ab4;
 }
 .w3_dribbble:hover{
 	background:#EC6D9E;

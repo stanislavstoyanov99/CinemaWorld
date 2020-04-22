@@ -46,9 +46,8 @@
                             asp-items="@(Html.GetEnumSelectList<TicketType>())">
                         <option selected="" disabled="">Select Ticket Type</option>
                     </select>
-                    <div class="container">
-                        <span asp-validation-for="@Model.Ticket.TicketType" class="text-danger"></span>
-                    </div>
+                    <div class="clear"></div>
+                    <span asp-validation-for="@Model.Ticket.TicketType" class="text-danger"></span>
                     <input asp-for="@Model.Ticket.MovieProjectionTime" type="hidden" value="@Model.MovieProjection.Date" />
                     <div class="clear"></div>
                     <ul id="selected-seats" class="scrollbar scrollbar1"></ul>
