@@ -76,6 +76,8 @@
 
         public DbSet<StarRating> StarRatings { get; set; }
 
+        public DbSet<Privacy> Privacies { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

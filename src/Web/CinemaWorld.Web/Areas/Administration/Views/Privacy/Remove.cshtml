@@ -1,0 +1,20 @@
+﻿@model CinemaWorld.Models.ViewModels.Privacy.PrivacyDetailsViewModel
+@{
+    this.ViewData["Title"] = "Delete Privacy";
+    this.ViewData["ActivePage"] = PrivacyNavPages.Privacy;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Privacy" asp-action="Remove" method="post">
+            <h4 class="text-danger">Are you sure you want to delete privacy with <b>@Model.Id</b> id?</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="PageContent"></label>
+                <textarea asp-for="SanitizedPageContent" class="form-control" disabled=""></textarea>
+            </div>
+            <button type="submit" class="btn btn-danger">Delete privacy</button>
+            <button asp-area="" asp-controller="Home" asp-action="Privacy" class="btn btn-primary">Back to privacy</button>
+        </form>
+    </div>
+</div>

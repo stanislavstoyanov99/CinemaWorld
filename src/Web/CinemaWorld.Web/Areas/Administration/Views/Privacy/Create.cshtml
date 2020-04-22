@@ -1,0 +1,33 @@
+﻿@model CinemaWorld.Models.InputModels.AdministratorInputModels.Privacy.PrivacyCreateInputModel
+@{
+    this.ViewData["Title"] = "Create Privacy";
+    this.ViewData["ActivePage"] = PrivacyNavPages.Privacy;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Privacy" asp-action="Create" method="post">
+            <h4>Create new privacy</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="PageContent"></label>
+                <textarea asp-for="PageContent" class="form-control"></textarea>
+                <span asp-validation-for="PageContent" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Create privacy</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",
+            plugins: [
+                "image paste table link code media"
+            ]
+        });
+    </script>
+}

@@ -208,5 +208,14 @@
             public const string InvalidSeat = "Please choose seat";
             public const string MissingTicketType = "Please choose ticket type";
         }
+
+        public static class Privacy
+        {
+            public const int PageContentMinLength = 1000;
+            public const int PageContentMaxLength = 15000;
+
+            public const string PageContentLengthError = "Page content must be between {2} and {1} symbols";
+            public const string PageContentDisplayName = "Page Content";
+        }
     }
 }

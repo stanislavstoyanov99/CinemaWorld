@@ -68,5 +68,10 @@
             public const int CapacityMinLength = 1;
             public const int CapacityMaxLength = 100;
         }
+
+        public static class Privacy
+        {
+            public const int ContentPageMaxLength = 15000;
+        }
     }
 }

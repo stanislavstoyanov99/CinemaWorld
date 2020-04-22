@@ -49,7 +49,7 @@
 
         public async Task DeleteByIdAsync(int id)
         {
-            var faq = this.faqEntriesRepository.All().FirstOrDefault(x => x.Id == id);
+            var faq = await this.faqEntriesRepository.All().FirstOrDefaultAsync(x => x.Id == id);
             if (faq == null)
             {
                 throw new NullReferenceException(
@@ -64,7 +64,7 @@
 
         public async Task EditAsync(FaqEditViewModel faqEditViewModel)
         {
-            var faq = this.faqEntriesRepository.All().FirstOrDefault(g => g.Id == faqEditViewModel.Id);
+            var faq = await this.faqEntriesRepository.All().FirstOrDefaultAsync(g => g.Id == faqEditViewModel.Id);
 
             if (faq == null)
             {

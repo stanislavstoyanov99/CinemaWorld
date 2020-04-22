@@ -1,0 +1,22 @@
+﻿@{
+    this.ViewData["ActivePage"] = PrivacyNavPages.Privacy;
+    this.ViewData["Title"] = "Privacy";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="@PrivacyNavPages.CreatePrivacyNavClass(ViewContext)">
+                    <a asp-controller="Privacy" asp-action="Create">Create privacy</a>
+                </li>
+                <li class="@PrivacyNavPages.EditPrivacyNavClass(ViewContext)">
+                    <a asp-controller="Privacy" asp-action="Edit" asp-route-id="1">Edit privacy</a>
+                </li>
+                <li class="@PrivacyNavPages.DeletePrivacyNavClass(ViewContext)">
+                    <a asp-controller="Privacy" asp-action="Remove" asp-route-id="1">Delete privacy</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

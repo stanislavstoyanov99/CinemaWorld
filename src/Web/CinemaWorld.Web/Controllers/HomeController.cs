@@ -6,6 +6,7 @@
 
     using CinemaWorld.Models.ViewModels;
     using CinemaWorld.Models.ViewModels.Movies;
+    using CinemaWorld.Models.ViewModels.Privacy;
     using CinemaWorld.Services.Data.Contracts;
 
     using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,12 @@
         private const int MostPopularMoviesCount = 3;
 
         private readonly IMoviesService moviesService;
+        private readonly IPrivacyService privacyService;
 
-        public HomeController(IMoviesService moviesService)
+        public HomeController(IMoviesService moviesService, IPrivacyService privacyService)
         {
             this.moviesService = moviesService;
+            this.privacyService = privacyService;
         }
 
         public async Task<IActionResult> Index(string email)
@@ -64,9 +67,11 @@
             return this.View("SuccessfullySubscribed", email);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
-            return this.View();
+            var privacy = await this.privacyService.GetViewModelAsync<PrivacyDetailsViewModel>();
+
+            return this.View(privacy);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
