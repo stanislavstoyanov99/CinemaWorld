@@ -9,6 +9,28 @@
 
 <div class="content">
     <h1>Book Movie Ticket</h1>
+    <div class="modal fade" id="bookingModal" role="dialog" aria-labelledby="bookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="bookingModalLabel">Information</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="shadow">
+                        <div class="lds-dual-ring"></div>
+                    </div>
+                    <div id="info-message" style="display: none; white-space: pre-line"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a type="button" class="btn btn-primary" asp-controller="Schedule" asp-action="Index">Back to schedule</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="main">
         <h2>Multiplex Showing Screen @Model.MovieProjection.Hall.Id</h2>
         <div class="demo">
@@ -22,10 +44,9 @@
                     <li>Tickets</li>
                     <li>Total</li>
                     <li>Ticket Type</li>
-                    <li>Seat category</li>
                     <li>Seats</li>
                 </ul>
-                <form asp-controller="Tickets" asp-action="Book" method="post">
+                <form id="bookingFormAjax" asp-controller="Tickets" asp-action="Book" method="post">
                     <ul class="book-right">
                         <li>@Model.MovieProjection.Movie.Name</li>
                         <li>@Model.MovieProjection.Date</li>
@@ -51,10 +72,10 @@
                     <input asp-for="@Model.Ticket.MovieProjectionTime" type="hidden" value="@Model.MovieProjection.Date" />
                     <div class="clear"></div>
                     <ul id="selected-seats" class="scrollbar scrollbar1"></ul>
-                    <input asp-for="@Model.Ticket.Row" />
-                    <input asp-for="@Model.Ticket.Seat" />
+                    <input asp-for="@Model.Ticket.Row" value="0" />
+                    <input asp-for="@Model.Ticket.Seat" value="0" />
                     <input id="choosen-seats" name="ChoosenSeats" type="hidden" />
-                    <button type="submit" class="checkout-button">Book Now</button>
+                    <button type="submit" class="checkout-button" data-toggle="modal" data-target="#bookingModal">Book Now</button>
                 </form>
                 <div id="legend"></div>
             </div>
@@ -145,6 +166,47 @@
             return total;
         }
 
+        $('#bookingFormAjax').submit(function (event) {
+            event.preventDefault();
+            var json = { success: false, message: '', action: '' };
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: $('#bookingFormAjax').attr('action'),
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: $('#bookingFormAjax').serialize(),
+                beforeSend: function () {
+                    $('.shadow').show(600);
+                },
+                success: function (data) {
+                    json = data;
+                },
+                error: function (errorThrown) {
+                    json.message = 'Request failed: ' + errorThrown;
+                },
+                complete: function () {
+                    $('.shadow').hide(600);
+                    let div = document.getElementById("info-message");
+
+                    if (json.success) {
+                        div.style.display = "block";
+                        div.innerHTML = json.message;
+
+                        $('#bookingModal').on('hidden.bs.modal', function () {
+                            window.location.reload();
+                        });
+                    }
+                    else {
+                        div.style.display = "block";
+                        div.innerHTML = json.message;
+                    }
+                }
+            });
+        });
+
+        // TODO: choose more than one seat in hall
         let selectedSeats = document.getElementById('selected-seats');
         let elements = selectedSeats.getElementsByTagName('li');
         let json = { "selectedSeats": elements };

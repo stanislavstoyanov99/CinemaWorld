@@ -1,7 +1,6 @@
 ﻿namespace CinemaWorld.Web.Controllers
 {
     using System;
-    using System.Linq;
     using System.Security.Claims;
     using System.Text;
     using System.Text.Encodings.Web;
@@ -11,12 +10,12 @@
     using CinemaWorld.Data.Models;
     using CinemaWorld.Data.Models.Enumerations;
     using CinemaWorld.Models.InputModels.Users;
+    using CinemaWorld.Web.Helpers;
     using CinemaWorld.Web.Infrastructure;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
 
@@ -81,7 +80,7 @@
             // login was unsuccessful, return model errors
             if (!ajaxObject.Success)
             {
-                ajaxObject.Message = this.ModelErorrs(this.ModelState);
+                ajaxObject.Message = ModelErrorsHelper.GetModelErrors(this.ModelState);
             }
 
             var jsonResult = new JsonResult(ajaxObject);
@@ -148,7 +147,7 @@
 
             if (!ajaxObject.Success)
             {
-                ajaxObject.Message = this.ModelErorrs(this.ModelState);
+                ajaxObject.Message = ModelErrorsHelper.GetModelErrors(this.ModelState);
             }
 
             var jsonResult = new JsonResult(ajaxObject);
@@ -283,13 +282,6 @@
             this.LoginProvider = info.LoginProvider;
             this.ReturnUrl = returnUrl;
             return this.View("ExternalFacebookLoginCallback", inputModel);
-        }
-
-        private string ModelErorrs(ModelStateDictionary modelState)
-        {
-            return string.Join(Environment.NewLine, modelState.Values
-                .SelectMany(x => x.Errors)
-                .Select(x => x.ErrorMessage));
         }
     }
 }

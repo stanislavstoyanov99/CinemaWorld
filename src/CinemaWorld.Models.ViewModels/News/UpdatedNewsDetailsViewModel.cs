@@ -15,7 +15,7 @@
 
         public DateTime? ModifiedOn { get; set; }
 
-        public int UpdatedSince
+        public int? UpdatedSince
         {
             get
             {
@@ -26,7 +26,7 @@
                 }
                 else
                 {
-                    return 0;
+                    return null;
                 }
             }
         }

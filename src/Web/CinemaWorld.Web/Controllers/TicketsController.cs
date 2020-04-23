@@ -1,14 +1,11 @@
 ﻿namespace CinemaWorld.Web.Controllers
 {
     using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Threading.Tasks;
 
-    using CinemaWorld.Models.ViewModels;
     using CinemaWorld.Models.ViewModels.MovieProjections;
-    using CinemaWorld.Models.ViewModels.Tickets;
     using CinemaWorld.Services.Data.Contracts;
+    using CinemaWorld.Web.Helpers;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -68,24 +65,28 @@
                     Ticket = movieProjectionViewModel.Ticket,
                 };
 
-                return this.View(viewModel);
+                return this.Json(new
+                    {
+                        Success = false,
+                        Model = viewModel,
+                        Message = ModelErrorsHelper.GetModelErrors(this.ModelState),
+                    });
             }
 
             try
             {
-                await this.ticketsService.BuyAsync(movieProjectionViewModel.Ticket, id);
+                var result = await this.ticketsService.BuyAsync(movieProjectionViewModel.Ticket, id);
+
+                return this.Json(new
+                    {
+                        Success = true,
+                        Message = "Movie projection has been successfully booked!",
+                    });
             }
             catch (ArgumentException aex)
             {
-                return this.View(
-                    "BookingError", new BookingErrorViewModel
-                    {
-                        RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier,
-                        ErrorMessage = aex.Message,
-                    });
+                return this.Json(new { Success = false, Message = aex.Message });
             }
-
-            return this.RedirectToAction("Index", "Schedule");
         }
     }
 }
