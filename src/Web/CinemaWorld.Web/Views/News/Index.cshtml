@@ -132,7 +132,8 @@
                                     {
                                         <div class="date-text">
                                             <a asp-controller="News" asp-action="Details" asp-route-id="@updatedNewsItem.Id">
-                                                @if (updatedNewsItem.UpdatedSince <= updatedSinceHourLimit)
+                                                @if (updatedNewsItem.UpdatedSince <= updatedSinceHourLimit 
+                                                    && updatedNewsItem.UpdatedSince != null)
                                                 {
                                                     <span class="blinking"><img src="images/new.png" alt="Blinking image" /></span>
                                                 }
