@@ -32,34 +32,6 @@
                         <div class="w3ls-news-result">
                             <h4>Total Count : <span>@Model.News.Count()</span></h4>
                         </div>
-                        @if (Model.News.TotalPages != 0)
-                        {
-                            <div class="blog-pagenat-wthree">
-                                <ul class="pagination">
-                                    <li>
-                                        <a class="frist @prevDisabled" asp-action="Index" asp-route-pageNumber="@prevPage">
-                                            Previous
-                                        </a>
-                                    </li>
-                                    @for (int i = 1; i <= Model.News.TotalPages; i++)
-                                    {
-                                        if (i == Model.News.PageIndex)
-                                        {
-                                            <li class="active"><a asp-action="Index" asp-route-pageNumber="@i">@i</a></li>
-                                        }
-                                        else
-                                        {
-                                            <li><a asp-action="Index" asp-route-pageNumber="@i">@i</a></li>
-                                        }
-                                    }
-                                    <li>
-                                        <a class="last @nextDisabled" asp-action="Index" asp-route-pageNumber="@nextPage">
-                                            Next
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        }
                         <div id="myTabContent" class="tab-content">
                             <div role="tabpanel" class="tab-pane fade in active" id="home1" aria-labelledby="home1-tab">
                                 @foreach (var news in Model.News)
@@ -93,34 +65,58 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="w3bsd" aria-labelledby="w3bsd-tab">
                             @*@for (int i = counter; i < Model.Count(); i++)
-                                {
-                                    <div class="wthree-news-top-left">
-                                        <div class="col-md-6 w3-agileits-news-left">
-                                            <div class="col-sm-5 wthree-news-img">
-                                                <a asp-controller="News" asp-action="Details" asp-route-id="@Model[i].Id">
-                                                    <img src="@Model[i].ImagePath" alt="Image" />
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-7 wthree-news-info">
-                                                <h5>
-                                                    <a asp-controller ="News" asp-action="Details" asp-route-id="@Model[i].Id">
-                                                        @Model[i].Title
-                                                    </a>
-                                                </h5>
-                                                <p>@Model[i].SanitizedShortDescription</p>
-                                                <ul>
-                                                    <li><i class="fa fa-clock-o" aria-hidden="true"></i> @Model[i].CreationDate</li>
-                                                    <li><i class="fa fa-eye" aria-hidden="true"></i> 2642</li>
-                                                </ul>
-                                            </div>
-                                            <div class="clearfix"> </div>
-                                        </div>
-                                        <div class="clearfix"> </div>
-                                    </div>
-                                }*@
+                    {
+                        <div class="wthree-news-top-left">
+                            <div class="col-md-6 w3-agileits-news-left">
+                                <div class="col-sm-5 wthree-news-img">
+                                    <a asp-controller="News" asp-action="Details" asp-route-id="@Model[i].Id">
+                                        <img src="@Model[i].ImagePath" alt="Image" />
+                                    </a>
+                                </div>
+                                <div class="col-sm-7 wthree-news-info">
+                                    <h5>
+                                        <a asp-controller ="News" asp-action="Details" asp-route-id="@Model[i].Id">
+                                            @Model[i].Title
+                                        </a>
+                                    </h5>
+                                    <p>@Model[i].SanitizedShortDescription</p>
+                                    <ul>
+                                        <li><i class="fa fa-clock-o" aria-hidden="true"></i> @Model[i].CreationDate</li>
+                                        <li><i class="fa fa-eye" aria-hidden="true"></i> 2642</li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                    }*@
                         </div>
                     </div>
                 </div>
+                @if (Model.News.TotalPages != 0)
+                {
+                    <div class="blog-pagenat-wthree">
+                        <ul class="pagination">
+                            <li>
+                                <a class="frist @prevDisabled" asp-action="Index" asp-route-pageNumber="@prevPage">
+                                    Previous
+                                </a>
+                            </li>
+                            @for (int i = 1; i <= Model.News.TotalPages; i++)
+                            {
+                                var active = i == Model.News.PageIndex ? "active" : string.Empty;
+                                <li class="@active">
+                                    <a asp-action="Index" asp-route-pageNumber="@i">@i</a>
+                                </li>
+                            }
+                            <li>
+                                <a class="last @nextDisabled" asp-action="Index" asp-route-pageNumber="@nextPage">
+                                    Next
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                }
             </div>
             <div class="col-md-4 wthree-news-right">
                 <!-- news-right-top -->

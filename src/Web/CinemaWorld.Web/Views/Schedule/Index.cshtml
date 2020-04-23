@@ -42,34 +42,6 @@
                                 </p>
                             </div>
                         </form>
-                        @if (Model.MovieProjections.TotalPages != 0)
-                        {
-                            <div class="blog-pagenat-wthree">
-                                <ul class="pagination">
-                                    <li>
-                                        <a class="frist @prevDisabled" asp-action="Index" asp-route-pageNumber="@prevPage" asp-route-cinemaName="@ViewData["currentFilter"]">
-                                            Previous
-                                        </a>
-                                    </li>
-                                    @for (int i = 1; i <= Model.MovieProjections.TotalPages; i++)
-                                    {
-                                        if (i == Model.MovieProjections.PageIndex)
-                                        {
-                                            <li class="active"><a asp-action="Index" asp-route-pageNumber="@i" asp-route-cinemaName="@ViewData["currentFilter"]">@i</a></li>
-                                        }
-                                        else
-                                        {
-                                            <li><a asp-action="Index" asp-route-pageNumber="@i" asp-route-cinemaName="@ViewData["currentFilter"]">@i</a></li>
-                                        }
-                                    }
-                                    <li>
-                                        <a class="last @nextDisabled" asp-action="Index" asp-route-pageNumber="@nextPage" asp-route-cinemaName="@ViewData["currentFilter"]">
-                                            Next
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        }
                         <div id="myTabContent" class="tab-content">
                             <div role="tabpanel" class="tab-pane fade in active" id="home1" aria-labelledby="home1-tab">
                                 @foreach (var movieProjection in Model.MovieProjections)
@@ -166,6 +138,40 @@
                         </div>
                     </div>
                 </div>
+                @if (Model.MovieProjections.TotalPages != 0)
+                {
+                    <div class="blog-pagenat-wthree">
+                        <ul class="pagination">
+                            <li>
+                                <a class="frist @prevDisabled" 
+                                   asp-action="Index" 
+                                   asp-route-pageNumber="@prevPage" 
+                                   asp-route-cinemaName="@ViewData["currentFilter"]">
+                                    Previous
+                                </a>
+                            </li>
+                            @for (int i = 1; i <= Model.MovieProjections.TotalPages; i++)
+                            {
+                                var active = i == Model.MovieProjections.PageIndex ? "active" : string.Empty;
+                                <li class="@active">
+                                    <a 
+                                       asp-action="Index" 
+                                       asp-route-pageNumber="@i" 
+                                       asp-route-cinemaName="@ViewData["currentFilter"]">@i
+                                    </a>
+                                </li>
+                            }
+                            <li>
+                                <a class="last @nextDisabled" 
+                                   asp-action="Index" 
+                                   asp-route-pageNumber="@nextPage" 
+                                   asp-route-cinemaName="@ViewData["currentFilter"]">
+                                    Next
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                }
             </div>
             <div class="col-md-4 wthree-news-right">
                 <!-- news-right-top -->

@@ -94,19 +94,13 @@
                     <ul class="pagination">
                         <li>
                             <a class="frist @prevDisabled" asp-action="ByName" asp-route-pageNumber="@prevPage">
-                                Prev
+                                Previous
                             </a>
                         </li>
                         @for (int i = 1; i <= Model.TotalPages; i++)
                         {
-                            if (i == Model.PageIndex)
-                            {
-                                <li class="active"><a asp-action="ByName" asp-route-pageNumber="@i">@i</a></li>
-                            }
-                            else
-                            {
-                                <li><a asp-action="ByName" asp-route-pageNumber="@i">@i</a></li>
-                            }
+                            var active = i == Model.PageIndex ? "active" : string.Empty;
+                            <li class="@active"><a asp-action="ByName" asp-route-pageNumber="@i">@i</a></li>
                         }
                         <li>
                             <a class="last @nextDisabled" asp-action="ByName" asp-route-pageNumber="@nextPage">
