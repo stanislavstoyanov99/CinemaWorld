@@ -156,7 +156,7 @@
                 numberOfRows++;
             }
 
-            // Fill full row
+            // Fill full rows
             for (int i = 0; i < numberOfRows; i++)
             {
                 string currentRow = string.Empty;
@@ -168,18 +168,11 @@
                 seatMap.Add(currentRow);
             }
 
-            // Fill row with empty seats
+            // Fill other seats in order to present a full seat map
             string row = string.Empty;
             for (int i = 0; i < SeatsPerRowCount; i++)
             {
-                if (i < seatsCount)
-                {
-                    row += "a";
-                }
-                else
-                {
-                    row += "_";
-                }
+                row += "a";
             }
 
             seatMap.Add(row);

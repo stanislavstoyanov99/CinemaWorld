@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.ViewModels.MovieProjections;
+    using CinemaWorld.Services.Data.Common;
     using CinemaWorld.Services.Data.Contracts;
     using CinemaWorld.Web.Helpers;
 
@@ -80,7 +81,7 @@
                 return this.Json(new
                     {
                         Success = true,
-                        Message = "Movie projection has been successfully booked!",
+                        Message = OperationalMessages.SuccessfullyBookedMovieProjection,
                     });
             }
             catch (ArgumentException aex)
