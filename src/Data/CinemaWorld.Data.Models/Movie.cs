@@ -18,7 +18,7 @@
             this.MovieCountries = new HashSet<MovieCountry>();
             this.MovieActors = new HashSet<MovieActor>();
             this.Projections = new HashSet<MovieProjection>();
-            this.Comments = new HashSet<Comment>();
+            this.MovieComments = new HashSet<MovieComment>();
         }
 
         [Required]
@@ -75,6 +75,6 @@
 
         public virtual ICollection<StarRating> Ratings { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<MovieComment> MovieComments { get; set; }
     }
 }

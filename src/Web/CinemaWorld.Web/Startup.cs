@@ -111,7 +111,8 @@
             services.AddTransient<IMovieProjectionsService, MovieProjectionsService>();
             services.AddTransient<ITicketsService, TicketsService>();
             services.AddTransient<IPrivacyService, PrivacyService>();
-            services.AddTransient<ICommentsService, CommentsService>();
+            services.AddTransient<IMovieCommentsService, MovieCommentsService>();
+            services.AddTransient<INewsCommentsService, NewsCommentsService>();
 
             // External login providers
             services.AddAuthentication()

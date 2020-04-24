@@ -4,14 +4,16 @@ using CinemaWorld.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CinemaWorld.Data.Migrations
 {
     [DbContext(typeof(CinemaWorldDbContext))]
-    partial class CinemaWorldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200424161842_AddNewsCommentDbContext")]
+    partial class AddNewsCommentDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -652,7 +654,7 @@ namespace CinemaWorld.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MovieComments");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("CinemaWorld.Data.Models.MovieCountry", b =>
@@ -1379,7 +1381,7 @@ namespace CinemaWorld.Data.Migrations
             modelBuilder.Entity("CinemaWorld.Data.Models.MovieComment", b =>
                 {
                     b.HasOne("CinemaWorld.Data.Models.Movie", "Movie")
-                        .WithMany("MovieComments")
+                        .WithMany("Comments")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

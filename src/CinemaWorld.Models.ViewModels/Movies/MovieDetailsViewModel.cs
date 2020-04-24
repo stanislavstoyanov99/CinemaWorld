@@ -9,8 +9,8 @@
 
     using CinemaWorld.Data.Models;
     using CinemaWorld.Data.Models.Enumerations;
-    using CinemaWorld.Models.ViewModels.Comments;
     using CinemaWorld.Models.ViewModels.Directors;
+    using CinemaWorld.Models.ViewModels.MovieComments;
     using CinemaWorld.Services.Mapping;
 
     using static Common.ModelValidation.Movie;
@@ -67,7 +67,7 @@
 
         public int StarRatingsSum { get; set; }
 
-        public IEnumerable<PostCommentViewModel> Comments { get; set; }
+        public IEnumerable<PostMovieCommentViewModel> MovieComments { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

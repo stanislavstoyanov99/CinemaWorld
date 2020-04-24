@@ -5,7 +5,7 @@
 
     void DisplayComments(int? parentId)
     {
-        var comments = this.Model.MovieDetailsViewModel.Comments.Where(x => x.ParentId == parentId);
+        var comments = this.Model.MovieDetailsViewModel.MovieComments.Where(x => x.ParentId == parentId);
         if (!comments.Any())
         {
             return;
@@ -96,7 +96,7 @@
                                 });
                             </script>
                             <div class="agile-info-wthree-box">
-                                <form id="AddCommentForm" asp-controller="Comments" asp-action="Create" method="post" style="display: none">
+                                <form id="AddCommentForm" asp-controller="MovieComments" asp-action="Create" method="post" style="display: none">
                                     <input type="hidden" name="MovieId" value="@Model.MovieDetailsViewModel.Id" />
                                     <input type="hidden" name="ParentId" value="0" />
                                     <div class="form-group">

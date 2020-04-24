@@ -1,8 +1,10 @@
 ﻿namespace CinemaWorld.Models.ViewModels.News
 {
     using System;
+    using System.Collections.Generic;
 
     using CinemaWorld.Data.Models;
+    using CinemaWorld.Models.ViewModels.NewsComments;
     using CinemaWorld.Services.Mapping;
 
     using Ganss.XSS;
@@ -19,10 +21,10 @@
 
         public DateTime CreatedOn { get; set; }
 
-        public string CreationDate => this.CreatedOn.ToShortDateString();
-
         public string UserUserName { get; set; }
 
         public string ImagePath { get; set; }
+
+        public IEnumerable<PostNewsCommentViewModel> NewsComments { get; set; }
     }
 }

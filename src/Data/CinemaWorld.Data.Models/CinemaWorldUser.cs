@@ -21,7 +21,8 @@ namespace CinemaWorld.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
 
             this.News = new HashSet<News>();
-            this.Comments = new HashSet<Comment>();
+            this.Comments = new HashSet<MovieComment>();
+            this.NewsComments = new HashSet<NewsComment>();
         }
 
         [Required]
@@ -53,6 +54,8 @@ namespace CinemaWorld.Data.Models
 
         public virtual ICollection<News> News { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<MovieComment> Comments { get; set; }
+
+        public virtual ICollection<NewsComment> NewsComments { get; set; }
     }
 }
