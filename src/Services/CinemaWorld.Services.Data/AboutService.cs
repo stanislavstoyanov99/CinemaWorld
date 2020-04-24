@@ -17,9 +17,9 @@
 
     public class AboutService : IAboutService
     {
-        private readonly IRepository<FaqEntry> faqEntriesRepository;
+        private readonly IDeletableEntityRepository<FaqEntry> faqEntriesRepository;
 
-        public AboutService(IRepository<FaqEntry> faqEntriesRepository)
+        public AboutService(IDeletableEntityRepository<FaqEntry> faqEntriesRepository)
         {
             this.faqEntriesRepository = faqEntriesRepository;
         }
@@ -32,11 +32,13 @@
                 Answer = faqCreateInputModel.Answer,
             };
 
-            bool doesFaqExist = await this.faqEntriesRepository.All().AnyAsync(x => x.Id == faq.Id);
+            bool doesFaqExist = await this.faqEntriesRepository
+                .All()
+                .AnyAsync(x => x.Question == faqCreateInputModel.Question && x.Answer == faqCreateInputModel.Answer);
             if (doesFaqExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.FaqAlreadyExists, faq.Id));
+                    string.Format(ExceptionMessages.FaqAlreadyExists, faqCreateInputModel.Question, faqCreateInputModel.Answer));
             }
 
             await this.faqEntriesRepository.AddAsync(faq);
