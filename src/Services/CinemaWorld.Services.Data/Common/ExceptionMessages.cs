@@ -71,5 +71,7 @@
         public const string PrivacyAlreadyExists = "Privacy with id {0} already exists";
 
         public const string PrivacyNotFound = "Privacy with id {0} is not found.";
+
+        public const string CommentAlreadyExists = "Comment with id {0} already exists";
     }
 }

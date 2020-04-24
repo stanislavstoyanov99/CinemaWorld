@@ -387,7 +387,7 @@ width:100%;
 	margin-top:4em;
 }
 .media {
-    margin: 4em 0;
+    margin: 2em 0;
 }
 .media h5 {
       font-size: 1.2em;
@@ -399,8 +399,8 @@ width:100%;
   color: #DF2229;
 }
 .media-body p{
-    font-size: 13px;
-    color: #757575;
+    font-size: 15px;
+    color: #181818;
     margin: 0 0 .5em 0;
     line-height: 1.5em;
 }
@@ -411,12 +411,6 @@ width:100%;
 .media-body  span a {
     color:#ff8d1b;
     text-decoration: none;
-}
-.media:nth-child(3) {
-  padding-left: 4em;
-}
-.media:nth-child(5) {
-  padding-left: 4em;
 }
 .single-grid-right{
 	margin-top:2em;

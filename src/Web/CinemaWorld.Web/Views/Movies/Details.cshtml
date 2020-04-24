@@ -2,6 +2,39 @@
 @model DetailsListingViewModel
 @{
     ViewData["Title"] = "Details";
+
+    void DisplayComments(int? parentId)
+    {
+        var comments = this.Model.MovieDetailsViewModel.Comments.Where(x => x.ParentId == parentId);
+        if (!comments.Any())
+        {
+            return;
+        }
+
+        @foreach (var comment in comments)
+        {
+            <div class="media">
+                <h5>@comment.UserFullName</h5>
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <button type="button" class="btn btn-secondary pull-right" onclick="showAddCommentForm(@comment.Id)">
+                        <i class="fa fa-plus"></i>&nbsp; Answer
+                    </button>
+                }
+                <div class="media-left">
+                    <a>
+                        <img src="/images/user.jpg" title="Cinema World User" alt="User profile picture" />
+                    </a>
+                </div>
+                <div class="media-body">
+                    <p>@Html.Raw(comment.SanitizedContent)</p>
+                    <span>Posted by :<a> @comment.UserUserName </a></span>&nbsp;&nbsp;
+                    <span><i class="fa fa-calendar" aria-hidden="true"></i> <time datetime="@comment.CreatedOn.ToString("O")"></time></span>
+                    @{ DisplayComments(comment.Id); }
+                </div>
+            </div>
+        }
+    }
 }
 
 <link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
@@ -40,55 +73,44 @@
                     </div>
                     <div class="all-comments">
                         <div class="all-comments-info">
-                            <a href="#commentsId">Comments</a>
+                            <h3>Comments</h3>
+                            <hr />
+                            @if (this.User.Identity.IsAuthenticated)
+                            {
+                                <div class="px-4 pt-3">
+                                    <button type="button" class="btn btn-primary float-right" onclick="showAddCommentForm(0)">
+                                        <i class="fa fa-plus"></i>&nbsp; Comment
+                                    </button>
+                                </div>
+                            }
+                            <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+                            <script type="text/javascript">
+                                tinymce.init({
+                                    selector: "textarea",
+                                    plugins: ["image paste table link code media"],
+                                    setup: function (editor) {
+                                        editor.on('change', function (e) {
+                                            editor.save();
+                                        });
+                                    }
+                                });
+                            </script>
                             <div class="agile-info-wthree-box">
-                                <form>
-                                    <input type="text" placeholder="Name" required="">
-                                    <input type="text" placeholder="Email" required="">
-                                    <input type="text" placeholder="Phone" required="">
-                                    <textarea placeholder="Message" required=""></textarea>
-                                    <input type="submit" value="SEND">
+                                <form id="AddCommentForm" asp-controller="Comments" asp-action="Create" method="post" style="display: none">
+                                    <input type="hidden" name="MovieId" value="@Model.MovieDetailsViewModel.Id" />
+                                    <input type="hidden" name="ParentId" value="0" />
+                                    <div class="form-group">
+                                        <textarea name="Content" id="Content" placeholder="Message" class="form-control" required=""></textarea>
+                                    </div>
+                                    <div>
+                                        <input type="submit" value="SEND COMMENT" />
+                                    </div>
                                     <div class="clearfix"> </div>
                                 </form>
                             </div>
                         </div>
-                        <div class="media-grids" id="commentsId">
-                            <div class="media">
-                                <h5>TOM BROWN</h5>
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img src="~/images/user.jpg" title="One movies" alt=" " />
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
-                                    <span>View all posts by :<a href="#"> Admin </a></span>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <h5>MARK JOHNSON</h5>
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img src="~/images/user.jpg" title="One movies" alt=" " />
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
-                                    <span>View all posts by :<a href="#"> Admin </a></span>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <h5>STEVEN SMITH</h5>
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img src="~/images/user.jpg" title="One movies" alt=" " />
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
-                                    <span>View all posts by :<a href="#"> Admin </a></span>
-                                </div>
-                            </div>
+                        <div class="media-grids">
+                            @{ DisplayComments(null); }
                         </div>
                     </div>
                 </div>
@@ -183,70 +205,69 @@
                             </div>
                             <div class="clearfix"> </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="clearfix"> </div>
             </div>
-            <div class="w3_agile_banner_bottom_grid">
-                <div id="owl-demo" class="owl-carousel owl-theme">
-                    @foreach (var movie in Model.AllMovies)
-                    {
-                        <div class="item">
-                            <div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
-                                <a asp-action="Details" asp-route-id="@movie.Id" class="hvr-shutter-out-horizontal">
-                                    <img src="@movie.CoverPath" title="@movie.Name" class="img-responsive img-fluid" alt="Movie Cover Path" />
-                                </a>
-                                <div class="mid-1 agileits_w3layouts_mid_1_home">
-                                    <div class="w3l-movie-text">
-                                        <h6><a asp-action="Details" asp-route-id="@movie.Id">@movie.Name</a></h6>
-                                    </div>
-                                    <div class="mid-2 agile_mid_2_home">
-                                        <p>@movie.DateOfRelease.Year</p>
-                                        <form id="starRatingsForm" method="post"></form>
-                                        <div class="block-stars stars_ratings">
-                                            <ul class="w3l-ratings">
-                                                <li>
-                                                    <a href="#@movie.Id" onclick="sendRating(@movie.Id, 1)">
-                                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#@movie.Id" onclick="sendRating(@movie.Id, 2)">
-                                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#@movie.Id" onclick="sendRating(@movie.Id, 3)">
-                                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#@movie.Id" onclick="sendRating(@movie.Id, 4)">
-                                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#@movie.Id" onclick="sendRating(@movie.Id, 5)">
-                                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div id="starRatingsSum_@movie.Id">(@movie.StarRatingsSum)</div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
+        </div>
+        <div class="w3_agile_banner_bottom_grid">
+            <div id="owl-demo" class="owl-carousel owl-theme">
+                @foreach (var movie in Model.AllMovies)
+                {
+                    <div class="item">
+                        <div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+                            <a asp-action="Details" asp-route-id="@movie.Id" class="hvr-shutter-out-horizontal">
+                                <img src="@movie.CoverPath" title="@movie.Name" class="img-responsive img-fluid" alt="Movie Cover Path" />
+                            </a>
+                            <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                <div class="w3l-movie-text">
+                                    <h6><a asp-action="Details" asp-route-id="@movie.Id">@movie.Name</a></h6>
                                 </div>
-                                @if (movie.DateOfRelease.CompareTo(DateTime.UtcNow) > 0)
-                                {
-                                    <div class="ribben">
-                                        <p>NEW</p>
+                                <div class="mid-2 agile_mid_2_home">
+                                    <p>@movie.DateOfRelease.Year</p>
+                                    <form id="starRatingsForm" method="post"></form>
+                                    <div class="block-stars stars_ratings">
+                                        <ul class="w3l-ratings">
+                                            <li>
+                                                <a href="#@movie.Id" onclick="sendRating(@movie.Id, 1)">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#@movie.Id" onclick="sendRating(@movie.Id, 2)">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#@movie.Id" onclick="sendRating(@movie.Id, 3)">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#@movie.Id" onclick="sendRating(@movie.Id, 4)">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#@movie.Id" onclick="sendRating(@movie.Id, 5)">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div id="starRatingsSum_@movie.Id">(@movie.StarRatingsSum)</div>
                                     </div>
-                                }
+                                    <div class="clearfix"></div>
+                                </div>
                             </div>
+                            @if (movie.DateOfRelease.CompareTo(DateTime.UtcNow) > 0)
+                            {
+                                <div class="ribben">
+                                    <p>NEW</p>
+                                </div>
+                            }
                         </div>
-                    }
-                </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -261,4 +282,14 @@
         });
     </script>
     <script type="text/javascript" src="~/js/rating.js"></script>
+
+    <script>
+        function showAddCommentForm(parentId) {
+            $("#AddCommentForm input[name='ParentId']").val(parentId);
+            $("#AddCommentForm").show();
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#AddCommentForm").offset().top
+            }, 1000);
+        }
+    </script>
 }

@@ -52,8 +52,10 @@
                                                 <p>@news.ShortDescription</p>
                                                 <ul>
                                                     <li><i class="fa fa-user" aria-hidden="true"></i> @news.UserUserName</li>
-                                                    <li><i class="fa fa-calendar" aria-hidden="true"></i> @news.CreationDate</li>&nbsp;&nbsp;
                                                     <li><i class="fa fa-eye" aria-hidden="true"></i> @news.ViewsCounter</li>
+                                                </ul>
+                                                <ul>
+                                                    <li><i class="fa fa-calendar" aria-hidden="true"></i> <time datetime="@news.CreatedOn.ToString("O")"></time></li>
                                                 </ul>
                                             </div>
                                             <div class="clearfix"> </div>

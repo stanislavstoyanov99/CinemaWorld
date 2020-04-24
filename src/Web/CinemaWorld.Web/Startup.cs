@@ -111,6 +111,7 @@
             services.AddTransient<IMovieProjectionsService, MovieProjectionsService>();
             services.AddTransient<ITicketsService, TicketsService>();
             services.AddTransient<IPrivacyService, PrivacyService>();
+            services.AddTransient<ICommentsService, CommentsService>();
 
             // External login providers
             services.AddAuthentication()
@@ -180,11 +181,11 @@
                 endpoints =>
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                        endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute(
                             "genreName",
                             "genre/{name:minlength(3)}",
                             new { controller = "Genres", action = "ByName" });
-                        endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Contacts}/{action=SuccessfullySend}/{userEmail?}");
                         endpoints.MapControllerRoute("subscription", "{controller=Home}/{action=ThankYouSubscription}/{email?}");
                         endpoints.MapRazorPages();
