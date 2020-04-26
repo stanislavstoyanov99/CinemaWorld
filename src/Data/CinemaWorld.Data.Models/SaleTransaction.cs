@@ -16,9 +16,9 @@
         [Required]
         public DateTime Date { get; set; }
 
-        public int ShoppingCartId { get; set; }
+        public string UserId { get; set; }
 
-        public virtual ShoppingCart ShoppingCart { get; set; }
+        public virtual CinemaWorldUser User { get; set; }
 
         public int? PromotionId { get; set; }
 

@@ -2,7 +2,6 @@
 {
     using System.Threading.Tasks;
 
-    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Http;
 
     public interface ICloudinaryService

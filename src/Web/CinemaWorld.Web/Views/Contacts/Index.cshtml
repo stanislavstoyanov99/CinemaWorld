@@ -96,10 +96,10 @@
             });
         }
     </script>
-    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptchaProduction:Key"]"></script>
     <script>
         grecaptcha.ready(function () {
-            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Key"]', { action: 'contact_form' }).then(function (token) {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptchaProduction:Key"]', { action: 'contact_form' }).then(function (token) {
                 document.getElementById("RecaptchaValue").value = token;
             });
         });
