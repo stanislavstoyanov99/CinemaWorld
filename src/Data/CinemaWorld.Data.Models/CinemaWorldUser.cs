@@ -23,6 +23,7 @@ namespace CinemaWorld.Data.Models
             this.News = new HashSet<News>();
             this.Comments = new HashSet<MovieComment>();
             this.NewsComments = new HashSet<NewsComment>();
+            this.SaleTransactions = new HashSet<SaleTransaction>();
         }
 
         [Required]
@@ -31,10 +32,6 @@ namespace CinemaWorld.Data.Models
 
         [Required]
         public Gender Gender { get; set; }
-
-        public int ShoppingCartId { get; set; }
-
-        public virtual ShoppingCart ShoppingCart { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
@@ -57,5 +54,7 @@ namespace CinemaWorld.Data.Models
         public virtual ICollection<MovieComment> Comments { get; set; }
 
         public virtual ICollection<NewsComment> NewsComments { get; set; }
+
+        public virtual ICollection<SaleTransaction> SaleTransactions { get; set; }
     }
 }

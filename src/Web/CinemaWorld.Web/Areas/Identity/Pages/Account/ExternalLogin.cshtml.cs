@@ -132,7 +132,6 @@
                     Email = this.Input.Email,
                     Gender = gender,
                     FullName = this.Input.FullName,
-                    ShoppingCart = new ShoppingCart(),
                 };
 
                 var result = await this.userManager.CreateAsync(user);

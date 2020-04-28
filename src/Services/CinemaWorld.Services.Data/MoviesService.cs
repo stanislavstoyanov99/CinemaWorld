@@ -270,6 +270,7 @@
             var movies = this.moviesRepository
                 .All()
                 .OrderBy(x => x.Name)
+                .ThenByDescending(x => x.DateOfRelease)
                 .To<TViewModel>();
 
             return movies;

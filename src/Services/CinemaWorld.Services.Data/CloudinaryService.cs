@@ -7,7 +7,6 @@
 
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
-
     using Microsoft.AspNetCore.Http;
 
     public class CloudinaryService : ICloudinaryService
