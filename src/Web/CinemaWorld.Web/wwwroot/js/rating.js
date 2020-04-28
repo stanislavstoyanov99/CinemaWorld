@@ -73,6 +73,7 @@ function sendRating(movieId, rating) {
 }
 
 function convertUTCDateToLocalDate(date) {
+    console.log(date);
     var newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
 
     var offset = date.getTimezoneOffset() / 60;

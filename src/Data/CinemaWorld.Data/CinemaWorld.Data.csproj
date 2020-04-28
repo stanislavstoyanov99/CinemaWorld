@@ -11,6 +11,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200411184635_AddTicketCardModel.cs" />
+    <Compile Remove="Migrations\20200411184635_AddTicketCardModel.Designer.cs" />
+    <Compile Remove="Migrations\20200411185719_AddShoppingCartModel.cs" />
+    <Compile Remove="Migrations\20200411185719_AddShoppingCartModel.Designer.cs" />
+    <Compile Remove="Migrations\20200411190627_AddShoppingCartToUser.cs" />
+    <Compile Remove="Migrations\20200411190627_AddShoppingCartToUser.Designer.cs" />
+    <Compile Remove="Migrations\20200411191904_AddShoppingCartModelToUser.cs" />
+    <Compile Remove="Migrations\20200411191904_AddShoppingCartModelToUser.Designer.cs" />
+    <Compile Remove="Migrations\20200411193101_AddShoppingCartToUser.cs" />
+    <Compile Remove="Migrations\20200411193101_AddShoppingCartToUser.Designer.cs" />
+    <Compile Remove="Migrations\20200411195356_ShoppingCartToUser.cs" />
+    <Compile Remove="Migrations\20200411195356_ShoppingCartToUser.Designer.cs" />
+    <Compile Remove="Migrations\20200424180321_RenameCommentsOfMovieToMovieComments.cs" />
+    <Compile Remove="Migrations\20200424180321_RenameCommentsOfMovieToMovieComments.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
 

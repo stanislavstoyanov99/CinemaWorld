@@ -123,7 +123,7 @@
                     facebookOptions.Fields.Add("name");
                 });
 
-            Account account = new Account(
+            Account account = new CloudinaryDotNet.Account(
                 this.configuration["Cloudinary:AppName"],
                 this.configuration["Cloudinary:AppKey"],
                 this.configuration["Cloudinary:AppSecret"]);
@@ -143,7 +143,7 @@
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<CinemaWorldDbContext>();
 
-                if (!env.IsDevelopment())
+                if (env.IsDevelopment())
                 {
                     dbContext.Database.Migrate();
                 }

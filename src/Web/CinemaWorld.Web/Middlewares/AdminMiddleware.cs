@@ -35,6 +35,7 @@
                     UserName = GlobalConstants.AdministratorUsername,
                     Email = GlobalConstants.AdministratorEmail,
                     FullName = GlobalConstants.AdministratorFullName,
+                    ShoppingCart = new ShoppingCart(),
                 };
 
                 var result = await userManager.CreateAsync(user, GlobalConstants.AdministratorPassword);

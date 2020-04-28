@@ -273,6 +273,9 @@ namespace CinemaWorld.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ShoppingCartId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -291,6 +294,9 @@ namespace CinemaWorld.Data.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("ShoppingCartId")
+                        .IsUnique();
 
                     b.ToTable("AspNetUsers");
                 });
@@ -1026,11 +1032,11 @@ namespace CinemaWorld.Data.Migrations
                     b.Property<int?>("PromotionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TicketId")
+                    b.Property<int>("ShoppingCartId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -1040,9 +1046,9 @@ namespace CinemaWorld.Data.Migrations
 
                     b.HasIndex("PromotionId");
 
-                    b.HasIndex("TicketId");
+                    b.HasIndex("ShoppingCartId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("TicketId");
 
                     b.ToTable("SaleTransactions");
                 });
@@ -1123,6 +1129,27 @@ namespace CinemaWorld.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("CinemaWorld.Data.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("CinemaWorld.Data.Models.StarRating", b =>
@@ -1316,6 +1343,15 @@ namespace CinemaWorld.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("CinemaWorld.Data.Models.CinemaWorldUser", b =>
+                {
+                    b.HasOne("CinemaWorld.Data.Models.ShoppingCart", "ShoppingCart")
+                        .WithOne("User")
+                        .HasForeignKey("CinemaWorld.Data.Models.CinemaWorldUser", "ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CinemaWorld.Data.Models.Movie", b =>
                 {
                     b.HasOne("CinemaWorld.Data.Models.Director", "Director")
@@ -1476,15 +1512,17 @@ namespace CinemaWorld.Data.Migrations
                         .WithMany("SaleTransactions")
                         .HasForeignKey("PromotionId");
 
+                    b.HasOne("CinemaWorld.Data.Models.ShoppingCart", "ShoppingCart")
+                        .WithMany("SaleTransactions")
+                        .HasForeignKey("ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("CinemaWorld.Data.Models.Ticket", "Ticket")
                         .WithMany("SaleTransactions")
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("CinemaWorld.Data.Models.CinemaWorldUser", "User")
-                        .WithMany("SaleTransactions")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("CinemaWorld.Data.Models.Seat", b =>
