@@ -269,6 +269,7 @@
         {
             var movies = this.moviesRepository
                 .All()
+                .OrderBy(x => x.Name)
                 .To<TViewModel>();
 
             return movies;

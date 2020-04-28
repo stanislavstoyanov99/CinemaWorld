@@ -27,7 +27,7 @@
 
             var seats = new List<Seat>();
 
-            for (int row = 1; row <= 3; row++)
+            for (int row = 1; row <= 15; row++)
             {
                 for (int col = 1; col <= 10; col++)
                 {
@@ -37,7 +37,7 @@
                     {
                         RowNumber = row,
                         Number = col,
-                        HallId = 3,
+                        HallId = 6,
                         Category = (SeatCategory)category,
                     };
 
