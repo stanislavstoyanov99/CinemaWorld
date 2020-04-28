@@ -58,7 +58,7 @@
                                 <i class="fa fa-user" aria-hidden="true"></i> @Model.News.UserUserName
                                 &nbsp;&nbsp;
                                 <i class="fa fa-calendar" aria-hidden="true"></i> <time datetime="@Model.News.CreatedOn.ToString("O")"></time> &nbsp;&nbsp;
-                                <i class="fa fa-comments" aria-hidden="true"></i> Comments (10)
+                                <i class="fa fa-comments" aria-hidden="true"></i> Comments (@Model.News.NewsComments.Count())
                             </p>
                         </div>
                         <div class="w3-agile-news-text">
