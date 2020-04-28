@@ -32,11 +32,11 @@
                 Address = cinemaCreateInputModel.Address,
             };
 
-            bool doesCinemaExists = await this.cinemasRepository.All().AnyAsync(x => x.Id == cinema.Id);
+            bool doesCinemaExists = await this.cinemasRepository.All().AnyAsync(x => x.Name == cinema.Name);
             if (doesCinemaExists)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.CinemaAlreadyExists, cinema.Id));
+                    string.Format(ExceptionMessages.CinemaAlreadyExists, cinema.Name, cinema.Address));
             }
 
             await this.cinemasRepository.AddAsync(cinema);

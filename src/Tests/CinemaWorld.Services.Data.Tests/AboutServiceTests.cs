@@ -169,7 +169,7 @@
         }
 
         [Fact]
-        public async Task CheckIfGetViewModelByIdAsyncWorksCorrectly()
+        public async Task CheckIfGetFaqViewModelByIdAsyncWorksCorrectly()
         {
             this.SeedDatabase();
 
