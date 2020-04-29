@@ -31,11 +31,11 @@
                 Name = countryCreateInputModel.Name,
             };
 
-            bool doesCountryExist = await this.countriesRepository.All().AnyAsync(x => x.Id == country.Id);
+            bool doesCountryExist = await this.countriesRepository.All().AnyAsync(x => x.Name == country.Name);
             if (doesCountryExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.CountryAlreadyExists, country.Id));
+                    string.Format(ExceptionMessages.CountryAlreadyExists, country.Name));
             }
 
             await this.countriesRepository.AddAsync(country);

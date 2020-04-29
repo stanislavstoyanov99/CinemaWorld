@@ -16,8 +16,8 @@
 
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
-    using Newtonsoft.Json;
 
+    using Newtonsoft.Json;
     using Xunit;
 
     public class AboutServiceTests : IDisposable

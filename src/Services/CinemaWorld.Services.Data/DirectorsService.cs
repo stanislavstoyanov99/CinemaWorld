@@ -32,7 +32,9 @@
                 LastName = directorCreateInputModel.LastName,
             };
 
-            bool doesDirectorExist = await this.directorsRepository.All().AnyAsync(x => x.Id == director.Id);
+            bool doesDirectorExist = await this.directorsRepository
+                .All()
+                .AnyAsync(x => x.FirstName == director.FirstName && x.LastName == director.LastName);
             if (doesDirectorExist)
             {
                 throw new ArgumentException(

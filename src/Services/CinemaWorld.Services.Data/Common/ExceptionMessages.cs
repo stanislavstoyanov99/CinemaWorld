@@ -18,7 +18,7 @@
 
         public const string DirectorAlreadyExists = "Director with id {0} already exists";
 
-        public const string CountryAlreadyExists = "Country with id {0} already exists";
+        public const string CountryAlreadyExists = "Country with name {0} already exists";
 
         public const string CountryNotFound = "Country with id {0} is not found.";
 

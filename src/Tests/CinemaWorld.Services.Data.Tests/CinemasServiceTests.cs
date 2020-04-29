@@ -16,6 +16,7 @@
 
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
+
     using Newtonsoft.Json;
     using Xunit;
 
@@ -226,10 +227,10 @@
 
         private async void SeedDatabase()
         {
-            await this.SeedFaqEntries();
+            await this.SeedCinemas();
         }
 
-        private async Task SeedFaqEntries()
+        private async Task SeedCinemas()
         {
             await this.cinemasRepository.AddAsync(this.firstCinema);
 
