@@ -15,7 +15,9 @@
 
         Task<IEnumerable<TViewModel>> GetAllMoviesAsync<TViewModel>();
 
-        Task<IEnumerable<TViewModel>> GetTopMoviesAsync<TViewModel>(decimal rating = 0);
+        Task<IEnumerable<TViewModel>> GetTopImdbMoviesAsync<TViewModel>(decimal rating = 0, int count = 0);
+
+        Task<IEnumerable<TViewModel>> GetTopRatingMoviesAsync<TViewModel>(decimal rating = 0, int count = 0);
 
         Task<IEnumerable<TViewModel>> GetRecentlyAddedMoviesAsync<TViewModel>(int count = 0);
 

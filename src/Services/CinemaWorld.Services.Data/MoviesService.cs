@@ -259,6 +259,8 @@
         {
             var movies = await this.moviesRepository
                 .All()
+                .OrderByDescending(m => m.Ratings.Sum(x => x.Rate))
+                .ThenByDescending(m => m.DateOfRelease.Year)
                 .To<TViewModel>()
                 .ToListAsync();
 
@@ -337,15 +339,30 @@
             return movie;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetTopMoviesAsync<TViewModel>(decimal rating = 0)
+        public async Task<IEnumerable<TViewModel>> GetTopImdbMoviesAsync<TViewModel>(decimal rating = 0, int count = 0)
         {
-            var topMovies = await this.moviesRepository
+            var topImdbMovies = await this.moviesRepository
                 .All()
                 .Where(m => m.Rating > rating)
+                .Take(count)
                 .To<TViewModel>()
                 .ToListAsync();
 
-            return topMovies;
+            return topImdbMovies;
+        }
+
+        public async Task<IEnumerable<TViewModel>> GetTopRatingMoviesAsync<TViewModel>(decimal rating = 0, int count = 0)
+        {
+            var topRatingMovies = await this.moviesRepository
+                .All()
+                .Where(m => m.Ratings.Sum(x => x.Rate) > rating)
+                .OrderByDescending(m => m.Ratings.Sum(x => x.Rate))
+                .ThenByDescending(m => m.DateOfRelease.Year)
+                .Take(count)
+                .To<TViewModel>()
+                .ToListAsync();
+
+            return topRatingMovies;
         }
 
         public IQueryable<MovieDetailsViewModel> GetByGenreNameAsQueryable(string name)

@@ -70,10 +70,7 @@
             var viewModel = new DetailsListingViewModel
             {
                 MovieDetailsViewModel = movie,
-                AllMovies = topRatingMovies
-                    .OrderByDescending(x => x.StarRatingsSum)
-                    .ThenByDescending(x => x.DateOfRelease.Year)
-                    .ToList(),
+                AllMovies = topRatingMovies,
             };
 
             return this.View(viewModel);

@@ -185,7 +185,8 @@
             this.SeedDatabase();
 
             var exception = await Assert
-                .ThrowsAsync<NullReferenceException>(async () => await this.countriesService.GetViewModelByIdAsync<CountryDetailsViewModel>(3));
+                .ThrowsAsync<NullReferenceException>(async () =>
+                    await this.countriesService.GetViewModelByIdAsync<CountryDetailsViewModel>(3));
             Assert.Equal(string.Format(ExceptionMessages.CountryNotFound, 3), exception.Message);
         }
 

@@ -38,7 +38,7 @@
             if (doesDirectorExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.GenreAlreadyExists, director.Id));
+                    string.Format(ExceptionMessages.DirectorAlreadyExists, director.FirstName, director.LastName));
             }
 
             await this.directorsRepository.AddAsync(director);

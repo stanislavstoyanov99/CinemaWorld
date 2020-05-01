@@ -13,6 +13,10 @@
 
     public class HomeController : Controller
     {
+        private const int TopMoviesInHeaderSliderRating = 6;
+        private const int TopMoviesRating = 40;
+
+        private const int TopMoviesCount = 12;
         private const int TopMoviesInHeaderSliderCount = 6;
         private const int RecentlyAddedMoviesCount = 12;
         private const int MostPopularMoviesCount = 3;
@@ -36,9 +40,9 @@
             var allMovies = await this.moviesService
                 .GetAllMoviesAsync<TopRatingMovieDetailsViewModel>();
             var topMoviesInSlider = await this.moviesService
-                .GetTopMoviesAsync<SliderMovieDetailsViewModel>(TopMoviesInHeaderSliderCount);
+                .GetTopImdbMoviesAsync<SliderMovieDetailsViewModel>(TopMoviesInHeaderSliderRating, TopMoviesInHeaderSliderCount);
             var topRatingMovies = await this.moviesService
-                .GetTopMoviesAsync<TopRatingMovieDetailsViewModel>();
+                .GetTopRatingMoviesAsync<TopRatingMovieDetailsViewModel>(TopMoviesRating, TopMoviesCount);
             var recentlyAddedMovies = await this.moviesService
                 .GetRecentlyAddedMoviesAsync<RecentlyAddedMovieDetailsViewModel>(RecentlyAddedMoviesCount);
             var mostPopularMovies = await this.moviesService
@@ -46,15 +50,9 @@
 
             var viewModel = new MoviesHomePageListingViewModel
             {
-                AllMovies = allMovies
-                    .OrderByDescending(x => x.StarRatingsSum)
-                    .ThenByDescending(x => x.DateOfRelease.Year)
-                    .ToList(),
+                AllMovies = allMovies,
                 TopMoviesInSlider = topMoviesInSlider,
-                TopRatingMovies = topRatingMovies
-                    .OrderByDescending(x => x.StarRatingsSum)
-                    .ThenByDescending(x => x.DateOfRelease.Year)
-                    .ToList(),
+                TopRatingMovies = topRatingMovies,
                 RecentlyAddedMovies = recentlyAddedMovies,
                 MostPopularMovies = mostPopularMovies,
             };
