@@ -36,7 +36,7 @@
 
         public const string AuthenticatedErrorMessage = "Please, login in order to vote.";
 
-        public const string NewsAlreadyExists = "News with id {0} already exists";
+        public const string NewsAlreadyExists = "News with title {0} and description {1} already exists";
 
         public const string NewsNotFound = "News with id {0} is not found.";
 

@@ -42,11 +42,13 @@
                 UserId = userId,
             };
 
-            bool doesNewsExist = await this.newsRepository.All().AnyAsync(x => x.Id == news.Id);
+            bool doesNewsExist = await this.newsRepository
+                .All()
+                .AnyAsync(x => x.Title == news.Title && x.Description == news.Description);
             if (doesNewsExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.NewsAlreadyExists, news.Id));
+                    string.Format(ExceptionMessages.NewsAlreadyExists, news.Title, news.Description));
             }
 
             await this.newsRepository.AddAsync(news);
