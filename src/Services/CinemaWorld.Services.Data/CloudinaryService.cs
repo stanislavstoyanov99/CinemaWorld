@@ -1,5 +1,6 @@
 ﻿namespace CinemaWorld.Services.Data
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@
 
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
+
     using Microsoft.AspNetCore.Http;
 
     public class CloudinaryService : ICloudinaryService
@@ -38,6 +40,17 @@
             var result = await this.cloudinary.UploadAsync(uploadParams);
 
             return result.Uri.AbsoluteUri;
+        }
+
+        public async Task DeleteImage(Cloudinary cloudinary, string name)
+        {
+            var delParams = new DelResParams()
+            {
+                PublicIds = new List<string>() { name },
+                Invalidate = true,
+            };
+
+            await cloudinary.DeleteResourcesAsync(delParams);
         }
     }
 }
