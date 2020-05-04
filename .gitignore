@@ -359,3 +359,4 @@ appsettings.Development.json
 *.min.css
 *.min.js
 src/Web/CinemaWorld.Web/appsettings.json
+src/Tests/CinemaWorld.Services.Data.Tests/appsettings.json
