@@ -1,6 +1,7 @@
 ﻿namespace CinemaWorld.Services.Data.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -23,7 +24,7 @@
     using Microsoft.AspNetCore.Http.Internal;
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
-
+    using Newtonsoft.Json;
     using Xunit;
 
     public class NewsServiceTests : IDisposable, IClassFixture<Configuration>
@@ -246,6 +247,73 @@
             var exception = await Assert
                 .ThrowsAsync<NullReferenceException>(async () => await this.newsService.EditAsync(newsEditViewModel, this.user.Id));
             Assert.Equal(string.Format(ExceptionMessages.NewsNotFound, newsEditViewModel.Id), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfGetAllNewsAsyncWorksCorrectly()
+        {
+            this.SeedDatabase();
+
+            var result = await this.newsService.GetAllNewsAsync<NewsDetailsViewModel>();
+
+            var count = result.Count();
+            Assert.Equal(1, count);
+        }
+
+        [Fact]
+        public async Task CheckIfGetTopNewsAsyncWorksCorrectlyWhenThereAreZeroTopNews()
+        {
+            this.SeedDatabase();
+
+            var result = await this.newsService.GetTopNewsAsync<NewsDetailsViewModel>();
+
+            var count = result.Count();
+            Assert.Equal(0, count);
+        }
+
+        [Fact]
+        public async Task CheckIfGetTopNewsAsyncWorksCorrectlyWhenThereAreTopNews()
+        {
+            this.SeedDatabase();
+
+            var result = await this.newsService.GetTopNewsAsync<NewsDetailsViewModel>(1);
+
+            var count = result.Count();
+            Assert.Equal(1, count);
+        }
+
+        // TODO: Figure out how to fix datetime 'Z' letter
+        public async Task CheckIfGetNewsViewModelByIdAsyncWorksCorrectly()
+        {
+            this.SeedDatabase();
+
+            var expectedModel = new NewsDetailsViewModel
+            {
+                Id = this.firstNews.Id,
+                Title = this.firstNews.Title,
+                Description = this.firstNews.Description,
+                CreatedOn = this.firstNews.CreatedOn,
+                UserUserName = this.firstNews.User.UserName,
+                ImagePath = this.firstNews.ImagePath,
+            };
+
+            var viewModel = await this.newsService.GetViewModelByIdAsync<NewsDetailsViewModel>(this.firstNews.Id);
+
+            //var expectedObj = JsonConvert.SerializeObject(expectedModel);
+            //var actualResultObj = JsonConvert.SerializeObject(viewModel);
+
+            Assert.Equal(expectedModel, viewModel);
+        }
+
+        [Fact]
+        public async Task CheckIfGetViewModelByIdAsyncThrowsNullReferenceException()
+        {
+            this.SeedDatabase();
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () =>
+                    await this.newsService.GetViewModelByIdAsync<NewsDetailsViewModel>(3));
+            Assert.Equal(string.Format(ExceptionMessages.NewsNotFound, 3), exception.Message);
         }
 
         public void Dispose()
