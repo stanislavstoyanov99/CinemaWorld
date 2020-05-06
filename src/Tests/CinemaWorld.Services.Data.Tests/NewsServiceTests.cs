@@ -13,6 +13,7 @@
     using CinemaWorld.Data.Repositories;
     using CinemaWorld.Models.InputModels.AdministratorInputModels.News;
     using CinemaWorld.Models.ViewModels.News;
+    using CinemaWorld.Models.ViewModels.NewsComments;
     using CinemaWorld.Services.Data.Common;
     using CinemaWorld.Services.Data.Contracts;
     using CinemaWorld.Services.Data.Tests.Helpers;
@@ -282,7 +283,7 @@
             Assert.Equal(1, count);
         }
 
-        // TODO: Figure out how to fix datetime 'Z' letter
+        [Fact]
         public async Task CheckIfGetNewsViewModelByIdAsyncWorksCorrectly()
         {
             this.SeedDatabase();
@@ -291,18 +292,22 @@
             {
                 Id = this.firstNews.Id,
                 Title = this.firstNews.Title,
-                Description = this.firstNews.Description,
                 CreatedOn = this.firstNews.CreatedOn,
+                Description = this.firstNews.Description,
                 UserUserName = this.firstNews.User.UserName,
                 ImagePath = this.firstNews.ImagePath,
+                NewsComments = new HashSet<PostNewsCommentViewModel>(),
             };
 
+            expectedModel.CreatedOn = expectedModel.CreatedOn.ToLocalTime();
+
             var viewModel = await this.newsService.GetViewModelByIdAsync<NewsDetailsViewModel>(this.firstNews.Id);
+            viewModel.CreatedOn = viewModel.CreatedOn.ToLocalTime();
 
-            //var expectedObj = JsonConvert.SerializeObject(expectedModel);
-            //var actualResultObj = JsonConvert.SerializeObject(viewModel);
+            var expectedObj = JsonConvert.SerializeObject(expectedModel);
+            var actualResultObj = JsonConvert.SerializeObject(viewModel);
 
-            Assert.Equal(expectedModel, viewModel);
+            Assert.Equal(expectedObj, actualResultObj);
         }
 
         [Fact]
@@ -314,6 +319,83 @@
                 .ThrowsAsync<NullReferenceException>(async () =>
                     await this.newsService.GetViewModelByIdAsync<NewsDetailsViewModel>(3));
             Assert.Equal(string.Format(ExceptionMessages.NewsNotFound, 3), exception.Message);
+        }
+
+        [Fact]
+        public void CheckIfGetAllNewsAsQueryeableWorksCorrectly()
+        {
+            this.SeedDatabase();
+
+            var result = this.newsService.GetAllNewsAsQueryeable<NewsDetailsViewModel>();
+
+            var count = result.Count();
+            Assert.Equal(1, count);
+        }
+
+        [Fact]
+        public async Task CheckIfGetUpdatedNewsAsyncWorksCorrectly()
+        {
+            this.SeedDatabase();
+
+            var model = new News
+            {
+                Title = "Updated news title",
+                Description = "Updated news description",
+                ShortDescription = "Updated news short description",
+                ImagePath = TestImageUrl,
+                UserId = this.user.Id,
+                ViewsCounter = 30,
+                IsUpdated = true,
+            };
+
+            await this.newsRepository.AddAsync(model);
+            await this.newsRepository.SaveChangesAsync();
+
+            var result = await this.newsService.GetUpdatedNewsAsync<NewsDetailsViewModel>();
+
+            var count = result.Count();
+            Assert.Equal(1, count);
+        }
+
+        // TODO
+        public async Task CheckIfSetViewsCounterWorksCorrectly()
+        {
+            this.SeedDatabase();
+
+            var news = new News
+            {
+                Title = "News title",
+                Description = "News description",
+                ShortDescription = "News short description",
+                ImagePath = TestImageUrl,
+                UserId = this.user.Id,
+                ViewsCounter = 30,
+                IsUpdated = true,
+            };
+
+            await this.newsRepository.AddAsync(news);
+            await this.newsRepository.SaveChangesAsync();
+
+            var expectedModel = new NewsDetailsViewModel
+            {
+                Id = news.Id,
+                Title = news.Title,
+                CreatedOn = news.CreatedOn,
+                Description = news.Description,
+                UserUserName = news.User.UserName,
+                ImagePath = news.ImagePath,
+                NewsComments = new HashSet<PostNewsCommentViewModel>(),
+            };
+
+            expectedModel.CreatedOn = expectedModel.CreatedOn.ToLocalTime();
+
+            var viewModel = await this.newsService.SetViewsCounter(this.firstNews.Id);
+            viewModel.CreatedOn = viewModel.CreatedOn.ToLocalTime();
+
+            var expectedObj = JsonConvert.SerializeObject(expectedModel);
+            var actualResultObj = JsonConvert.SerializeObject(viewModel);
+
+            Assert.Equal(expectedObj, actualResultObj);
         }
 
         public void Dispose()
