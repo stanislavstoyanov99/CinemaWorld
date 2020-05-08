@@ -25,6 +25,8 @@
 
         public string ImagePath { get; set; }
 
+        public int ViewsCounter { get; set; }
+
         public IEnumerable<PostNewsCommentViewModel> NewsComments { get; set; }
     }
 }

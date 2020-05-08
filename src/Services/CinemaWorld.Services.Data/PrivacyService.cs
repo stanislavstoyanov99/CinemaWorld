@@ -30,11 +30,11 @@
                 PageContent = privacyCreateInputModel.PageContent,
             };
 
-            bool doesPrivacyExist = await this.privacyRepository.All().AnyAsync(x => x.Id == privacy.Id);
+            bool doesPrivacyExist = await this.privacyRepository.All().AnyAsync(x => x.PageContent == privacy.PageContent);
             if (doesPrivacyExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.PrivacyAlreadyExists, privacy.Id));
+                    string.Format(ExceptionMessages.PrivacyAlreadyExists, privacy.PageContent));
             }
 
             await this.privacyRepository.AddAsync(privacy);
@@ -51,8 +51,8 @@
 
             if (privacy == null)
             {
-                throw new ArgumentException(
-                    string.Format(ExceptionMessages.PrivacyNotFound, privacy.Id));
+                throw new NullReferenceException(
+                    string.Format(ExceptionMessages.PrivacyNotFound, id));
             }
 
             privacy.IsDeleted = true;
@@ -67,8 +67,8 @@
 
             if (privacy == null)
             {
-                throw new ArgumentException(
-                    string.Format(ExceptionMessages.PrivacyNotFound, privacy.Id));
+                throw new NullReferenceException(
+                    string.Format(ExceptionMessages.PrivacyNotFound, privacyEditViewModel.Id));
             }
 
             privacy.PageContent = privacyEditViewModel.PageContent;
@@ -80,13 +80,18 @@
 
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
         {
-            var privacyViewModel = await this.privacyRepository
+            var privacy = await this.privacyRepository
                .All()
                .Where(p => p.Id == id)
                .To<TViewModel>()
                .FirstOrDefaultAsync();
 
-            return privacyViewModel;
+            if (privacy == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.PrivacyNotFound, id));
+            }
+
+            return privacy;
         }
 
         public async Task<TViewModel> GetViewModelAsync<TViewModel>()
@@ -95,6 +100,11 @@
                .All()
                .To<TViewModel>()
                .FirstOrDefaultAsync();
+
+            if (privacyViewModel == null)
+            {
+                throw new NullReferenceException(ExceptionMessages.PrivacyViewModelNotFound);
+            }
 
             return privacyViewModel;
         }

@@ -297,6 +297,7 @@
                 UserUserName = this.firstNews.User.UserName,
                 ImagePath = this.firstNews.ImagePath,
                 NewsComments = new HashSet<PostNewsCommentViewModel>(),
+                ViewsCounter = this.firstNews.ViewsCounter,
             };
 
             expectedModel.CreatedOn = expectedModel.CreatedOn.ToLocalTime();
@@ -357,45 +358,37 @@
             Assert.Equal(1, count);
         }
 
-        // TODO
+        [Fact]
         public async Task CheckIfSetViewsCounterWorksCorrectly()
         {
             this.SeedDatabase();
 
-            var news = new News
-            {
-                Title = "News title",
-                Description = "News description",
-                ShortDescription = "News short description",
-                ImagePath = TestImageUrl,
-                UserId = this.user.Id,
-                ViewsCounter = 30,
-                IsUpdated = true,
-            };
-
-            await this.newsRepository.AddAsync(news);
-            await this.newsRepository.SaveChangesAsync();
-
             var expectedModel = new NewsDetailsViewModel
             {
-                Id = news.Id,
-                Title = news.Title,
-                CreatedOn = news.CreatedOn,
-                Description = news.Description,
-                UserUserName = news.User.UserName,
-                ImagePath = news.ImagePath,
+                Id = this.firstNews.Id,
+                Title = this.firstNews.Title,
+                CreatedOn = this.firstNews.CreatedOn,
+                Description = this.firstNews.Description,
+                UserUserName = this.firstNews.User.UserName,
+                ImagePath = this.firstNews.ImagePath,
+                ViewsCounter = this.firstNews.ViewsCounter,
                 NewsComments = new HashSet<PostNewsCommentViewModel>(),
             };
 
-            expectedModel.CreatedOn = expectedModel.CreatedOn.ToLocalTime();
-
             var viewModel = await this.newsService.SetViewsCounter(this.firstNews.Id);
-            viewModel.CreatedOn = viewModel.CreatedOn.ToLocalTime();
 
-            var expectedObj = JsonConvert.SerializeObject(expectedModel);
-            var actualResultObj = JsonConvert.SerializeObject(viewModel);
+            Assert.NotEqual(expectedModel.ViewsCounter, viewModel.ViewsCounter);
+        }
 
-            Assert.Equal(expectedObj, actualResultObj);
+        [Fact]
+        public async Task CheckIfSetViewsCounterThrowsNullReferenceException()
+        {
+            this.SeedDatabase();
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () =>
+                    await this.newsService.SetViewsCounter(3));
+            Assert.Equal(string.Format(ExceptionMessages.NewsNotFound, 3), exception.Message);
         }
 
         public void Dispose()
