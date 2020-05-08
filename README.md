@@ -1,14 +1,9 @@
 # ASP.NET Core Cinema World
-A ready-to-use ASP.NET Core application for the course C# Web - ASP.NET Core February 2020 @SoftUni
+## :point_right: Project Introduction :point_left:
 
-# Link
-https://cinemaworld.azurewebsites.net
+**Cinema World** is my defense project for **ASP.NET Core** course at [SoftUni](https://softuni.bg/trainings/2796/asp-net-core-february-2020). It is a ready-to-use ASP.NET Core application.
 
-## Authors
-
-- [Stanislav Stoyanov](https://github.com/stanislavstoyanov99)
-
-# Project Description
+## :pencil: Project Description
 Уеб приложението предоставя модерен графичен интерфейс за работа. Приложението комбинира в себе си много функционалност, която може да бъде полезна за потребителите. В горната му част като повечето уеб приложения има удобен навигационен панел със следните менюта: “Home”, “Movies”, “Genres” – с падащо меню, “News”, “Schedule”. Над този панел има търсачка, която може да намира заявена информация от потребителя като резултатите, които се връщат са след претърсване на цялата система. В дъното на всяка страница има footer или мястото, където може да намерите препратка към останалите страници от системата – “Home”, “News”, “Schedule”, “FAQ”, “Action”, “Adventure”, “Comedy”, “Drama”, “Contact us”. В тази част от страницата също има опция за абониране (subscribe) към системата, т.е в бъдеще може да получавате известия за нови филми, новини и обновени разписания. Също така във всяка една страница от системата има три “социални” бутона към социалните мрежи – Facebook, Twitter, Instagram. Нека започнем с описание на всяка една от страниците.
 
 **_Описание на начална страница “Home”:_**
@@ -42,3 +37,37 @@ https://cinemaworld.azurewebsites.net
 
 **_Заключение:_**
 Cinema World е проект, което обединява на едно място удобен потребителски интерфейс, възможност за преглед на филми, новини за тях и резервация на билети по избрано кино. Също така е интегрирана рейтинг система, която е допълнително потребителско изживяване. В бъдеще се планира изграждането на реална система за плащане на билети както и създаване на ревюта за филми. Целта е системата да бъде подобна на IMDB, като в допълнение предоставя възможност и за онлайн закупуване на билети.
+
+## :hammer: Used technologies
+- ASP.NET [CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1 "CORE 3.1") MVC
+- ASP.NET Core areas
+- Entity Framework [CORE 3.1](https://docs.microsoft.com/en-us/ef/core/ "CORE 3.1")
+- [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/ "Newtonsoft.Json")
+- SendGrid
+- [SendGrid Widget](https://sgwidget.com/ "SendGrid Widget")
+- Cloudinary
+- TinyMCE
+- Bootstrap
+- [Moment.js](https://www.nuget.org/packages/Moment.js/ "Moment.js")
+- AJAX real-time Requests
+- jQuery and any kind of jQuery plugins ([bootstrap-select](https://developer.snapappointments.com/bootstrap-select/ "bootstrap-select"))
+- JavaScript and JS animations
+- Facebook for developers
+- XUnit
+- In-Memmory Cache
+
+# Link
+https://cinemaworld.azurewebsites.net
+
+## Author
+
+- [Stanislav Stoyanov](https://github.com/stanislavstoyanov99)
+
+## Template authors
+
+- [Nikolay Kostov](https://github.com/NikolayIT)
+- [Vladislav Karamfilov](https://github.com/vladislav-karamfilov)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
