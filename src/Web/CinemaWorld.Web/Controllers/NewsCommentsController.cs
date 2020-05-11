@@ -42,7 +42,7 @@
 
             try
             {
-                await this.newsCommentsService.Create(input.NewsId, userId, input.Content, parentId);
+                await this.newsCommentsService.CreateAsync(input.NewsId, userId, input.Content, parentId);
             }
             catch (ArgumentException aex)
             {

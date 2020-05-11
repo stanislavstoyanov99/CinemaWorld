@@ -76,6 +76,6 @@
 
         public const string MovieCommentAlreadyExists = "Movie comment with id {0} already exists";
 
-        public const string NewsCommentAlreadyExists = "News comment with id {0} already exists";
+        public const string NewsCommentAlreadyExists = "News comment with news id {0} and content {1} already exists";
     }
 }

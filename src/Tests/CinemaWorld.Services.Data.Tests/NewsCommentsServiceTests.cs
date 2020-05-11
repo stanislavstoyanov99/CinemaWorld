@@ -82,7 +82,6 @@
             Assert.Equal("Hello, how are you?", newsComment.Content);
         }
 
-        // TODO
         [Fact]
         public async Task CheckIfAddingNewsCommentThrowsArgumentException()
         {
@@ -99,7 +98,34 @@
                     => await this.newsCommentsService
                     .CreateAsync(newsComment.NewsId, this.user.Id, newsComment.Content));
 
-            Assert.Equal(string.Format(ExceptionMessages.NewsCommentAlreadyExists, newsComment.NewsId), exception.Message);
+            Assert.Equal(
+                string.Format(
+                    ExceptionMessages.NewsCommentAlreadyExists, newsComment.NewsId, newsComment.Content), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfIsInNewsIdReturnsTrue()
+        {
+            this.SeedDatabase();
+
+            var newsCommentId = await this.newsCommentsRepository
+                .All()
+                .Select(x => x.NewsId)
+                .FirstOrDefaultAsync();
+
+            var result = await this.newsCommentsService.IsInNewsId(newsCommentId, this.firstNews.Id);
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async Task CheckIfIsInNewsIdReturnsFalse()
+        {
+           this.SeedDatabase();
+
+           var result = await this.newsCommentsService.IsInNewsId(3, this.firstNews.Id);
+
+            Assert.False(result);
         }
 
         public void Dispose()
@@ -117,9 +143,9 @@
 
             dbContext.Database.EnsureCreated();
 
-            this.newsCommentsRepository = new EfDeletableEntityRepository<NewsComment>(dbContext);
             this.usersRepository = new EfDeletableEntityRepository<CinemaWorldUser>(dbContext);
             this.newsRepository = new EfDeletableEntityRepository<News>(dbContext);
+            this.newsCommentsRepository = new EfDeletableEntityRepository<NewsComment>(dbContext);
         }
 
         private void InitializeFields()
@@ -136,6 +162,7 @@
 
             this.firstNews = new News
             {
+                Id = 1,
                 Title = "First news title",
                 Description = "First news description",
                 ShortDescription = "First news short description",
@@ -157,6 +184,7 @@
         {
             await this.SeedUsers();
             await this.SeedNews();
+            await this.SeedNewsComments();
         }
 
         private async Task SeedUsers()
@@ -171,6 +199,13 @@
             await this.newsRepository.AddAsync(this.firstNews);
 
             await this.newsRepository.SaveChangesAsync();
+        }
+
+        private async Task SeedNewsComments()
+        {
+            await this.newsCommentsRepository.AddAsync(this.firstNewsComment);
+
+            await this.newsCommentsRepository.SaveChangesAsync();
         }
 
         private void InitializeMapper() => AutoMapperConfig.

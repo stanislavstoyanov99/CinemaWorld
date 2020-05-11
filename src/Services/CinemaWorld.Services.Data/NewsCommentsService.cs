@@ -20,7 +20,7 @@
             this.newsCommentsRepository = newsCommentsRepository;
         }
 
-        public async Task Create(int newsId, string userId, string content, int? parentId = null)
+        public async Task CreateAsync(int newsId, string userId, string content, int? parentId = null)
         {
             var newsComment = new NewsComment
             {
@@ -32,11 +32,11 @@
 
             bool doesNewsCommentExist = await this.newsCommentsRepository
                 .All()
-                .AnyAsync(x => x.Id == newsComment.Id && x.UserId == userId);
+                .AnyAsync(x => x.NewsId == newsComment.NewsId && x.UserId == userId && x.Content == content);
             if (doesNewsCommentExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.NewsCommentAlreadyExists, newsComment.Id));
+                    string.Format(ExceptionMessages.NewsCommentAlreadyExists, newsComment.NewsId, newsComment.Content));
             }
 
             await this.newsCommentsRepository.AddAsync(newsComment);
