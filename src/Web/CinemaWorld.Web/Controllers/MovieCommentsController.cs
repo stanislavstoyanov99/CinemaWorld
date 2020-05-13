@@ -42,7 +42,7 @@
 
             try
             {
-                await this.movieCommentsService.Create(input.MovieId, userId, input.Content, parentId);
+                await this.movieCommentsService.CreateAsync(input.MovieId, userId, input.Content, parentId);
             }
             catch (ArgumentException aex)
             {

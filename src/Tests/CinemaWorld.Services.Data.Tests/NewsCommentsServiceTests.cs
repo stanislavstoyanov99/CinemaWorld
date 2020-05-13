@@ -1,10 +1,8 @@
 ﻿namespace CinemaWorld.Services.Data.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using System.Text;
     using System.Threading.Tasks;
 
     using CinemaWorld.Data;
@@ -125,7 +123,7 @@
 
            var result = await this.newsCommentsService.IsInNewsId(3, this.firstNews.Id);
 
-            Assert.False(result);
+           Assert.False(result);
         }
 
         public void Dispose()

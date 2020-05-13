@@ -20,7 +20,7 @@
             this.commentsRepository = commentsRepository;
         }
 
-        public async Task Create(int movieId, string userId, string content, int? parentId = null)
+        public async Task CreateAsync(int movieId, string userId, string content, int? parentId = null)
         {
             var movieComment = new MovieComment
             {
@@ -32,11 +32,11 @@
 
             bool doesMovieCommentExist = await this.commentsRepository
                 .All()
-                .AnyAsync(x => x.Id == movieComment.Id && x.UserId == userId);
+                .AnyAsync(x => x.MovieId == movieComment.MovieId && x.UserId == userId && x.Content == content);
             if (doesMovieCommentExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.MovieCommentAlreadyExists, movieComment.Id));
+                    string.Format(ExceptionMessages.MovieCommentAlreadyExists, movieComment.MovieId, movieComment.Content));
             }
 
             await this.commentsRepository.AddAsync(movieComment);

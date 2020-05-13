@@ -12,7 +12,7 @@
 
         public const string GenreNotFound = "Genre with id {0} is not found.";
 
-        public const string GenreAlreadyExists = "Genre with id {0} already exists";
+        public const string GenreAlreadyExists = "Genre with name {0} already exists";
 
         public const string MovieGenreNotFound = "Movie's genre with movie id {0} and genre id {1} is not found.";
 
@@ -74,7 +74,7 @@
 
         public const string PrivacyViewModelNotFound = "Privacy view model is not found.";
 
-        public const string MovieCommentAlreadyExists = "Movie comment with id {0} already exists";
+        public const string MovieCommentAlreadyExists = "Movie comment with movie id {0} and content {1} already exists";
 
         public const string NewsCommentAlreadyExists = "News comment with news id {0} and content {1} already exists";
     }

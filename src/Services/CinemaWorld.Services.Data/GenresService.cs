@@ -31,11 +31,11 @@
                 Name = genreCreateInputModel.Name,
             };
 
-            bool doesGenreExist = await this.genresRepository.All().AnyAsync(x => x.Id == genre.Id);
+            bool doesGenreExist = await this.genresRepository.All().AnyAsync(x => x.Name == genre.Name);
             if (doesGenreExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.GenreAlreadyExists, genre.Id));
+                    string.Format(ExceptionMessages.GenreAlreadyExists, genre.Name));
             }
 
             await this.genresRepository.AddAsync(genre);
