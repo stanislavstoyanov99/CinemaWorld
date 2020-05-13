@@ -7,7 +7,6 @@ addons:
 sudo: required
 dotnet: 3.1.202
 language: csharp
-solution: /CinemaWorld/src/CinemaWorld.sln
 mono: none
 script:
   - dotnet restore
