@@ -8,11 +8,9 @@ sudo: required
 dotnet: 3.1.202
 language: csharp
 solution: /CinemaWorld/src/CinemaWorld.sln
-install:
-  - cd CinemaWorld
-  - dotnet restore /src/CinemaWorld.sln
 mono: none
 script:
+  - dotnet restore
   - sudo snap alias dotnet-sdk.dotnet dotnet
   - dotnet --version
   - dotnet build
