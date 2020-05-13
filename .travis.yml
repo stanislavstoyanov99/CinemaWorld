@@ -12,3 +12,4 @@ script:
   - sudo snap alias dotnet-sdk.dotnet dotnet
   - dotnet --version
   - dotnet build
+  - xbuild /p:Configuration=Release /CinemaWorld/src/CinemaWorld.sln
