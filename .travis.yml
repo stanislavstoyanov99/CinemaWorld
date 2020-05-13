@@ -5,6 +5,7 @@ addons:
     confinement: classic
     channel: latest/beta
 sudo: required
+dotnet: 3.1.4
 language: csharp
 solution: /CinemaWorld/src/CinemaWorld.sln
 install:
