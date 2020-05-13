@@ -7,7 +7,6 @@ addons:
 sudo: required
 language: csharp
 solution: /CinemaWorld/src/CinemaWorld.sln
-install: nuget restore /CinemaWorld/src/CinemaWorld.sln
 mono: none
 script:
   - sudo snap alias dotnet-sdk.dotnet dotnet
