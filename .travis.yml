@@ -6,6 +6,7 @@ addons:
     channel: latest/beta
 sudo: required
 language: csharp
+solution: ./CinemaWorld/src/CinemaWorld.sln
 mono: none
 script:
   - sudo snap alias dotnet-sdk.dotnet dotnet
