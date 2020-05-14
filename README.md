@@ -1,4 +1,7 @@
 # ASP.NET Core Cinema World
+
+[![Build Status](https://travis-ci.org/stanislavstoyanov99/CinemaWorld.svg?branch=master)](https://travis-ci.org/stanislavstoyanov99/CinemaWorld)
+
 ## :point_right: Project Introduction :point_left:
 
 **Cinema World** is my defense project for **ASP.NET Core** course at [SoftUni](https://softuni.bg/trainings/2796/asp-net-core-february-2020). It is a ready-to-use ASP.NET Core application.
