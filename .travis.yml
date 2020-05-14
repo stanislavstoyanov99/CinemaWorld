@@ -9,9 +9,8 @@ dotnet: 3.1.202
 language: csharp
 solution: src/CinemaWorld.sln
 mono: none
-install:
-  - dotnet restore
 script:
+  - dotnet restore
   - sudo snap alias dotnet-sdk.dotnet dotnet
   - dotnet --version
   - dotnet build
