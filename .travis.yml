@@ -10,7 +10,7 @@ language: csharp
 solution: src/CinemaWorld.sln
 mono: none
 script:
-  - dotnet restore
+  - dotnet restore src/CinemaWorld.sln
   - sudo snap alias dotnet-sdk.dotnet dotnet
   - dotnet --version
   - dotnet build
