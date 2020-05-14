@@ -12,5 +12,3 @@ mono: none
 script:
   - dotnet restore src/CinemaWorld.sln
   - sudo snap alias dotnet-sdk.dotnet dotnet
-  - dotnet --version
-  - dotnet build
