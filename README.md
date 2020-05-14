@@ -1,6 +1,7 @@
 # ASP.NET Core Cinema World
 
 [![Build Status](https://travis-ci.org/stanislavstoyanov99/CinemaWorld.svg?branch=master)](https://travis-ci.org/stanislavstoyanov99/CinemaWorld)
+[![GitHub license](https://img.shields.io/github/license/stanislavstoyanov99/CinemaWorld?color=brightgreen)](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/LICENSE)
 
 ## :point_right: Project Introduction :point_left:
 
