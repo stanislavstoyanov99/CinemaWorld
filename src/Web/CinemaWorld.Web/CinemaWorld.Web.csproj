@@ -7,10 +7,6 @@
 	<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  
-  <PropertyGroup>
-  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
 
   <PropertyGroup>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
