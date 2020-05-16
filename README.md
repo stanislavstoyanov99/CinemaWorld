@@ -1,5 +1,6 @@
 # ASP.NET Core Cinema World
 
+[![Build Status](https://dev.azure.com/DyNaMiXx7/Cinema%20World/_apis/build/status/stanislavstoyanov99.CinemaWorld?branchName=master)](https://dev.azure.com/DyNaMiXx7/Cinema%20World/_build/latest?definitionId=1&branchName=master)
 [![Build Status](https://travis-ci.org/stanislavstoyanov99/CinemaWorld.svg?branch=master)](https://travis-ci.org/stanislavstoyanov99/CinemaWorld)
 [![GitHub license](https://img.shields.io/github/license/stanislavstoyanov99/CinemaWorld?color=brightgreen)](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/LICENSE)
 
