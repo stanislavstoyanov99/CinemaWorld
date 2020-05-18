@@ -61,6 +61,9 @@ Cinema World е проект, което обединява на едно мяс
 - XUnit
 - In-Memmory Cache
 
+## :floppy_disk: Database Diagram
+![](https://res.cloudinary.com/cinemaworld/image/upload/v1589836846/dbDiagram_vo8k3k.jpg)
+
 # Link
 https://cinemaworld.azurewebsites.net
 
