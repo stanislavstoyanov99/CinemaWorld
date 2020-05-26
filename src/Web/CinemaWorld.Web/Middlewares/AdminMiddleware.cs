@@ -6,7 +6,6 @@
 
     using CinemaWorld.Common;
     using CinemaWorld.Data.Models;
-    using CinemaWorld.Data.Models.Enumerations;
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
