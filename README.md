@@ -8,7 +8,32 @@
 
 **Cinema World** is my defense project for **ASP.NET Core** course at [SoftUni](https://softuni.bg/trainings/2796/asp-net-core-february-2020). It is a ready-to-use ASP.NET Core application.
 
-## :pencil: Project Description
+## :pencil: Project Description EN
+The web application provides modern graphical interface for work. The application combines a lot of functionality which can be useful for all types of users. In the navbar like many web applications there is easy to use navigational panel with the following menus: “Home”, “Movies”, “Genres” – with a dropping menu, “News”, “Schedule”. Above this navbar there is a search bar which can find the requested information from the user using searching in the whole system. In the footer of each page there is a reference with links to other pages of the system – “Home”, “News”, “Schedule”, “FAQ”, “Action”, “Adventure”, “Comedy”, “Drama”, “Contact us”. In this section of the page there is also an option for subscription to the system, so in the future you will receive notifications on provided email for new movies, news and updated schedule. Moreover each web page contains three “social” buttons to social networks – Facebook, Twitter, Instagram. Now let’s continue with a brief description for each of the pages.
+
+**_Description of the “Home” page:_** In an interactive slider there is a visualization of six movies from the whole database with IMDB rate over 6. Each of the movies in this slider contains short description of the plot. Below the slider there is another movable slider which visualizes all movies from the database ordered by ascending order of their user rating (there is an embedded rating system for each movie so the user can submit only one vote for 24 hours) and after that by release year. In section “Featured” there are 3 subcategories of movies – “Top watched”, “Top rating” – in this section user can vote, “Recently added”. In the last section of this page there is a another movable slider with top 3 popular movies which have 4 or more stars.
+
+**_Description of the “Movies” page:_** In this page with a tabular view are presented all movies and for convenience there is a visualization of 10 movies per page using paging. Above the table is the current number of movies viewed and is implemented a fast search bar which can find movies by name. For more convenient use above the search bar there is a paging with letters and digits. The most essential information is showed briefly in the table for each movie. When the movie poster is clicked, the user is sent to the page for the given movie, where he can get more information about it.
+
+**_Description of the “Genres” page:_** The page is like a dropping menu, where the user can sort movies by genre. When a genre is chosen, the page renders and shows 12 movies, so for ease of use there is again a paging.
+
+**_Description of the “News” page:_** In the online system there is an integration of a system for news, so the user can receive interesting and various information for movies. Each news shows total count of views, whose the writer is (administrator, moderator, editor) and at what day and time is written. For ease of use there is a visualization of six news. Right to the sidebar are visualized only updated news and a tiny label with caption “new” stays for 12 hours after the update. In this sidebar are also the most viewed top news.
+
+**_Description of the “Schedule” page:_** In this page you can find a schedule of movies and again there is a paging which shows only five projections per page. For convenience you can filter projections by cinemas. Each projection contains in detail a description of the movie like director, rating as well as a button for booking a seat in the hall. The user can choose a seat in the hall and request what type of ticket wants. Each ticket initially costs 10$. In the right sidebar there is a section with movie reviews, which is under development.
+
+**_Description of “FAQ” page:_** Here you can find information for the most frequent asked questions.
+
+**_Description of “Contact us” page:_** Here you can send your inquery, get information about mobile phones and emails that you can write and again links to social networks.
+
+**_Description of administrator panel:_** Like other systems here there is an administrator panel where the admin can add, delete, edit information about the system. In section “User’s Administration” for ease of use the administrator can send directly emails to users who already sent their inqueries.
+
+**_Description of the user profile:_** For the user profile there is a standard functionality which is provided by ASP.NET Core Identity.
+
+**_Additional functionalities:_** There is an integration of fast pop-up form for login/registration. There is also Facebook login which can be used instead of standard registration. Each movie news page contains comments and subcomments.
+
+**_In conclusion:_** Cinema World is a project which combines in one place convenient user interface, chance to look for movies, news for them and reservation of tickets in real time. Furthermore, there is an integrated rating system which is an additional user experience. In future there is a plan for developing a real system for ticket payment and form for movie reviews. The purpose of the system is to be similar to IMDB and in addition also to provide the opportunity to purchase tickets.
+
+## :pencil: Project Description BG
 Уеб приложението предоставя модерен графичен интерфейс за работа. Приложението комбинира в себе си много функционалност, която може да бъде полезна за потребителите. В горната му част като повечето уеб приложения има удобен навигационен панел със следните менюта: “Home”, “Movies”, “Genres” – с падащо меню, “News”, “Schedule”. Над този панел има търсачка, която може да намира заявена информация от потребителя като резултатите, които се връщат са след претърсване на цялата система. В дъното на всяка страница има footer или мястото, където може да намерите препратка към останалите страници от системата – “Home”, “News”, “Schedule”, “FAQ”, “Action”, “Adventure”, “Comedy”, “Drama”, “Contact us”. В тази част от страницата също има опция за абониране (subscribe) към системата, т.е в бъдеще може да получавате известия за нови филми, новини и обновени разписания. Също така във всяка една страница от системата има три “социални” бутона към социалните мрежи – Facebook, Twitter, Instagram. Нека започнем с описание на всяка една от страниците.
 
 **_Описание на начална страница “Home”:_**
