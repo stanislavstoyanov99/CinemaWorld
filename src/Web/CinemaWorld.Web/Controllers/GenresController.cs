@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
 
     using CinemaWorld.Models.ViewModels;
-    using CinemaWorld.Models.ViewModels.Genres;
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Contracts;
 

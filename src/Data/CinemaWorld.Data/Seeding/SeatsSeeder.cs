@@ -27,7 +27,7 @@
 
             var seats = new List<Seat>();
 
-            for (int row = 1; row <= 15; row++)
+            for (int row = 1; row <= 10; row++)
             {
                 for (int col = 1; col <= 10; col++)
                 {
@@ -37,7 +37,7 @@
                     {
                         RowNumber = row,
                         Number = col,
-                        HallId = 6,
+                        HallId = 7,
                         Category = (SeatCategory)category,
                     };
 
@@ -49,11 +49,11 @@
             {
                 await dbContext.Seats.AddAsync(new Seat
                 {
-                    Number = seat.Number,
                     RowNumber = seat.RowNumber,
-                    Category = seat.Category,
-                    HallId = seat.HallId,
+                    Number = seat.Number,
                     IsAvailable = true,
+                    HallId = seat.HallId,
+                    Category = seat.Category,
                 });
             }
 

@@ -100,7 +100,9 @@
                         @for (int i = 1; i <= Model.TotalPages; i++)
                         {
                             var active = i == Model.PageIndex ? "active" : string.Empty;
-                            <li class="@active"><a asp-action="ByName" asp-route-pageNumber="@i">@i</a></li>
+                            <li class="@active">
+                                <a asp-action="ByName" asp-route-pageNumber="@i" asp-route-name="@this.TempData["GenreName"]">@i</a>
+                            </li>
                         }
                         <li>
                             <a class="last @nextDisabled" asp-action="ByName" asp-route-pageNumber="@nextPage">
