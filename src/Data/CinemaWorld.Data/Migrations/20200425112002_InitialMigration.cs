@@ -19,7 +19,7 @@
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     FirstName = table.Column<string>(maxLength: 30, nullable: false),
-                    LastName = table.Column<string>(maxLength: 30, nullable: false)
+                    LastName = table.Column<string>(maxLength: 30, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -37,7 +37,7 @@
                     FullName = table.Column<string>(maxLength: 60, nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Subject = table.Column<string>(maxLength: 100, nullable: false),
-                    Content = table.Column<string>(maxLength: 10000, nullable: false)
+                    Content = table.Column<string>(maxLength: 10000, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -55,7 +55,7 @@
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -86,7 +86,7 @@
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -105,7 +105,7 @@
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     FirstName = table.Column<string>(maxLength: 30, nullable: false),
                     LastName = table.Column<string>(maxLength: 30, nullable: false),
-                    Email = table.Column<string>(nullable: true)
+                    Email = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -123,7 +123,7 @@
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 60, nullable: false),
-                    Address = table.Column<string>(maxLength: 500, nullable: false)
+                    Address = table.Column<string>(maxLength: 500, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -142,7 +142,7 @@
                     LastName = table.Column<string>(maxLength: 30, nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Subject = table.Column<string>(maxLength: 100, nullable: false),
-                    Content = table.Column<string>(maxLength: 10000, nullable: false)
+                    Content = table.Column<string>(maxLength: 10000, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -159,7 +159,7 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(maxLength: 40, nullable: false)
+                    Name = table.Column<string>(maxLength: 40, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -177,7 +177,7 @@
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     FirstName = table.Column<string>(maxLength: 30, nullable: false),
-                    LastName = table.Column<string>(maxLength: 30, nullable: false)
+                    LastName = table.Column<string>(maxLength: 30, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -195,7 +195,7 @@
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Question = table.Column<string>(maxLength: 100, nullable: false),
-                    Answer = table.Column<string>(maxLength: 1000, nullable: false)
+                    Answer = table.Column<string>(maxLength: 1000, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -212,7 +212,7 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(maxLength: 30, nullable: false)
+                    Name = table.Column<string>(maxLength: 30, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -230,7 +230,7 @@
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Category = table.Column<int>(nullable: false),
-                    Capacity = table.Column<int>(nullable: false)
+                    Capacity = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -247,7 +247,7 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    PageContent = table.Column<string>(maxLength: 15000, nullable: false)
+                    PageContent = table.Column<string>(maxLength: 15000, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -267,7 +267,7 @@
                     Description = table.Column<string>(maxLength: 1000, nullable: false),
                     Discount = table.Column<decimal>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
-                    EndDate = table.Column<DateTime>(nullable: false)
+                    EndDate = table.Column<DateTime>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -286,7 +286,7 @@
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Title = table.Column<string>(maxLength: 100, nullable: false),
                     Description = table.Column<string>(maxLength: 1500, nullable: false),
-                    Date = table.Column<DateTime>(nullable: false)
+                    Date = table.Column<DateTime>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -304,7 +304,7 @@
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Value = table.Column<string>(nullable: true)
+                    Value = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -326,7 +326,7 @@
                     Price = table.Column<decimal>(nullable: false),
                     TimeSlot = table.Column<int>(nullable: false),
                     TicketType = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false)
+                    Quantity = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -341,7 +341,7 @@
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    ClaimValue = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -362,7 +362,7 @@
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    ClaimValue = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -382,7 +382,7 @@
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -400,7 +400,7 @@
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    RoleId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -426,7 +426,7 @@
                     UserId = table.Column<string>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Value = table.Column<string>(nullable: true)
+                    Value = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -455,7 +455,7 @@
                     ImagePath = table.Column<string>(maxLength: 500, nullable: false),
                     UserId = table.Column<string>(nullable: false),
                     ViewsCounter = table.Column<int>(nullable: false),
-                    IsUpdated = table.Column<bool>(nullable: false)
+                    IsUpdated = table.Column<bool>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -490,7 +490,7 @@
                     WallpaperPath = table.Column<string>(maxLength: 500, nullable: false),
                     IMDBLink = table.Column<string>(maxLength: 500, nullable: true),
                     Length = table.Column<int>(nullable: false),
-                    DirectorId = table.Column<int>(nullable: false)
+                    DirectorId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -518,7 +518,7 @@
                     HallId = table.Column<int>(nullable: false),
                     Category = table.Column<int>(nullable: false),
                     IsAvailable = table.Column<bool>(nullable: false),
-                    IsSold = table.Column<bool>(nullable: false)
+                    IsSold = table.Column<bool>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -538,7 +538,7 @@
                     AuthorId = table.Column<int>(nullable: false),
                     ReviewId = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -570,7 +570,7 @@
                     NewsId = table.Column<int>(nullable: false),
                     ParentId = table.Column<int>(nullable: true),
                     Content = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -602,7 +602,7 @@
                     MovieId = table.Column<int>(nullable: false),
                     ActorId = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -634,7 +634,7 @@
                     MovieId = table.Column<int>(nullable: false),
                     ParentId = table.Column<int>(nullable: true),
                     Content = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -666,7 +666,7 @@
                     MovieId = table.Column<int>(nullable: false),
                     CountryId = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -692,7 +692,7 @@
                     MovieId = table.Column<int>(nullable: false),
                     GenreId = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -724,7 +724,7 @@
                     Date = table.Column<DateTime>(nullable: false),
                     MovieId = table.Column<int>(nullable: false),
                     HallId = table.Column<int>(nullable: false),
-                    CinemaId = table.Column<int>(nullable: false)
+                    CinemaId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -756,7 +756,7 @@
                     MovieId = table.Column<int>(nullable: false),
                     ReviewId = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -788,7 +788,7 @@
                     Rate = table.Column<int>(nullable: false),
                     MovieId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
-                    NextVoteDate = table.Column<DateTime>(nullable: false)
+                    NextVoteDate = table.Column<DateTime>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -821,7 +821,7 @@
                     PromotionId = table.Column<int>(nullable: true),
                     MovieProjectionId = table.Column<int>(nullable: false),
                     TicketId = table.Column<int>(nullable: false),
-                    PaymentMethod = table.Column<int>(nullable: false)
+                    PaymentMethod = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
