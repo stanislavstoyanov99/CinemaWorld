@@ -40,7 +40,7 @@
 
         public const string NewsNotFound = "News with id {0} is not found.";
 
-        public const string HallAlreadyExists = "Hall with id {0} already exists";
+        public const string HallAlreadyExists = "Hall with category {0} and capacity {1} already exists";
 
         public const string InvalidHallCategoryType = "Hall category type {0} is invalid.";
 

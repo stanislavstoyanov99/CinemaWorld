@@ -39,11 +39,13 @@
                 Capacity = hallCreateInputModel.Capacity,
             };
 
-            bool doesHallExist = await this.hallsRepository.All().AnyAsync(x => x.Id == hall.Id);
+            bool doesHallExist = await this.hallsRepository
+                .All()
+                .AnyAsync(x => x.Category == hall.Category && x.Capacity == hall.Capacity);
             if (doesHallExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.HallAlreadyExists, hall.Id));
+                    string.Format(ExceptionMessages.HallAlreadyExists, hall.Category, hall.Capacity));
             }
 
             await this.hallsRepository.AddAsync(hall);
