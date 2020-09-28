@@ -3,12 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     using CinemaWorld.Data;
     using CinemaWorld.Data.Common.Repositories;
     using CinemaWorld.Data.Models;
     using CinemaWorld.Data.Repositories;
+    using CinemaWorld.Models.ViewModels.Settings;
+    using CinemaWorld.Services.Mapping;
     using Microsoft.EntityFrameworkCore;
 
     using Moq;
@@ -17,6 +20,14 @@
 
     public class SettingsServiceTests
     {
+        private CinemaWorldDbContext dbContext;
+
+        public SettingsServiceTests()
+        {
+            this.InitializeMapper();
+            this.InitializeDatabase();
+        }
+
         [Fact]
         public void GetCountShouldReturnCorrectNumber()
         {
@@ -33,21 +44,41 @@
         }
 
         [Fact]
+        public async Task GetGetAllShouldWorkCorrectly()
+        {
+            this.dbContext.Settings.Add(new Setting());
+            this.dbContext.Settings.Add(new Setting());
+
+            await this.dbContext.SaveChangesAsync();
+
+            var repository = new EfDeletableEntityRepository<Setting>(this.dbContext);
+            var service = new SettingsService(repository);
+            var settings = service.GetAll<SettingViewModel>();
+            Assert.Equal(2, settings.Count());
+        }
+
+        [Fact]
         public async Task GetCountShouldReturnCorrectNumberUsingDbContext()
+        {
+            this.dbContext.Settings.Add(new Setting());
+            this.dbContext.Settings.Add(new Setting());
+            this.dbContext.Settings.Add(new Setting());
+
+            await this.dbContext.SaveChangesAsync();
+
+            var repository = new EfDeletableEntityRepository<Setting>(this.dbContext);
+            var service = new SettingsService(repository);
+            Assert.Equal(3, service.GetCount());
+        }
+
+        private void InitializeMapper() => AutoMapperConfig.
+            RegisterMappings(Assembly.Load("CinemaWorld.Models.ViewModels"));
+
+        private void InitializeDatabase()
         {
             var options = new DbContextOptionsBuilder<CinemaWorldDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-            var dbContext = new CinemaWorldDbContext(options);
-
-            dbContext.Settings.Add(new Setting());
-            dbContext.Settings.Add(new Setting());
-            dbContext.Settings.Add(new Setting());
-
-            await dbContext.SaveChangesAsync();
-
-            var repository = new EfDeletableEntityRepository<Setting>(dbContext);
-            var service = new SettingsService(repository);
-            Assert.Equal(3, service.GetCount());
+            this.dbContext = new CinemaWorldDbContext(options);
         }
     }
 }

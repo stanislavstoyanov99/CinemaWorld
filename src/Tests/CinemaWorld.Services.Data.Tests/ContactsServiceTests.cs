@@ -8,6 +8,7 @@
     using CinemaWorld.Data;
     using CinemaWorld.Data.Models;
     using CinemaWorld.Data.Repositories;
+    using CinemaWorld.Models.InputModels.AdministratorInputModels.Contacts;
     using CinemaWorld.Models.ViewModels.Contacts;
     using CinemaWorld.Services.Data.Contracts;
     using CinemaWorld.Services.Data.Tests.Helpers;
@@ -55,6 +56,41 @@
             Assert.Equal(1, count);
         }
 
+        [Fact]
+        public async Task CheckIfSendContactToAdminWorksCorrectly()
+        {
+            var model = new ContactFormEntryViewModel
+            {
+                FirstName = "Peter",
+                LastName = "Kirov",
+                Email = "peter.kirov@abv.bg",
+                Subject = "Question about cinema news",
+                Content = "Sample content about cinema news",
+            };
+
+            await this.contactsService.SendContactToAdmin(model);
+            var count = this.userContactsRepository.All().Count();
+
+            Assert.Equal(1, count);
+        }
+
+        [Fact]
+        public async Task CheckIfSendContactToUserWorksCorrectly()
+        {
+            var model = new SendContactInputModel
+            {
+                FullName = "Administrator fullname",
+                Email = "admin@abv.bg",
+                Subject = "Answer about cinema news",
+                Content = "Sample content about cinema news",
+            };
+
+            await this.contactsService.SendContactToUser(model);
+            var count = this.adminContactsRepository.All().Count();
+
+            Assert.Equal(1, count);
+        }
+
         public void Dispose()
         {
             this.connection.Close();
@@ -94,24 +130,11 @@
             };
         }
 
-        private async void SeedDatabase()
-        {
-            await this.SeedUserContacts();
-            await this.SeedAdminContacts();
-        }
-
         private async Task SeedUserContacts()
         {
             await this.userContactsRepository.AddAsync(this.firstUserContactFormEntry);
 
             await this.userContactsRepository.SaveChangesAsync();
-        }
-
-        private async Task SeedAdminContacts()
-        {
-            await this.adminContactsRepository.AddAsync(this.firstAdminContactFormEntry);
-
-            await this.adminContactsRepository.SaveChangesAsync();
         }
 
         private void InitializeMapper() => AutoMapperConfig.
