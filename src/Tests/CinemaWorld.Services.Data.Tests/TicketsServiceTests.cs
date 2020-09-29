@@ -1,18 +1,21 @@
 ﻿namespace CinemaWorld.Services.Data.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Reflection;
-    using System.Text;
+    using System.Threading.Tasks;
 
     using CinemaWorld.Data;
     using CinemaWorld.Data.Models;
+    using CinemaWorld.Data.Models.Enumerations;
     using CinemaWorld.Data.Repositories;
+    using CinemaWorld.Models.ViewModels.Tickets;
     using CinemaWorld.Services.Data.Contracts;
     using CinemaWorld.Services.Mapping;
 
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
+
+    using Xunit;
 
     public class TicketsServiceTests : IDisposable
     {
@@ -20,16 +23,49 @@
         private EfDeletableEntityRepository<Ticket> ticketsRepository;
         private EfDeletableEntityRepository<Seat> seatsRepository;
         private EfDeletableEntityRepository<MovieProjection> movieProjectionsRepository;
+        private EfDeletableEntityRepository<Hall> hallsRepository;
+        private EfDeletableEntityRepository<Cinema> cinemasRepository;
+        private EfDeletableEntityRepository<Director> directorsRepository;
+        private EfDeletableEntityRepository<Movie> moviesRepository;
         private SqliteConnection connection;
 
         private Ticket firstTicket;
+        private MovieProjection firstMovieProjection;
+        private Seat firstSeat;
+        private Hall firstHall;
+        private Cinema firstCinema;
+        private Movie firstMovie;
+        private Director firstDirector;
 
         public TicketsServiceTests()
         {
             this.InitializeMapper();
             this.InitializeDatabaseAndRepositories();
+            this.InitializeFields();
 
             this.ticketsService = new TicketsService(this.ticketsRepository, this.seatsRepository, this.movieProjectionsRepository);
+        }
+
+        [Fact]
+        public async Task CheckIfBuyAsyncWorksCorrectly()
+        {
+            this.SeedDatabase();
+
+            var model = new TicketInputModel
+            {
+                Row = 1,
+                Seat = this.firstSeat.Id,
+                Price = 15,
+                TimeSlot = TimeSlot.Afternoon.ToString(),
+                TicketType = TicketType.Regular.ToString(),
+                Quantity = 2,
+                MovieProjectionTime = this.firstMovieProjection.Date,
+            };
+
+            await this.ticketsService.BuyAsync(model, this.firstMovieProjection.Id);
+            var count = await this.ticketsRepository.All().CountAsync();
+
+            Assert.Equal(1, count);
         }
 
         public void Dispose()
@@ -50,6 +86,128 @@
             this.ticketsRepository = new EfDeletableEntityRepository<Ticket>(dbContext);
             this.seatsRepository = new EfDeletableEntityRepository<Seat>(dbContext);
             this.movieProjectionsRepository = new EfDeletableEntityRepository<MovieProjection>(dbContext);
+            this.hallsRepository = new EfDeletableEntityRepository<Hall>(dbContext);
+            this.cinemasRepository = new EfDeletableEntityRepository<Cinema>(dbContext);
+            this.moviesRepository = new EfDeletableEntityRepository<Movie>(dbContext);
+            this.directorsRepository = new EfDeletableEntityRepository<Director>(dbContext);
+        }
+
+        private void InitializeFields()
+        {
+            this.firstTicket = new Ticket
+            {
+                Row = 1,
+                Seat = 1,
+                Price = 10,
+                TimeSlot = TimeSlot.Afternoon,
+                TicketType = TicketType.Regular,
+                Quantity = 1,
+            };
+
+            this.firstDirector = new Director
+            {
+                FirstName = "Peter",
+                LastName = "Kirilov",
+            };
+
+            this.firstMovie = new Movie
+            {
+                Name = "Titanic",
+                DateOfRelease = DateTime.UtcNow,
+                Resolution = "HD",
+                Rating = 7.80m,
+                Description = "Test description here",
+                Language = "English",
+                CinemaCategory = CinemaCategory.B,
+                TrailerPath = "test trailer path",
+                CoverPath = "test cover path",
+                WallpaperPath = "test wallpaper path",
+                IMDBLink = "test imdb link",
+                Length = 120,
+                DirectorId = 1,
+            };
+
+            this.firstHall = new Hall
+            {
+                Category = HallCategory.Small,
+                Capacity = 20,
+            };
+
+            this.firstCinema = new Cinema
+            {
+                Name = "Bulgaria Mall",
+                Address = "Sofia bul.Stamboliiski",
+            };
+
+            this.firstMovieProjection = new MovieProjection
+            {
+                Date = DateTime.UtcNow,
+                MovieId = 1,
+                HallId = 1,
+                CinemaId = 1,
+            };
+
+            this.firstSeat = new Seat
+            {
+                Number = 1,
+                RowNumber = 1,
+                HallId = 1,
+                Category = SeatCategory.Normal,
+                IsAvailable = true,
+                IsSold = false,
+            };
+        }
+
+        private async void SeedDatabase()
+        {
+            await this.SeedDirectors();
+            await this.SeedMovies();
+            await this.SeedHalls();
+            await this.SeedCinemas();
+            await this.SeedMovieProjections();
+            await this.SeedSeats();
+        }
+
+        private async Task SeedHalls()
+        {
+            await this.hallsRepository.AddAsync(this.firstHall);
+
+            await this.hallsRepository.SaveChangesAsync();
+        }
+
+        private async Task SeedCinemas()
+        {
+            await this.cinemasRepository.AddAsync(this.firstCinema);
+
+            await this.cinemasRepository.SaveChangesAsync();
+        }
+
+        private async Task SeedDirectors()
+        {
+            await this.directorsRepository.AddAsync(this.firstDirector);
+
+            await this.directorsRepository.SaveChangesAsync();
+        }
+
+        private async Task SeedMovies()
+        {
+            await this.moviesRepository.AddAsync(this.firstMovie);
+
+            await this.moviesRepository.SaveChangesAsync();
+        }
+
+        private async Task SeedMovieProjections()
+        {
+            await this.movieProjectionsRepository.AddAsync(this.firstMovieProjection);
+
+            await this.movieProjectionsRepository.SaveChangesAsync();
+        }
+
+        private async Task SeedSeats()
+        {
+            await this.seatsRepository.AddAsync(this.firstSeat);
+
+            await this.seatsRepository.SaveChangesAsync();
         }
 
         private void InitializeMapper() => AutoMapperConfig.
