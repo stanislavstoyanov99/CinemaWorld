@@ -1,6 +1,7 @@
 ﻿namespace CinemaWorld.Services.Data.Tests
 {
     using System;
+    using System.Globalization;
     using System.Reflection;
     using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@
     using CinemaWorld.Data.Models.Enumerations;
     using CinemaWorld.Data.Repositories;
     using CinemaWorld.Models.ViewModels.Tickets;
+    using CinemaWorld.Services.Data.Common;
     using CinemaWorld.Services.Data.Contracts;
     using CinemaWorld.Services.Mapping;
 
@@ -66,6 +68,244 @@
             var count = await this.ticketsRepository.All().CountAsync();
 
             Assert.Equal(1, count);
+        }
+
+        [Fact]
+        public async Task CheckSettingOfTicketProperties()
+        {
+            this.SeedDatabase();
+
+            var model = new TicketInputModel
+            {
+                Row = 1,
+                Seat = this.firstSeat.Id,
+                Price = 20,
+                TimeSlot = TimeSlot.Morning.ToString(),
+                TicketType = TicketType.ForChildren.ToString(),
+                Quantity = 1,
+                MovieProjectionTime = this.firstMovieProjection.Date,
+            };
+
+            await this.ticketsService.BuyAsync(model, this.firstMovieProjection.Id);
+
+            var ticket = await this.ticketsRepository.All().FirstOrDefaultAsync();
+
+            Assert.Equal(1, ticket.Row);
+            Assert.Equal(this.firstSeat.Id, ticket.Seat);
+            Assert.Equal(20, ticket.Price);
+            Assert.Equal("Afternoon", ticket.TimeSlot.ToString());
+            Assert.Equal("ForChildren", ticket.TicketType.ToString());
+            Assert.Equal(1, ticket.Quantity);
+        }
+
+        [Fact]
+        public async Task CheckAddingTicketWithInvalidTicketType()
+        {
+            this.SeedDatabase();
+
+            var ticket = new TicketInputModel
+            {
+                Row = 1,
+                Seat = this.firstSeat.Id,
+                Price = 20,
+                TimeSlot = TimeSlot.Morning.ToString(),
+                TicketType = "Invalid type",
+                Quantity = 1,
+                MovieProjectionTime = this.firstMovieProjection.Date,
+            };
+
+            var exception = await Assert
+                .ThrowsAsync<ArgumentException>(async () => await this.ticketsService.BuyAsync(ticket, this.firstMovieProjection.Id));
+            Assert.Equal(string.Format(ExceptionMessages.InvalidTicketType, ticket.TicketType), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckAddingTicketWithMissingMovieProjection()
+        {
+            this.SeedDatabase();
+
+            var ticket = new TicketInputModel
+            {
+                Row = 1,
+                Seat = this.firstSeat.Id,
+                Price = 20,
+                TimeSlot = TimeSlot.Morning.ToString(),
+                TicketType = TicketType.ForChildren.ToString(),
+                Quantity = 1,
+                MovieProjectionTime = this.firstMovieProjection.Date,
+            };
+
+            var exception = await Assert
+                .ThrowsAsync<ArgumentException>(async () => await this.ticketsService.BuyAsync(ticket, 3));
+            Assert.Equal(string.Format(ExceptionMessages.MovieProjectionNotFound, 3), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckAddingTicketWithMissingSeat()
+        {
+            this.SeedDatabase();
+
+            var ticket = new TicketInputModel
+            {
+                Row = 3,
+                Seat = 3,
+                Price = 20,
+                TimeSlot = TimeSlot.Morning.ToString(),
+                TicketType = TicketType.ForChildren.ToString(),
+                Quantity = 1,
+                MovieProjectionTime = this.firstMovieProjection.Date,
+            };
+
+            var exception = await Assert
+                .ThrowsAsync<ArgumentException>(async () => await this.ticketsService.BuyAsync(ticket, this.firstMovieProjection.Id));
+            Assert.Equal(string.Format(ExceptionMessages.SeatNotFound, ticket.Seat), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckAddingTicketWithSoldSeat()
+        {
+            this.SeedDatabase();
+
+            this.firstSeat.IsSold = true;
+
+            var ticket = new TicketInputModel
+            {
+                Row = 1,
+                Seat = this.firstSeat.Id,
+                Price = 10,
+                TimeSlot = TimeSlot.Еvening.ToString(),
+                TicketType = TicketType.Retired.ToString(),
+                Quantity = 2,
+                MovieProjectionTime = this.firstMovieProjection.Date,
+            };
+
+            var exception = await Assert
+                .ThrowsAsync<ArgumentException>(async () => await this.ticketsService.BuyAsync(ticket, this.firstMovieProjection.Id));
+            Assert.Equal(string.Format(ExceptionMessages.SeatSoldError, this.firstSeat.Id), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckAddingAlreadyExistingTicket()
+        {
+            this.SeedDatabase();
+            await this.SeedTickets();
+
+            var ticket = new TicketInputModel
+            {
+                Row = 1,
+                Seat = 1,
+                Price = 10,
+                TimeSlot = TimeSlot.Afternoon.ToString(),
+                TicketType = TicketType.Regular.ToString(),
+                Quantity = 1,
+                MovieProjectionTime = this.firstMovieProjection.Date,
+            };
+
+            var exception = await Assert
+                .ThrowsAsync<ArgumentException>(async () => await this.ticketsService.BuyAsync(ticket, this.firstMovieProjection.Id));
+            Assert.Equal(string.Format(ExceptionMessages.TicketAlreadyExists, ticket.Row, ticket.Seat), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfBuyingTicketReturnsViewModel()
+        {
+            this.SeedDatabase();
+
+            var ticket = new TicketInputModel
+            {
+                Row = 1,
+                Seat = 1,
+                Price = 10,
+                TimeSlot = TimeSlot.Afternoon.ToString(),
+                TicketType = TicketType.Regular.ToString(),
+                Quantity = 1,
+                MovieProjectionTime = this.firstMovieProjection.Date,
+            };
+
+            var viewModel = await this.ticketsService.BuyAsync(ticket, this.firstMovieProjection.Id);
+            var dbEntry = await this.ticketsRepository.All().FirstOrDefaultAsync();
+
+            Assert.Equal(dbEntry.Row, viewModel.Row);
+            Assert.Equal(dbEntry.Seat, viewModel.Seat);
+            Assert.Equal(dbEntry.Price, viewModel.Price);
+            Assert.Equal(dbEntry.TimeSlot, viewModel.TimeSlot);
+            Assert.Equal(dbEntry.TicketType, viewModel.TicketType);
+            Assert.Equal(dbEntry.Quantity, viewModel.Quantity);
+        }
+
+        [Fact]
+        public async Task CheckIfBuyAsyncWorksCorrectlyWithLunchTimeSlot()
+        {
+            this.SeedDatabase();
+
+            var dateAsString = "30/09/2020 10:31:00";
+            var newDate = DateTime.ParseExact(dateAsString, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            this.firstMovieProjection.Date = newDate;
+
+            var model = new TicketInputModel
+            {
+                Row = 1,
+                Seat = this.firstSeat.Id,
+                Price = 15,
+                TicketType = TicketType.Regular.ToString(),
+                Quantity = 2,
+                MovieProjectionTime = this.firstMovieProjection.Date,
+            };
+
+            await this.ticketsService.BuyAsync(model, this.firstMovieProjection.Id);
+            var ticket = await this.ticketsRepository.All().FirstOrDefaultAsync();
+
+            Assert.Equal("Lunch", ticket.TimeSlot.ToString());
+        }
+
+        [Fact]
+        public async Task CheckIfBuyAsyncWorksCorrectlyWithЕveningTimeSlot()
+        {
+            this.SeedDatabase();
+
+            var dateAsString = "30/09/2020 17:30:00";
+            var newDate = DateTime.ParseExact(dateAsString, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            this.firstMovieProjection.Date = newDate;
+
+            var model = new TicketInputModel
+            {
+                Row = 1,
+                Seat = this.firstSeat.Id,
+                Price = 40,
+                TicketType = TicketType.Regular.ToString(),
+                Quantity = 3,
+                MovieProjectionTime = this.firstMovieProjection.Date,
+            };
+
+            await this.ticketsService.BuyAsync(model, this.firstMovieProjection.Id);
+            var ticket = await this.ticketsRepository.All().FirstOrDefaultAsync();
+
+            Assert.Equal("Еvening", ticket.TimeSlot.ToString());
+        }
+
+        [Fact]
+        public async Task CheckIfBuyAsyncWorksCorrectlyWithMorningTimeSlot()
+        {
+            this.SeedDatabase();
+
+            var dateAsString = "30/09/2020 09:30:00";
+            var newDate = DateTime.ParseExact(dateAsString, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            this.firstMovieProjection.Date = newDate;
+
+            var model = new TicketInputModel
+            {
+                Row = 1,
+                Seat = this.firstSeat.Id,
+                Price = 10,
+                TicketType = TicketType.ForChildren.ToString(),
+                Quantity = 1,
+                MovieProjectionTime = this.firstMovieProjection.Date,
+            };
+
+            await this.ticketsService.BuyAsync(model, this.firstMovieProjection.Id);
+            var ticket = await this.ticketsRepository.All().FirstOrDefaultAsync();
+
+            Assert.Equal("Morning", ticket.TimeSlot.ToString());
         }
 
         public void Dispose()
@@ -208,6 +448,13 @@
             await this.seatsRepository.AddAsync(this.firstSeat);
 
             await this.seatsRepository.SaveChangesAsync();
+        }
+
+        private async Task SeedTickets()
+        {
+            await this.ticketsRepository.AddAsync(this.firstTicket);
+
+            await this.ticketsRepository.SaveChangesAsync();
         }
 
         private void InitializeMapper() => AutoMapperConfig.

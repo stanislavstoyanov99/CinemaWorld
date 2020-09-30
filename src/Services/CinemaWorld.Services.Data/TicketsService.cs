@@ -50,7 +50,7 @@
             if (movieProjection == null)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.MovieProjectionNotFound, movieProjection.Id));
+                    string.Format(ExceptionMessages.MovieProjectionNotFound, movieProjectionId));
             }
 
             var seat = await this.seatsRepository
@@ -61,7 +61,7 @@
             if (seat == null)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.SeatNotFound, seat.Id));
+                    string.Format(ExceptionMessages.SeatNotFound, ticketInputModel.Seat));
             }
 
             if (seat.IsSold)
@@ -79,11 +79,11 @@
                 Quantity = ticketInputModel.Quantity,
             };
 
-            bool doesTicketExist = await this.ticketsRepository.All().AnyAsync(x => x.Id == ticket.Id);
+            bool doesTicketExist = await this.ticketsRepository.All().AnyAsync(x => x.Row == ticket.Row && x.Seat == ticket.Seat);
             if (doesTicketExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.TicketAlreadyExists, ticket.Id));
+                    string.Format(ExceptionMessages.TicketAlreadyExists, ticket.Row, ticket.Seat));
             }
 
             var movieProjectionHour = ticketInputModel.MovieProjectionTime.TimeOfDay.TotalHours;

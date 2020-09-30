@@ -50,7 +50,7 @@
 
         public const string InvalidSeatCategoryType = "Seat category type {0} is invalid.";
 
-        public const string SeatNotFound = "Seat with id {0} is not found.";
+        public const string SeatNotFound = "Seat {0} is not found.";
 
         public const string InvalidHallCapacity = "Hall with id {0} has reached maximum {1} capacity";
 
@@ -60,7 +60,7 @@
 
         public const string InvalidTicketType = "Ticket type {0} is invalid.";
 
-        public const string TicketAlreadyExists = "Ticket with id {0} already exists";
+        public const string TicketAlreadyExists = "Ticket with row {0} and seat {1} already exists";
 
         public const string InvalidTimeSlot = "Time slot type {0} is invalid.";
 
