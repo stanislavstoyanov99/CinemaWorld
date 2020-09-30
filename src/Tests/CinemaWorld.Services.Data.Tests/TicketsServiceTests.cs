@@ -17,6 +17,7 @@
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
 
+    using Newtonsoft.Json;
     using Xunit;
 
     public class TicketsServiceTests : IDisposable
@@ -308,6 +309,61 @@
             Assert.Equal("Morning", ticket.TimeSlot.ToString());
         }
 
+        [Fact]
+        public async Task CheckIfDeletingTicketWorksCorrectly()
+        {
+            await this.SeedTickets();
+
+            await this.ticketsService.DeleteByIdAsync(this.firstTicket.Id);
+
+            var count = await this.ticketsRepository.All().CountAsync();
+
+            Assert.Equal(0, count);
+        }
+
+        [Fact]
+        public async Task CheckIfDeletingTicketReturnsNullReferenceException()
+        {
+            this.SeedDatabase();
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () => await this.ticketsService.DeleteByIdAsync(3));
+            Assert.Equal(string.Format(ExceptionMessages.TicketNotFound, 3), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfGetTicketViewModelByIdAsyncWorksCorrectly()
+        {
+            await this.SeedTickets();
+
+            var expectedModel = new TicketDetailsViewModel
+            {
+                Row = this.firstTicket.Row,
+                Seat = this.firstTicket.Seat,
+                Price = this.firstTicket.Price,
+                TimeSlot = this.firstTicket.TimeSlot,
+                TicketType = this.firstTicket.TicketType,
+                Quantity = this.firstTicket.Quantity,
+            };
+
+            var viewModel = await this.ticketsService.GetViewModelByIdAsync<TicketDetailsViewModel>(this.firstTicket.Id);
+
+            var expectedObj = JsonConvert.SerializeObject(expectedModel);
+            var actualResultObj = JsonConvert.SerializeObject(viewModel);
+
+            Assert.Equal(expectedObj, actualResultObj);
+        }
+
+        [Fact]
+        public async Task CheckIfGetViewModelByIdAsyncThrowsNullReferenceException()
+        {
+            await this.SeedTickets();
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () => await this.ticketsService.GetViewModelByIdAsync<TicketDetailsViewModel>(3));
+            Assert.Equal(string.Format(ExceptionMessages.TicketNotFound, 3), exception.Message);
+        }
+
         public void Dispose()
         {
             this.connection.Close();
@@ -381,7 +437,7 @@
 
             this.firstMovieProjection = new MovieProjection
             {
-                Date = DateTime.UtcNow,
+                Date = DateTime.ParseExact("30/09/2020 14:30:00", "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture),
                 MovieId = 1,
                 HallId = 1,
                 CinemaId = 1,
