@@ -70,17 +70,20 @@
             {
                 Date = model.Date,
                 Movie = movie,
+                MovieId = model.MovieId,
                 Hall = hall,
+                HallId = model.HallId,
                 Cinema = cinema,
+                CinemaId = model.CinemaId,
             };
 
             bool doesMovieProjectionExist = await this.movieProjectionsRepository
                 .All()
-                .AnyAsync(x => x.Id == movieProjection.Id);
+                .AnyAsync(x => x.MovieId == movieProjection.MovieId && x.HallId == movieProjection.HallId);
             if (doesMovieProjectionExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.MovieProjectionAlreadyExists, movieProjection.Id));
+                    string.Format(ExceptionMessages.MovieProjectionAlreadyExists, movieProjection.MovieId, movieProjection.HallId));
             }
 
             await this.movieProjectionsRepository.AddAsync(movieProjection);

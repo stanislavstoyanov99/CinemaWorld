@@ -79,7 +79,9 @@
                 Quantity = ticketInputModel.Quantity,
             };
 
-            bool doesTicketExist = await this.ticketsRepository.All().AnyAsync(x => x.Row == ticket.Row && x.Seat == ticket.Seat);
+            bool doesTicketExist = await this.ticketsRepository
+                .All()
+                .AnyAsync(x => x.Row == ticket.Row && x.Seat == ticket.Seat);
             if (doesTicketExist)
             {
                 throw new ArgumentException(
