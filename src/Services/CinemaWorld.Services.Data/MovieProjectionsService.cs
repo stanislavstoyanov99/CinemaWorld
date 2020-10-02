@@ -176,7 +176,7 @@
 
             if (movieProjectionViewModel == null)
             {
-                throw new NullReferenceException(string.Format(ExceptionMessages.SeatNotFound, id));
+                throw new NullReferenceException(string.Format(ExceptionMessages.MovieProjectionNotFound, id));
             }
 
             return movieProjectionViewModel;

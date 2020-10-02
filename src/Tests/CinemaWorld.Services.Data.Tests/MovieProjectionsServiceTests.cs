@@ -1,6 +1,7 @@
 ﻿namespace CinemaWorld.Services.Data.Tests
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
 
@@ -9,13 +10,14 @@
     using CinemaWorld.Data.Models.Enumerations;
     using CinemaWorld.Data.Repositories;
     using CinemaWorld.Models.InputModels.AdministratorInputModels.MovieProjections;
+    using CinemaWorld.Models.ViewModels.MovieProjections;
     using CinemaWorld.Services.Data.Common;
     using CinemaWorld.Services.Data.Contracts;
     using CinemaWorld.Services.Mapping;
 
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
-
+    using Newtonsoft.Json;
     using Xunit;
 
     public class MovieProjectionsServiceTests : IDisposable
@@ -197,6 +199,244 @@
 
             var exception = await Assert
                 .ThrowsAsync<NullReferenceException>(async () => await this.movieProjectionsService.DeleteByIdAsync(3));
+            Assert.Equal(string.Format(ExceptionMessages.MovieProjectionNotFound, 3), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfEditingMovieProjectionWorksCorrectly()
+        {
+            this.SeedDatabase();
+            await this.SeedMovieProjections();
+
+            var secondHall = new Hall
+            {
+                Category = HallCategory.Medium,
+                Capacity = 50,
+            };
+            await this.hallsRepository.AddAsync(secondHall);
+            await this.hallsRepository.SaveChangesAsync();
+
+            var secondCinema = new Cinema
+            {
+                Name = "Paradise Center",
+                Address = "Sofia",
+            };
+            await this.cinemasRepository.AddAsync(secondCinema);
+            await this.cinemasRepository.SaveChangesAsync();
+
+            var secondMovie = new Movie
+            {
+                Name = "Titanic 2",
+                DateOfRelease = DateTime.UtcNow,
+                Resolution = "HD",
+                Rating = 7.80m,
+                Description = "Test description here",
+                Language = "English",
+                CinemaCategory = CinemaCategory.B,
+                TrailerPath = "test trailer path",
+                CoverPath = "test cover path",
+                WallpaperPath = "test wallpaper path",
+                IMDBLink = "test imdb link",
+                Length = 120,
+                DirectorId = 1,
+            };
+            await this.moviesRepository.AddAsync(secondMovie);
+            await this.moviesRepository.SaveChangesAsync();
+
+            var movieProjectionEditViewModel = new MovieProjectionEditViewModel
+            {
+                Id = this.firstMovieProjection.Id,
+                Date = DateTime.UtcNow.AddDays(2),
+                HallId = 2,
+                CinemaId = 2,
+                MovieId = 2,
+            };
+
+            await this.movieProjectionsService.EditAsync(movieProjectionEditViewModel);
+
+            Assert.Equal(movieProjectionEditViewModel.Date, this.firstMovieProjection.Date);
+            Assert.Equal(movieProjectionEditViewModel.HallId, this.firstMovieProjection.HallId);
+            Assert.Equal(movieProjectionEditViewModel.CinemaId, this.firstMovieProjection.CinemaId);
+            Assert.Equal(movieProjectionEditViewModel.MovieId, this.firstMovieProjection.MovieId);
+        }
+
+        [Fact]
+        public async Task CheckIfEditingMovieProjectionReturnsNullReferenceException()
+        {
+            this.SeedDatabase();
+
+            var movieProjectionEditViewModel = new MovieProjectionEditViewModel
+            {
+                Id = 3,
+                Date = DateTime.UtcNow.AddDays(2),
+                HallId = 2,
+                CinemaId = 2,
+                MovieId = 2,
+            };
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () => await this.movieProjectionsService.EditAsync(movieProjectionEditViewModel));
+            Assert.Equal(string.Format(ExceptionMessages.MovieProjectionNotFound, movieProjectionEditViewModel.Id), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfGetAllMovieProjectionsAsyncWorksCorrectly()
+        {
+            this.SeedDatabase();
+            await this.SeedMovieProjections();
+
+            var secondMovie = new Movie
+            {
+                Name = "Anabel",
+                DateOfRelease = DateTime.UtcNow.AddDays(3),
+                Resolution = "HD",
+                Rating = 7.80m,
+                Description = "Test description here",
+                Language = "English",
+                CinemaCategory = CinemaCategory.B,
+                TrailerPath = "test trailer path",
+                CoverPath = "test cover path",
+                WallpaperPath = "test wallpaper path",
+                IMDBLink = "test imdb link",
+                Length = 120,
+                DirectorId = 1,
+            };
+            await this.moviesRepository.AddAsync(secondMovie);
+            await this.moviesRepository.SaveChangesAsync();
+
+            var secondMovieProjection = new MovieProjection
+            {
+                Date = DateTime.UtcNow,
+                MovieId = 2,
+                HallId = 1,
+                CinemaId = 1,
+            };
+            await this.movieProjectionsRepository.AddAsync(secondMovieProjection);
+            await this.movieProjectionsRepository.SaveChangesAsync();
+
+            var result = await this.movieProjectionsService.GetAllMovieProjectionsAsync<MovieProjectionDetailsViewModel>();
+
+            var count = result.Count();
+            Assert.Equal(2, count);
+            Assert.Equal("Anabel", result.First().Movie.Name);
+        }
+
+        [Fact]
+        public async Task CheckIfGetAllMovieProjectionsByCinemaAsQueryeableWorksCorrectly()
+        {
+            this.SeedDatabase();
+            await this.SeedMovieProjections();
+
+            var secondMovie = new Movie
+            {
+                Name = "Anabel",
+                DateOfRelease = DateTime.UtcNow.AddDays(3),
+                Resolution = "HD",
+                Rating = 7.80m,
+                Description = "Test description here",
+                Language = "English",
+                CinemaCategory = CinemaCategory.B,
+                TrailerPath = "test trailer path",
+                CoverPath = "test cover path",
+                WallpaperPath = "test wallpaper path",
+                IMDBLink = "test imdb link",
+                Length = 120,
+                DirectorId = 1,
+            };
+            await this.moviesRepository.AddAsync(secondMovie);
+            await this.moviesRepository.SaveChangesAsync();
+
+            var secondMovieProjection = new MovieProjection
+            {
+                Date = DateTime.UtcNow,
+                MovieId = 2,
+                HallId = 1,
+                CinemaId = 1,
+            };
+            await this.movieProjectionsRepository.AddAsync(secondMovieProjection);
+            await this.movieProjectionsRepository.SaveChangesAsync();
+
+            var result = this.movieProjectionsService.GetAllMovieProjectionsByCinemaAsQueryeable<MovieProjectionDetailsViewModel>("Bulgaria Mall");
+
+            var count = result.Count();
+            Assert.Equal(2, count);
+            Assert.Equal("Bulgaria Mall", result.First().Cinema.Name);
+        }
+
+        [Fact]
+        public async Task CheckIfGetAllMovieProjectionsAsQueryeableWorksCorrectly()
+        {
+            this.SeedDatabase();
+            await this.SeedMovieProjections();
+
+            var secondMovie = new Movie
+            {
+                Name = "Anabel",
+                DateOfRelease = DateTime.UtcNow.AddDays(3),
+                Resolution = "HD",
+                Rating = 7.80m,
+                Description = "Test description here",
+                Language = "English",
+                CinemaCategory = CinemaCategory.B,
+                TrailerPath = "test trailer path",
+                CoverPath = "test cover path",
+                WallpaperPath = "test wallpaper path",
+                IMDBLink = "test imdb link",
+                Length = 120,
+                DirectorId = 1,
+            };
+            await this.moviesRepository.AddAsync(secondMovie);
+            await this.moviesRepository.SaveChangesAsync();
+
+            var secondMovieProjection = new MovieProjection
+            {
+                Date = DateTime.UtcNow,
+                MovieId = 2,
+                HallId = 1,
+                CinemaId = 1,
+            };
+            await this.movieProjectionsRepository.AddAsync(secondMovieProjection);
+            await this.movieProjectionsRepository.SaveChangesAsync();
+
+            var result = this.movieProjectionsService.GetAllMovieProjectionsAsQueryeable<MovieProjectionDetailsViewModel>();
+
+            var count = result.Count();
+            Assert.Equal(2, count);
+            Assert.Equal("Bulgaria Mall", result.First().Cinema.Name);
+        }
+
+        [Fact]
+        public async Task CheckIfIfGetViewModelByIdAsyncWorksCorrectly()
+        {
+            this.SeedDatabase();
+            await this.SeedMovieProjections();
+
+            var expectedModel = new MovieProjectionDetailsViewModel
+            {
+                Id = this.firstMovieProjection.Id,
+            };
+
+            var viewModel = await this.movieProjectionsService.GetViewModelByIdAsync<MovieProjectionDetailsViewModel>(this.firstMovieProjection.Id);
+            expectedModel.Hall = viewModel.Hall;
+            expectedModel.Cinema = viewModel.Cinema;
+            expectedModel.Movie = viewModel.Movie;
+            expectedModel.Date = viewModel.Date;
+
+            var expectedObj = JsonConvert.SerializeObject(expectedModel);
+            var actualResultObj = JsonConvert.SerializeObject(viewModel);
+
+            Assert.Equal(expectedObj, actualResultObj);
+        }
+
+        [Fact]
+        public async Task CheckIfGetViewModelByIdAsyncThrowsNullReferenceException()
+        {
+            this.SeedDatabase();
+            await this.SeedMovieProjections();
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () =>
+                    await this.movieProjectionsService.GetViewModelByIdAsync<MovieProjectionDetailsViewModel>(3));
             Assert.Equal(string.Format(ExceptionMessages.MovieProjectionNotFound, 3), exception.Message);
         }
 
