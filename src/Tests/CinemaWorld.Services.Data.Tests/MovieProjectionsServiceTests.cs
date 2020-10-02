@@ -17,6 +17,7 @@
 
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
+
     using Newtonsoft.Json;
     using Xunit;
 
@@ -65,7 +66,7 @@
         }
 
         [Fact]
-        public async Task CheckSettingOfMovieProjectionProperties()
+        public async Task CheckSettingsOfMovieProjectionProperties()
         {
             this.SeedDatabase();
 

@@ -58,11 +58,13 @@
                 Hall = hall,
             };
 
-            bool doesSeatExist = await this.seatsRepository.All().AnyAsync(x => x.Id == seat.Id);
+            bool doesSeatExist = await this.seatsRepository
+                .All()
+                .AnyAsync(x => x.Number == seat.Number && x.RowNumber == seat.RowNumber);
             if (doesSeatExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.SeatAlreadyExists, seat.Id));
+                    string.Format(ExceptionMessages.SeatAlreadyExists, seat.Number, seat.RowNumber));
             }
 
             await this.seatsRepository.AddAsync(seat);

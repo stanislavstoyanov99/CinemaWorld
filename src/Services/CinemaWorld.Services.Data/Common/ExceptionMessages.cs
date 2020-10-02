@@ -46,7 +46,7 @@
 
         public const string HallNotFound = "Hall with id {0} is not found.";
 
-        public const string SeatAlreadyExists = "Seat with id {0} already exists";
+        public const string SeatAlreadyExists = "Seat with number {0} and row number {1} already exists";
 
         public const string InvalidSeatCategoryType = "Seat category type {0} is invalid.";
 
