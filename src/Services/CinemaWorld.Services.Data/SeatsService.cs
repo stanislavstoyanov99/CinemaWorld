@@ -108,6 +108,16 @@
                     string.Format(ExceptionMessages.SeatNotFound, seatEditViewModel.Id));
             }
 
+            var hall = await this.hallsRepository
+                .All()
+                .FirstOrDefaultAsync(h => h.Id == seatEditViewModel.HallId);
+
+            if (hall == null)
+            {
+                throw new NullReferenceException(
+                    string.Format(ExceptionMessages.HallNotFound, seatEditViewModel.HallId));
+            }
+
             seat.Number = seatEditViewModel.Number;
             seat.RowNumber = seatEditViewModel.RowNumber;
             seat.HallId = seatEditViewModel.HallId;
