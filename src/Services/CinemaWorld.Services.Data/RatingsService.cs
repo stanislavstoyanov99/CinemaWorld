@@ -20,25 +20,6 @@
             this.starRatingsRepository = starRatingsRepository;
         }
 
-        public async Task<int> GetStarRatingsAsync(int movieId)
-        {
-            var starRatings = await this.starRatingsRepository
-                .All()
-                .Where(x => x.MovieId == movieId)
-                .SumAsync(x => x.Rate);
-
-            return starRatings;
-        }
-
-        public async Task<DateTime> GetNextVoteDateAsync(int movieId, string userId)
-        {
-            var starRating = await this.starRatingsRepository
-                .All()
-                .FirstAsync(x => x.MovieId == movieId && x.UserId == userId);
-
-            return starRating.NextVoteDate;
-        }
-
         public async Task VoteAsync(int movieId, string userId, int rating)
         {
             var starRating = await this.starRatingsRepository
@@ -69,6 +50,25 @@
             }
 
             await this.starRatingsRepository.SaveChangesAsync();
+        }
+
+        public async Task<int> GetStarRatingsAsync(int movieId)
+        {
+            var starRatings = await this.starRatingsRepository
+                .All()
+                .Where(x => x.MovieId == movieId)
+                .SumAsync(x => x.Rate);
+
+            return starRatings;
+        }
+
+        public async Task<DateTime> GetNextVoteDateAsync(int movieId, string userId)
+        {
+            var starRating = await this.starRatingsRepository
+                .All()
+                .FirstAsync(x => x.MovieId == movieId && x.UserId == userId);
+
+            return starRating.NextVoteDate;
         }
     }
 }
