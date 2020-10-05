@@ -1,6 +1,8 @@
 ﻿namespace CinemaWorld.Services.Data.Tests
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Reflection;
     using System.Threading.Tasks;
 
@@ -8,12 +10,17 @@
     using CinemaWorld.Data.Models;
     using CinemaWorld.Data.Models.Enumerations;
     using CinemaWorld.Data.Repositories;
+    using CinemaWorld.Models.InputModels.AdministratorInputModels.Movies;
+    using CinemaWorld.Models.ViewModels.Movies;
+    using CinemaWorld.Services.Data.Common;
     using CinemaWorld.Services.Data.Contracts;
     using CinemaWorld.Services.Data.Tests.Helpers;
     using CinemaWorld.Services.Mapping;
 
     using CloudinaryDotNet;
 
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Http.Internal;
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
 
@@ -21,11 +28,18 @@
 
     public class MoviesServiceTests : IDisposable, IClassFixture<Configuration>
     {
+        private const string TestCoverImageUrl = "https://someurl.com";
+        private const string TestWallpaperImageUrl = "https://someurl2.com";
+        private const string TestImagePath = "Test.jpg";
+        private const string TestImageContentType = "image/jpg";
+
         private readonly IMoviesService moviesService;
         private readonly ICloudinaryService cloudinaryService;
         private readonly Cloudinary cloudinary;
 
         private EfDeletableEntityRepository<Movie> moviesRepository;
+        private EfDeletableEntityRepository<Genre> genresRepository;
+        private EfDeletableEntityRepository<Country> countriesRepository;
         private EfDeletableEntityRepository<Director> directorsRepository;
         private EfDeletableEntityRepository<MovieGenre> movieGenresRepository;
         private EfDeletableEntityRepository<MovieCountry> movieCountriesRepository;
@@ -33,6 +47,8 @@
         private SqliteConnection connection;
 
         private Movie firstMovie;
+        private Genre firstGenre;
+        private Country firstCountry;
         private Director firstDirector;
         private MovieGenre firstMovieGenre;
         private MovieCountry firstMovieCountry;
@@ -59,6 +75,395 @@
                 this.cloudinaryService);
         }
 
+        [Fact]
+        public async Task TestAddingMovie()
+        {
+            this.SeedDatabase();
+
+            MovieDetailsViewModel movieDetailsViewModel;
+
+            using (var stream = File.OpenRead(TestImagePath))
+            {
+                var file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name))
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = TestImageContentType,
+                };
+
+                var model = new MovieCreateInputModel
+                {
+                    Name = "Titanic",
+                    DateOfRelease = DateTime.UtcNow,
+                    Resolution = "HD",
+                    Rating = 7.80m,
+                    Description = "Test description here",
+                    Language = "English",
+                    CinemaCategory = CinemaCategory.B.ToString(),
+                    TrailerPath = "test trailer path",
+                    CoverImage = file,
+                    Wallpaper = file,
+                    IMDBLink = "test imdb link",
+                    Length = 190,
+                    DirectorId = 1,
+                    SelectedGenres = new List<int> { 1 },
+                    SelectedCountries = new List<int> { 1 },
+                };
+
+                movieDetailsViewModel = await this.moviesService.CreateAsync(model);
+            }
+
+            await this.cloudinaryService.DeleteImage(this.cloudinary, movieDetailsViewModel.Name);
+            await this.cloudinaryService.DeleteImage(this.cloudinary, movieDetailsViewModel.Name + Suffixes.WallpaperSuffix);
+
+            var count = await this.moviesRepository.All().CountAsync();
+
+            Assert.Equal(1, count);
+        }
+
+        [Fact]
+        public async Task CheckIfAddingMovieReturnsViewModel()
+        {
+            this.SeedDatabase();
+
+            MovieDetailsViewModel movieDetailsViewModel;
+
+            using (var stream = File.OpenRead(TestImagePath))
+            {
+                var file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name))
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = TestImageContentType,
+                };
+
+                var model = new MovieCreateInputModel
+                {
+                    Name = "Titanic",
+                    DateOfRelease = DateTime.UtcNow,
+                    Resolution = "HD",
+                    Rating = 7.80m,
+                    Description = "Test description here",
+                    Language = "English",
+                    CinemaCategory = CinemaCategory.B.ToString(),
+                    TrailerPath = "test trailer path",
+                    CoverImage = file,
+                    Wallpaper = file,
+                    IMDBLink = "test imdb link",
+                    Length = 190,
+                    DirectorId = 1,
+                    SelectedGenres = new List<int> { 1 },
+                    SelectedCountries = new List<int> { 1 },
+                };
+
+                movieDetailsViewModel = await this.moviesService.CreateAsync(model);
+            }
+
+            await this.cloudinaryService.DeleteImage(this.cloudinary, movieDetailsViewModel.Name);
+            await this.cloudinaryService.DeleteImage(this.cloudinary, movieDetailsViewModel.Name + Suffixes.WallpaperSuffix);
+
+            var movie = await this.moviesRepository.All().FirstOrDefaultAsync();
+
+            Assert.Equal("Titanic", movie.Name);
+            Assert.Equal("HD", movie.Resolution);
+            Assert.Equal(7.80m, movie.Rating);
+            Assert.Equal("Test description here", movie.Description);
+            Assert.Equal("English", movie.Language);
+            Assert.Equal("B", movie.CinemaCategory.ToString());
+            Assert.Equal("test trailer path", movie.TrailerPath);
+            Assert.Equal("test imdb link", movie.IMDBLink);
+            Assert.Equal(190, movie.Length);
+            Assert.Equal(1, movie.DirectorId);
+        }
+
+        [Fact]
+        public async Task TestAddingMovieWithInvalidCinemaCategory()
+        {
+            this.SeedDatabase();
+
+            var model = new MovieCreateInputModel
+            {
+                Name = "Titanic 2",
+                DateOfRelease = DateTime.UtcNow,
+                Resolution = "HD",
+                Rating = 7.80m,
+                Description = "Test description here",
+                Language = "English",
+                CinemaCategory = "Invalid category",
+                TrailerPath = "test trailer path",
+                IMDBLink = "test imdb link",
+                Length = 190,
+                DirectorId = 1,
+                SelectedGenres = new List<int> { 1 },
+                SelectedCountries = new List<int> { 1 },
+            };
+
+            var exception = await Assert
+                .ThrowsAsync<ArgumentException>(async () => await this.moviesService.CreateAsync(model));
+            Assert.Equal(string.Format(ExceptionMessages.InvalidCinemaCategoryType, model.CinemaCategory), exception.Message);
+        }
+
+        [Fact]
+        public async Task TestAddingMovieWithMissingDirector()
+        {
+            this.SeedDatabase();
+
+            var model = new MovieCreateInputModel
+            {
+                Name = "Titanic 2",
+                DateOfRelease = DateTime.UtcNow,
+                Resolution = "HD",
+                Rating = 7.80m,
+                Description = "Test description here",
+                Language = "English",
+                CinemaCategory = CinemaCategory.B.ToString(),
+                TrailerPath = "test trailer path",
+                IMDBLink = "test imdb link",
+                Length = 190,
+                DirectorId = 2,
+                SelectedGenres = new List<int> { 1 },
+                SelectedCountries = new List<int> { 1 },
+            };
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () => await this.moviesService.CreateAsync(model));
+            Assert.Equal(string.Format(ExceptionMessages.DirectorNotFound, model.DirectorId), exception.Message);
+        }
+
+        [Fact]
+        public async Task TestAddingAlreadyExistingMovie()
+        {
+            this.SeedDatabase();
+            await this.SeedMovies();
+
+            using (var stream = File.OpenRead(TestImagePath))
+            {
+                var file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name))
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = TestImageContentType,
+                };
+
+                var model = new MovieCreateInputModel
+                {
+                    Name = "Titanic",
+                    DateOfRelease = DateTime.UtcNow,
+                    Resolution = "HD",
+                    Rating = 7.80m,
+                    Description = "Test description here",
+                    Language = "English",
+                    CinemaCategory = CinemaCategory.B.ToString(),
+                    TrailerPath = "test trailer path",
+                    CoverPath = "test cover path",
+                    CoverImage = file,
+                    Wallpaper = file,
+                    WallpaperPath = "test wallpaper path",
+                    IMDBLink = "test imdb link",
+                    Length = 120,
+                    DirectorId = 1,
+                };
+
+                var exception = await Assert
+                    .ThrowsAsync<ArgumentException>(async () => await this.moviesService.CreateAsync(model));
+                Assert.Equal(string.Format(ExceptionMessages.MovieAlreadyExists, model.Name), exception.Message);
+            }
+        }
+
+        [Fact]
+        public async Task CheckIfEditingMovieWorksCorrectlyWhenImagesStaysTheSame()
+        {
+            this.SeedDatabase();
+            await this.SeedMovies();
+
+            var newDirector = new Director
+            {
+                FirstName = "Pesho",
+                LastName = "Petrov",
+            };
+            await this.directorsRepository.AddAsync(newDirector);
+            await this.directorsRepository.SaveChangesAsync();
+
+            var movieEditViewModel = new MovieEditViewModel
+            {
+                Id = this.firstMovie.Id,
+                Name = "Brothers and sisters",
+                DateOfRelease = DateTime.UtcNow.AddDays(1),
+                Resolution = "SD",
+                Rating = 7.50m,
+                Description = "Changed Test description",
+                Language = "USA",
+                CinemaCategory = CinemaCategory.C.ToString(),
+                TrailerPath = "Changed Test trailer path",
+                CoverImage = null,
+                Wallpaper = null,
+                IMDBLink = "Changed Test imdb link",
+                Length = 110,
+                DirectorId = 2,
+                SelectedGenres = new List<int> { 1, },
+                SelectedCountries = new List<int> { 1, },
+            };
+
+            await this.moviesService.EditAsync(movieEditViewModel);
+
+            Assert.Equal(movieEditViewModel.Id, this.firstMovie.Id);
+            Assert.Equal(movieEditViewModel.Name, this.firstMovie.Name);
+            Assert.Equal(movieEditViewModel.DateOfRelease, this.firstMovie.DateOfRelease);
+            Assert.Equal(movieEditViewModel.Resolution, this.firstMovie.Resolution);
+            Assert.Equal(movieEditViewModel.Rating, this.firstMovie.Rating);
+            Assert.Equal(movieEditViewModel.Description, this.firstMovie.Description);
+            Assert.Equal(movieEditViewModel.Language, this.firstMovie.Language);
+            Assert.Equal(movieEditViewModel.CinemaCategory, this.firstMovie.CinemaCategory.ToString());
+            Assert.Equal(movieEditViewModel.TrailerPath, this.firstMovie.TrailerPath);
+            Assert.Equal(movieEditViewModel.IMDBLink, this.firstMovie.IMDBLink);
+            Assert.Equal(movieEditViewModel.Length, this.firstMovie.Length);
+        }
+
+        [Fact]
+        public async Task CheckEditingMovieWithInvalidCinemaCategory()
+        {
+            this.SeedDatabase();
+            await this.SeedMovies();
+
+            var model = new MovieEditViewModel
+            {
+                Id = this.firstMovie.Id,
+                Name = "Brothers and sisters",
+                DateOfRelease = DateTime.UtcNow.AddDays(1),
+                Resolution = "SD",
+                Rating = 7.50m,
+                Description = "Changed Test description",
+                Language = "USA",
+                CinemaCategory = "Invalid category",
+                TrailerPath = "Changed Test trailer path",
+                CoverImage = null,
+                Wallpaper = null,
+                IMDBLink = "Changed Test imdb link",
+                Length = 110,
+                DirectorId = 2,
+                SelectedGenres = new List<int> { 1, },
+                SelectedCountries = new List<int> { 1, },
+            };
+
+            var exception = await Assert
+                .ThrowsAsync<ArgumentException>(async () => await this.moviesService.EditAsync(model));
+            Assert.Equal(string.Format(ExceptionMessages.InvalidCinemaCategoryType, model.CinemaCategory), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckEditingMovieWithMissingMovie()
+        {
+            this.SeedDatabase();
+            await this.SeedMovies();
+
+            var model = new MovieEditViewModel
+            {
+                Id = 3,
+                Name = "Brothers and sisters",
+                DateOfRelease = DateTime.UtcNow.AddDays(1),
+                Resolution = "SD",
+                Rating = 7.50m,
+                Description = "Changed Test description",
+                Language = "USA",
+                CinemaCategory = CinemaCategory.B.ToString(),
+                TrailerPath = "Changed Test trailer path",
+                CoverImage = null,
+                Wallpaper = null,
+                IMDBLink = "Changed Test imdb link",
+                Length = 110,
+                DirectorId = 2,
+                SelectedGenres = new List<int> { 1, },
+                SelectedCountries = new List<int> { 1, },
+            };
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () => await this.moviesService.EditAsync(model));
+            Assert.Equal(string.Format(ExceptionMessages.MovieNotFound, model.Id), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfEditAsyncEditsCoverImage()
+        {
+            this.SeedDatabase();
+            await this.SeedMovies();
+
+            using (var stream = File.OpenRead(TestImagePath))
+            {
+                var file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name))
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = TestImageContentType,
+                };
+
+                var movieEditViewModel = new MovieEditViewModel()
+                {
+                    Id = this.firstMovie.Id,
+                    Name = "Brothers and sisters",
+                    DateOfRelease = DateTime.UtcNow.AddDays(1),
+                    Resolution = "SD",
+                    Rating = 7.50m,
+                    Description = "Changed Test description",
+                    Language = "USA",
+                    CinemaCategory = CinemaCategory.B.ToString(),
+                    TrailerPath = "Changed Test trailer path",
+                    CoverImage = file,
+                    Wallpaper = null,
+                    IMDBLink = "Changed Test imdb link",
+                    Length = 110,
+                    DirectorId = 1,
+                    SelectedGenres = new List<int> { 1, },
+                    SelectedCountries = new List<int> { 1, },
+                };
+
+                await this.moviesService.EditAsync(movieEditViewModel);
+
+                await this.cloudinaryService.DeleteImage(this.cloudinary, movieEditViewModel.Name);
+            }
+
+            var movie = await this.moviesRepository.All().FirstAsync();
+            Assert.NotEqual(TestCoverImageUrl, movie.CoverPath);
+        }
+
+        [Fact]
+        public async Task CheckIfEditAsyncEditsWallpaperImage()
+        {
+            this.SeedDatabase();
+            await this.SeedMovies();
+
+            using (var stream = File.OpenRead(TestImagePath))
+            {
+                var file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name))
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = TestImageContentType,
+                };
+
+                var movieEditViewModel = new MovieEditViewModel()
+                {
+                    Id = this.firstMovie.Id,
+                    Name = "Brothers and sisters",
+                    DateOfRelease = DateTime.UtcNow.AddDays(1),
+                    Resolution = "SD",
+                    Rating = 7.50m,
+                    Description = "Changed Test description",
+                    Language = "USA",
+                    CinemaCategory = CinemaCategory.B.ToString(),
+                    TrailerPath = "Changed Test trailer path",
+                    CoverImage = null,
+                    Wallpaper = file,
+                    IMDBLink = "Changed Test imdb link",
+                    Length = 110,
+                    DirectorId = 1,
+                    SelectedGenres = new List<int> { 1, },
+                    SelectedCountries = new List<int> { 1, },
+                };
+
+                await this.moviesService.EditAsync(movieEditViewModel);
+
+                await this.cloudinaryService.DeleteImage(this.cloudinary, movieEditViewModel.Name + Suffixes.WallpaperSuffix);
+            }
+
+            var movie = await this.moviesRepository.All().FirstAsync();
+            Assert.NotEqual(TestWallpaperImageUrl, movie.WallpaperPath);
+        }
+
         public void Dispose()
         {
             this.connection.Close();
@@ -78,10 +483,22 @@
             this.directorsRepository = new EfDeletableEntityRepository<Director>(dbContext);
             this.movieGenresRepository = new EfDeletableEntityRepository<MovieGenre>(dbContext);
             this.movieCountriesRepository = new EfDeletableEntityRepository<MovieCountry>(dbContext);
+            this.genresRepository = new EfDeletableEntityRepository<Genre>(dbContext);
+            this.countriesRepository = new EfDeletableEntityRepository<Country>(dbContext);
         }
 
         private void InitializeFields()
         {
+            this.firstGenre = new Genre
+            {
+                Name = "Drama",
+            };
+
+            this.firstCountry = new Country
+            {
+                Name = "USA",
+            };
+
             this.firstDirector = new Director
             {
                 FirstName = "Peter",
@@ -98,8 +515,8 @@
                 Language = "English",
                 CinemaCategory = CinemaCategory.B,
                 TrailerPath = "test trailer path",
-                CoverPath = "test cover path",
-                WallpaperPath = "test wallpaper path",
+                CoverPath = TestCoverImageUrl,
+                WallpaperPath = TestWallpaperImageUrl,
                 IMDBLink = "test imdb link",
                 Length = 120,
                 DirectorId = 1,
@@ -109,7 +526,8 @@
         private async void SeedDatabase()
         {
             await this.SeedDirectors();
-            await this.SeedMovies();
+            await this.SeedGenres();
+            await this.SeedCountries();
         }
 
         private async Task SeedDirectors()
@@ -124,6 +542,20 @@
             await this.moviesRepository.AddAsync(this.firstMovie);
 
             await this.moviesRepository.SaveChangesAsync();
+        }
+
+        private async Task SeedGenres()
+        {
+            await this.genresRepository.AddAsync(this.firstGenre);
+
+            await this.genresRepository.SaveChangesAsync();
+        }
+
+        private async Task SeedCountries()
+        {
+            await this.countriesRepository.AddAsync(this.firstCountry);
+
+            await this.countriesRepository.SaveChangesAsync();
         }
 
         private void InitializeMapper() => AutoMapperConfig.

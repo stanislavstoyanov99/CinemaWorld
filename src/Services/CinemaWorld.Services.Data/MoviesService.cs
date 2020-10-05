@@ -83,11 +83,11 @@
                 Director = director,
             };
 
-            bool doesMovieExist = await this.moviesRepository.All().AnyAsync(x => x.Id == movie.Id);
+            bool doesMovieExist = await this.moviesRepository.All().AnyAsync(x => x.Name == movieCreateInputModel.Name);
             if (doesMovieExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.MovieAlreadyExists, movie.Id));
+                    string.Format(ExceptionMessages.MovieAlreadyExists, movieCreateInputModel.Name));
             }
 
             foreach (var genreId in movieCreateInputModel.SelectedGenres)

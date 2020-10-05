@@ -4,7 +4,7 @@
     {
         public const string MovieNotFound = "Movie with id {0} is not found.";
 
-        public const string MovieAlreadyExists = "Movie with id {0} already exists";
+        public const string MovieAlreadyExists = "Movie with name {0} already exists";
 
         public const string DirectorNotFound = "Director with id {0} is not found.";
 
