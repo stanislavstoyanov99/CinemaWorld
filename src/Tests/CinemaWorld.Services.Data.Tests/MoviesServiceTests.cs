@@ -464,6 +464,32 @@
             Assert.NotEqual(TestWallpaperImageUrl, movie.WallpaperPath);
         }
 
+        [Fact]
+        public async Task CheckIfDeletingMovieWorksCorrectly()
+        {
+            this.SeedDatabase();
+            await this.SeedMovies();
+            await this.SeedMovieGenres();
+            await this.SeedMovieCountries();
+
+            await this.moviesService.DeleteByIdAsync(this.firstMovie.Id);
+
+            var count = await this.moviesRepository.All().CountAsync();
+
+            Assert.Equal(0, count);
+        }
+
+        [Fact]
+        public async Task CheckIfDeletingMovieReturnsNullReferenceException()
+        {
+            this.SeedDatabase();
+            await this.SeedMovies();
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () => await this.moviesService.DeleteByIdAsync(3));
+            Assert.Equal(string.Format(ExceptionMessages.MovieNotFound, 3), exception.Message);
+        }
+
         public void Dispose()
         {
             this.connection.Close();
@@ -521,6 +547,18 @@
                 Length = 120,
                 DirectorId = 1,
             };
+
+            this.firstMovieGenre = new MovieGenre
+            {
+                GenreId = 1,
+                MovieId = 1,
+            };
+
+            this.firstMovieCountry = new MovieCountry
+            {
+                CountryId = 1,
+                MovieId = 1,
+            };
         }
 
         private async void SeedDatabase()
@@ -542,6 +580,20 @@
             await this.moviesRepository.AddAsync(this.firstMovie);
 
             await this.moviesRepository.SaveChangesAsync();
+        }
+
+        private async Task SeedMovieGenres()
+        {
+            await this.movieGenresRepository.AddAsync(this.firstMovieGenre);
+
+            await this.movieGenresRepository.SaveChangesAsync();
+        }
+
+        private async Task SeedMovieCountries()
+        {
+            await this.movieCountriesRepository.AddAsync(this.firstMovieCountry);
+
+            await this.movieCountriesRepository.SaveChangesAsync();
         }
 
         private async Task SeedGenres()
