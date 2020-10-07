@@ -168,8 +168,6 @@
             movie.Length = movieEditViewModel.Length;
             movie.DirectorId = movieEditViewModel.DirectorId;
             movie.ModifiedOn = DateTime.UtcNow;
-            movie.MovieGenres.Clear();
-            movie.MovieCountries.Clear();
 
             await this.moviesRepository.SaveChangesAsync();
 
