@@ -678,6 +678,33 @@
             Assert.Equal(1, count);
         }
 
+        // Strange error with decimal type
+        [Fact]
+        public async Task CheckIfGetTopImdbMoviesAsyncWorksCorrectly()
+        {
+            this.SeedDatabase();
+            await this.SeedMovies();
+            await this.SeedMovieCountries();
+
+            var result = await this.moviesService.GetTopImdbMoviesAsync<MovieDetailsViewModel>(5.51m, 1);
+
+            var count = result.Count();
+            Assert.Equal(1, count);
+        }
+
+        [Fact]
+        public async Task CheckIfGetTopRatingMoviesAsyncWorksCorrectly()
+        {
+            this.SeedDatabase();
+            await this.SeedMovies();
+            await this.SeedMovieCountries();
+
+            var result = await this.moviesService.GetTopRatingMoviesAsync<MovieDetailsViewModel>(4.50m, 1);
+
+            var count = result.Count();
+            Assert.Equal(0, count);
+        }
+
         [Fact]
         public async Task CheckIfGetMovieViewModelByIdAsyncThrowsNullReferenceException()
         {
@@ -749,7 +776,7 @@
                 Name = "Titanic",
                 DateOfRelease = DateTime.UtcNow,
                 Resolution = "HD",
-                Rating = 7.80m,
+                Rating = 7.50m,
                 Description = "Test description here",
                 Language = "English",
                 CinemaCategory = CinemaCategory.B,

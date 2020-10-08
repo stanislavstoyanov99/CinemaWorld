@@ -339,11 +339,12 @@
 
         public async Task<IEnumerable<TViewModel>> GetTopImdbMoviesAsync<TViewModel>(decimal rating = 0, int count = 0)
         {
+            // Cast to double because of problem with translating sql query with decimal
             var topImdbMovies = await this.moviesRepository
                 .All()
-                .Where(m => m.Rating > rating)
-                .Take(count)
+                .Where(m => (double)m.Rating > (double)rating)
                 .To<TViewModel>()
+                .Take(count)
                 .ToListAsync();
 
             return topImdbMovies;
@@ -353,11 +354,11 @@
         {
             var topRatingMovies = await this.moviesRepository
                 .All()
-                .Where(m => m.Ratings.Sum(x => x.Rate) > rating)
+                .Where(m => m.Ratings.Sum(x => x.Rate) > (double)rating)
                 .OrderByDescending(m => m.Ratings.Sum(x => x.Rate))
                 .ThenByDescending(m => m.DateOfRelease.Year)
-                .Take(count)
                 .To<TViewModel>()
+                .Take(count)
                 .ToListAsync();
 
             return topRatingMovies;
