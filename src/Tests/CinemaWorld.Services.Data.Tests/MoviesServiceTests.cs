@@ -730,6 +730,66 @@
             Assert.Equal(1, count);
         }
 
+        [Fact]
+        public async Task CheckIfGetAllMoviesByFilterAsQueryeableWorksCorrectlyWhenMovieNameStartsWithLetter()
+        {
+            this.SeedDatabase();
+            await this.SeedMovies();
+            await this.SeedMovieGenres();
+
+            var result = this.moviesService.GetAllMoviesByFilterAsQueryeable<MovieDetailsViewModel>("t");
+
+            var count = result.Count();
+            Assert.Equal(1, count);
+            Assert.Equal("Titanic", result.First().Name);
+        }
+
+        [Fact]
+        public async Task CheckIfGetAllMoviesByFilterAsQueryeableWorksCorrectlyWhenMovieNameStartsWithDigit()
+        {
+            this.SeedDatabase();
+            await this.SeedMovies();
+            await this.SeedMovieGenres();
+            var secondMovie = new Movie
+            {
+                Name = "1917",
+                DateOfRelease = DateTime.UtcNow.AddDays(4),
+                Resolution = "HD",
+                Rating = 7.30m,
+                Description = "Test description here",
+                Language = "English",
+                CinemaCategory = CinemaCategory.C,
+                TrailerPath = "test trailer path",
+                CoverPath = TestCoverImageUrl,
+                WallpaperPath = TestWallpaperImageUrl,
+                IMDBLink = "test imdb link",
+                Length = 80,
+                DirectorId = 1,
+            };
+            await this.moviesRepository.AddAsync(secondMovie);
+            await this.moviesRepository.SaveChangesAsync();
+
+            var result = this.moviesService.GetAllMoviesByFilterAsQueryeable<MovieDetailsViewModel>("0 - 9");
+
+            var count = result.Count();
+            Assert.Equal(1, count);
+            Assert.Equal("1917", result.First().Name);
+        }
+
+        [Fact]
+        public async Task CheckIfGetAllMoviesByFilterAsQueryeableWorksCorrectlyWithoutProvidedSearchCriteria()
+        {
+            this.SeedDatabase();
+            await this.SeedMovies();
+            await this.SeedMovieGenres();
+
+            var result = this.moviesService.GetAllMoviesByFilterAsQueryeable<MovieDetailsViewModel>();
+
+            var count = result.Count();
+            Assert.Equal(1, count);
+            Assert.Equal("Titanic", result.First().Name);
+        }
+
         public void Dispose()
         {
             this.connection.Close();

@@ -352,6 +352,7 @@
 
         public async Task<IEnumerable<TViewModel>> GetTopRatingMoviesAsync<TViewModel>(decimal rating = 0, int count = 0)
         {
+            // Cast to double because of problem with translating sql query with decimal
             var topRatingMovies = await this.moviesRepository
                 .All()
                 .Where(m => m.Ratings.Sum(x => x.Rate) > (double)rating)
@@ -382,7 +383,7 @@
             {
                 moviesByFilter = this.moviesRepository
                     .All()
-                    .Where(x => x.Name.StartsWith(letter))
+                    .Where(x => x.Name.ToLower().StartsWith(letter))
                     .To<TViewModel>();
             }
             else if (letter == DigitPaginationFilter)
