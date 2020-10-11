@@ -68,6 +68,10 @@ The web application provides modern graphical interface for work. The applicatio
 **_Заключение:_**
 Cinema World е проект, което обединява на едно място удобен потребителски интерфейс, възможност за преглед на филми, новини за тях и резервация на билети по избрано кино. Също така е интегрирана рейтинг система, която е допълнително потребителско изживяване. В бъдеще се планира изграждането на реална система за плащане на билети както и създаване на ревюта за филми. Целта е системата да бъде подобна на IMDB, като в допълнение предоставя възможност и за онлайн закупуване на билети.
 
+## Unit tests Code coverage
+
+![Code coverage](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/tests-code-coverage.png)
+
 ## :hammer: Used technologies
 - ASP.NET [CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1 "CORE 3.1") MVC
 - ASP.NET Core areas
