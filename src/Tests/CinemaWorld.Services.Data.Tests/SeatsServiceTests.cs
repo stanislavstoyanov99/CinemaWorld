@@ -378,7 +378,7 @@
 
             var result = this.seatsService.GetAllSeatsAsQueryeable<SeatDetailsViewModel>();
 
-            var count = result.Count();
+            var count = await result.CountAsync();
             Assert.Equal(1, count);
         }
 

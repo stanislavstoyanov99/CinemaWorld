@@ -47,7 +47,7 @@
             };
 
             await this.cinemasService.CreateAsync(model);
-            var count = this.cinemasRepository.All().Count();
+            var count = await this.cinemasRepository.All().CountAsync();
 
             Assert.Equal(1, count);
         }
@@ -109,7 +109,7 @@
 
             await this.cinemasService.DeleteByIdAsync(this.firstCinema.Id);
 
-            var count = this.cinemasRepository.All().Count();
+            var count = await this.cinemasRepository.All().CountAsync();
 
             Assert.Equal(0, count);
         }

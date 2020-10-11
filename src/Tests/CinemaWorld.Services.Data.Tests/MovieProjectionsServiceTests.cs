@@ -150,9 +150,9 @@
             var movieProjection = new MovieProjectionCreateInputModel
             {
                 Date = this.firstMovieProjection.Date,
-                MovieId = 1,
-                HallId = 1,
-                CinemaId = 1,
+                MovieId = this.firstMovieProjection.MovieId,
+                HallId = this.firstMovieProjection.HallId,
+                CinemaId = this.firstMovieProjection.CinemaId,
             };
 
             var exception = await Assert

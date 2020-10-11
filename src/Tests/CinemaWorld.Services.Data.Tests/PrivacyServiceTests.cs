@@ -46,7 +46,7 @@
             };
 
             await this.privacyService.CreateAsync(model);
-            var count = this.privaciesRepository.All().Count();
+            var count = await this.privaciesRepository.All().CountAsync();
 
             Assert.Equal(1, count);
         }
@@ -103,7 +103,7 @@
 
             await this.privacyService.DeleteByIdAsync(this.firstPrivacy.Id);
 
-            var count = this.privaciesRepository.All().Count();
+            var count = await this.privaciesRepository.All().CountAsync();
 
             Assert.Equal(0, count);
         }

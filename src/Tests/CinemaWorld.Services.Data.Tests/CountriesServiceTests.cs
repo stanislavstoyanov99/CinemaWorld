@@ -46,7 +46,7 @@
             };
 
             await this.countriesService.CreateAsync(model);
-            var count = this.countriesRepository.All().Count();
+            var count = await this.countriesRepository.All().CountAsync();
 
             Assert.Equal(1, count);
         }
@@ -103,7 +103,7 @@
 
             await this.countriesService.DeleteByIdAsync(this.firstCountry.Id);
 
-            var count = this.countriesRepository.All().Count();
+            var count = await this.countriesRepository.All().CountAsync();
 
             Assert.Equal(0, count);
         }

@@ -55,7 +55,7 @@
             };
 
             await this.newsCommentsService.CreateAsync(newsComment.NewsId, this.user.Id, newsComment.Content);
-            var count = this.newsCommentsRepository.All().Count();
+            var count = await this.newsCommentsRepository.All().CountAsync();
 
             Assert.Equal(1, count);
         }

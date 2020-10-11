@@ -18,6 +18,7 @@
 
     using Xunit;
 
+    // Test class with example for mocking
     public class SettingsServiceTests
     {
         private CinemaWorldDbContext dbContext;

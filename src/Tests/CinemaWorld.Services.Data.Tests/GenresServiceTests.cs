@@ -46,7 +46,7 @@
             };
 
             await this.genresService.CreateAsync(model);
-            var count = this.genresRepository.All().Count();
+            var count = await this.genresRepository.All().CountAsync();
 
             Assert.Equal(1, count);
         }
@@ -103,7 +103,7 @@
 
             await this.genresService.DeleteByIdAsync(this.firstGenre.Id);
 
-            var count = this.genresRepository.All().Count();
+            var count = await this.genresRepository.All().CountAsync();
 
             Assert.Equal(0, count);
         }

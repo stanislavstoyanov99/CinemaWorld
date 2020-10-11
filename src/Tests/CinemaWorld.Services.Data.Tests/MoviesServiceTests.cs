@@ -182,17 +182,17 @@
 
             var model = new MovieCreateInputModel
             {
-                Name = "Titanic 2",
-                DateOfRelease = DateTime.UtcNow,
-                Resolution = "HD",
-                Rating = 7.80m,
-                Description = "Test description here",
-                Language = "English",
+                Name = this.firstMovie.Name,
+                DateOfRelease = this.firstMovie.DateOfRelease,
+                Resolution = this.firstMovie.Resolution,
+                Rating = this.firstMovie.Rating,
+                Description = this.firstMovie.Description,
+                Language = this.firstMovie.Language,
                 CinemaCategory = "Invalid category",
-                TrailerPath = "test trailer path",
-                IMDBLink = "test imdb link",
-                Length = 190,
-                DirectorId = 1,
+                TrailerPath = this.firstMovie.TrailerPath,
+                IMDBLink = this.firstMovie.IMDBLink,
+                Length = this.firstMovie.Length,
+                DirectorId = this.firstMovie.DirectorId,
                 SelectedGenres = new List<int> { 1 },
                 SelectedCountries = new List<int> { 1 },
             };
@@ -209,16 +209,16 @@
 
             var model = new MovieCreateInputModel
             {
-                Name = "Titanic 2",
-                DateOfRelease = DateTime.UtcNow,
-                Resolution = "HD",
-                Rating = 7.80m,
-                Description = "Test description here",
-                Language = "English",
-                CinemaCategory = CinemaCategory.B.ToString(),
-                TrailerPath = "test trailer path",
-                IMDBLink = "test imdb link",
-                Length = 190,
+                Name = this.firstMovie.Name,
+                DateOfRelease = this.firstMovie.DateOfRelease,
+                Resolution = this.firstMovie.Resolution,
+                Rating = this.firstMovie.Rating,
+                Description = this.firstMovie.Description,
+                Language = this.firstMovie.Language,
+                CinemaCategory = this.firstMovie.CinemaCategory.ToString(),
+                TrailerPath = this.firstMovie.TrailerPath,
+                IMDBLink = this.firstMovie.IMDBLink,
+                Length = this.firstMovie.Length,
                 DirectorId = 2,
                 SelectedGenres = new List<int> { 1 },
                 SelectedCountries = new List<int> { 1 },
@@ -327,19 +327,19 @@
             var model = new MovieEditViewModel
             {
                 Id = this.firstMovie.Id,
-                Name = "Brothers and sisters",
-                DateOfRelease = DateTime.UtcNow.AddDays(1),
-                Resolution = "SD",
-                Rating = 7.50m,
-                Description = "Changed Test description",
-                Language = "USA",
+                Name = this.firstMovie.Name,
+                DateOfRelease = this.firstMovie.DateOfRelease,
+                Resolution = this.firstMovie.Resolution,
+                Rating = this.firstMovie.Rating,
+                Description = this.firstMovie.Description,
+                Language = this.firstMovie.Language,
                 CinemaCategory = "Invalid category",
-                TrailerPath = "Changed Test trailer path",
+                TrailerPath = this.firstMovie.TrailerPath,
                 CoverImage = null,
                 Wallpaper = null,
-                IMDBLink = "Changed Test imdb link",
-                Length = 110,
-                DirectorId = 2,
+                IMDBLink = this.firstMovie.IMDBLink,
+                Length = this.firstMovie.Length,
+                DirectorId = this.firstMovie.DirectorId,
                 SelectedGenres = new List<int> { 1, },
                 SelectedCountries = new List<int> { 1, },
             };
@@ -358,19 +358,19 @@
             var model = new MovieEditViewModel
             {
                 Id = 3,
-                Name = "Brothers and sisters",
-                DateOfRelease = DateTime.UtcNow.AddDays(1),
-                Resolution = "SD",
-                Rating = 7.50m,
-                Description = "Changed Test description",
-                Language = "USA",
-                CinemaCategory = CinemaCategory.B.ToString(),
-                TrailerPath = "Changed Test trailer path",
+                Name = this.firstMovie.Name,
+                DateOfRelease = this.firstMovie.DateOfRelease,
+                Resolution = this.firstMovie.Resolution,
+                Rating = this.firstMovie.Rating,
+                Description = this.firstMovie.Description,
+                Language = this.firstMovie.Language,
+                CinemaCategory = this.firstMovie.CinemaCategory.ToString(),
+                TrailerPath = this.firstMovie.TrailerPath,
                 CoverImage = null,
                 Wallpaper = null,
-                IMDBLink = "Changed Test imdb link",
-                Length = 110,
-                DirectorId = 2,
+                IMDBLink = this.firstMovie.IMDBLink,
+                Length = this.firstMovie.Length,
+                DirectorId = this.firstMovie.DirectorId,
                 SelectedGenres = new List<int> { 1, },
                 SelectedCountries = new List<int> { 1, },
             };
@@ -397,19 +397,19 @@
                 var movieEditViewModel = new MovieEditViewModel()
                 {
                     Id = this.firstMovie.Id,
-                    Name = "Brothers and sisters",
-                    DateOfRelease = DateTime.UtcNow.AddDays(1),
-                    Resolution = "SD",
-                    Rating = 7.50m,
-                    Description = "Changed Test description",
-                    Language = "USA",
-                    CinemaCategory = CinemaCategory.B.ToString(),
-                    TrailerPath = "Changed Test trailer path",
+                    Name = this.firstMovie.Name,
+                    DateOfRelease = this.firstMovie.DateOfRelease,
+                    Resolution = this.firstMovie.Resolution,
+                    Rating = this.firstMovie.Rating,
+                    Description = this.firstMovie.Description,
+                    Language = this.firstMovie.Language,
+                    CinemaCategory = this.firstMovie.CinemaCategory.ToString(),
+                    TrailerPath = this.firstMovie.TrailerPath,
                     CoverImage = file,
                     Wallpaper = null,
-                    IMDBLink = "Changed Test imdb link",
-                    Length = 110,
-                    DirectorId = 1,
+                    IMDBLink = this.firstMovie.IMDBLink,
+                    Length = this.firstMovie.Length,
+                    DirectorId = this.firstMovie.DirectorId,
                     SelectedGenres = new List<int> { 1, },
                     SelectedCountries = new List<int> { 1, },
                 };
@@ -440,19 +440,19 @@
                 var movieEditViewModel = new MovieEditViewModel()
                 {
                     Id = this.firstMovie.Id,
-                    Name = "Brothers and sisters",
-                    DateOfRelease = DateTime.UtcNow.AddDays(1),
-                    Resolution = "SD",
-                    Rating = 7.50m,
-                    Description = "Changed Test description",
-                    Language = "USA",
-                    CinemaCategory = CinemaCategory.B.ToString(),
-                    TrailerPath = "Changed Test trailer path",
+                    Name = this.firstMovie.Name,
+                    DateOfRelease = this.firstMovie.DateOfRelease,
+                    Resolution = this.firstMovie.Resolution,
+                    Rating = this.firstMovie.Rating,
+                    Description = this.firstMovie.Description,
+                    Language = this.firstMovie.Language,
+                    CinemaCategory = this.firstMovie.CinemaCategory.ToString(),
+                    TrailerPath = this.firstMovie.TrailerPath,
                     CoverImage = null,
                     Wallpaper = file,
-                    IMDBLink = "Changed Test imdb link",
-                    Length = 110,
-                    DirectorId = 1,
+                    IMDBLink = this.firstMovie.IMDBLink,
+                    Length = this.firstMovie.Length,
+                    DirectorId = this.firstMovie.DirectorId,
                     SelectedGenres = new List<int> { 1, },
                     SelectedCountries = new List<int> { 1, },
                 };
@@ -515,19 +515,19 @@
                 var movieEditViewModel = new MovieEditViewModel()
                 {
                     Id = this.firstMovie.Id,
-                    Name = "Brothers and sisters 2",
-                    DateOfRelease = DateTime.UtcNow.AddDays(1),
-                    Resolution = "SD",
-                    Rating = 7.30m,
-                    Description = "Changed Test description",
-                    Language = "Bulgarian",
-                    CinemaCategory = CinemaCategory.A.ToString(),
-                    TrailerPath = "Changed Test trailer path",
+                    Name = this.firstMovie.Name,
+                    DateOfRelease = this.firstMovie.DateOfRelease,
+                    Resolution = this.firstMovie.Resolution,
+                    Rating = this.firstMovie.Rating,
+                    Description = this.firstMovie.Description,
+                    Language = this.firstMovie.Language,
+                    CinemaCategory = this.firstMovie.CinemaCategory.ToString(),
+                    TrailerPath = this.firstMovie.TrailerPath,
                     CoverImage = file,
                     Wallpaper = null,
-                    IMDBLink = "Changed Test imdb link",
-                    Length = 90,
-                    DirectorId = 1,
+                    IMDBLink = this.firstMovie.IMDBLink,
+                    Length = this.firstMovie.Length,
+                    DirectorId = this.firstMovie.DirectorId,
                     SelectedGenres = new List<int> { 2, },
                     SelectedCountries = new List<int> { 2, },
                 };
@@ -588,7 +588,7 @@
 
             var result = this.moviesService.GetAllMoviesAsQueryeable<MovieDetailsViewModel>();
 
-            var count = result.Count();
+            var count = await result.CountAsync();
             Assert.Equal(1, count);
         }
 
@@ -726,7 +726,7 @@
 
             var result = this.moviesService.GetByGenreNameAsQueryable("Drama");
 
-            var count = result.Count();
+            var count = await result.CountAsync();
             Assert.Equal(1, count);
         }
 
@@ -738,10 +738,11 @@
             await this.SeedMovieGenres();
 
             var result = this.moviesService.GetAllMoviesByFilterAsQueryeable<MovieDetailsViewModel>("t");
+            var movie = await result.FirstAsync();
 
-            var count = result.Count();
+            var count = await result.CountAsync();
             Assert.Equal(1, count);
-            Assert.Equal("Titanic", result.First().Name);
+            Assert.Equal("Titanic", movie.Name);
         }
 
         [Fact]
@@ -770,10 +771,11 @@
             await this.moviesRepository.SaveChangesAsync();
 
             var result = this.moviesService.GetAllMoviesByFilterAsQueryeable<MovieDetailsViewModel>("0 - 9");
+            var movie = await result.FirstAsync();
 
-            var count = result.Count();
+            var count = await result.CountAsync();
             Assert.Equal(1, count);
-            Assert.Equal("1917", result.First().Name);
+            Assert.Equal("1917", movie.Name);
         }
 
         [Fact]
@@ -784,10 +786,11 @@
             await this.SeedMovieGenres();
 
             var result = this.moviesService.GetAllMoviesByFilterAsQueryeable<MovieDetailsViewModel>();
+            var movie = await result.FirstAsync();
 
-            var count = result.Count();
+            var count = await result.CountAsync();
             Assert.Equal(1, count);
-            Assert.Equal("Titanic", result.First().Name);
+            Assert.Equal("Titanic", movie.Name);
         }
 
         public void Dispose()

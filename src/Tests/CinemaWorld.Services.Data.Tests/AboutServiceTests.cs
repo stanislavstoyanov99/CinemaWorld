@@ -47,7 +47,7 @@
             };
 
             await this.aboutService.CreateAsync(model);
-            var count = this.faqEntriesRepository.All().Count();
+            var count = await this.faqEntriesRepository.All().CountAsync();
 
             Assert.Equal(1, count);
         }
@@ -109,7 +109,7 @@
 
             await this.aboutService.DeleteByIdAsync(this.firstFaqEntry.Id);
 
-            var count = this.faqEntriesRepository.All().Count();
+            var count = await this.faqEntriesRepository.All().CountAsync();
 
             Assert.Equal(0, count);
         }

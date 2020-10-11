@@ -69,7 +69,7 @@
             };
 
             await this.contactsService.SendContactToAdmin(model);
-            var count = this.userContactsRepository.All().Count();
+            var count = await this.userContactsRepository.All().CountAsync();
 
             Assert.Equal(1, count);
         }
@@ -86,7 +86,7 @@
             };
 
             await this.contactsService.SendContactToUser(model);
-            var count = this.adminContactsRepository.All().Count();
+            var count = await this.adminContactsRepository.All().CountAsync();
 
             Assert.Equal(1, count);
         }

@@ -193,12 +193,12 @@
 
             var ticket = new TicketInputModel
             {
-                Row = 1,
-                Seat = 1,
-                Price = 10,
-                TimeSlot = TimeSlot.Afternoon.ToString(),
-                TicketType = TicketType.Regular.ToString(),
-                Quantity = 1,
+                Row = this.firstTicket.Row,
+                Seat = this.firstTicket.Seat,
+                Price = this.firstTicket.Price,
+                TimeSlot = this.firstTicket.TimeSlot.ToString(),
+                TicketType = this.firstTicket.TicketType.ToString(),
+                Quantity = this.firstTicket.Quantity,
                 MovieProjectionTime = this.firstMovieProjection.Date,
             };
 
@@ -214,12 +214,12 @@
 
             var ticket = new TicketInputModel
             {
-                Row = 1,
-                Seat = 1,
-                Price = 10,
-                TimeSlot = TimeSlot.Afternoon.ToString(),
-                TicketType = TicketType.Regular.ToString(),
-                Quantity = 1,
+                Row = this.firstTicket.Row,
+                Seat = this.firstTicket.Seat,
+                Price = this.firstTicket.Price,
+                TimeSlot = this.firstTicket.TimeSlot.ToString(),
+                TicketType = this.firstTicket.TicketType.ToString(),
+                Quantity = this.firstTicket.Quantity,
                 MovieProjectionTime = this.firstMovieProjection.Date,
             };
 
@@ -245,11 +245,11 @@
 
             var model = new TicketInputModel
             {
-                Row = 1,
+                Row = this.firstTicket.Row,
                 Seat = this.firstSeat.Id,
-                Price = 15,
-                TicketType = TicketType.Regular.ToString(),
-                Quantity = 2,
+                Price = this.firstTicket.Price,
+                TicketType = this.firstTicket.TicketType.ToString(),
+                Quantity = this.firstTicket.Quantity,
                 MovieProjectionTime = this.firstMovieProjection.Date,
             };
 
@@ -270,11 +270,11 @@
 
             var model = new TicketInputModel
             {
-                Row = 1,
+                Row = this.firstTicket.Row,
                 Seat = this.firstSeat.Id,
-                Price = 40,
-                TicketType = TicketType.Regular.ToString(),
-                Quantity = 3,
+                Price = this.firstTicket.Price,
+                TicketType = this.firstTicket.TicketType.ToString(),
+                Quantity = this.firstTicket.Quantity,
                 MovieProjectionTime = this.firstMovieProjection.Date,
             };
 
@@ -295,11 +295,11 @@
 
             var model = new TicketInputModel
             {
-                Row = 1,
+                Row = this.firstTicket.Row,
                 Seat = this.firstSeat.Id,
-                Price = 10,
-                TicketType = TicketType.ForChildren.ToString(),
-                Quantity = 1,
+                Price = this.firstTicket.Price,
+                TicketType = this.firstTicket.TicketType.ToString(),
+                Quantity = this.firstTicket.Quantity,
                 MovieProjectionTime = this.firstMovieProjection.Date,
             };
 

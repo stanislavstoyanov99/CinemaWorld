@@ -60,7 +60,7 @@
             };
 
             await this.movieCommentsService.CreateAsync(movieComment.MovieId, this.user.Id, movieComment.Content);
-            var count = this.movieCommentsRepository.All().Count();
+            var count = await this.movieCommentsRepository.All().CountAsync();
 
             Assert.Equal(1, count);
         }
@@ -94,7 +94,7 @@
             var movieComment = new CreateMovieCommentInputModel
             {
                 MovieId = this.firstMovie.Id,
-                Content = "Test comment here",
+                Content = this.firstMovieComment.Content,
             };
 
             var exception = await Assert

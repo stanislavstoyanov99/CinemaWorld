@@ -47,7 +47,7 @@
             };
 
             await this.directorsService.CreateAsync(model);
-            var count = this.directorsRepository.All().Count();
+            var count = await this.directorsRepository.All().CountAsync();
 
             Assert.Equal(1, count);
         }
@@ -109,7 +109,7 @@
 
             await this.directorsService.DeleteByIdAsync(this.firstDirector.Id);
 
-            var count = this.directorsRepository.All().Count();
+            var count = await this.directorsRepository.All().CountAsync();
 
             Assert.Equal(0, count);
         }

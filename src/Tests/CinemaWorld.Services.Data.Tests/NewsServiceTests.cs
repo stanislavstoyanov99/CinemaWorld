@@ -89,7 +89,7 @@
 
             await this.cloudinaryService.DeleteImage(this.cloudinary, allNewsViewModel.Title + Suffixes.NewsSuffix);
 
-            var count = this.newsRepository.All().Count();
+            var count = await this.newsRepository.All().CountAsync();
 
             Assert.Equal(1, count);
         }
@@ -169,7 +169,7 @@
 
             await this.newsService.DeleteByIdAsync(this.firstNews.Id);
 
-            var count = this.newsRepository.All().Count();
+            var count = await this.newsRepository.All().CountAsync();
 
             Assert.Equal(0, count);
         }
@@ -232,7 +232,7 @@
                 await this.cloudinaryService.DeleteImage(this.cloudinary, newsEditViewModel.Title + Suffixes.NewsSuffix);
             }
 
-            var news = this.newsRepository.All().First();
+            var news = await this.newsRepository.All().FirstAsync();
             Assert.NotEqual(TestImageUrl, news.ImagePath);
         }
 
@@ -324,13 +324,13 @@
         }
 
         [Fact]
-        public void CheckIfGetAllNewsAsQueryeableWorksCorrectly()
+        public async Task CheckIfGetAllNewsAsQueryeableWorksCorrectly()
         {
             this.SeedDatabase();
 
             var result = this.newsService.GetAllNewsAsQueryeable<NewsDetailsViewModel>();
 
-            var count = result.Count();
+            var count = await result.CountAsync();
             Assert.Equal(1, count);
         }
 
