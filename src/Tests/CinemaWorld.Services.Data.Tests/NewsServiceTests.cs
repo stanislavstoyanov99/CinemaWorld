@@ -16,7 +16,6 @@
     using CinemaWorld.Models.ViewModels.NewsComments;
     using CinemaWorld.Services.Data.Common;
     using CinemaWorld.Services.Data.Contracts;
-    using CinemaWorld.Services.Data.Tests.Helpers;
     using CinemaWorld.Services.Mapping;
 
     using CloudinaryDotNet;

@@ -1,4 +1,4 @@
-﻿namespace CinemaWorld.Services.Data.Tests.Helpers
+﻿namespace CinemaWorld.Services.Data.Tests
 {
     using System.IO;
 

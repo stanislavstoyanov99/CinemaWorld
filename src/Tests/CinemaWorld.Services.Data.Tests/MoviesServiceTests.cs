@@ -15,7 +15,6 @@
     using CinemaWorld.Models.ViewModels.Movies;
     using CinemaWorld.Services.Data.Common;
     using CinemaWorld.Services.Data.Contracts;
-    using CinemaWorld.Services.Data.Tests.Helpers;
     using CinemaWorld.Services.Mapping;
 
     using CloudinaryDotNet;
