@@ -73,22 +73,23 @@ Cinema World е проект, което обединява на едно мяс
 ![Code coverage](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/tests-code-coverage.png)
 
 ## :hammer: Used technologies
-- ASP.NET [CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1 "CORE 3.1") MVC
-- ASP.NET Core areas
-- Entity Framework [CORE 3.1](https://docs.microsoft.com/en-us/ef/core/ "CORE 3.1")
-- [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/ "Newtonsoft.Json")
-- SendGrid
-- [SendGrid Widget](https://sgwidget.com/ "SendGrid Widget")
-- Cloudinary
-- TinyMCE
-- Bootstrap
-- [Moment.js](https://www.nuget.org/packages/Moment.js/ "Moment.js")
-- AJAX real-time Requests
-- jQuery and any kind of jQuery plugins ([bootstrap-select](https://developer.snapappointments.com/bootstrap-select/ "bootstrap-select"))
-- JavaScript and JS animations
-- Facebook for developers
-- XUnit
-- In-Memmory Cache
+* ASP.NET [CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1 "CORE 3.1") MVC
+* ASP.NET Core areas
+* Entity Framework [CORE 3.1](https://docs.microsoft.com/en-us/ef/core/ "CORE 3.1")
+* [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/ "Newtonsoft.Json")
+* [SendGrid](https://github.com/sendgrid)
+* [SendGrid Widget](https://sgwidget.com/ "SendGrid Widget")
+* [Cloudinary](https://github.com/cloudinary/CloudinaryDotNet)
+* [HtmlSanitizer](https://github.com/mganss/HtmlSanitizer)
+* [TinyMCE](https://github.com/tinymce/)
+* [Bootstrap](https://github.com/twbs/bootstrap)
+* [Moment.js](https://www.nuget.org/packages/Moment.js/ "Moment.js")
+* AJAX real-time Requests
+* [jQuery](https://github.com/jquery/jquery) and any kind of jQuery plugins ([bootstrap-select](https://developer.snapappointments.com/bootstrap-select/ "bootstrap-select"))
+* JavaScript and JS animations
+* [Facebook for developers](https://developers.facebook.com)
+* [xUnit](https://github.com/xunit/xunit)
+* In-Memmory Cache
 
 ## :floppy_disk: Database Diagram
 ![](https://res.cloudinary.com/cinemaworld/image/upload/v1589836846/dbDiagram_vo8k3k.jpg)
