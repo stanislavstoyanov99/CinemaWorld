@@ -80,6 +80,8 @@
 
             services.AddRazorPages();
 
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddResponseCompression(options =>
             {
                 options.EnableForHttps = true;
@@ -157,7 +159,7 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {

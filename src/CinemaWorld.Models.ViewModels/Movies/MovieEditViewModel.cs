@@ -12,10 +12,10 @@
 
     using Microsoft.AspNetCore.Http;
 
-    using static Common.ModelValidation;
-    using static Common.ModelValidation.Country;
-    using static Common.ModelValidation.Genre;
-    using static Common.ModelValidation.Movie;
+    using static CinemaWorld.Models.Common.ModelValidation;
+    using static CinemaWorld.Models.Common.ModelValidation.Country;
+    using static CinemaWorld.Models.Common.ModelValidation.Genre;
+    using static CinemaWorld.Models.Common.ModelValidation.Movie;
 
     using Director = CinemaWorld.Data.Models.Director;
     using Movie = CinemaWorld.Data.Models.Movie;
