@@ -11,11 +11,11 @@
 
     using Microsoft.AspNetCore.Http;
 
-    using static CinemaWorld.Models.Common.ModelValidation;
-    using static CinemaWorld.Models.Common.ModelValidation.Country;
-    using static CinemaWorld.Models.Common.ModelValidation.Director;
-    using static CinemaWorld.Models.Common.ModelValidation.Genre;
-    using static CinemaWorld.Models.Common.ModelValidation.Movie;
+    using static Common.ModelValidation;
+    using static Common.ModelValidation.Country;
+    using static Common.ModelValidation.Director;
+    using static Common.ModelValidation.Genre;
+    using static Common.ModelValidation.Movie;
 
     public class MovieCreateInputModel
     {

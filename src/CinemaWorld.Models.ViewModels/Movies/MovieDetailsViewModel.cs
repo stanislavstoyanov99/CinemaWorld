@@ -13,7 +13,7 @@
     using CinemaWorld.Models.ViewModels.MovieComments;
     using CinemaWorld.Services.Mapping;
 
-    using static CinemaWorld.Models.Common.ModelValidation.Movie;
+    using static Common.ModelValidation.Movie;
 
     public class MovieDetailsViewModel : IMapFrom<Movie>, IHaveCustomMappings
     {
