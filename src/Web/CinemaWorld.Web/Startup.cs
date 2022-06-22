@@ -80,8 +80,6 @@
 
             services.AddRazorPages();
 
-            services.AddDatabaseDeveloperPageExceptionFilter();
-
             services.AddResponseCompression(options =>
             {
                 options.EnableForHttps = true;
