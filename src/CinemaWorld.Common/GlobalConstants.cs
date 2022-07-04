@@ -4,13 +4,13 @@
     {
         public const string SystemName = "Cinema World";
 
-        public const string SystemEmail = "slavkata_99@abv.bg";
+        public const string SystemEmail = "stanislav.stoyanov369@gmail.com";
 
         public const string AdministratorRoleName = "Administrator";
 
         public const string AdministratorUsername = "Admin";
 
-        public const string AdministratorEmail = "admin@abv.bg";
+        public const string AdministratorEmail = "stanislav.stoyanov369@gmail.com";
 
         public const string AdministratorPassword = "123456";
 
