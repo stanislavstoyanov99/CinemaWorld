@@ -20,7 +20,7 @@
         public async Task SeedAsync(CinemaWorldDbContext dbContext, IServiceProvider serviceProvider)
         {
             // Custom seed halls with requested amount of seats
-            if (!dbContext.Seats.Any())
+            if (dbContext.Seats.Any())
             {
                 return;
             }
