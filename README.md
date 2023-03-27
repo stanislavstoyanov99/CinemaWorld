@@ -93,8 +93,33 @@ Cinema World е проект, което обединява на едно мяс
 ## :floppy_disk: Database Diagram
 ![](https://res.cloudinary.com/cinemaworld/image/upload/v1589836846/dbDiagram_vo8k3k.jpg)
 
-# Link
+## Link
 https://cinemaworld.azurewebsites.net
+
+## Screenshots
+![Home page 1](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/home-page-1.jpg)
+![Home page 2](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/home-page-2.jpg)
+![Home page 3](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/home-page-3.jpg)
+![Login Register Dialog 1](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/login-register-dialog-1.jpg)
+![Login Register Dialog 2](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/login-register-dialog-2.jpg)
+![Footer](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/footer.jpg)
+![Movies page](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/movies-page.jpg)
+![Movies single page](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/movies-page-single.jpg)
+![Movies add comment](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/movies-add-comment.jpg)
+![Movies sub comments](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/movies-sub-comments.jpg)
+![Genres page](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/genres-page.jpg)
+![News page 1](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/news-page-1.jpg)
+![News page 2](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/news-page-2.jpg)
+![News single page](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/news-single-page.jpg)
+![FAQ page](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/faq-page.jpg)
+![Privacy page](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/privacy-page.jpg)
+![Schedule page](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/schedule-page.jpg)
+![Book ticket page 1](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/book-ticket-page-1.jpg)
+![Book ticket page 2](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/book-ticket-page-2.jpg)
+![Book ticket page 2](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/book-ticket-page-3.jpg)
+![Contacts page 1](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/contacts-page-1.jpg)
+![Contacts page 2](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/contacts-page-2.jpg)
+![Admin Dashboard](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/screenshots/admin-dashboard.jpg)
 
 ## Author
 
