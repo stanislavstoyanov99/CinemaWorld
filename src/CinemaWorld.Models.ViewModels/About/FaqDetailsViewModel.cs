@@ -2,7 +2,7 @@
 {
     using CinemaWorld.Data.Models;
     using CinemaWorld.Services.Mapping;
-    using Ganss.XSS;
+    using Ganss.Xss;
 
     public class FaqDetailsViewModel : IMapFrom<FaqEntry>
     {

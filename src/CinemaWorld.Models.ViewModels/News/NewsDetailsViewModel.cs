@@ -7,7 +7,7 @@
     using CinemaWorld.Models.ViewModels.NewsComments;
     using CinemaWorld.Services.Mapping;
 
-    using Ganss.XSS;
+    using Ganss.Xss;
 
     public class NewsDetailsViewModel : IMapFrom<News>
     {

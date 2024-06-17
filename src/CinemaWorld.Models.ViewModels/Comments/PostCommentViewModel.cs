@@ -6,7 +6,7 @@
     using CinemaWorld.Data.Models;
     using CinemaWorld.Services.Mapping;
 
-    using Ganss.XSS;
+    using Ganss.Xss;
 
     using static CinemaWorld.Models.Common.ModelValidation;
 
