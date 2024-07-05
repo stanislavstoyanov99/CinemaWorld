@@ -5,7 +5,7 @@
 
 ## :point_right: Project Introduction :point_left:
 
-**Cinema World** is a ready-to-use ASP.NET Core application.
+**Cinema World** is a ready-to-use ASP.NET Core 8 application.
 
 ## :pencil: Project Description EN
 The web application provides modern graphical interface for work. The application combines a lot of functionality which can be useful for all types of users. In the navbar like many web applications there is easy to use navigational panel with the following menus: “Home”, “Movies”, “Genres” – with a dropping menu, “News”, “Schedule”. Above this navbar there is a search bar which can find the requested information from the user using searching in the whole system. In the footer of each page there is a reference with links to other pages of the system – “Home”, “News”, “Schedule”, “FAQ”, “Action”, “Adventure”, “Comedy”, “Drama”, “Contact us”. In this section of the page there is also an option for subscription to the system, so in the future you will receive notifications on provided email for new movies, news and updated schedule. Moreover each web page contains three “social” buttons to social networks – Facebook, Twitter, Instagram. Now let’s continue with a brief description for each of the pages.
@@ -72,9 +72,15 @@ Cinema World е проект, което обединява на едно мяс
 ![Code coverage](https://github.com/stanislavstoyanov99/CinemaWorld/blob/master/tests-code-coverage.png)
 
 ## :hammer: Used technologies
-* ASP.NET [CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1 "CORE 3.1") MVC
+- ASP.NET [CORE 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) MVC
+    * Current master branch version
+- ASP.NET [CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1 "CORE 3.1") MVC
+    * Older version located in branch older-version-net3.1
 * ASP.NET Core areas
-* Entity Framework [CORE 3.1](https://docs.microsoft.com/en-us/ef/core/ "CORE 3.1")
+- Entity Framework [CORE 8](https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-8.0/whatsnew "CORE 8")
+    * Current master branch version
+- Entity Framework [CORE 3.1](https://docs.microsoft.com/en-us/ef/core/ "CORE 3.1")
+    * Older version located in branch older-version-net3.1
 * [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/ "Newtonsoft.Json")
 * [SendGrid](https://github.com/sendgrid)
 * [SendGrid Widget](https://sgwidget.com/ "SendGrid Widget")
